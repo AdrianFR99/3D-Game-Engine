@@ -78,6 +78,9 @@
     <ClInclude Include="p2Defs.h">
       <Filter>Sources\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleEngineUI.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -127,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="PhysVehicle3D.cpp">
       <Filter>Sources\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleEngineUI.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

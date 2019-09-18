@@ -8,6 +8,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	physics = new ModulePhysics3D(this);
+	UI_Layer = new ModuleEngineUI(this);
 	
 
 	// The order of calls is very important!
@@ -20,7 +21,7 @@ Application::Application()
 	AddModule(input);
 	AddModule(audio);
 	AddModule(physics);
-	
+	AddModule(UI_Layer);
 	
 	// Renderer last!
 	AddModule(renderer3D);
