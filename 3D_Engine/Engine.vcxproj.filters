@@ -16,8 +16,14 @@
     <Filter Include="Sources\Helpers">
       <UniqueIdentifier>{121f8e6b-df36-4ab0-be0d-601ddfc9e503}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sources\imgui">
+    <Filter Include="Sources\External_Files">
+      <UniqueIdentifier>{d346d5d1-4f9b-434b-8284-1af16c5b4e90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\External_Files\imgui">
       <UniqueIdentifier>{65c237ce-9e05-44c7-80dd-1fa4e5c29532}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\External_Files\glew">
+      <UniqueIdentifier>{51cefd40-8d35-485f-8e9c-0ce39ab8bda5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -85,28 +91,40 @@
       <Filter>Sources\Modules</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
-      <Filter>Sources\imgui</Filter>
+      <Filter>Sources\External_Files\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui.h">
-      <Filter>Sources\imgui</Filter>
+      <Filter>Sources\External_Files\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui_impl_opengl3.h">
-      <Filter>Sources\imgui</Filter>
+      <Filter>Sources\External_Files\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui_internal.h">
-      <Filter>Sources\imgui</Filter>
+      <Filter>Sources\External_Files\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imstb_rectpack.h">
-      <Filter>Sources\imgui</Filter>
+      <Filter>Sources\External_Files\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imstb_textedit.h">
-      <Filter>Sources\imgui</Filter>
+      <Filter>Sources\External_Files\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imstb_truetype.h">
-      <Filter>Sources\imgui</Filter>
+      <Filter>Sources\External_Files\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui_impl_sdl.h">
-      <Filter>Sources\imgui</Filter>
+      <Filter>Sources\External_Files\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\include\eglew.h">
+      <Filter>Sources\External_Files\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\include\glew.h">
+      <Filter>Sources\External_Files\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\include\glxew.h">
+      <Filter>Sources\External_Files\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="glew\include\wglew.h">
+      <Filter>Sources\External_Files\glew</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -162,22 +180,22 @@
       <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
-      <Filter>Sources\imgui</Filter>
+      <Filter>Sources\External_Files\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_demo.cpp">
-      <Filter>Sources\imgui</Filter>
+      <Filter>Sources\External_Files\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_draw.cpp">
-      <Filter>Sources\imgui</Filter>
+      <Filter>Sources\External_Files\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_impl_opengl3.cpp">
-      <Filter>Sources\imgui</Filter>
+      <Filter>Sources\External_Files\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_widgets.cpp">
-      <Filter>Sources\imgui</Filter>
+      <Filter>Sources\External_Files\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_impl_sdl.cpp">
-      <Filter>Sources\imgui</Filter>
+      <Filter>Sources\External_Files\imgui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
