@@ -3,10 +3,11 @@
 #include "ModuleRenderer3D.h"
 
 
+
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include "imgui/imgui.h"
-
+//
 //#include <gl/GL.h>
 //#include <gl/GLU.h>
 
@@ -43,12 +44,16 @@ bool ModuleRenderer3D::Init()
 		if(VSYNC && SDL_GL_SetSwapInterval(1) < 0)
 			LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 
+
+		// Initialize glew
+		GLenum error = glewInit();
+
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 
 		//Check for error
-		GLenum error = glGetError();
+		 error = glGetError();
 		if(error != GL_NO_ERROR)
 		{
 			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
@@ -130,6 +135,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+
+	App->UI_Layer->Draw();
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }
