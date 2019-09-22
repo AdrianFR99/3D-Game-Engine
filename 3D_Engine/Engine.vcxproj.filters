@@ -25,6 +25,9 @@
     <Filter Include="Sources\External_Files\glew">
       <UniqueIdentifier>{51cefd40-8d35-485f-8e9c-0ce39ab8bda5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\External_Files\MathGeoLib">
+      <UniqueIdentifier>{5243437e-6acb-4291-a014-e1be1aafa867}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -110,6 +113,15 @@
     </ClInclude>
     <ClInclude Include="glew\include\wglew.h">
       <Filter>Sources\External_Files\glew</Filter>
+    </ClInclude>
+    <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h">
+      <Filter>Sources\External_Files\MathGeoLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MathGeoLib\include\MathBuildConfig.h">
+      <Filter>Sources\External_Files\MathGeoLib</Filter>
+    </ClInclude>
+    <ClInclude Include="MathGeoLib\include\MathGeoLib.h">
+      <Filter>Sources\External_Files\MathGeoLib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
