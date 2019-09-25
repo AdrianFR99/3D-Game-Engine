@@ -3,6 +3,7 @@
 #include "ModuleCamera3D.h"
 #include "Maths.h"
 
+
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	CalculateViewMatrix();
@@ -100,7 +101,7 @@ update_status ModuleCamera3D::Update(float dt)
 	CalculateViewMatrix();
 
 	math::Sphere sphere;
-	float3 spherepos = float3(0.0, 0.0, 0.0);
+	float3 spherepos = float3(0.0f, 0.0f, 0.0f);
 	sphere.pos = spherepos;
 	sphere.r = 3.0f;
 
