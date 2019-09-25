@@ -123,6 +123,9 @@
     <ClInclude Include="MathGeoLib\include\MathGeoLib.h">
       <Filter>Sources\External_Files\MathGeoLib</Filter>
     </ClInclude>
+    <ClInclude Include="Maths.h">
+      <Filter>Sources\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
