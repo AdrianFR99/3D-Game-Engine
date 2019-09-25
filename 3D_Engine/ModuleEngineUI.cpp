@@ -60,6 +60,47 @@ update_status  ModuleEngineUI::PreUpdate(float dt) {
 }
 update_status ModuleEngineUI::Update(float dt) {
 
+
+
+	//--- Testing Sphere Intersection with MathGeoLib ---
+
+	//math::Sphere sphere;
+	//float3 spherepos = float3(0.0, 0.0, 0.0);
+	//sphere.pos = spherepos;
+	//sphere.r = 3.0f;
+
+	/*math::OBB sph1obb;
+	sph1obb.pos = spherepos;
+	sph1obb.r = float3(sphere.r, sphere.r, sphere.r);*/
+
+	/*math::AABB sph1AABB;
+	sph1AABB.Enclose(sphere);*/
+
+
+	/*math::Sphere sphere2;
+	float3 sphere2pos = float3(50.0, 0.0, 0.0);
+	sphere2.pos = sphere2pos;
+	sphere2.r = 3.0f;
+
+	math::OBB sph2obb;
+	sph2obb.pos = sphere2pos;
+	sph2obb.r = float3(sphere2.r, sphere2.r, sphere2.r);
+	bool obbintersection = sph2obb.Contains(sph1obb);
+
+	math::AABB sph2AABB;
+	sph2AABB.Enclose(sphere2);*/
+
+	//bool intersection = sphere.Intersects(sphere2);
+
+	//bool obbintersection = sph1obb.Intersects(sph2obb);
+
+	/*bool aabbintersection = sph1AABB.Intersects(sph2AABB);
+
+	obbintersection;
+
+*/
+
+
 	static float f = 0.0f;
 	static int counter = 0;
 
@@ -68,6 +109,7 @@ update_status ModuleEngineUI::Update(float dt) {
 	ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
 	ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
 	ImGui::Checkbox("Another Window", &show_another_window);
+	
 
 	ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
 	ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
@@ -80,7 +122,7 @@ update_status ModuleEngineUI::Update(float dt) {
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	ImGui::End();
 
-	
+
 
 	return UPDATE_CONTINUE;
 }
