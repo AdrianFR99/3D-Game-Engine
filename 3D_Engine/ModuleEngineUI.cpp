@@ -9,6 +9,9 @@
 #include "imgui/imgui_impl_opengl3.h"
 
 
+#include "Maths.h"
+
+
 bool show_demo_window = true;
 bool show_another_window = false;
 ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
@@ -58,6 +61,7 @@ update_status  ModuleEngineUI::PreUpdate(float dt) {
 }
 update_status ModuleEngineUI::Update(float dt) {
 
+
 	static float f = 0.0f;
 	static int counter = 0;
 
@@ -75,18 +79,13 @@ update_status ModuleEngineUI::Update(float dt) {
 	//ImGui::SameLine();
 	//ImGui::Text("counter = %d", counter);
 
+
 	//ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	//ImGui::End();
 
-
-	
-
-
-
-
-	
 	
 	//ImGui::ShowDemoWindow();
+
 
 	Menu_Bar();
 

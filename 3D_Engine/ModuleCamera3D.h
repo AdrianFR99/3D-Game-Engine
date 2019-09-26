@@ -1,7 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-#include "glmath.h"
+
 
 class ModuleCamera3D : public Module
 {
@@ -25,6 +25,8 @@ private:
 public:
 	
 	vec3 X, Y, Z, Position, Reference;
+
+	
 
 private:
 
