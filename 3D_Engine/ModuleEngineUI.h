@@ -22,6 +22,7 @@ public:
 
 
 	//bools
+	bool Show_ImGui_Demo = false;
 	bool Exit_Pressed=false; //Exit engine pressed
 	bool Config_Window_Open=true;
 	
@@ -29,8 +30,10 @@ public:
 	unsigned int App_name;
 
 
-
+	//Flags
 	ImGuiWindowFlags window_flags;
+
+
 public:
 	
 	//setting up bools flags for the window

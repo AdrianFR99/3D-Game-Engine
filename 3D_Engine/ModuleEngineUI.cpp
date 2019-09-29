@@ -72,6 +72,8 @@ update_status ModuleEngineUI::Update(float dt) {
 
 	Config_Window();
 
+
+	if(Show_ImGui_Demo)
 	ImGui::ShowDemoWindow();
 
 	if(!Exit_Pressed)
@@ -148,8 +150,11 @@ void ModuleEngineUI::Config_Window_App() {
 
 	if (ImGui::CollapsingHeader("Application"))
 	{
-		std::string str = "hola";
-		ImGui::InputTextDynamic("default",&str);//put the callback
+	
+		std::string str = "Engine";ImGui::InputTextDynamic("App",&str);//put the callback
+		std::string str2 = "UPC"; ImGui::InputTextDynamic("Fundation", &str2);//put the callback
+
+
 
 	}
 	
@@ -381,6 +386,14 @@ void ModuleEngineUI::Menu_Bar() {
 		if (ImGui::BeginMenu("Help"))
 		{
 
+			if (ImGui::MenuItem("Gui Demo","", Show_ImGui_Demo,true))
+				Show_ImGui_Demo = !Show_ImGui_Demo;
+			if (ImGui::MenuItem("Documentation"))
+				App->RequestBrowser("https://github.com/AdrianFR99/3D-Game-Engine/wiki");
+			if (ImGui::MenuItem("Download latest"))
+				App->RequestBrowser("https://github.com/AdrianFR99/3D-Game-Engine/releases");
+			if (ImGui::MenuItem("Report a bug"))
+				App->RequestBrowser("https://github.com/AdrianFR99/3D-Game-Engine/issues");
 
 			ImGui::EndMenu();
 		}
