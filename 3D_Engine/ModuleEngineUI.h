@@ -21,13 +21,25 @@ public:
 	void Draw() const;
 
 
-	bool Exit_Pressed=false;
-
-
-
+	//bools
+	bool Exit_Pressed=false; //Exit engine pressed
+	bool* Config_Window_Open = nullptr;
+	
+	ImGuiWindowFlags window_flags;
 public:
 	
-	void Init_test_UI();
+	//setting up bools flags for the window
+	ImGuiWindowFlags Setting_Flag_bools(ImGuiWindowFlags window_flags,bool no_titlebar = false, bool no_scrollbar = false,
+		bool no_menu = false, bool no_move = false, bool no_resize = false, bool no_collapse = false, bool no_close = false,
+		bool no_nav = false, bool no_background = false, bool no_bring_to_front = false);
+
+	//config Window
+
+	void Config_Window();
+	
+
+	//MenuBar 
+
 	void Menu_Bar();
 	void Menu_Bar_File();
 	void Menu_Bar_Edit();

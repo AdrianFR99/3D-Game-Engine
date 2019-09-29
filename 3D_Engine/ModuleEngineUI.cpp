@@ -34,7 +34,6 @@ bool ModuleEngineUI::Init() {
 bool ModuleEngineUI::Start() {
 	
 	
-
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -44,7 +43,6 @@ bool ModuleEngineUI::Start() {
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window,App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
 
-	
 
 
 	return true;
@@ -62,40 +60,40 @@ update_status  ModuleEngineUI::PreUpdate(float dt) {
 update_status ModuleEngineUI::Update(float dt) {
 
 
-	static float f = 0.0f;
-	static int counter = 0;
 
-	//ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+	if (ImGui::Begin("Config Menu", Config_Window_Open, Setting_Flag_bools(window_flags))) {
+		
 
-	//ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-	//ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-	//ImGui::Checkbox("Another Window", &show_another_window);
-
-	//ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-	//ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-	//if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-	//	counter++;
-	//ImGui::SameLine();
-	//ImGui::Text("counter = %d", counter);
+		
 
 
-	//ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-	//ImGui::End();
+
+
+		ImGui::End();
+		
+	}
 
 	
-	//ImGui::ShowDemoWindow();
+	
+	
+	
+	
+	
 
 
-	Menu_Bar();
 
+	
+	/*Menu_Bar();
+	Config_Window();
 	if(!Exit_Pressed)
 	return UPDATE_CONTINUE;
 	else
-		return UPDATE_STOP;
+		return UPDATE_STOP;*/
 
 
-	//return UPDATE_CONTINUE;
+	//ImGui::ShowDemoWindow();
+
+	return UPDATE_CONTINUE;
 
 }
 update_status  ModuleEngineUI::PostUpdate(float dt) {
@@ -121,10 +119,11 @@ void  ModuleEngineUI::Draw() const {
 
 }
 
-void ModuleEngineUI::Init_test_UI() {
+void  ModuleEngineUI::Config_Window() {
 
 
-	
+
+
 
 }
 
@@ -307,5 +306,23 @@ void ModuleEngineUI::Menu_Bar() {
 		}
 	}
 
+	ImGuiWindowFlags ModuleEngineUI::Setting_Flag_bools(ImGuiWindowFlags window_flags,bool no_titlebar, bool no_scrollbar,
+		bool no_menu , bool no_move, bool no_resize , bool no_collapse , bool no_close,
+		bool no_nav, bool no_background , bool no_bring_to_front){
+
+		window_flags = 0;
+		if (no_titlebar)        window_flags |= ImGuiWindowFlags_NoTitleBar;
+		if (no_scrollbar)       window_flags |= ImGuiWindowFlags_NoScrollbar;
+		if (!no_menu)           window_flags |= ImGuiWindowFlags_MenuBar;
+		if (no_move)            window_flags |= ImGuiWindowFlags_NoMove;
+		if (no_resize)          window_flags |= ImGuiWindowFlags_NoResize;
+		if (no_collapse)        window_flags |= ImGuiWindowFlags_NoCollapse;
+		if (no_nav)             window_flags |= ImGuiWindowFlags_NoNav;
+		if (no_background)      window_flags |= ImGuiWindowFlags_NoBackground;
+		if (no_bring_to_front)  window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
+
+
+		return window_flags;
+	}
 
 	
