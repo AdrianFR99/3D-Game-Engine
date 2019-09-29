@@ -42,8 +42,13 @@ bool ModuleEngineUI::Start() {
 
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window,App->renderer3D->context);
 	ImGui_ImplOpenGL3_Init();
+	
 
 
+	// We specify a default position/size in case there's no data in the .ini file. Typically this isn't required! We only do it to make the Demo applications a little more welcoming.
+
+	/*ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
+	ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);*/
 
 	return true;
 }
@@ -60,41 +65,18 @@ update_status  ModuleEngineUI::PreUpdate(float dt) {
 update_status ModuleEngineUI::Update(float dt) {
 
 
+	Menu_Bar();
 
-	if (ImGui::Begin("Config Menu", Config_Window_Open, Setting_Flag_bools(window_flags))) {
-		
-
-		
-
-
-
-
-		ImGui::End();
-		
-	}
-
-	
-	
-	
-	
-	
-	
-
-
-
-	
-	/*Menu_Bar();
 	Config_Window();
+
+	ImGui::ShowDemoWindow();
+
 	if(!Exit_Pressed)
 	return UPDATE_CONTINUE;
 	else
-		return UPDATE_STOP;*/
+		return UPDATE_STOP;
 
-
-	//ImGui::ShowDemoWindow();
-
-	return UPDATE_CONTINUE;
-
+	
 }
 update_status  ModuleEngineUI::PostUpdate(float dt) {
 
@@ -121,11 +103,106 @@ void  ModuleEngineUI::Draw() const {
 
 void  ModuleEngineUI::Config_Window() {
 
+	if (ImGui::Begin("Config Menu", Config_Window_Open)) {
 
+		if (ImGui::BeginMenu("Options")) {
+
+			if (ImGui::MenuItem("Set Default")) {
+
+			}
+
+			if (ImGui::MenuItem("Save")) {
+
+			}
+
+			if (ImGui::MenuItem("Load")) {
+
+			}
+
+			ImGui::EndMenu();
+
+
+
+
+		}
+
+	}
+
+	
+	Config_Window_App();
+	Config_Window_Window();
+	Config_Window_FileSystem();
+	Config_Window_Input();
+	Config_Window_Hardware();
+	
+	
+	ImGui::End();
+
+
+}
+void ModuleEngineUI::Config_Window_App() {
+
+	if (ImGui::CollapsingHeader("Application"))
+	{
+
+
+
+	}
 
 
 
 }
+
+void ModuleEngineUI::Config_Window_Window() {
+
+	if (ImGui::CollapsingHeader("Window"))
+	{
+
+
+
+	}
+
+
+
+}
+void ModuleEngineUI::Config_Window_FileSystem() {
+
+	if (ImGui::CollapsingHeader("File system"))
+	{
+
+
+
+	}
+
+
+
+}
+
+void ModuleEngineUI::Config_Window_Input() {
+
+	if (ImGui::CollapsingHeader("Input"))
+	{
+
+
+
+	}
+
+
+
+}
+void ModuleEngineUI::Config_Window_Hardware() {
+
+	if (ImGui::CollapsingHeader("Hardware"))
+	{
+
+
+
+	}
+
+
+
+}
+
 
 
 void ModuleEngineUI::Menu_Bar() {
@@ -306,11 +383,11 @@ void ModuleEngineUI::Menu_Bar() {
 		}
 	}
 
-	ImGuiWindowFlags ModuleEngineUI::Setting_Flag_bools(ImGuiWindowFlags window_flags,bool no_titlebar, bool no_scrollbar,
+	ImGuiWindowFlags ModuleEngineUI::Setting_Flag_bools(bool no_titlebar, bool no_scrollbar,
 		bool no_menu , bool no_move, bool no_resize , bool no_collapse , bool no_close,
 		bool no_nav, bool no_background , bool no_bring_to_front){
 
-		window_flags = 0;
+		ImGuiWindowFlags window_flags = 0;
 		if (no_titlebar)        window_flags |= ImGuiWindowFlags_NoTitleBar;
 		if (no_scrollbar)       window_flags |= ImGuiWindowFlags_NoScrollbar;
 		if (!no_menu)           window_flags |= ImGuiWindowFlags_MenuBar;
@@ -320,7 +397,7 @@ void ModuleEngineUI::Menu_Bar() {
 		if (no_nav)             window_flags |= ImGuiWindowFlags_NoNav;
 		if (no_background)      window_flags |= ImGuiWindowFlags_NoBackground;
 		if (no_bring_to_front)  window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
-
+		if (no_close)            Config_Window_Open = NULL;
 
 		return window_flags;
 	}

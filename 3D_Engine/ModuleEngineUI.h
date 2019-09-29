@@ -23,20 +23,26 @@ public:
 
 	//bools
 	bool Exit_Pressed=false; //Exit engine pressed
-	bool* Config_Window_Open = nullptr;
+	bool* Config_Window_Open = NULL;
 	
 	ImGuiWindowFlags window_flags;
 public:
 	
 	//setting up bools flags for the window
-	ImGuiWindowFlags Setting_Flag_bools(ImGuiWindowFlags window_flags,bool no_titlebar = false, bool no_scrollbar = false,
+	ImGuiWindowFlags Setting_Flag_bools(bool no_titlebar =false, bool no_scrollbar = false,
 		bool no_menu = false, bool no_move = false, bool no_resize = false, bool no_collapse = false, bool no_close = false,
 		bool no_nav = false, bool no_background = false, bool no_bring_to_front = false);
 
 	//config Window
 
-	void Config_Window();
 	
+
+	void Config_Window();
+	void Config_Window_App();
+	void Config_Window_Window();
+	void Config_Window_FileSystem();
+	void Config_Window_Input();
+	void Config_Window_Hardware();
 
 	//MenuBar 
 
