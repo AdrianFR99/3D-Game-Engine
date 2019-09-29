@@ -44,6 +44,9 @@ bool ModuleEngineUI::Start() {
 	ImGui_ImplOpenGL3_Init();
 	
 
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
 	// We specify a default position/size in case there's no data in the .ini file. Typically this isn't required! We only do it to make the Demo applications a little more welcoming.
 
@@ -103,12 +106,13 @@ void  ModuleEngineUI::Draw() const {
 
 void  ModuleEngineUI::Config_Window() {
 
-	if (ImGui::Begin("Config Menu", Config_Window_Open)) {
+	if (ImGui::Begin("Config Menu", &Config_Window_Open)) {
 
 		if (ImGui::BeginMenu("Options")) {
 
 			if (ImGui::MenuItem("Set Default")) {
 
+				
 			}
 
 			if (ImGui::MenuItem("Save")) {
@@ -144,12 +148,11 @@ void ModuleEngineUI::Config_Window_App() {
 
 	if (ImGui::CollapsingHeader("Application"))
 	{
-
-
+		std::string str = "hola";
+		ImGui::InputTextDynamic("default",&str);//put the callback
 
 	}
-
-
+	
 
 }
 

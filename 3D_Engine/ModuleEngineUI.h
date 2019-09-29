@@ -23,8 +23,13 @@ public:
 
 	//bools
 	bool Exit_Pressed=false; //Exit engine pressed
-	bool* Config_Window_Open = NULL;
+	bool Config_Window_Open=true;
 	
+	// int 
+	unsigned int App_name;
+
+
+
 	ImGuiWindowFlags window_flags;
 public:
 	
@@ -54,6 +59,8 @@ public:
 	void Menu_Bar_Component();
 	void Menu_Bar_Window();
 	void Menu_Bar_Help();
+
+
 
 };
 
