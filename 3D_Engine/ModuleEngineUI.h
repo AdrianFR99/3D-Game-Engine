@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 
+#include <vector>
 
 typedef int ImGuiWindowFlags;
 
@@ -64,6 +65,13 @@ public:
 	void Menu_Bar_Help();
 
 
+	//FPS
+	void FPS_vec_Alloc(float FPS,float ms);
+
+
+private:
+	std::vector<float> FPS_Tracker;
+	std::vector<float> MS_Tracker;
 
 };
 
