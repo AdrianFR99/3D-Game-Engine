@@ -1,7 +1,7 @@
 #ifndef __APPLICATION_CPP__
 #define __APPLICATION_CPP__
 
-#include "p2List.h"
+#include <list>
 #include "Globals.h"
 #include "Timer.h"
 #include "Module.h"
@@ -24,6 +24,7 @@ public:
 private:
 
 	Timer	ms_timer;
+
 	Timer	FPS_timer;
 	float	dt=0;
 
@@ -32,9 +33,9 @@ private:
 	int					last_FPS;
 	uint				capped_ms;
 	int					last_frame_time;
+	
+	std::list<Module*> list_modules;
 
-
-	p2List<Module*> list_modules;
 
 public:
 
