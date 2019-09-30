@@ -4,10 +4,15 @@
 
 
 #include "Module.h"
+#include "JSONLoader.h"
+
+
 
 #include <vector>
 
 typedef int ImGuiWindowFlags;
+
+class JSONLoader;
 
 class ModuleEngineUI:public Module 
 {
@@ -38,6 +43,9 @@ public:
 	//Flags
 	ImGuiWindowFlags window_flags;
 
+	//json
+	JSONLoader testingmic;
+
 
 public:
 	
@@ -67,4 +75,4 @@ public:
 
 };
 
-#endif
+#endif //__MODULEENGINEUI_H__

@@ -43,6 +43,9 @@
     <Filter Include="Sources\Modules\UI_Elements">
       <UniqueIdentifier>{c6773b79-14c1-4ace-8a84-2aafd398fbe6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\External_Files\json">
+      <UniqueIdentifier>{857fd0db-045d-4136-9547-bf199386a41a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -306,6 +309,9 @@
     <ClInclude Include="WindowUI_Settings.h">
       <Filter>Sources\Modules\UI_Elements</Filter>
     </ClInclude>
+    <ClInclude Include="JSONLoader.h">
+      <Filter>Sources\External_Files\json</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -463,6 +469,9 @@
     </ClCompile>
     <ClCompile Include="WindowUI_Settings.cpp">
       <Filter>Sources\Modules\UI_Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="JSONLoader.cpp">
+      <Filter>Sources\External_Files\json</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
