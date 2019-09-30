@@ -16,7 +16,7 @@ Application::Application()
 	FPS_counter = 0;   //Frame per cicle
 	last_FPS = -1;		
 	last_frame_time = -1;
-
+	
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -72,7 +72,7 @@ bool Application::Init()
 	}
 	
 	ms_timer.Start();
-	MaxFrameRate(0);
+	SetMaxFrameRate(0);
 
 	return ret;
 }
@@ -169,26 +169,22 @@ void  Application::RequestBrowser(const char*URL) {
 
 }
 
-void Application::MaxFrameRate(uint framerate) {
-
-
-	if (framerate > 0)
-		capped_ms = 1000 / framerate;
-	else
-		capped_ms = 0;
-
-}
-
-
 uint Application::GetMaxFrameRate()const {
 
 	if (capped_ms > 0)
-		return (uint)((1.0f / capped_ms) * 1000.0f);
+		return (uint)((1.0f /(float)capped_ms) * 1000.0f);
 	else
 		return 0;
 }
+void Application::SetMaxFrameRate(uint MaxFrameRate) {
 
-const char* Application::Get_App_Name() const {
+	if (MaxFrameRate > 0)
+		capped_ms = 1000/MaxFrameRate; // ms/Frame  MaxFrameRate/1000.0f->Frame/ms
+	else
+		capped_ms = 0;
+}
+
+const char* Application::GetAppName() const {
 
 	return AppName.c_str();
 

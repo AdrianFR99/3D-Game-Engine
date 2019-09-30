@@ -26,9 +26,23 @@ bool ModuleWindow::Init()
 	}
 	else
 	{
+		//Using SDL_Display funtions ->getting displaying data
+		
+		SDL_DisplayMode Display;
+		//SDL_GetCurrentDisplayMode() -> return the previous native display mode
+		//SDL_GetDesktopDisplayMode() -> In that case this function will return the current display mode
+		if (SDL_GetDesktopDisplayMode(0, &Display) != 0) {
+
+			LOG("SDL_GetDesktopDisplayMode Error: %s", SDL_GetError());
+
+		}
+		else
+			RefreshRate = Display.refresh_rate;
+
 		//Create window
-		int width = SCREEN_WIDTH * SCREEN_SIZE;
-		int height = SCREEN_HEIGHT * SCREEN_SIZE;
+		Screen_Width = uint(Display.w*0.75f);
+		Screen_Height = uint(Display.h *0.75f);
+
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
 		//Use OpenGL 2.1
@@ -55,7 +69,7 @@ bool ModuleWindow::Init()
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
 
-		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, Screen_Width, Screen_Height, flags);
 
 		if(window == NULL)
 		{
@@ -91,4 +105,9 @@ bool ModuleWindow::CleanUp()
 void ModuleWindow::SetTitle( char* title)
 {
 	SDL_SetWindowTitle(window, title);
+}
+
+const uint ModuleWindow::GetDisplayRefRate() const {
+
+	return RefreshRate;
 }
