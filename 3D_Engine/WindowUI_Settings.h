@@ -3,6 +3,8 @@
 
 
 #include "WindowUI.h"
+
+
 class WindowUI_Settings:public WindowUI
 {
 public:
@@ -12,7 +14,16 @@ public:
 
 
 
+	
 
+public:
+	//config Window
+	void Config_Window();
+	void Config_Window_App();
+	void Config_Window_Window();
+	void Config_Window_FileSystem();
+	void Config_Window_Input();
+	void Config_Window_Hardware();
 
 
 

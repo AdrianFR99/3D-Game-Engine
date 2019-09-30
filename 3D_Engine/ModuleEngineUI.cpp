@@ -53,6 +53,7 @@ bool ModuleEngineUI::Start() {
 	/*ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
 	ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);*/
 
+	
 	return true;
 }
 
@@ -70,8 +71,7 @@ update_status ModuleEngineUI::Update(float dt) {
 
 	Menu_Bar();
 
-	Config_Window();
-
+	
 
 	if(Show_ImGui_Demo)
 	ImGui::ShowDemoWindow();
@@ -106,114 +106,7 @@ void  ModuleEngineUI::Draw() const {
 
 }
 
-void  ModuleEngineUI::Config_Window() {
 
-	if (ImGui::Begin("Config Menu", &Config_Window_Open)) {
-
-		if (ImGui::BeginMenu("Options")) {
-
-			if (ImGui::MenuItem("Set Default")) {
-
-				
-			}
-
-			if (ImGui::MenuItem("Save")) {
-
-			}
-
-			if (ImGui::MenuItem("Load")) {
-
-			}
-
-			ImGui::EndMenu();
-
-
-
-
-		}
-
-	}
-
-	
-	Config_Window_App();
-	Config_Window_Window();
-	Config_Window_FileSystem();
-	Config_Window_Input();
-	Config_Window_Hardware();
-	
-	
-	ImGui::End();
-
-
-}
-void ModuleEngineUI::Config_Window_App() {
-
-	if (ImGui::CollapsingHeader("Application"))
-	{
-	
-		static char app_name[120];
-		strcpy_s(app_name, 120, App->Get_App_Name());
-		if (ImGui::InputText("App Name", app_name, 120, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll));
-		App->window->SetTitle(app_name);
-
-
-
-
-
-	}
-	
-
-}
-
-void ModuleEngineUI::Config_Window_Window() {
-
-	if (ImGui::CollapsingHeader("Window"))
-	{
-
-
-
-	}
-
-
-
-}
-void ModuleEngineUI::Config_Window_FileSystem() {
-
-	if (ImGui::CollapsingHeader("File system"))
-	{
-
-
-
-	}
-
-
-
-}
-
-void ModuleEngineUI::Config_Window_Input() {
-
-	if (ImGui::CollapsingHeader("Input"))
-	{
-
-
-
-	}
-
-
-
-}
-void ModuleEngineUI::Config_Window_Hardware() {
-
-	if (ImGui::CollapsingHeader("Hardware"))
-	{
-
-
-
-	}
-
-
-
-}
 
 
 

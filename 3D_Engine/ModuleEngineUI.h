@@ -1,4 +1,8 @@
-#pragma once
+#ifndef __MODULEENGINEUI_H__
+#define __MODULEENGINEUI_H__
+
+
+
 #include "Module.h"
 
 #include <vector>
@@ -42,16 +46,7 @@ public:
 		bool no_menu = false, bool no_move = false, bool no_resize = false, bool no_collapse = false, bool no_close = false,
 		bool no_nav = false, bool no_background = false, bool no_bring_to_front = false);
 
-	//config Window
-
 	
-
-	void Config_Window();
-	void Config_Window_App();
-	void Config_Window_Window();
-	void Config_Window_FileSystem();
-	void Config_Window_Input();
-	void Config_Window_Hardware();
 
 	//MenuBar 
 
@@ -75,3 +70,4 @@ private:
 
 };
 
+#endif

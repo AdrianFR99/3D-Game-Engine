@@ -1,4 +1,11 @@
 #include "Application.h"
+#include "Module.h"
+#include "ModuleWindow.h"
+#include "ModuleInput.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+#include "ModuleEngineUI.h"
+
 
 Application::Application()
 {
@@ -183,7 +190,7 @@ uint Application::GetMaxFrameRate()const {
 		return 0;
 }
 
-const char* Application::Get_App_Name() {
+const char* Application::Get_App_Name() const {
 
 	return AppName.c_str();
 }

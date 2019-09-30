@@ -1,14 +1,10 @@
-#pragma once
+#ifndef __APPLICATION_CPP__
+#define __APPLICATION_CPP__
 
 #include "p2List.h"
 #include "Globals.h"
 #include "Timer.h"
-#include "Module.h"
-#include "ModuleWindow.h"
-#include "ModuleInput.h"
-#include "ModuleRenderer3D.h"
-#include "ModuleCamera3D.h"
-#include "ModuleEngineUI.h"
+
 
 
 class Application
@@ -63,7 +59,7 @@ public:
 
 //Info
 
-	const char* Get_App_Name();
+	const char* Get_App_Name()const;
 
 private:
 
@@ -71,3 +67,8 @@ private:
 	void PrepareUpdate();
 	void FinishUpdate();
 };
+
+// access everywhere
+extern Application* App;
+
+#endif // __APPLICATION_CPP__
