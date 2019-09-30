@@ -58,20 +58,13 @@ void WindowUI_Settings::Config_Window_App() {
 	if (ImGui::CollapsingHeader("Application"))
 	{
 	
-		/*App->Get_App_Name();*/
-		/*static char app_name[120];
+		
+		static char app_name[120];
 		strcpy_s(app_name, 120, App->Get_App_Name());
 		if (ImGui::InputText("App Name", app_name, 120, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll));
-		App->window->SetTitle(app_name);*/
+		App->window->SetTitle(app_name);
 
-	//	int MaxFrameR = App->GetMaxFrameRate();
-
-
-
-
-
-
-
+		
 	}
 
 
