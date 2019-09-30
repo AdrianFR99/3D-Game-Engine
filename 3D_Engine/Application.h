@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __APPLICATION_CPP__
+#define __APPLICATION_CPP__
 
 #include <list>
 #include "Globals.h"
@@ -23,8 +24,18 @@ public:
 private:
 
 	Timer	ms_timer;
-	float	dt;
+
+	Timer	FPS_timer;
+	float	dt=0;
+
+	Uint32				Current_frames;
+	int					FPS_counter;
+	int					last_FPS;
+	uint				capped_ms;
+	int					last_frame_time;
+	
 	std::list<Module*> list_modules;
+
 
 public:
 
@@ -35,9 +46,34 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+
+public:
+
+	std::string AppName;
+
+
+
+public:
+
+//FPS
+	void MaxFrameRate(uint framerate);
+	uint GetMaxFrameRate()const;
+
+
+//Web
+	void RequestBrowser(const char*URL);
+
+//Info
+	const char* Get_App_Name()const;
+
 private:
 
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
 };
+
+// access everywhere
+extern Application* App;
+
+#endif // __APPLICATION_CPP__
