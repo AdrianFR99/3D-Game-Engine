@@ -31,8 +31,8 @@ Application::Application()
 	// Renderer last!
 	AddModule(renderer3D);
 
-	AppName = "Engine";
-	   	  
+	
+	
 }
 
 Application::~Application()
@@ -49,6 +49,8 @@ Application::~Application()
 bool Application::Init()
 {
 	bool ret = true;
+
+	AppName = "Engine";
 
 	// Call Init() in all modules
 	std::list<Module*>::const_iterator item = list_modules.begin();

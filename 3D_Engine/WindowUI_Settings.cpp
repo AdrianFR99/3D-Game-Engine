@@ -2,7 +2,7 @@
 #include "Application.h"
 
 
-WindowUI_Settings::WindowUI_Settings(char*title):WindowUI(title)
+WindowUI_Settings::WindowUI_Settings(char*title): WindowUI(title)
 {
 
 
@@ -12,6 +12,15 @@ WindowUI_Settings::~WindowUI_Settings()
 {
 }
 
+bool WindowUI_Settings::Display() {
+
+
+	Config_Window();
+
+
+
+	return true;
+}
 
 void WindowUI_Settings::Config_Window() {
 	
@@ -57,14 +66,12 @@ void WindowUI_Settings::Config_Window_App() {
 
 	if (ImGui::CollapsingHeader("Application"))
 	{
-	
-		
-		static char app_name[120];
-		strcpy_s(app_name, 120, App->Get_App_Name());
+			
+		/*static char app_name[120];
+		strcpy_s(app_name,120,App->Get_App_Name());
 		if (ImGui::InputText("App Name", app_name, 120, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll));
-		App->window->SetTitle(app_name);
-
-		
+		App->window->SetTitle(app_name);*/
+	
 	}
 
 

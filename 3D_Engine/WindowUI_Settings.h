@@ -19,6 +19,10 @@ public:
 
 	
 public:
+
+
+	bool Display() override;
+
 	//config Window
 	void Config_Window();
 	void Config_Window_App();
