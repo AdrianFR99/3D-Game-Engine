@@ -315,25 +315,3 @@ void ModuleEngineUI::Menu_Bar() {
 		return window_flags;
 	}
 
-	void ModuleEngineUI::FPS_vec_Alloc(float FPS,float ms) {
-
-		int counter;
-		int MaxVecSize=100;
-		++counter;
-		
-		if (counter == MaxVecSize) {
-
-			for (uint i = 0; i < MaxVecSize-1; ++i) {
-
-				FPS_Tracker[i] = FPS_Tracker[i + 1];
-				MS_Tracker[i] = MS_Tracker[i + 1];
-
-			}
-
-		}
-		else
-			++counter;
-
-		FPS_Tracker[counter-1] = FPS;
-		MS_Tracker[counter-1] = ms;
-	}

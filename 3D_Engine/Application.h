@@ -4,7 +4,12 @@
 #include "p2List.h"
 #include "Globals.h"
 #include "Timer.h"
-
+#include "Module.h"
+#include "ModuleWindow.h"
+#include "ModuleInput.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+#include "ModuleEngineUI.h"
 
 
 class Application
@@ -58,7 +63,6 @@ public:
 	void RequestBrowser(const char*URL);
 
 //Info
-
 	const char* Get_App_Name()const;
 
 private:
