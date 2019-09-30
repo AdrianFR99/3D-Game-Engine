@@ -23,7 +23,16 @@ public:
 private:
 
 	Timer	ms_timer;
-	float	dt;
+	Timer	FPS_timer;
+	float	dt=0;
+
+	Uint32				Current_frames;
+	int					FPS_counter;
+	int					last_FPS;
+	uint				capped_ms;
+	int					last_frame_time;
+
+
 	p2List<Module*> list_modules;
 
 public:
@@ -37,6 +46,12 @@ public:
 
 public:
 
+//FPS
+	void MaxFrameRate(uint framerate);
+	uint GetMaxFrameRate()const;
+
+
+//Web
 	void RequestBrowser(const char*URL);
 
 private:
