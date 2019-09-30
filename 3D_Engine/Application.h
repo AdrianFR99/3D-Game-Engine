@@ -44,6 +44,13 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+
+public:
+
+	std::string AppName;
+
+
+
 public:
 
 //FPS
@@ -53,6 +60,10 @@ public:
 
 //Web
 	void RequestBrowser(const char*URL);
+
+//Info
+
+	const char* Get_App_Name();
 
 private:
 

@@ -40,6 +40,9 @@
     <Filter Include="Sources\External_Files\MathGeoLib\MAth">
       <UniqueIdentifier>{8a891896-052a-4bae-8b6b-727644dce576}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\Modules\UI_Elements">
+      <UniqueIdentifier>{c6773b79-14c1-4ace-8a84-2aafd398fbe6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -309,6 +312,12 @@
     <ClInclude Include="MathGeoLib\include\Time\Clock.h">
       <Filter>Sources\External_Files\MathGeoLib\clock</Filter>
     </ClInclude>
+    <ClInclude Include="WindowUI.h">
+      <Filter>Sources\Modules\UI_Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowUI_Settings.h">
+      <Filter>Sources\Modules\UI_Elements</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -460,6 +469,12 @@
     </ClCompile>
     <ClCompile Include="MathGeoLib\include\Time\Clock.cpp">
       <Filter>Sources\External_Files\MathGeoLib\clock</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowUI.cpp">
+      <Filter>Sources\Modules\UI_Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowUI_Settings.cpp">
+      <Filter>Sources\Modules\UI_Elements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

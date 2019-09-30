@@ -151,10 +151,14 @@ void ModuleEngineUI::Config_Window_App() {
 	if (ImGui::CollapsingHeader("Application"))
 	{
 	
-		std::string str = "Engine";ImGui::InputTextDynamic("App",&str);//put the callback
-		std::string str2 = "UPC"; ImGui::InputTextDynamic("Fundation", &str2);//put the callback
+		static char app_name[120];
+		strcpy_s(app_name, 120, App->Get_App_Name());
+		if (ImGui::InputText("App Name", app_name, 120, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll));
+		App->window->SetTitle(app_name);
 
-	
+
+
+
 
 	}
 	

@@ -29,7 +29,7 @@ Application::Application()
 	// Renderer last!
 	AddModule(renderer3D);
 
-
+	AppName = "Engine";
 	   	  
 }
 
@@ -181,4 +181,9 @@ uint Application::GetMaxFrameRate()const {
 		return (uint)((1.0f / capped_ms) * 1000.0f);
 	else
 		return 0;
+}
+
+const char* Application::Get_App_Name() {
+
+	return AppName.c_str();
 }
