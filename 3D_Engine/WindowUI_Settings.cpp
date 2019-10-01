@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleHardware.h"
 #include "imgui_defines.h"
+#include "ModuleWindow.h"
 
 
 WindowUI_Settings::WindowUI_Settings(char*title): WindowUI(title)
@@ -93,8 +94,52 @@ void WindowUI_Settings::Config_Window_Window() {
 
 	if (ImGui::CollapsingHeader("Window"))
 	{
+		//Brightness
+
+		float brightlevel = App->window->GetWinBrightness();
+
+		if (ImGui::SliderFloat("Window Brightness", &brightlevel, 0.1f, 1.0f))
+			App->window->SetBrightness(brightlevel);
+
+		//size changer
+
+		uint width, minW, maxW, height, minH, maxH;
+
+		App->window->getExtremeSizes(minW, minH, maxW, maxH);
+		width = App->window->getWinWidth();
+		height = App->window->getWinHeight();
 
 
+		if (ImGui::SliderInt("Width", (int*)&width, minW, maxW))
+			App->window->changeWinWidth(width);
+
+		if (ImGui::SliderInt("Height", (int*)&height, minH, maxH))
+			App->window->changeWinHeight(height);
+
+		ImGui::Separator();
+
+		//refresh
+		ImGui::Text("Refresh Rate:");
+		ImGui::SameLine();
+
+		if (App->window->getRefreshrate() < 31)
+		{
+			ImGui::TextColored(IMGUI_RED, "%u", App->window->getRefreshrate());
+		}
+		else if ((App->window->getRefreshrate() < 61))
+		{
+			ImGui::TextColored(IMGUI_YELLOW, "%u", App->window->getRefreshrate());
+		}
+		else if (App->window->getRefreshrate() > 61)
+		{
+			ImGui::TextColored(IMGUI_GREEN, "%u", App->window->getRefreshrate());
+		}
+		else
+			ImGui::TextColored(IMGUI_YELLOW, "%u", App->window->getRefreshrate());
+		
+		//window options
+
+	
 
 	}
 
