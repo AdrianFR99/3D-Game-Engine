@@ -1,6 +1,7 @@
 #include "WindowUI_Settings.h"
 #include "Application.h"
 #include "ModuleHardware.h"
+#include "imgui_defines.h"
 
 
 WindowUI_Settings::WindowUI_Settings(char*title): WindowUI(title)
@@ -127,10 +128,82 @@ void WindowUI_Settings::Config_Window_Input() {
 }
 void WindowUI_Settings::Config_Window_Hardware() {
 
+	hw_info hardware_specs = App->hardware->GetInfo();
+
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
 
+		//SDL
+		ImGui::Text("SDL Version:");
+		ImGui::SameLine();
+		ImGui::TextColored(IMGUI_YELLOW, "%i", hardware_specs.sdl_version);
+		ImGui::Separator();
 
+		// CPUS
+		ImGui::Text("CPUs:");
+		ImGui::SameLine();
+		ImGui::TextColored(IMGUI_GREEN, "%i%s%i", hardware_specs.cpu_count," Cache: ", hardware_specs.l1_cachekb);
+
+		ImGui::Text("Caps: ");
+		ImGui::SameLine();
+		ImGui::TextColored(IMGUI_GREEN, "%s%s%s%s", 
+			hardware_specs.rdtsc ? "RDTSC," : "",
+			hardware_specs.altivec ? "AltiVec," : "",
+			hardware_specs.mmx ? "MMX," : "",
+			hardware_specs.now3d ? "3DNow," : "");
+
+		ImGui::TextColored(IMGUI_GREEN, "%s%s%s%s%s%s%s", 
+			hardware_specs.sse ? "SSE," : "",
+			hardware_specs.sse2 ? "SSE2," : "",
+			hardware_specs.sse3 ? "SSE3," : "",
+			hardware_specs.sse41 ? "SSE41," : "",
+			hardware_specs.sse42 ? "SSE42," : "",
+			hardware_specs.avx ? "AVX," : "",
+			hardware_specs.avx2 ? "AVX2" : "");
+
+		ImGui::Separator();
+
+		//RAM
+		ImGui::Text("RAM in GBs:");
+		ImGui::SameLine();
+		ImGui::TextColored(IMGUI_TEAL_GREEN, "%F", hardware_specs.ram_gb);
+
+		ImGui::Separator();
+
+		//GPU
+		ImGui::Text("GPUs Vendor:");
+		ImGui::SameLine();
+		ImGui::TextColored(IMGUI_BLUE, "%s", hardware_specs.gpu_vendor.data());
+
+		ImGui::Text("GPUs Brand:");
+		ImGui::SameLine();
+		ImGui::TextColored(IMGUI_BLUE, "%s", hardware_specs.gpu_brand.data());
+
+		ImGui::Text("GPUs Driver:");
+		ImGui::SameLine();
+		ImGui::TextColored(IMGUI_BLUE, "%s", hardware_specs.gpu_driver.data());
+
+		ImGui::Separator();
+
+		// VRAM 
+
+		ImGui::Text("VRAM Usage:");
+		ImGui::SameLine();
+		ImGui::TextColored(IMGUI_GREY, "%f", hardware_specs.vram_mb_budget);
+
+		ImGui::Text("VRAM Usage:");
+		ImGui::SameLine();
+		ImGui::TextColored(IMGUI_GREY, "%f", hardware_specs.vram_mb_usage);
+
+		ImGui::Text("VRAM Available:");
+		ImGui::SameLine();
+		ImGui::TextColored(IMGUI_GREY, "%f", hardware_specs.vram_mb_available);
+
+		ImGui::Text("VRAM Reserved:");
+		ImGui::SameLine();
+		ImGui::TextColored(IMGUI_GREY, "%f", hardware_specs.vram_mb_reserved);
+
+		ImGui::Separator();
 
 	}
 

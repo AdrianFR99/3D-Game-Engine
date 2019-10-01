@@ -10,6 +10,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	UI_Layer = new ModuleEngineUI(this);
+	hardware = new ModuleHardware(this);
 	
 
 	Current_frames = 0; //current frame the program is
@@ -27,6 +28,7 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(UI_Layer);
+	AddModule(hardware);
 	
 	// Renderer last!
 	AddModule(renderer3D);
