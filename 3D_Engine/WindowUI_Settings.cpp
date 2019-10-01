@@ -3,7 +3,7 @@
 
 
 
-WindowUI_Settings::WindowUI_Settings(char*title): WindowUI(title)
+WindowUI_Settings::WindowUI_Settings(char*title): WindowUI(title), FPS_LOG(LOG_FPS_SIZE), MS_LOG(LOG_FPS_SIZE)
 {
 
 
@@ -74,14 +74,22 @@ void WindowUI_Settings::Config_Window_App() {
 		App->window->SetTitle(app_name);
 	
 
-		//int Framerate = App->GetMaxFrameRate();
-		//if (ImGui::SliderInt("Max FPS", &Framerate, 0, App->window->GetDisplayRefRate())) 
-		//	App->SetMaxFrameRate(Framerate);
+		int Framerate = App->GetMaxFrameRate();
+		if (ImGui::SliderInt("Max FPS", &Framerate, 0, App->window->GetDisplayRefRate()))
+		App->SetMaxFrameRate(Framerate);
+
+
+		ImGui::Text("Limit framerate:");
+		ImGui::SameLine();
+		ImGui::TextColored(YELLOW,"%i",App->GetMaxFrameRate());
 		
+		char title_Fplot[25];
+		sprintf_s(title_Fplot,25,"Framerate %.1f",FPS_LOG[FPS_LOG.size()-1]);
+		ImGui::PlotHistogram("##framerate",&FPS_LOG[0],FPS_LOG.size(),0, title_Fplot,0.0f,100.0f,ImVec2(310,100));
 
-
-
-
+		char title_MSplot[25];
+		sprintf_s(title_MSplot, 25, "Milliseconds %0.1f", MS_LOG[MS_LOG.size() - 1]);
+		ImGui::PlotHistogram("##milliseconds", &MS_LOG[0], MS_LOG.size(), 0, title_MSplot, 0.0f, 100.0f, ImVec2(310, 100));
 
 	}
 
@@ -139,16 +147,14 @@ void WindowUI_Settings::Config_Window_Hardware() {
 }
 void WindowUI_Settings::FPS_vec_Alloc(float FPS, float ms) {
 
-	int counter;
-	int MaxVecSize = 100;
-	++counter;
+	static uint counter=0;
 
-	if (counter == MaxVecSize) {
+	if (counter == LOG_FPS_SIZE) {
 
-		for (uint i = 0; i < MaxVecSize - 1; ++i) {
+		for (uint i = 0; i < LOG_FPS_SIZE - 1; ++i) {
 
-			FPS_Tracker[i] = FPS_Tracker[i + 1];
-			MS_Tracker[i] = MS_Tracker[i + 1];
+			FPS_LOG[i] = FPS_LOG[i + 1];
+			MS_LOG[i] = MS_LOG[i + 1];
 
 		}
 
@@ -156,6 +162,6 @@ void WindowUI_Settings::FPS_vec_Alloc(float FPS, float ms) {
 	else
 		++counter;
 
-	FPS_Tracker[counter - 1] = FPS;
-	MS_Tracker[counter - 1] = ms;
+	FPS_LOG[counter - 1] = FPS;
+	MS_LOG[counter - 1] = ms;
 }

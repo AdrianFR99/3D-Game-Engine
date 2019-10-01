@@ -34,11 +34,12 @@ public:
 	//Flags
 	ImGuiWindowFlags window_flags;
 
-
-	
 	WindowUI_Settings* settingsPanel=nullptr;
 
 	std::vector<WindowUI*> Panels;
+
+
+	
 
 public:
 	
@@ -60,7 +61,8 @@ public:
 
 
 	
-
+	//FPS
+	void Assign_FPS_Data(float fps,float ms);
 
 
 

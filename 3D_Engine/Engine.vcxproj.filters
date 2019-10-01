@@ -341,9 +341,6 @@
     <ClCompile Include="Light.cpp">
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleEngineUI.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>Sources\External_Files\imgui</Filter>
     </ClCompile>
@@ -463,6 +460,9 @@
     </ClCompile>
     <ClCompile Include="WindowUI_Settings.cpp">
       <Filter>Sources\Modules\UI_Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleEngineUI.cpp">
+      <Filter>Sources\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

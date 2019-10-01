@@ -329,3 +329,10 @@ void ModuleEngineUI::Menu_Bar() {
 		return window_flags;
 	}
 
+	void ModuleEngineUI::Assign_FPS_Data(float fps, float ms) {
+
+		if (settingsPanel != nullptr) 
+			settingsPanel->FPS_vec_Alloc(fps, ms);
+
+
+	}
