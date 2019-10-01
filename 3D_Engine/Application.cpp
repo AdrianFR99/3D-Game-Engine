@@ -107,8 +107,7 @@ void Application::FinishUpdate()
 		SDL_Delay(capped_ms-last_frame_time);
 
 
-
-
+	UI_Layer->Assign_FPS_Data((float)last_FPS,(float)last_frame_time);
 
 }
 

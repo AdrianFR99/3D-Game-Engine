@@ -49,7 +49,9 @@ bool ModuleEngineUI::Start() {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
+
 	
+
 	ImGui::StyleColorsDark();
 
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window,App->renderer3D->context);
@@ -65,7 +67,6 @@ bool ModuleEngineUI::Start() {
 	/*ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
 	ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);*/
 
-	
 	return true;
 }
 
@@ -75,6 +76,9 @@ update_status  ModuleEngineUI::PreUpdate(float dt) {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
+
+	const char* lol = "testing 1.23";
+	testingmic.Load(lol);
 
 	return UPDATE_CONTINUE;
 }
@@ -329,3 +333,10 @@ void ModuleEngineUI::Menu_Bar() {
 		return window_flags;
 	}
 
+	void ModuleEngineUI::Assign_FPS_Data(float fps, float ms) {
+
+		if (settingsPanel != nullptr) 
+			settingsPanel->FPS_vec_Alloc(fps, ms);
+
+
+	}

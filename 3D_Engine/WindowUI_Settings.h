@@ -1,6 +1,9 @@
 #ifndef __WindowUI_SETTINGS_H__
 #define __WindowUI_SETTINGS_H__
 
+#define LOG_FPS_SIZE 100
+#define LOG_MEM_SIZE_PLOT 50
+#define TO_MOVE_VEC_DATA 15
 
 #include "WindowUI.h"
 #include "imgui/imgui.h"
@@ -17,9 +20,7 @@ public:
 	WindowUI_Settings(char*title);
 	~WindowUI_Settings();
 
-	
 public:
-
 
 	bool Display() override;
 
@@ -36,8 +37,8 @@ public:
 	void FPS_vec_Alloc(float FPS, float ms);
 
 private:
-	std::vector<float> FPS_Tracker;
-	std::vector<float> MS_Tracker;
+	std::vector<float> FPS_LOG;
+	std::vector<float> MS_LOG;
 
 	// --- Win Flags ---
 	bool fullscreen = false;
