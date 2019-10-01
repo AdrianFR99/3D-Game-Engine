@@ -67,6 +67,9 @@ void WindowUI_Settings::Config_Window_App() {
 
 	if (ImGui::CollapsingHeader("Application"))
 	{
+		ImGui::Spacing();
+		ImGui::Spacing();
+
 		//App Name	
 		static char app_name[120];
 		strcpy_s(app_name,120,App->GetAppName());
@@ -104,7 +107,7 @@ void WindowUI_Settings::Config_Window_App() {
 		ImGui::Text("Memory Stats");
 
 		sMStats MemStats = m_getMemoryStatistics(); 
-		static int ToUpdate = 0;	//var which it is used as an interval of time to 
+		static int ToUpdate = 0;	//var which it is used as an interval of time to update the data in the vector and in the graph
 		static std::vector<float>memory(LOG_MEM_SIZE_PLOT); //Creating a vector to allocate the memory data as we did with the FPS and ms
 	
 
@@ -178,6 +181,31 @@ void WindowUI_Settings::Config_Window_Input() {
 
 	if (ImGui::CollapsingHeader("Input"))
 	{
+		ImGui::Spacing();
+		ImGui::Spacing();
+		// --- Get Mouse position & Mouse Motin¡on
+		int mouse_x, mouse_y;
+		mouse_x = App->input->GetMouseX();
+		mouse_y = App->input->GetMouseY();
+		
+		mouse_x = App->input->GetMouseXMotion();
+		mouse_y = App->input->GetMouseYMotion();
+
+
+		// ---print  Mouse position
+
+		ImGui::Text("Mouse Position:");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "(%i,%i)", mouse_x, mouse_y);
+
+
+		// --- print Mouse Motion ---
+		
+		ImGui::Text("Mouse Motion:");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "(%i,%i)", mouse_x, mouse_y);
+
+		
 
 
 
