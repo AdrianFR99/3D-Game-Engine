@@ -3,12 +3,17 @@
 
 
 #include "Module.h"
+
+#include "JSONLoader.h"
+
 #include <vector>
 
 typedef int ImGuiWindowFlags;
 
+class JSONLoader;
 class WindowUI;
 class WindowUI_Settings;
+
 
 class ModuleEngineUI:public Module 
 {
@@ -27,6 +32,9 @@ public:
 	void Draw() const;
 
 
+
+	
+
 	//bools
 	bool Show_ImGui_Demo = false;
 	bool Exit_Pressed=false; //Exit engine pressed
@@ -35,10 +43,15 @@ public:
 	ImGuiWindowFlags window_flags;
 
 
-	
-	WindowUI_Settings* settingsPanel=nullptr;
+	//json
+	JSONLoader testingmic;
 
+
+	WindowUI_Settings* settingsPanel=nullptr;
 	std::vector<WindowUI*> Panels;
+
+	
+
 
 public:
 	
@@ -60,10 +73,11 @@ public:
 
 
 	
-
+	//FPS
+	void Assign_FPS_Data(float fps,float ms);
 
 
 
 };
 
-#endif
+#endif //__MODULEENGINEUI_H__
