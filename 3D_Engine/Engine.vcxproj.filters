@@ -43,6 +43,9 @@
     <Filter Include="Sources\Modules\UI_Elements">
       <UniqueIdentifier>{c6773b79-14c1-4ace-8a84-2aafd398fbe6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sources\External_Files\mmgr">
+      <UniqueIdentifier>{04267892-afd9-4c3c-b498-a38344ad70a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -306,6 +309,15 @@
     <ClInclude Include="WindowUI_Settings.h">
       <Filter>Sources\Modules\UI_Elements</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleHardware.h">
+      <Filter>Sources\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="mmgr\mmgr.h">
+      <Filter>Sources\External_Files\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="mmgr\nommgr.h">
+      <Filter>Sources\External_Files\mmgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleCamera3D.cpp">
@@ -463,6 +475,12 @@
     </ClCompile>
     <ClCompile Include="WindowUI_Settings.cpp">
       <Filter>Sources\Modules\UI_Elements</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleHardware.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="mmgr\mmgr.cpp">
+      <Filter>Sources\External_Files\mmgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

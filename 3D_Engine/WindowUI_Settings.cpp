@@ -1,6 +1,6 @@
 #include "WindowUI_Settings.h"
 #include "Application.h"
-
+#include "ModuleHardware.h"
 
 
 WindowUI_Settings::WindowUI_Settings(char*title): WindowUI(title)
