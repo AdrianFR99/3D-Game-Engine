@@ -32,6 +32,10 @@ public:
 	void changeWinHeight(uint height);
 	void changeWinSize();
 	void changeWin(uint w, uint h);
+	void changeFullscreen(bool value);
+	void changeFullscreenDestop(bool value);
+	void changeResize(bool value);
+	void changeBordeless(bool value);
 //getters
 	uint getWinWidth();
 	uint getWinHeight();

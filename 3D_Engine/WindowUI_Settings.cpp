@@ -139,8 +139,27 @@ void WindowUI_Settings::Config_Window_Window() {
 		
 		//window options
 
-	
+		 fullscreen = App->window->isFullscreen();
+		 resizable = App->window->isResize();
+		 borderless = App->window->isBorderless();
+		 fullscreen_desktop = App->window->isFullscreenDesktop();
 
+		 if (ImGui::Checkbox("Fullscreen", &fullscreen))
+			 App->window->changeFullscreen(fullscreen);
+
+		 ImGui::SameLine();
+
+		 if (ImGui::Checkbox("Resizable", &resizable))
+			 App->window->changeResize(resizable);
+
+
+		 if (ImGui::Checkbox("Borderless", &borderless))
+			 App->window->changeBordeless(borderless);
+
+		 ImGui::SameLine();
+
+		 if (ImGui::Checkbox("FullScreen Desktop", &fullscreen_desktop))
+			 App->window->changeFullscreenDestop(fullscreen_desktop);
 	}
 
 
