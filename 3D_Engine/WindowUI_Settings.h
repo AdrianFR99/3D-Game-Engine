@@ -2,6 +2,8 @@
 #define __WindowUI_SETTINGS_H__
 
 #define LOG_FPS_SIZE 100
+#define LOG_MEM_SIZE_PLOT 50
+#define TO_MOVE_VEC_DATA 15
 
 #include "WindowUI.h"
 #include "imgui/imgui.h"
