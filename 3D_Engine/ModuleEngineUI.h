@@ -3,12 +3,17 @@
 
 
 #include "Module.h"
+
+#include "JSONLoader.h"
+
 #include <vector>
 
 typedef int ImGuiWindowFlags;
 
+class JSONLoader;
 class WindowUI;
 class WindowUI_Settings;
+
 
 class ModuleEngineUI:public Module 
 {
@@ -37,12 +42,16 @@ public:
 	//Flags
 	ImGuiWindowFlags window_flags;
 
-	WindowUI_Settings* settingsPanel=nullptr;
 
+	//json
+	JSONLoader testingmic;
+
+
+	WindowUI_Settings* settingsPanel=nullptr;
 	std::vector<WindowUI*> Panels;
 
-
 	
+
 
 public:
 	
@@ -71,4 +80,4 @@ public:
 
 };
 
-#endif
+#endif //__MODULEENGINEUI_H__
