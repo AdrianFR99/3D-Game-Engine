@@ -40,6 +40,12 @@ private:
 	std::vector<float> FPS_LOG;
 	std::vector<float> MS_LOG;
 
+	// --- Win Flags ---
+	bool fullscreen = false;
+	bool resizable = false;
+	bool borderless = false;
+	bool fullscreen_desktop = false;
+
 };
 
 #endif //__WindowUI_SETTINGS_H__

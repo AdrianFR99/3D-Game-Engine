@@ -21,6 +21,31 @@ public:
 	void SetTitle( char* title);
 
 	const uint GetDisplayRefRate() const;
+
+	//Brightness
+	void SetBrightness(float value);
+	float GetWinBrightness() const;
+
+	//win size
+//change
+	void changeWinWidth(uint width);
+	void changeWinHeight(uint height);
+	void changeWinSize();
+	void changeWin(uint w, uint h);
+	void changeFullscreen(bool value);
+	void changeFullscreenDestop(bool value);
+	void changeResize(bool value);
+	void changeBordeless(bool value);
+//getters
+	uint getWinWidth();
+	uint getWinHeight();
+	void getExtremeSizes(uint &minW, uint &minH, uint &maxW, uint &maxH);
+	uint getRefreshrate();
+//info getters
+	bool isFullscreen();
+	bool isBorderless();
+	bool isResize();
+	bool isFullscreenDesktop();
 	
 public:
 	//The window we'll be rendering to
@@ -33,6 +58,14 @@ public:
 	uint Screen_Width = 1280;
 	uint Screen_Height = 1024;
 	uint RefreshRate = 0;
+	uint disp_Width = 600;
+	uint disp_Height = 600;
+
+	// --- Win Flags ---
+	bool fullscreen = false;
+	bool resizable = false;
+	bool borderless = false;
+	bool fullscreen_desktop = false;
 };
 
 #endif // __ModuleWindow_H__
