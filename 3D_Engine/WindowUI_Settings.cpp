@@ -2,6 +2,7 @@
 #include "Application.h"
 
 
+
 WindowUI_Settings::WindowUI_Settings(char*title): WindowUI(title)
 {
 
@@ -67,15 +68,15 @@ void WindowUI_Settings::Config_Window_App() {
 	if (ImGui::CollapsingHeader("Application"))
 	{
 			
-		/*static char app_name[120];
-		strcpy_s(app_name,120,App->GetAppName());*/
+		static char app_name[120];
+		strcpy_s(app_name,120,App->GetAppName());
 		if (ImGui::InputText("App Name","Engine", 120, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll));
-		/*App->window->SetTitle(app_name);*/
+		App->window->SetTitle(app_name);
 	
 
-		int Framerate = App->GetMaxFrameRate();
-		if (ImGui::SliderInt("Max FPS", &Framerate, 0, App->window->GetDisplayRefRate())) 
-			App->SetMaxFrameRate(Framerate);
+		//int Framerate = App->GetMaxFrameRate();
+		//if (ImGui::SliderInt("Max FPS", &Framerate, 0, App->window->GetDisplayRefRate())) 
+		//	App->SetMaxFrameRate(Framerate);
 		
 
 

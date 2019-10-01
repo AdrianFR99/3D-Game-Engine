@@ -171,6 +171,7 @@ void  Application::RequestBrowser(const char*URL) {
 
 uint Application::GetMaxFrameRate()const {
 
+
 	if (capped_ms > 0)
 		return (uint)((1.0f /(float)capped_ms) * 1000.0f);
 	else
