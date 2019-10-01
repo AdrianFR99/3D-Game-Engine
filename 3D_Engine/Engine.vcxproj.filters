@@ -43,8 +43,13 @@
     <Filter Include="Sources\Modules\UI_Elements">
       <UniqueIdentifier>{c6773b79-14c1-4ace-8a84-2aafd398fbe6}</UniqueIdentifier>
     </Filter>
+
     <Filter Include="Sources\External_Files\json">
       <UniqueIdentifier>{857fd0db-045d-4136-9547-bf199386a41a}</UniqueIdentifier>
+
+    <Filter Include="Sources\External_Files\mmgr">
+      <UniqueIdentifier>{0b3d5ecb-217c-415d-a4aa-7479b0cecb3e}</UniqueIdentifier>
+
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +316,13 @@
     </ClInclude>
     <ClInclude Include="JSONLoader.h">
       <Filter>Sources\External_Files\json</Filter>
+
+    <ClInclude Include="mmgr\mmgr.h">
+      <Filter>Sources\External_Files\mmgr</Filter>
+    </ClInclude>
+    <ClInclude Include="mmgr\nommgr.h">
+      <Filter>Sources\External_Files\mmgr</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -346,9 +358,6 @@
     </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Sources\Helpers</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleEngineUI.cpp">
-      <Filter>Sources\Modules</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>Sources\External_Files\imgui</Filter>
@@ -470,8 +479,16 @@
     <ClCompile Include="WindowUI_Settings.cpp">
       <Filter>Sources\Modules\UI_Elements</Filter>
     </ClCompile>
+
     <ClCompile Include="JSONLoader.cpp">
       <Filter>Sources\External_Files\json</Filter>
+
+    <ClCompile Include="ModuleEngineUI.cpp">
+      <Filter>Sources\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="mmgr\mmgr.cpp">
+      <Filter>Sources\External_Files\mmgr</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

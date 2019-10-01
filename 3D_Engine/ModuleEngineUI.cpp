@@ -3,6 +3,9 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 
+#include "WindowUI.h"
+#include "WindowUI_Settings.h"
+
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_sdl.h"
@@ -19,6 +22,11 @@ ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 ModuleEngineUI::ModuleEngineUI(Application* app, bool start_enabled):Module(app, start_enabled)
 {
+
+	
+
+
+
 }
 
 
@@ -27,6 +35,10 @@ ModuleEngineUI::~ModuleEngineUI()
 }
 
 bool ModuleEngineUI::Init() {
+
+
+	settingsPanel = new WindowUI_Settings("Configurations");
+	Panels.push_back(settingsPanel);
 
 	return true;
 }
@@ -37,7 +49,9 @@ bool ModuleEngineUI::Start() {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
+
 	
+
 	ImGui::StyleColorsDark();
 
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window,App->renderer3D->context);
@@ -53,7 +67,6 @@ bool ModuleEngineUI::Start() {
 	/*ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
 	ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);*/
 
-	
 	return true;
 }
 
@@ -72,9 +85,11 @@ update_status  ModuleEngineUI::PreUpdate(float dt) {
 update_status ModuleEngineUI::Update(float dt) {
 
 
-	Menu_Bar();
-
 	
+	settingsPanel->Display();
+
+	Menu_Bar();
+		
 
 	if(Show_ImGui_Demo)
 	ImGui::ShowDemoWindow();
@@ -313,8 +328,15 @@ void ModuleEngineUI::Menu_Bar() {
 		if (no_nav)             window_flags |= ImGuiWindowFlags_NoNav;
 		if (no_background)      window_flags |= ImGuiWindowFlags_NoBackground;
 		if (no_bring_to_front)  window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
-		if (no_close)            Config_Window_Open = NULL;
+		
 
 		return window_flags;
 	}
 
+	void ModuleEngineUI::Assign_FPS_Data(float fps, float ms) {
+
+		if (settingsPanel != nullptr) 
+			settingsPanel->FPS_vec_Alloc(fps, ms);
+
+
+	}

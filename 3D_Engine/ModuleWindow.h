@@ -20,12 +20,19 @@ public:
 
 	void SetTitle( char* title);
 
+	const uint GetDisplayRefRate() const;
+	
 public:
 	//The window we'll be rendering to
 	SDL_Window* window;
-
 	//The surface contained by the window
 	SDL_Surface* screen_surface;
+
+
+	//Window sizes
+	uint Screen_Width = 1280;
+	uint Screen_Height = 1024;
+	uint RefreshRate = 0;
 };
 
 #endif // __ModuleWindow_H__

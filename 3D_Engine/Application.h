@@ -24,7 +24,6 @@ public:
 private:
 
 	Timer	ms_timer;
-
 	Timer	FPS_timer;
 	float	dt=0;
 
@@ -56,15 +55,14 @@ public:
 public:
 
 //FPS
-	void MaxFrameRate(uint framerate);
 	uint GetMaxFrameRate()const;
-
+	void SetMaxFrameRate(uint MaxFrameRate);
 
 //Web
 	void RequestBrowser(const char*URL);
 
 //Info
-	const char* Get_App_Name()const;
+	const char* GetAppName()const;
 
 private:
 
