@@ -42,9 +42,3 @@ enum update_status
 
 //define Colors
 
-#define GREY ImVec4(160,160,160,255)
-#define BLUE ImVec4(0,0,255,255)
-#define GREEN ImVec4(0,225,0,255)
-#define YELLOW ImVec4(255,255,0,255)
-#define RED ImVec4(255,0,0,255)
-#define WHITE ImVec4(255,255,255,255)

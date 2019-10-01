@@ -89,7 +89,7 @@ void WindowUI_Settings::Config_Window_App() {
 
 		ImGui::Text("Limit framerate:");
 		ImGui::SameLine();
-		ImGui::TextColored(YELLOW,"%i",App->GetMaxFrameRate());
+		ImGui::TextColored(IMGUI_YELLOW,"%i",App->GetMaxFrameRate());
 		
 		char title_Fplot[25];
 		sprintf_s(title_Fplot,25,"Framerate %.1f",FPS_LOG[FPS_LOG.size()-1]);
