@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "Brofiler/Brofiler.h"
 
 
 
@@ -114,6 +115,9 @@ void Application::FinishUpdate()
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {
+
+	BROFILER_CATEGORY("App_Update", Profiler::Color::AntiqueWhite);
+
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 	

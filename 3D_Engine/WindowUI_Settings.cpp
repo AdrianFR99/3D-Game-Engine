@@ -236,7 +236,24 @@ void WindowUI_Settings::Config_Window_FileSystem() {
 	if (ImGui::CollapsingHeader("File system"))
 	{
 
+		char *base_path = SDL_GetBasePath();
+		
 
+
+		ImGui::Text("Base File Location:");
+		ImGui::SameLine();
+		ImGui::TextColored(IMGUI_YELLOW, "%s", base_path);
+
+		ImGui::Separator();
+
+		ImGui::Text("Read Location Location:");
+		//ImGui::SameLine();
+
+		ImGui::Separator();
+
+		ImGui::Text("Wrigth location Location:");
+		//ImGui::SameLine();
+		ImGui::Separator();
 
 	}
 
