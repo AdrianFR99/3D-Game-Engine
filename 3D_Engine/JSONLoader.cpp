@@ -6,15 +6,18 @@ using json = nlohmann::json;
 
 bool JSONLoader::Load(const char * FiletoLoad)
 {
+
 	//open a incoming stream of data
 	std::ifstream incomingStream;
 	incomingStream.open(FiletoLoad);
+	assert(incomingStream.is_open());
+
 
 	//create a json doc
 	json doc;
 
 	//parse dta in document
-	doc = json::parse(FiletoLoad);
+	doc = json::parse(incomingStream);
 
 	if (FiletoLoad == nullptr || incomingStream.is_open())
 	{

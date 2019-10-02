@@ -77,6 +77,8 @@ bool Application::Init()
 	ms_timer.Start();
 	SetMaxFrameRate(0);
 
+	load();
+	settings = JSONLoad.getFile();
 	return ret;
 }
 
@@ -151,6 +153,7 @@ update_status Application::Update()
 
 bool Application::CleanUp()
 {
+	save();
 	bool ret = true;
 	std::list<Module*>::reverse_iterator item = list_modules.rbegin();
 
@@ -199,21 +202,21 @@ const char* Application::GetAppName() const {
 void Application::save()
 {
 	json test;
-	test = { 
-		"this is a test",	
-				{"please work"},
-		{"state",
-				{true}}
+	test = {
+		{ "Test",{
+			{ "mic", "1,2,3" }
+		} }
 	};
 
-	settings = JSONLoad.getFile();
-	JSONLoad.Save("Game/test.json",settings);
+	
+
+	JSONLoad.Save("test.json", test);
 	
 }
 
 
 void Application::load()
 {
-	JSONLoad.Load("Game/test.json");
+	JSONLoad.Load("test.json");
 
 }
