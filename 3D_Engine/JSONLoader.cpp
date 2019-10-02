@@ -5,47 +5,52 @@
 // for convenience
 using json = nlohmann::json;
 
-bool JSONLoader::Load(const char * importFile)
+bool JSONLoader::Load(const char * FiletoLoad)
 {
-	/*if (importFile == nullptr)
+	//open a incoming stream of data
+	std::ifstream incomingStream;
+	incomingStream.open(FiletoLoad);
+
+	//create a json doc
+	json doc;
+
+	//parse dta in document
+	doc = json::parse(FiletoLoad);
+
+	if (FiletoLoad == nullptr || incomingStream.is_open())
 	{
-		assert(importFile != nullptr);
+		LOG("Json File load error");
 		return false;
-	}*/
-
-	if (!done)
-	{
-		done = true;
-		/*	json test = {
-			  {"pi", 3.141},
-			  {"happy", true},
-			  {"name", "Niels"},
-			  {"nothing", nullptr},
-			  {"answer", {
-				{"everything", 42}
-			  }},
-			  {"list", {1, 0, 2}},
-			  {"object", {
-				{"currency", "USD"},
-				{"value", 42.99}
-			  }}
-			};*/
-
-		json jsonfile;
-
-		const unsigned char test[] = "Hello World";
-		jsonfile["HEY"] = test;
-
-		std::ofstream file("TEST.json");
-		file << jsonfile;
-
 	}
-
+	
+	//clos stream of data
+	incomingStream.close();
+	file = doc;
 
 	return true;
 }
 
-bool JSONLoader::Save(const char * File)
+bool JSONLoader::Save(const char * data, json doc)
 {
+	//save to json file
+
+	//open an output stream of data
+	std::ofstream outStream;
+
+	//Where to output
+	outStream.open(data);
+
+	//insert data
+	outStream << std::setw(4) << doc << std::endl;
+
+	//close stream
+	outStream.close();
+
+
 	return false;
+}
+
+json JSONLoader::getFile()
+{
+	return file;
 }

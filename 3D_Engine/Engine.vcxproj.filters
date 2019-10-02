@@ -166,6 +166,9 @@
     <ClCompile Include="MathGeoLib\include\Geometry\Frustum.cpp">
       <Filter>Source\External_Files\MathGeoLib\geometry</Filter>
     </ClCompile>
+    <ClCompile Include="WindowConsole.cpp">
+      <Filter>Source\Modules\UI_Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleCamera3D.h">
@@ -449,6 +452,9 @@
     </ClInclude>
     <ClInclude Include="Brofiler\Brofiler.h">
       <Filter>Source\External_Files\brofiler</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowConsole.h">
+      <Filter>Source\Modules\UI_Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

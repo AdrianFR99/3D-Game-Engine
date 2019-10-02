@@ -83,6 +83,7 @@
     <ClInclude Include="glew\include\wglew.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="WindowConsole.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_impl_opengl3.h" />
@@ -223,6 +224,7 @@
     <ClCompile Include="ModuleRenderer3D.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="WindowConsole.cpp" />
     <ClCompile Include="WindowUI.cpp" />
     <ClCompile Include="WindowUI_Settings.cpp" />
   </ItemGroup>
