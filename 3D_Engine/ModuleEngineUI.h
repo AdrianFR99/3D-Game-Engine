@@ -4,13 +4,11 @@
 
 #include "Module.h"
 
-#include "JSONLoader.h"
 
 #include <vector>
 
 typedef int ImGuiWindowFlags;
 
-class JSONLoader;
 class WindowUI;
 class WindowUI_Settings;
 
@@ -42,9 +40,6 @@ public:
 	//Flags
 	ImGuiWindowFlags window_flags;
 
-
-	//json
-	JSONLoader testingmic;
 
 
 	WindowUI_Settings* settingsPanel=nullptr;

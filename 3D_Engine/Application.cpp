@@ -195,3 +195,25 @@ const char* Application::GetAppName() const {
 	return AppName.c_str();
 
 }
+
+void Application::save()
+{
+	json test;
+	test = { 
+		"this is a test",	
+				{"please work"},
+		{"state",
+				{true}}
+	};
+
+	settings = JSONLoad.getFile();
+	JSONLoad.Save("Game/test.json",settings);
+	
+}
+
+
+void Application::load()
+{
+	JSONLoad.Load("Game/test.json");
+
+}

@@ -6,6 +6,8 @@
 #include <fstream>
 #include <iomanip>
 
+// for convenience
+using json = nlohmann::json;
 
 class JSONLoader
 {

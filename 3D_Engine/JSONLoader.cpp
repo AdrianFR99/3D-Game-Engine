@@ -1,5 +1,4 @@
 #include "JSONLoader.h"
-#include <assert.h>
 #include <fstream>
 
 // for convenience

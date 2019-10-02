@@ -77,8 +77,6 @@ update_status  ModuleEngineUI::PreUpdate(float dt) {
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 
-	const char* lol = "testing 1.23";
-	testingmic.Load(lol);
 
 	return UPDATE_CONTINUE;
 }

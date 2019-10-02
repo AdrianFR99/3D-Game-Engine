@@ -11,6 +11,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleEngineUI.h"
 #include "ModuleHardware.h"
+#include "JSONLoader.h"
 
 
 class Application
@@ -71,6 +72,12 @@ private:
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
+
+
+	void save();
+	void load();
+	JSONLoader JSONLoad;
+	json settings;
 };
 
 // access everywhere
