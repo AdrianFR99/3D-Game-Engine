@@ -136,8 +136,42 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 
+	glLineWidth(2.0f);
+
+	glBegin(GL_LINES);
+
+	for (float x = 0.0; x<100; x ++)
+	{
+		glVertex3f(x, 0.0f, 0.0f);
+		glVertex3f(x, 0.0f, 100.0f);
+	}
+	for (float y = 0.0; y < 100; y++)
+	{
+		glVertex3f(0.0, 0.0f, y);
+		glVertex3f(100.0f, 0.0f, y);
+
+	}
+
+	glEnd();
+
+	
+
+	glBegin(GL_TRIANGLES);
+
+	glVertex3f(4.0f, 1.0f, 0.0f);
+	glVertex3f(2.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, -1.0f, 0.0f); 
+
+
+	glEnd();
+
+	glLineWidth(1.0f);
+
 	App->UI_Layer->Draw();
 	SDL_GL_SwapWindow(App->window->window);
+
+
+
 	return UPDATE_CONTINUE;
 }
 
