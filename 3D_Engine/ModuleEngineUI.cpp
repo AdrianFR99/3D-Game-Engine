@@ -2,6 +2,7 @@
 #include "ModuleEngineUI.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "Glew/include/glew.h"
 
 
 #include "WindowUI.h"
@@ -48,6 +49,7 @@ bool ModuleEngineUI::Start() {
 
 
 	GearConsole.AddLog("is anyone there?");
+	GearConsole.AddLog("%s", glewGetString(GLEW_VERSION));
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -86,20 +88,6 @@ update_status  ModuleEngineUI::PreUpdate(float dt) {
 update_status ModuleEngineUI::Update(float dt) {
 
 
-	
-	settingsPanel->Display();
-
-	Menu_Bar();
-		
-
-	if(Show_ImGui_Demo)
-	ImGui::ShowDemoWindow();
-
-	if (showConsole)
-	{
-		GearConsole.Draw("Gear Console",&showConsole);
-	}
-
 	if(!Exit_Pressed)
 	return UPDATE_CONTINUE;
 	else
@@ -109,6 +97,18 @@ update_status ModuleEngineUI::Update(float dt) {
 }
 update_status  ModuleEngineUI::PostUpdate(float dt) {
 
+
+	settingsPanel->Display();
+
+	Menu_Bar();
+		
+	if(Show_ImGui_Demo)
+	ImGui::ShowDemoWindow();
+
+	if (showConsole)
+	{
+		GearConsole.Draw("Gear Console",&showConsole);
+	}
 	
 	return UPDATE_CONTINUE;
 }
