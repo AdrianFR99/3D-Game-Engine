@@ -106,6 +106,8 @@ bool ModuleRenderer3D::Init()
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
+	//	glCullFace(GL_FRONT_AND_BACK);
+		
 	}
 
 	// Projection matrix for
@@ -353,4 +355,16 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+void ModuleRenderer3D::changeLight(bool value)
+{
+	if (value)
+	{
+		lights[0].Active(true);
+	}
+	else
+	{
+		lights[0].Active(false);
+	}
 }

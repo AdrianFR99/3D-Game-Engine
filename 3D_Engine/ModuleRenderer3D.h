@@ -19,6 +19,8 @@ public:
 
 	void OnResize(int width, int height);
 
+	void changeLight(bool value);
+
 public:
 
 	Light lights[MAX_LIGHTS];

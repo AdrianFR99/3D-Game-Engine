@@ -281,3 +281,4 @@ bool ModuleWindow::isFullscreenDesktop()
 {
 	return fullscreen_desktop;
 }
+
