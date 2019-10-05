@@ -3,7 +3,7 @@
 
 
 #include "Module.h"
-
+#include "WindowConsole.h"
 
 #include <vector>
 
@@ -71,6 +71,10 @@ public:
 	//FPS
 	void Assign_FPS_Data(float fps,float ms);
 
+
+	//Console
+	AppConsole GearConsole;
+	bool showConsole = false;
 
 
 };

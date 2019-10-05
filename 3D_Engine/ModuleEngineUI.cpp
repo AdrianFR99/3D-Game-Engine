@@ -3,6 +3,7 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 
+
 #include "WindowUI.h"
 #include "WindowUI_Settings.h"
 
@@ -44,8 +45,10 @@ bool ModuleEngineUI::Init() {
 }
 
 bool ModuleEngineUI::Start() {
-	
-	
+
+
+	GearConsole.AddLog("is anyone there?");
+
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -91,6 +94,11 @@ update_status ModuleEngineUI::Update(float dt) {
 
 	if(Show_ImGui_Demo)
 	ImGui::ShowDemoWindow();
+
+	if (showConsole)
+	{
+		GearConsole.Draw("Gear Console",&showConsole);
+	}
 
 	if(!Exit_Pressed)
 	return UPDATE_CONTINUE;
@@ -289,7 +297,10 @@ void ModuleEngineUI::Menu_Bar() {
 	void ModuleEngineUI::Menu_Bar_Window(){
 		if (ImGui::BeginMenu("Window"))
 		{
-
+			if (ImGui::MenuItem("Console", "Ctrl+C")) {
+				showConsole = !showConsole;
+			}
+			//aqui
 
 			ImGui::EndMenu();
 		}
