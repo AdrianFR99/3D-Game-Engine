@@ -135,8 +135,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-
-	glLineWidth(2.0f);
+	
+//Lines Immediated mode--------------------------------------------
 
 	glBegin(GL_LINES);
 
@@ -153,19 +153,76 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	}
 
 	glEnd();
+	
+	glLineWidth(1.0f);
+
+//---------------------------------------------------------------------
+
+
+//Triangles Immediated mode---------------------------------------------
+
+	//glBegin(GL_TRIANGLES);
+
+	//glVertex3f(4, 4, 0.0);
+	//glVertex3f(-4, 4, 0.0);
+	//glVertex3f(-4, -4, 0.0);
+
+
+	//glEnd();
+
+//--------------------------------------------------------------------
+
+//Quads Immediated mode-----------------------------------------------
+
+//glBegin(GL_QUADS);
+//
+//  glVertex3f(4,4,0.0);//top left
+//	glVertex3f(-4,4,0.0);//top right
+//	glVertex3f(-4,-4,0.0);//bottom right
+//	glVertex3f(4,-4,0.0);//bottom left
+//
+//glEnd();
+
+//--------------------------------------------------------------------
+
+
+//cube Immediated mode-----------------------------------------------
+
+
+
+
+
+
+
+
+//--------------------------------------------------------------------
+
+
+
+//Drawing a quad with array vertices----------
+
+
+	//float vertices[]{
+
+	//	4,4,0.0, //top left
+	//	-4,4,0.0,//top right
+	//	-4,-4,0.0,//bottom right
+	//	4,-4,0.0 //bottom left
+	//};
+
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//glVertexPointer(3,GL_FLOAT,0,vertices);
+	//glDrawArrays(GL_QUADS,0,4);
+
+	//glDisableClientState(GL_VERTEX_ARRAY);
 
 	
-
-	glBegin(GL_TRIANGLES);
-
-	glVertex3f(4.0f, 1.0f, 0.0f);
-	glVertex3f(2.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, -1.0f, 0.0f); 
+//-------------------------------------------
+	
 
 
-	glEnd();
 
-	glLineWidth(1.0f);
+
 
 	App->UI_Layer->Draw();
 	SDL_GL_SwapWindow(App->window->window);
