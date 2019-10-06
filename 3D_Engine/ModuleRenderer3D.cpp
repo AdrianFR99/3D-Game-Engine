@@ -266,19 +266,14 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 //Drawing a quad with array vertices (with out creating buffers)----------
 
 
-	//float vertices[]{
+float vertices[108];
+CreateCubeVertices(0,0,0,4,vertices);
 
-	//	4,4,0.0, //top left
-	//	-4,4,0.0,//top right
-	//	-4,-4,0.0,//bottom right
-	//	4,-4,0.0 //bottom left
-	//};
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3,GL_FLOAT,0,&vertices);
+	glDrawArrays(GL_TRIANGLES,0,36);
 
-	//glEnableClientState(GL_VERTEX_ARRAY);
-	//glVertexPointer(3,GL_FLOAT,0,vertices);
-	//glDrawArrays(GL_QUADS,0,4);
-
-	//glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
 
 	
 //-------------------------------------------
@@ -415,13 +410,13 @@ void ModuleRenderer3D::CreateCubeVertices(int posX, int posZ, int posY, int Aris
 
 		 // v4-v5-v0
 		  posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
-		  posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 5
+		  posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 5
 		  posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
 
 		  // top face 
 		   // v0-v5-v6
 		  posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
-		  posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 5
+		  posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 5
 		  posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
 
 		   // v6-v1-v0
@@ -438,8 +433,9 @@ void ModuleRenderer3D::CreateCubeVertices(int posX, int posZ, int posY, int Aris
 
 			 //v7-v2-v1
 			 posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
-			 posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 1
 			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
+			 posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 1
+		
 
 
 			//down face
@@ -447,6 +443,7 @@ void ModuleRenderer3D::CreateCubeVertices(int posX, int posZ, int posY, int Aris
 			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
 			 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
 			posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 3
+		
 			//v3-v2-v7
 			posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 3
 			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
@@ -459,7 +456,7 @@ void ModuleRenderer3D::CreateCubeVertices(int posX, int posZ, int posY, int Aris
 			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
 		   //v6-v5-v4
 			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
-			 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 5
+			 posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 5
 			posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
 
 
