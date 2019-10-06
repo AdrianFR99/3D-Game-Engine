@@ -49,6 +49,7 @@ private:
 	bool depth_test = false;
 	bool face_cull = true;
 	bool lighting = true;
+	bool wireframe = false;
 
 	bool specular = false;
 	bool diffuse = false;

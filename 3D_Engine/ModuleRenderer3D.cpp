@@ -318,11 +318,6 @@ glDeleteBuffers(1, &VBO); //i don't know if it's ok delet it here
 //------------------------------------------------------------------------
 
 
-	//WireFrame
-	/*glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);*/
-
-	//Filled
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 
 	App->UI_Layer->Draw();
