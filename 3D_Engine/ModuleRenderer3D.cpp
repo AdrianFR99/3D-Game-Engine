@@ -287,36 +287,58 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 //buffers example-----------------------------------------------------------
 
 
-	float vertices[]{
-
-		4,4,0.0, //top left
-		-4,4,0.0,//top right
-		-4,-4,0.0,//bottom right
-		4,-4,0.0 //bottom left
-	};
-
-unsigned int VBO=0;
-
-glGenBuffers(1,(GLuint*)&VBO);
-glBindBuffer(GL_ARRAY_BUFFER, VBO);
-glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);  //GL_STATIC_DRAW: the data will most likely not change at all or very rarely.
-																			//GL_DYNAMIC_DRAW: the data is likely to change a lot.
-																			//GL_STREAM_DRAW : the data will change every time it is drawn.
-glEnableClientState(GL_VERTEX_ARRAY);
-
-glVertexPointer(3,GL_FLOAT,0,NULL);
-glDrawArrays(GL_QUADS,0,4);
-
-glDisableClientState(GL_VERTEX_ARRAY);
-
-
-
-//delete [] vertices;   //create a GLfloat vertices=new GLfloat[sizeX] and then delete it
+//	float vertices[]{
 //
-glDeleteBuffers(1, &VBO); //i don't know if it's ok delet it here
+//		4,4,0.0, //top left
+//		-4,4,0.0,//top right
+//		-4,-4,0.0,//bottom right
+//		4,-4,0.0 //bottom left
+//	};
+//
+//unsigned int VBO=0;
+//
+//glGenBuffers(1,(GLuint*)&VBO);
+//glBindBuffer(GL_ARRAY_BUFFER, VBO);
+//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);  //GL_STATIC_DRAW: the data will most likely not change at all or very rarely.
+//																			//GL_DYNAMIC_DRAW: the data is likely to change a lot.
+//																			//GL_STREAM_DRAW : the data will change every time it is drawn.
+//glEnableClientState(GL_VERTEX_ARRAY);
+//
+//glVertexPointer(3,GL_FLOAT,0,NULL);
+//glDrawArrays(GL_QUADS,0,4);
+//
+//glDisableClientState(GL_VERTEX_ARRAY);
+//
+//
+//
+////delete [] vertices;   //create a GLfloat vertices=new GLfloat[sizeX] and then delete it
+////
+//glDeleteBuffers(1, &VBO); //i don't know if it's ok delet it here
 
 //------------------------------------------------------------------------
 
+//Indices---------------------------------------------------------------
+
+//uint my_indices = 0;
+//uint num_indices = 8;
+//
+//float indice[24];
+//CreateCubeIndices(0, 0, 0, 4,indice);
+//
+//
+//
+//glGenBuffers(1, (GLuint*) &(my_indices));
+//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*num_indices,&indice, GL_STATIC_DRAW);
+//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+//
+//
+//
+//
+//
+//
+//glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+//--------------------------------------------------------------------
 
 
 
@@ -362,4 +384,123 @@ void ModuleRenderer3D::changeLight(bool value)
 	{
 		lights[0].Active(false);
 	}
+}
+
+
+
+void ModuleRenderer3D::CreateCubeVertices(int posX, int posZ, int posY, int AristaMagnitude, float*vertices) {
+
+	AristaMagnitude *= 0.5;
+
+	
+
+	float Array[108]{
+
+		//front face
+		//v0 - v1 - v2
+		posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
+		posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 1
+		posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
+
+		 // v2-v3-v0
+		posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
+		posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 3
+		posX + (AristaMagnitude),  posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
+
+		 // right face
+		 // v0-v3-v4
+		 posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
+		 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 3
+		 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
+
+		 // v4-v5-v0
+		  posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
+		  posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 5
+		  posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
+
+		  // top face 
+		   // v0-v5-v6
+		  posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
+		  posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 5
+		  posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
+
+		   // v6-v1-v0
+			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
+			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 1
+			posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
+
+
+			 // left face
+			 //v1-v6-v7
+			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 1
+			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
+			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
+
+			 //v7-v2-v1
+			 posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
+			 posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 1
+			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
+
+
+			//down face
+			//v7-v4-v3
+			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
+			 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
+			posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 3
+			//v3-v2-v7
+			posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 3
+			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
+			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
+
+			//back face
+			//v4-v7-v6
+			 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
+			 posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
+			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
+		   //v6-v5-v4
+			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
+			 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 5
+			posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
+
+
+	};
+
+
+	for (int i = 0; i <108+1; ++i) {
+
+		vertices[i] = Array[i];
+
+
+	}
+
+
+
+}
+
+void ModuleRenderer3D::CreateCubeIndices(int posX,int posZ,int posY, int AristaMagnitude,float*index) {
+
+	AristaMagnitude *= 0.5;
+	
+	float Array[24]{
+
+		posX + (-AristaMagnitude), posZ+(-AristaMagnitude),posY+ (AristaMagnitude),//vertex 1
+		posX + (AristaMagnitude),posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
+		posX + (-AristaMagnitude),posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 3
+		posX + (AristaMagnitude),posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 4
+
+		posX + (-AristaMagnitude),posZ + (-AristaMagnitude),posY + (-AristaMagnitude), //vertex 5
+		posX + (AristaMagnitude),posZ + (-AristaMagnitude),posY + (-AristaMagnitude), //vertex 6
+		posX + (-AristaMagnitude),posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
+		posX + (AristaMagnitude),posZ + (AristaMagnitude),posY + (-AristaMagnitude) //vertex 8
+
+	};
+
+	for (int i = 0; i < 24+1; ++i) {
+
+		index[i] = Array[i];
+
+
+	}
+
+	   	 
 }
