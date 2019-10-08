@@ -116,6 +116,56 @@ bool ModuleRenderer3D::Init()
 	return ret;
 }
 
+
+
+bool ModuleRenderer3D::Start() {
+
+
+
+
+	GLubyte indices[36]={
+
+		0,1,2, 2,3,0,
+		0,3,4, 3,7,4,
+		3,2,7, 2,6,7,
+		6,4,7, 4,6,5,
+		1,0,4, 5,1,4,
+		1,5,2, 2,5,6,
+	};
+
+	
+	float vertices[24] = {
+
+		0.f,4.f,0.f,
+		0.f,0.f,0.f,
+		0.f,0.f,4.f,
+		0.f, 4.f, 4.f,
+		4.f,4.f,0.f,
+		4.f,0.f,0.f,
+		4.f,0.f,4.f,
+		4.f, 4.f, 4.f,
+	};
+
+
+
+	
+	glGenBuffers(1, (GLuint*) &(ID_Vertices));
+	glBindBuffer(GL_ARRAY_BUFFER,ID_Vertices);
+	glBufferData(GL_ARRAY_BUFFER,sizeof(uint)*num_Vertices, vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER,0);
+
+
+	glGenBuffers(1, (GLuint*) &(ID_indices));
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID_indices);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*num_indices, indices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+
+
+
+
+	return true;
+
+}
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
@@ -138,7 +188,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	
-//Lines Immediated mode--------------------------------------------
 
 	glBegin(GL_LINES);
 	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
@@ -160,182 +209,24 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	
 	glLineWidth(1.0f);
 
-//---------------------------------------------------------------------
 
 
-//Triangles Immediated mode---------------------------------------------
-
-	//glBegin(GL_TRIANGLES);
-
-	//glVertex3f(4, 4, 0.0);
-	//glVertex3f(-4, 4, 0.0);
-	//glVertex3f(-4, -4, 0.0);
-
-
-	//glEnd();
-
-//--------------------------------------------------------------------
-
-//Quads Immediated mode-----------------------------------------------
-
-//glBegin(GL_QUADS);
-//
-//  glVertex3f(4,4,0.0);//top left
-//	glVertex3f(-4,4,0.0);//top right
-//	glVertex3f(-4,-4,0.0);//bottom right
-//	glVertex3f(4,-4,0.0);//bottom left
-//
-//glEnd();
-
-//--------------------------------------------------------------------
-
-
-//cube Immediated mode-----------------------------------------------
-
-//glBegin(GL_TRIANGLES);
-//
-////front face
-//
-//glVertex3f(-4.0, 4.0, 4.0);//top left
-//glVertex3f(-4.0, 4.0, -4.0);//top right
-//glVertex3f(-4.0, -4.0, -4.0);//bottom left
-//
-//glVertex3f(-4.0, -4.0, -4.0);//bottom left
-//glVertex3f(-4.0, -4.0, 4.0);//bottom right
-//glVertex3f(-4.0, 4.0, 4.0);//top left
-//
-//
-////Left face
-//
-//glVertex3f(-4.0, 4.0, -4.0);//top left
-//glVertex3f(4.0, 4.0, -4.0);//top right
-//glVertex3f(4.0, -4.0, -4.0);//bottom left
-//
-//glVertex3f(4.0, -4.0, -4.0);//bottom left
-//glVertex3f(-4.0, -4.0, -4.0);//bottom right
-//glVertex3f(-4.0, 4.0, -4.0);//top left
-//
-////back face
-//
-//glVertex3f(4.0, 4.0, -4.0);//top left
-//glVertex3f(4.0, 4.0, 4.0);//top right
-//glVertex3f(4.0, -4.0, 4.0);//bottom left
-//
-//glVertex3f(4.0, -4.0, 4.0);//bottom left
-//glVertex3f(4.0, -4.0, -4.0);//bottom right
-//glVertex3f(4.0, 4.0, -4.0);//top left
-//
-//
-////right face
-//
-//glVertex3f(4.0, -4.0, 4.0);//top left
-//glVertex3f(4.0, 4.0, 4.0);//top right
-//glVertex3f(-4.0, 4.0, 4.0);//bottom left
-//
-//glVertex3f(-4.0, -4.0, 4.0);//bottom left
-//glVertex3f(4.0, -4.0, 4.0);//bottom right
-//glVertex3f(-4.0, 4.0, 4.0);//top left
-//
-////up face
-//
-////glVertex3f(-4.0, 4.0, -4.0);//bottom left
-////glVertex3f(4.0, 4.0, 4.0);//top right
-////glVertex3f(4.0, 4.0, -4.0);//top left
-//
-//
-////glVertex3f();
-////glVertex3f();
-////glVertex3f();
-//
-////down face
-//
-////glVertex3f();
-////glVertex3f();
-////glVertex3f();
-//
-////glVertex3f();
-////glVertex3f();
-////glVertex3f();
-//
-//
-//
-//glEnd();
-
-//--------------------------------------------------------------------
-
-
-
-//Drawing a quad with array vertices (with out creating buffers)----------
-
-
-float vertices[108];
-CreateCubeVertices(0,0,0,4,vertices);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(3,GL_FLOAT,0,&vertices);
-	glDrawArrays(GL_TRIANGLES,0,36);
+
+
+	glBindBuffer(GL_ARRAY_BUFFER,ID_Vertices);
+	glVertexPointer(3,GL_FLOAT,0,NULL);
+
+	
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ID_indices);
+	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_BYTE, nullptr);
+
+
+	glBindBuffer(GL_ARRAY_BUFFER,0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
-
-	
-//-------------------------------------------
-	
-
-//buffers example-----------------------------------------------------------
-
-
-//	float vertices[]{
-//
-//		4,4,0.0, //top left
-//		-4,4,0.0,//top right
-//		-4,-4,0.0,//bottom right
-//		4,-4,0.0 //bottom left
-//	};
-//
-//unsigned int VBO=0;
-//
-//glGenBuffers(1,(GLuint*)&VBO);
-//glBindBuffer(GL_ARRAY_BUFFER, VBO);
-//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);  //GL_STATIC_DRAW: the data will most likely not change at all or very rarely.
-//																			//GL_DYNAMIC_DRAW: the data is likely to change a lot.
-//																			//GL_STREAM_DRAW : the data will change every time it is drawn.
-//glEnableClientState(GL_VERTEX_ARRAY);
-//
-//glVertexPointer(3,GL_FLOAT,0,NULL);
-//glDrawArrays(GL_QUADS,0,4);
-//
-//glDisableClientState(GL_VERTEX_ARRAY);
-//
-//
-//
-////delete [] vertices;   //create a GLfloat vertices=new GLfloat[sizeX] and then delete it
-////
-//glDeleteBuffers(1, &VBO); //i don't know if it's ok delet it here
-
-//------------------------------------------------------------------------
-
-//Indices---------------------------------------------------------------
-
-//uint my_indices = 0;
-//uint num_indices = 8;
-//
-//float indice[24];
-//CreateCubeIndices(0, 0, 0, 4,indice);
-//
-//
-//
-//glGenBuffers(1, (GLuint*) &(my_indices));
-//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
-//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*num_indices,&indice, GL_STATIC_DRAW);
-//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
-//
-//
-//
-//
-//
-//
-//glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
-//--------------------------------------------------------------------
 
 
 
@@ -351,6 +242,11 @@ CreateCubeVertices(0,0,0,4,vertices);
 bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
+
+
+	glDeleteBuffers(1, &ID_indices);
+	glDeleteBuffers(1, &ID_Vertices);
+
 
 	SDL_GL_DeleteContext(context);
 
@@ -385,121 +281,16 @@ void ModuleRenderer3D::changeLight(bool value)
 
 
 
-void ModuleRenderer3D::CreateCubeVertices(int posX, int posZ, int posY, int AristaMagnitude, float*vertices) {
-
-	AristaMagnitude *= 0.5;
+void ModuleRenderer3D::CreateCubeIndices(int posX, int posZ, int posY, int AristaMagnitude, float*Indices) {
 
 	
-
-	float Array[108]{
-
-		//front face
-		//v0 - v1 - v2
-		posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
-		posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 1
-		posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
-
-		 // v2-v3-v0
-		posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
-		posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 3
-		posX + (AristaMagnitude),  posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
-
-		 // right face
-		 // v0-v3-v4
-		 posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
-		 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 3
-		 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
-
-		 // v4-v5-v0
-		  posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
-		  posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 5
-		  posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
-
-		  // top face 
-		   // v0-v5-v6
-		  posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
-		  posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 5
-		  posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
-
-		   // v6-v1-v0
-			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
-			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 1
-			posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
-
-
-			 // left face
-			 //v1-v6-v7
-			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 1
-			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
-			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
-
-			 //v7-v2-v1
-			 posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
-			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
-			 posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 1
-		
-
-
-			//down face
-			//v7-v4-v3
-			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
-			 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
-			posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 3
-		
-			//v3-v2-v7
-			posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 3
-			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
-			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
-
-			//back face
-			//v4-v7-v6
-			 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
-			 posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
-			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
-		   //v6-v5-v4
-			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
-			 posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 5
-			posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
-
-
-	};
-
-
-	for (int i = 0; i <108+1; ++i) {
-
-		vertices[i] = Array[i];
-
-
-	}
-
-
 
 }
 
-void ModuleRenderer3D::CreateCubeIndices(int posX,int posZ,int posY, int AristaMagnitude,float*index) {
+void ModuleRenderer3D::CreateCubeVertices(int posX,int posZ,int posY, int AristaMagnitude,float*vertices) {
 
-	AristaMagnitude *= 0.5;
 	
-	float Array[24]{
 
-		posX + (-AristaMagnitude), posZ+(-AristaMagnitude),posY+ (AristaMagnitude),//vertex 1
-		posX + (AristaMagnitude),posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
-		posX + (-AristaMagnitude),posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 3
-		posX + (AristaMagnitude),posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 4
-
-		posX + (-AristaMagnitude),posZ + (-AristaMagnitude),posY + (-AristaMagnitude), //vertex 5
-		posX + (AristaMagnitude),posZ + (-AristaMagnitude),posY + (-AristaMagnitude), //vertex 6
-		posX + (-AristaMagnitude),posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
-		posX + (AristaMagnitude),posZ + (AristaMagnitude),posY + (-AristaMagnitude) //vertex 8
-
-	};
-
-	for (int i = 0; i < 24+1; ++i) {
-
-		index[i] = Array[i];
-
-
-	}
 
 	   	 
 }

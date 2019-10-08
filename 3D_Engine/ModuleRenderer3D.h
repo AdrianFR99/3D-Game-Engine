@@ -13,6 +13,7 @@ public:
 	~ModuleRenderer3D();
 
 	bool Init();
+	bool Start();
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
@@ -32,6 +33,15 @@ public:
 
 
 public:
+
+
+
+	uint ID_indices = 0;
+	uint num_indices = 36;
+
+	uint ID_Vertices = 0;
+	uint num_Vertices =24;
+
 
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
