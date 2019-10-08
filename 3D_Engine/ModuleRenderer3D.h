@@ -36,10 +36,10 @@ public:
 
 
 
-	uint ID_indices = 0;
+	uint ID_indices = 1;
 	uint num_indices = 36;
 
-	uint ID_Vertices = 0;
+	uint ID_Vertices = 1;
 	uint num_Vertices =24;
 
 
