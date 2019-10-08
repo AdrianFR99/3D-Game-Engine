@@ -57,6 +57,7 @@ private:
 	bool emission = false;
 	bool ambient_and_diffuse = true;
 	bool color_material = true;
+	bool texture_2d = false;
 
 
 };

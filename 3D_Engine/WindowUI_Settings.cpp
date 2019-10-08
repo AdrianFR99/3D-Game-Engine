@@ -468,6 +468,15 @@ void WindowUI_Settings::Config_Window_Buttons() {
 					glDisable(GL_COLOR_MATERIAL);
 
 			}
+			
+			if (ImGui::Checkbox("Texture 2D", &texture_2d))
+			{
+				if (texture_2d)
+					glEnable(GL_TEXTURE_2D);
+				else
+					glDisable(GL_TEXTURE_2D);
+
+			}
 
 			//if (ImGui::Checkbox("Specular", &specular))
 			//{
