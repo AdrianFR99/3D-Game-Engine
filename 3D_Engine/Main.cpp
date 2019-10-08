@@ -6,6 +6,9 @@
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "SDL/libx86/SDL2main.lib" )
 
+#pragma comment(lib, "Brofiler/ProfilerCore32.lib")
+#include "Brofiler/Brofiler.h"
+
 
 enum main_states
 {
@@ -20,6 +23,8 @@ Application* App = NULL;
 
 int main(int argc, char ** argv)
 {
+	
+	
 
 	LOG("Starting Engine '%s'...", TITLE);
 

@@ -19,6 +19,18 @@ public:
 
 	void OnResize(int width, int height);
 
+	void changeLight(bool value);
+
+
+
+public:
+
+	void CreateCubeIndices(int posX, int posZ, int posY,int AristaMagnitude,float*index);
+
+	void CreateCubeVertices(int posX, int posZ, int posY, int AristaMagnitude, float*vertices);
+	
+
+
 public:
 
 	Light lights[MAX_LIGHTS];

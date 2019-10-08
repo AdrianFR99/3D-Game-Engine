@@ -2,6 +2,8 @@
 #include "ModuleEngineUI.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
+#include "Glew/include/glew.h"
+
 
 #include "WindowUI.h"
 #include "WindowUI_Settings.h"
@@ -44,8 +46,11 @@ bool ModuleEngineUI::Init() {
 }
 
 bool ModuleEngineUI::Start() {
-	
-	
+
+
+	GearConsole.AddLog("is anyone there?");
+	GearConsole.AddLog("%s", glewGetString(GLEW_VERSION));
+
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -77,22 +82,11 @@ update_status  ModuleEngineUI::PreUpdate(float dt) {
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 
-	const char* lol = "testing 1.23";
-	testingmic.Load(lol);
 
 	return UPDATE_CONTINUE;
 }
 update_status ModuleEngineUI::Update(float dt) {
 
-
-	
-	settingsPanel->Display();
-
-	Menu_Bar();
-		
-
-	if(Show_ImGui_Demo)
-	ImGui::ShowDemoWindow();
 
 	if(!Exit_Pressed)
 	return UPDATE_CONTINUE;
@@ -103,6 +97,18 @@ update_status ModuleEngineUI::Update(float dt) {
 }
 update_status  ModuleEngineUI::PostUpdate(float dt) {
 
+
+	settingsPanel->Display();
+
+	Menu_Bar();
+		
+	if(Show_ImGui_Demo)
+	ImGui::ShowDemoWindow();
+
+	if (showConsole)
+	{
+		GearConsole.Draw("Gear Console",&showConsole);
+	}
 	
 	return UPDATE_CONTINUE;
 }
@@ -291,7 +297,10 @@ void ModuleEngineUI::Menu_Bar() {
 	void ModuleEngineUI::Menu_Bar_Window(){
 		if (ImGui::BeginMenu("Window"))
 		{
-
+			if (ImGui::MenuItem("Console", "Ctrl+C")) {
+				showConsole = !showConsole;
+			}
+			//aqui
 
 			ImGui::EndMenu();
 		}

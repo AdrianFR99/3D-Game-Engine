@@ -3,14 +3,12 @@
 
 
 #include "Module.h"
-
-#include "JSONLoader.h"
+#include "WindowConsole.h"
 
 #include <vector>
 
 typedef int ImGuiWindowFlags;
 
-class JSONLoader;
 class WindowUI;
 class WindowUI_Settings;
 
@@ -43,9 +41,6 @@ public:
 	ImGuiWindowFlags window_flags;
 
 
-	//json
-	JSONLoader testingmic;
-
 
 	WindowUI_Settings* settingsPanel=nullptr;
 	std::vector<WindowUI*> Panels;
@@ -76,6 +71,10 @@ public:
 	//FPS
 	void Assign_FPS_Data(float fps,float ms);
 
+
+	//Console
+	AppConsole GearConsole;
+	bool showConsole = false;
 
 
 };

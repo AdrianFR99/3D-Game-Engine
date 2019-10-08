@@ -166,6 +166,9 @@
     <ClCompile Include="MathGeoLib\include\Geometry\Frustum.cpp">
       <Filter>Source\External_Files\MathGeoLib\geometry</Filter>
     </ClCompile>
+    <ClCompile Include="WindowConsole.cpp">
+      <Filter>Source\Modules\UI_Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleCamera3D.h">
@@ -447,6 +450,15 @@
     <ClInclude Include="json\json.hpp">
       <Filter>Source\External_Files\json</Filter>
     </ClInclude>
+    <ClInclude Include="Brofiler\Brofiler.h">
+      <Filter>Source\External_Files\brofiler</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowConsole.h">
+      <Filter>Source\Modules\UI_Elements</Filter>
+    </ClInclude>
+    <ClInclude Include="ParFiles\par_shapes.h">
+      <Filter>Source\External_Files\ParFiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\include\Geometry\KDTree.inl">
@@ -519,6 +531,12 @@
     </Filter>
     <Filter Include="Source\Loader">
       <UniqueIdentifier>{0fcd7fd0-e5bc-4504-9822-f570066ed09e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\External_Files\brofiler">
+      <UniqueIdentifier>{18132174-0ae3-42f0-ac8b-0047e31e8eec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\External_Files\ParFiles">
+      <UniqueIdentifier>{c1619794-9086-43e1-b8b2-ab429fa6c703}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "Brofiler/Brofiler.h"
 
 
 
@@ -76,6 +77,8 @@ bool Application::Init()
 	ms_timer.Start();
 	SetMaxFrameRate(0);
 
+	load();
+	settings = JSONLoad.getFile();
 	return ret;
 }
 
@@ -114,6 +117,9 @@ void Application::FinishUpdate()
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {
+
+	BROFILER_CATEGORY("App_Update", Profiler::Color::AntiqueWhite);
+
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 	
@@ -147,6 +153,7 @@ update_status Application::Update()
 
 bool Application::CleanUp()
 {
+	save();
 	bool ret = true;
 	std::list<Module*>::reverse_iterator item = list_modules.rbegin();
 
@@ -189,5 +196,27 @@ void Application::SetMaxFrameRate(uint MaxFrameRate) {
 const char* Application::GetAppName() const {
 
 	return AppName.c_str();
+
+}
+
+void Application::save()
+{
+	json test;
+	test = {
+		{ "Test",{
+			{ "mic", "1,2,3" }
+		} }
+	};
+
+	
+
+	JSONLoad.Save("test.json", test);
+	
+}
+
+
+void Application::load()
+{
+	JSONLoad.Load("test.json");
 
 }

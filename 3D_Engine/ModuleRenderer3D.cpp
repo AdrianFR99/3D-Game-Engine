@@ -77,7 +77,7 @@ bool ModuleRenderer3D::Init()
 		
 		//Initialize clear color
 		glClearColor(0.f, 0.f, 0.f, 1.f);
-
+		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 		//Check for error
 		error = glGetError();
 		if(error != GL_NO_ERROR)
@@ -106,6 +106,8 @@ bool ModuleRenderer3D::Init()
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
+	//	glCullFace(GL_FRONT_AND_BACK);
+		
 	}
 
 	// Projection matrix for
@@ -135,9 +137,213 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
+	
+//Lines Immediated mode--------------------------------------------
+
+	glBegin(GL_LINES);
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+
+	for (float x = 0.0; x<100; x ++)
+	{
+		glVertex3f(x, 0.0f, 0.0f);
+		glVertex3f(x, 0.0f, 100.0f);
+	}
+	for (float y = 0.0; y < 100; y++)
+	{
+		glVertex3f(0.0, 0.0f, y);
+		glVertex3f(100.0f, 0.0f, y);
+
+	}
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+	glEnd();
+	
+	glLineWidth(1.0f);
+
+//---------------------------------------------------------------------
+
+
+//Triangles Immediated mode---------------------------------------------
+
+	//glBegin(GL_TRIANGLES);
+
+	//glVertex3f(4, 4, 0.0);
+	//glVertex3f(-4, 4, 0.0);
+	//glVertex3f(-4, -4, 0.0);
+
+
+	//glEnd();
+
+//--------------------------------------------------------------------
+
+//Quads Immediated mode-----------------------------------------------
+
+//glBegin(GL_QUADS);
+//
+//  glVertex3f(4,4,0.0);//top left
+//	glVertex3f(-4,4,0.0);//top right
+//	glVertex3f(-4,-4,0.0);//bottom right
+//	glVertex3f(4,-4,0.0);//bottom left
+//
+//glEnd();
+
+//--------------------------------------------------------------------
+
+
+//cube Immediated mode-----------------------------------------------
+
+//glBegin(GL_TRIANGLES);
+//
+////front face
+//
+//glVertex3f(-4.0, 4.0, 4.0);//top left
+//glVertex3f(-4.0, 4.0, -4.0);//top right
+//glVertex3f(-4.0, -4.0, -4.0);//bottom left
+//
+//glVertex3f(-4.0, -4.0, -4.0);//bottom left
+//glVertex3f(-4.0, -4.0, 4.0);//bottom right
+//glVertex3f(-4.0, 4.0, 4.0);//top left
+//
+//
+////Left face
+//
+//glVertex3f(-4.0, 4.0, -4.0);//top left
+//glVertex3f(4.0, 4.0, -4.0);//top right
+//glVertex3f(4.0, -4.0, -4.0);//bottom left
+//
+//glVertex3f(4.0, -4.0, -4.0);//bottom left
+//glVertex3f(-4.0, -4.0, -4.0);//bottom right
+//glVertex3f(-4.0, 4.0, -4.0);//top left
+//
+////back face
+//
+//glVertex3f(4.0, 4.0, -4.0);//top left
+//glVertex3f(4.0, 4.0, 4.0);//top right
+//glVertex3f(4.0, -4.0, 4.0);//bottom left
+//
+//glVertex3f(4.0, -4.0, 4.0);//bottom left
+//glVertex3f(4.0, -4.0, -4.0);//bottom right
+//glVertex3f(4.0, 4.0, -4.0);//top left
+//
+//
+////right face
+//
+//glVertex3f(4.0, -4.0, 4.0);//top left
+//glVertex3f(4.0, 4.0, 4.0);//top right
+//glVertex3f(-4.0, 4.0, 4.0);//bottom left
+//
+//glVertex3f(-4.0, -4.0, 4.0);//bottom left
+//glVertex3f(4.0, -4.0, 4.0);//bottom right
+//glVertex3f(-4.0, 4.0, 4.0);//top left
+//
+////up face
+//
+////glVertex3f(-4.0, 4.0, -4.0);//bottom left
+////glVertex3f(4.0, 4.0, 4.0);//top right
+////glVertex3f(4.0, 4.0, -4.0);//top left
+//
+//
+////glVertex3f();
+////glVertex3f();
+////glVertex3f();
+//
+////down face
+//
+////glVertex3f();
+////glVertex3f();
+////glVertex3f();
+//
+////glVertex3f();
+////glVertex3f();
+////glVertex3f();
+//
+//
+//
+//glEnd();
+
+//--------------------------------------------------------------------
+
+
+
+//Drawing a quad with array vertices (with out creating buffers)----------
+
+
+float vertices[108];
+CreateCubeVertices(0,0,0,4,vertices);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3,GL_FLOAT,0,&vertices);
+	glDrawArrays(GL_TRIANGLES,0,36);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	
+//-------------------------------------------
+	
+
+//buffers example-----------------------------------------------------------
+
+
+//	float vertices[]{
+//
+//		4,4,0.0, //top left
+//		-4,4,0.0,//top right
+//		-4,-4,0.0,//bottom right
+//		4,-4,0.0 //bottom left
+//	};
+//
+//unsigned int VBO=0;
+//
+//glGenBuffers(1,(GLuint*)&VBO);
+//glBindBuffer(GL_ARRAY_BUFFER, VBO);
+//glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);  //GL_STATIC_DRAW: the data will most likely not change at all or very rarely.
+//																			//GL_DYNAMIC_DRAW: the data is likely to change a lot.
+//																			//GL_STREAM_DRAW : the data will change every time it is drawn.
+//glEnableClientState(GL_VERTEX_ARRAY);
+//
+//glVertexPointer(3,GL_FLOAT,0,NULL);
+//glDrawArrays(GL_QUADS,0,4);
+//
+//glDisableClientState(GL_VERTEX_ARRAY);
+//
+//
+//
+////delete [] vertices;   //create a GLfloat vertices=new GLfloat[sizeX] and then delete it
+////
+//glDeleteBuffers(1, &VBO); //i don't know if it's ok delet it here
+
+//------------------------------------------------------------------------
+
+//Indices---------------------------------------------------------------
+
+//uint my_indices = 0;
+//uint num_indices = 8;
+//
+//float indice[24];
+//CreateCubeIndices(0, 0, 0, 4,indice);
+//
+//
+//
+//glGenBuffers(1, (GLuint*) &(my_indices));
+//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*num_indices,&indice, GL_STATIC_DRAW);
+//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, my_indices);
+//
+//
+//
+//
+//
+//
+//glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+//--------------------------------------------------------------------
+
+
 
 	App->UI_Layer->Draw();
 	SDL_GL_SwapWindow(App->window->window);
+
+
+
 	return UPDATE_CONTINUE;
 }
 
@@ -163,4 +369,137 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+void ModuleRenderer3D::changeLight(bool value)
+{
+	if (value)
+	{
+		lights[0].Active(true);
+	}
+	else
+	{
+		lights[0].Active(false);
+	}
+}
+
+
+
+void ModuleRenderer3D::CreateCubeVertices(int posX, int posZ, int posY, int AristaMagnitude, float*vertices) {
+
+	AristaMagnitude *= 0.5;
+
+	
+
+	float Array[108]{
+
+		//front face
+		//v0 - v1 - v2
+		posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
+		posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 1
+		posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
+
+		 // v2-v3-v0
+		posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
+		posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 3
+		posX + (AristaMagnitude),  posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
+
+		 // right face
+		 // v0-v3-v4
+		 posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
+		 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 3
+		 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
+
+		 // v4-v5-v0
+		  posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
+		  posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 5
+		  posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
+
+		  // top face 
+		   // v0-v5-v6
+		  posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
+		  posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 5
+		  posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
+
+		   // v6-v1-v0
+			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
+			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 1
+			posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 0
+
+
+			 // left face
+			 //v1-v6-v7
+			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 1
+			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
+			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
+
+			 //v7-v2-v1
+			 posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
+			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
+			 posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 1
+		
+
+
+			//down face
+			//v7-v4-v3
+			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
+			 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
+			posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 3
+		
+			//v3-v2-v7
+			posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 3
+			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
+			posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
+
+			//back face
+			//v4-v7-v6
+			 posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
+			 posX + (-AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
+			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
+		   //v6-v5-v4
+			posX + (-AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 6
+			 posX + (AristaMagnitude), posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 5
+			posX + (AristaMagnitude), posZ + (-AristaMagnitude),posY + (-AristaMagnitude),//vertex 4
+
+
+	};
+
+
+	for (int i = 0; i <108+1; ++i) {
+
+		vertices[i] = Array[i];
+
+
+	}
+
+
+
+}
+
+void ModuleRenderer3D::CreateCubeIndices(int posX,int posZ,int posY, int AristaMagnitude,float*index) {
+
+	AristaMagnitude *= 0.5;
+	
+	float Array[24]{
+
+		posX + (-AristaMagnitude), posZ+(-AristaMagnitude),posY+ (AristaMagnitude),//vertex 1
+		posX + (AristaMagnitude),posZ + (-AristaMagnitude),posY + (AristaMagnitude),//vertex 2
+		posX + (-AristaMagnitude),posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 3
+		posX + (AristaMagnitude),posZ + (AristaMagnitude),posY + (AristaMagnitude),//vertex 4
+
+		posX + (-AristaMagnitude),posZ + (-AristaMagnitude),posY + (-AristaMagnitude), //vertex 5
+		posX + (AristaMagnitude),posZ + (-AristaMagnitude),posY + (-AristaMagnitude), //vertex 6
+		posX + (-AristaMagnitude),posZ + (AristaMagnitude),posY + (-AristaMagnitude),//vertex 7
+		posX + (AristaMagnitude),posZ + (AristaMagnitude),posY + (-AristaMagnitude) //vertex 8
+
+	};
+
+	for (int i = 0; i < 24+1; ++i) {
+
+		index[i] = Array[i];
+
+
+	}
+
+	   	 
 }

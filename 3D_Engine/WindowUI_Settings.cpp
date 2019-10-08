@@ -61,7 +61,7 @@ void WindowUI_Settings::Config_Window() {
 	Config_Window_FileSystem();
 	Config_Window_Input();
 	Config_Window_Hardware();
-
+	Config_Window_Buttons();
 
 	ImGui::End();
 
@@ -236,7 +236,24 @@ void WindowUI_Settings::Config_Window_FileSystem() {
 	if (ImGui::CollapsingHeader("File system"))
 	{
 
+		char *base_path = SDL_GetBasePath();
+		
 
+
+		ImGui::Text("Base File Location:");
+		ImGui::SameLine();
+		ImGui::TextColored(IMGUI_YELLOW, "%s", base_path);
+
+		ImGui::Separator();
+
+		ImGui::Text("Read Location Location:");
+		//ImGui::SameLine();
+
+		ImGui::Separator();
+
+		ImGui::Text("Wrigth location Location:");
+		//ImGui::SameLine();
+		ImGui::Separator();
 
 	}
 
@@ -360,6 +377,224 @@ void WindowUI_Settings::Config_Window_Hardware() {
 
 		ImGui::Separator();
 
+	}
+
+
+
+}
+
+void WindowUI_Settings::Config_Window_Buttons() {
+
+	
+	
+	if (ImGui::CollapsingHeader("Buttons"))
+	{
+		if (ImGui::TreeNode("Poly configuration"))
+		{
+
+			if (ImGui::Checkbox("Depth Test", &depth_test))
+			{
+				if (depth_test)
+				{
+					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+					glEnable(GL_DEPTH_TEST);
+				}
+				else
+				{
+					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+					glDisable(GL_DEPTH_TEST);
+				}
+
+			}
+
+			ImGui::SameLine();
+
+			if (ImGui::Checkbox("Cull Face ", &face_cull))
+			{
+				if (face_cull)
+				{
+					glEnable(GL_CULL_FACE);
+					//glCullFace(GL_FRONT);
+				}
+				else
+				{
+					//glCullFace(GL_BACK);
+					glDisable(GL_CULL_FACE);
+				}
+
+			}
+
+
+
+			if (ImGui::Checkbox("Ligth", &lighting))
+			{
+				if (lighting)
+				{
+
+					glEnable(GL_LIGHTING);
+				}
+				else
+				{
+
+					glDisable(GL_LIGHTING);
+
+				}
+
+			}
+
+			ImGui::SameLine();
+
+			if (ImGui::Checkbox("Wireframe", &wireframe))
+			{
+				if (wireframe)
+					glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				else
+					glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+			}
+
+
+			ImGui::TreePop();
+		}
+
+	
+		if (ImGui::TreeNode("Materials")){
+
+			if (ImGui::Checkbox("Color Material", &color_material))
+			{
+				if (color_material)
+					glEnable(GL_COLOR_MATERIAL);
+				else
+					glDisable(GL_COLOR_MATERIAL);
+
+			}
+			
+			if (ImGui::Checkbox("Texture 2D", &texture_2d))
+			{
+				if (texture_2d)
+					glEnable(GL_TEXTURE_2D);
+				else
+					glDisable(GL_TEXTURE_2D);
+
+			}
+
+			//if (ImGui::Checkbox("Specular", &specular))
+			//{
+			//	if (specular)
+			//	{
+			//		glEnable(GL_COLOR_MATERIAL);
+			//		glColorMaterial(GL_FRONT_AND_BACK, GL_SPECULAR);
+
+			//		glEnable(GL_LIGHT0);
+
+			//		float fAmbient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+			//		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, fAmbient);
+
+			//		float fDiffuse[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+			//		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, fDiffuse);
+
+			//		diffuse = ambient = ambient_and_diffuse = emission = false;
+			//	}
+			//	else
+			//	{
+			//		glDisable(GL_COLOR_MATERIAL);
+			//		//ambient_and_diffuse = true;
+			//		//glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+			//	}
+
+			//}
+
+			//ImGui::SameLine();
+
+			//if (ImGui::Checkbox("Diffuse", &diffuse))
+			//{
+			//	if (diffuse)
+			//	{
+			//		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
+			//		glEnable(GL_COLOR_MATERIAL);
+			//		glEnable(GL_LIGHTING);
+			//		specular = ambient = ambient_and_diffuse = emission = false;
+			//	}
+			//	else
+			//	{
+			//		glDisable(GL_COLOR_MATERIAL);
+			//		//ambient_and_diffuse = true;
+			//		//glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+			//	}
+
+			//}
+
+			//if (ImGui::Checkbox("Ambient", &ambient))
+			//{
+			//	if (ambient)
+			//	{
+			//		glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT);
+			//		glEnable(GL_COLOR_MATERIAL);
+			//		glEnable(GL_LIGHTING);
+			//		diffuse = specular = ambient_and_diffuse = emission = false;
+			//	}
+			//	else
+			//	{
+			//		glDisable(GL_COLOR_MATERIAL);
+			//		//ambient_and_diffuse = true;
+			//		//glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+			//	}
+
+			//}
+
+			//ImGui::SameLine();
+
+			//if (ImGui::Checkbox("Emission", &emission))
+			//{
+			//	if (emission)
+			//	{
+			//		glColorMaterial(GL_FRONT_AND_BACK, GL_EMISSION);
+			//		glEnable(GL_COLOR_MATERIAL);
+			//		glEnable(GL_LIGHTING);
+			//		diffuse = ambient = ambient_and_diffuse = specular = false;
+			//	}
+			//	else
+			//	{
+			//		glDisable(GL_COLOR_MATERIAL);
+			//		//ambient_and_diffuse = true;
+			//		//glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+			//	}
+
+			//}
+
+			//if (ImGui::Checkbox("Ambient and Diffuse", &ambient_and_diffuse))
+			//{
+			//	if (ambient_and_diffuse)
+			//	{
+			//		glEnable(GL_COLOR_MATERIAL);
+			//		glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+			//		glEnable(GL_LIGHT0);
+
+			//		float fAmbient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+			//		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, fAmbient);
+
+			//		float fDiffuse[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+			//		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, fDiffuse);
+
+			//		diffuse = ambient = specular = emission = false;
+			//	}
+			//	else
+			//	{
+			//		glDisable(GL_COLOR_MATERIAL);
+			//		//ambient = true;
+			//		//glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT);
+			//	}
+
+			//}
+
+			//if (!diffuse && !ambient && !specular && !emission && !ambient_and_diffuse)
+			//{
+			//	ambient_and_diffuse = true;
+
+			//}
+
+			ImGui::TreePop();
+		}
 	}
 
 
