@@ -63,6 +63,8 @@ int main(int argc, char ** argv)
 
 		case MAIN_UPDATE:
 		{
+			BROFILER_FRAME("HOLA TELETUBI");
+
 			BROFILER_CATEGORY("Update", Profiler::Color::AntiqueWhite);
 
 			int update_return = App->Update();

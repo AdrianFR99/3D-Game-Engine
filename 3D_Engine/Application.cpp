@@ -118,7 +118,7 @@ void Application::FinishUpdate()
 update_status Application::Update()
 {
 
-	BROFILER_CATEGORY("App_Update", Profiler::Color::AntiqueWhite);
+	BROFILER_CATEGORY("App_Update", Profiler::Color::Yellow);
 
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
