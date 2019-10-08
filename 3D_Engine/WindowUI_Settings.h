@@ -56,6 +56,7 @@ private:
 	bool ambient = false;
 	bool emission = false;
 	bool ambient_and_diffuse = true;
+	bool color_material = true;
 
 
 };

@@ -141,6 +141,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 //Lines Immediated mode--------------------------------------------
 
 	glBegin(GL_LINES);
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
 
 	for (float x = 0.0; x<100; x ++)
 	{
@@ -153,6 +154,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 		glVertex3f(100.0f, 0.0f, y);
 
 	}
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 	glEnd();
 	
