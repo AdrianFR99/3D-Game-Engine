@@ -229,7 +229,7 @@ uint ModuleWindow::getWinWidth()
 
 uint ModuleWindow::getWinHeight()
 {
-	return Screen_Width;
+	return Screen_Height;
 }
 
 void ModuleWindow::getExtremeSizes(uint & minW, uint &minH, uint &maxW, uint &maxH)

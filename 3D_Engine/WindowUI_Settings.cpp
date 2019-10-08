@@ -169,9 +169,10 @@ void WindowUI_Settings::Config_Window_Window() {
 
 		//size changer
 
-		uint width, minW, maxW, height, minH, maxH;
+		uint width, minW=600, maxW=1300, height, minH=600, maxH= 900;
 
-		App->window->getExtremeSizes(minW, minH, maxW, maxH);
+		//App->window->getExtremeSizes(minW, minH, maxW, maxH);
+
 		width = App->window->getWinWidth();
 		height = App->window->getWinHeight();
 
