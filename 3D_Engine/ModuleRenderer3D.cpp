@@ -8,6 +8,9 @@
 #include "SDL\include\SDL_opengl.h"
 #include "imgui/imgui.h"
 
+#include "ParFiles/par_shapes.h"
+
+
 //#include <gl/GL.h>
 //#include <gl/GLU.h>
 
@@ -122,33 +125,72 @@ bool ModuleRenderer3D::Start() {
 
 
 
-
-	GLubyte indices[36]={
-
-		0,1,2, 2,3,0,
-		0,3,4, 3,7,4,
-		3,2,7, 2,6,7,
-		6,4,7, 4,6,5,
-		1,0,4, 5,1,4,
-		1,5,2, 2,5,6,
-	};
-
+	par_shapes_mesh* m = par_shapes_create_cube();
 	
-	float vertices[24] = {
+	par_shapes_unweld(m, true);
+	par_shapes_compute_normals(m);
 
-		0.f,1.f,0.f,//0
-		0.f,0.f,0.f,//1
-		0.f,0.f,1.f,//2
-		0.f, 1.f, 1.f,//3
-		1.f,1.f,0.f,//4
-		1.f,0.f,0.f,//5
-		1.f,0.f,1.f,//6
-		1.f, 1.f, 1.f,//7
-	};
-
-
-
+	par_shapes_translate(m, 0, 0, 0);
+	par_shapes_scale(m, 2, 2, 2);
 	
+
+
+	buffer[0] = 0; buffer[1] = 1; buffer[2] = 2;
+	p = m->npoints;
+
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
+	glGenBuffers(3, buffer);
+
+	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
+	glBufferData(GL_ARRAY_BUFFER, m->npoints * 3 * sizeof(float), m->points, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);//free
+
+	glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
+	glBufferData(GL_ARRAY_BUFFER, m->npoints * 3 * sizeof(float), m->normals, GL_STATIC_DRAW);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);//Free
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[2]);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m->ntriangles * 3 * sizeof(PAR_SHAPES_T),m->triangles, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);//Free
+
+	glBindVertexArray(0);
+
+	par_shapes_free_mesh(m);
+
+
+
+	//GLubyte indices[36]={
+
+	//	0,1,2, 2,3,0,
+	//	0,3,4, 3,7,4,
+	//	3,2,7, 2,6,7,
+	//	6,4,7, 4,6,5,
+	//	1,0,4, 5,1,4,
+	//	1,5,2, 2,5,6,
+	//};
+
+	//
+	//float vertices[24] = {
+
+	//	0.f,1.f,0.f,//0
+	//	0.f,0.f,0.f,//1
+	//	0.f,0.f,1.f,//2
+	//	0.f, 1.f, 1.f,//3
+	//	1.f,1.f,0.f,//4
+	//	1.f,0.f,0.f,//5
+	//	1.f,0.f,1.f,//6
+	//	1.f, 1.f, 1.f,//7
+	//};
+
+
+
+	/*
 	glGenBuffers(1, (GLuint*) &(ID_Vertices));
 	glBindBuffer(GL_ARRAY_BUFFER,ID_Vertices);
 	glBufferData(GL_ARRAY_BUFFER,sizeof(uint)*num_Vertices, vertices, GL_STATIC_DRAW);
@@ -158,7 +200,7 @@ bool ModuleRenderer3D::Start() {
 	glGenBuffers(1, (GLuint*) &(ID_indices));
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID_indices);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*num_indices, indices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);*/
 
 
 
@@ -215,8 +257,24 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	glEnableClientState(GL_VERTEX_ARRAY);
 
 
-	glBindBuffer(GL_ARRAY_BUFFER,ID_Vertices);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[2]);
+	glDrawElements(GL_TRIANGLES, p, GL_UNSIGNED_INT, nullptr);
+
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	/*glBindBuffer(GL_ARRAY_BUFFER,ID_Vertices);
 	glVertexPointer(3,GL_FLOAT,0,NULL);
+
+
 
 	
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ID_indices);
@@ -225,6 +283,11 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	glBindBuffer(GL_ARRAY_BUFFER,0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+*/
+
+
+
+
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 

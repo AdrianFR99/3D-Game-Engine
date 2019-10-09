@@ -4,7 +4,13 @@
 #include "glmath.h"
 #include "Light.h"
 
+
+
 #define MAX_LIGHTS 8
+
+
+
+typedef unsigned int GLuint;
 
 class ModuleRenderer3D : public Module
 {
@@ -34,6 +40,12 @@ public:
 
 public:
 
+
+	GLuint buffer[3];
+
+	GLuint vao;
+
+	uint p;
 
 
 	uint ID_indices = 1;
