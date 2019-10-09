@@ -12,6 +12,8 @@
 
 typedef unsigned int GLuint;
 
+typedef struct par_shapes_mesh_s;
+
 class ModuleRenderer3D : public Module
 {
 public:
@@ -39,7 +41,6 @@ public:
 
 
 public:
-
 
 	GLuint buffer[3];
 

@@ -126,8 +126,6 @@ bool ModuleRenderer3D::Start() {
 
 
 	par_shapes_mesh* m = par_shapes_create_cube();
-	
-	par_shapes_unweld(m, true);
 	par_shapes_compute_normals(m);
 
 	par_shapes_translate(m, 0, 0, 0);
@@ -135,31 +133,44 @@ bool ModuleRenderer3D::Start() {
 	
 
 
-	buffer[0] = 0; buffer[1] = 1; buffer[2] = 2;
-	p = m->npoints;
+	
+	p = m->ntriangles;
 
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
 
-	glGenBuffers(3, buffer);
+	glGenBuffers(2, buffer);
 
+	
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
-	glBufferData(GL_ARRAY_BUFFER, m->npoints * 3 * sizeof(float), m->points, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);//free
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->npoints * 3, m->points, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
-	glBufferData(GL_ARRAY_BUFFER, m->npoints * 3 * sizeof(float), m->normals, GL_STATIC_DRAW);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);//Free
+	
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[1]);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(PAR_SHAPES_T) * m->ntriangles * 3, m->triangles, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[2]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, m->ntriangles * 3 * sizeof(PAR_SHAPES_T),m->triangles, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);//Free
+	//glGenVertexArrays(1, &vao);
+	//glBindVertexArray(vao);
 
-	glBindVertexArray(0);
+	//glGenBuffers(3, buffer);
+
+	//glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
+	//glBufferData(GL_ARRAY_BUFFER, m->npoints * 3 * sizeof(float), m->points, GL_STATIC_DRAW);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	//glEnableVertexAttribArray(0);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);//free
+
+	//glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
+	//glBufferData(GL_ARRAY_BUFFER, m->npoints * 3 * sizeof(float), m->normals, GL_STATIC_DRAW);
+	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	//glEnableVertexAttribArray(1);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);//Free
+
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[2]);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, m->ntriangles * 3 * sizeof(PAR_SHAPES_T),m->triangles, GL_STATIC_DRAW);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);//Free
+
+	//glBindVertexArray(0);
 
 	par_shapes_free_mesh(m);
 
@@ -254,42 +265,42 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 
 
-	glEnableClientState(GL_VERTEX_ARRAY);
 
+
+
+	glEnableClientState(GL_VERTEX_ARRAY);
 
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[2]);
-	glDrawElements(GL_TRIANGLES, p, GL_UNSIGNED_INT, nullptr);
-
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[1]);
+	glDrawElements(GL_TRIANGLES, p * 3, GL_UNSIGNED_SHORT, nullptr);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	/*glBindBuffer(GL_ARRAY_BUFFER,ID_Vertices);
-	glVertexPointer(3,GL_FLOAT,0,NULL);
-
-
-
-	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ID_indices);
-	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_BYTE, nullptr);
-
-
-	glBindBuffer(GL_ARRAY_BUFFER,0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
-*/
-
-
-
-
-
 	glDisableClientState(GL_VERTEX_ARRAY);
+
+
+
+	//glEnableClientState(GL_VERTEX_ARRAY);
+
+
+	//glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
+	//glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+	//glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
+	//glVertexPointer(3, GL_FLOAT, 0, NULL);
+
+
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[2]);
+	//glDrawElements(GL_TRIANGLES, p, GL_UNSIGNED_SHORT, nullptr);
+
+
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	//glDisableClientState(GL_VERTEX_ARRAY);
 
 
 
