@@ -8,7 +8,7 @@
 #include "SDL\include\SDL_opengl.h"
 #include "imgui/imgui.h"
 
-#include "ParFiles/par_shapes.h"
+
 
 
 //#include <gl/GL.h>
@@ -124,58 +124,6 @@ bool ModuleRenderer3D::Init()
 bool ModuleRenderer3D::Start() {
 
 
-
-	par_shapes_mesh* m = par_shapes_create_cube();
-	par_shapes_compute_normals(m);
-
-	par_shapes_translate(m, 0, 0, 0);
-	par_shapes_scale(m, 2, 2, 2);
-	
-
-
-	
-	p = m->ntriangles;
-
-
-	glGenBuffers(2, buffer);
-
-	
-	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * m->npoints * 3, m->points, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[1]);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(PAR_SHAPES_T) * m->ntriangles * 3, m->triangles, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	//glGenVertexArrays(1, &vao);
-	//glBindVertexArray(vao);
-
-	//glGenBuffers(3, buffer);
-
-	//glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
-	//glBufferData(GL_ARRAY_BUFFER, m->npoints * 3 * sizeof(float), m->points, GL_STATIC_DRAW);
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	//glEnableVertexAttribArray(0);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);//free
-
-	//glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
-	//glBufferData(GL_ARRAY_BUFFER, m->npoints * 3 * sizeof(float), m->normals, GL_STATIC_DRAW);
-	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	//glEnableVertexAttribArray(1);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);//Free
-
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[2]);
-	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, m->ntriangles * 3 * sizeof(PAR_SHAPES_T),m->triangles, GL_STATIC_DRAW);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);//Free
-
-	//glBindVertexArray(0);
-
-	par_shapes_free_mesh(m);
-
-
-
 	//GLubyte indices[36]={
 
 	//	0,1,2, 2,3,0,
@@ -268,19 +216,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-
-	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[1]);
-	glDrawElements(GL_TRIANGLES, p * 3, GL_UNSIGNED_SHORT, nullptr);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-
+	
 
 
 	//glEnableClientState(GL_VERTEX_ARRAY);
@@ -318,8 +254,7 @@ bool ModuleRenderer3D::CleanUp()
 	LOG("Destroying 3D Renderer");
 
 
-	glDeleteBuffers(1, &ID_indices);
-	glDeleteBuffers(1, &ID_Vertices);
+	
 
 
 	SDL_GL_DeleteContext(context);
@@ -351,20 +286,4 @@ void ModuleRenderer3D::changeLight(bool value)
 	{
 		lights[0].Active(false);
 	}
-}
-
-
-
-void ModuleRenderer3D::CreateCubeIndices(int posX, int posZ, int posY, int AristaMagnitude, float*Indices) {
-
-	
-
-}
-
-void ModuleRenderer3D::CreateCubeVertices(int posX,int posZ,int posY, int AristaMagnitude,float*vertices) {
-
-	
-
-
-	   	 
 }

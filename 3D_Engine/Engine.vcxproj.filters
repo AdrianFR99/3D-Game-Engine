@@ -169,6 +169,9 @@
     <ClCompile Include="WindowConsole.cpp">
       <Filter>Source\Modules\UI_Elements</Filter>
     </ClCompile>
+    <ClCompile Include="Primitives.cpp">
+      <Filter>Source\Tools\Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleCamera3D.h">
@@ -459,6 +462,9 @@
     <ClInclude Include="ParFiles\par_shapes.h">
       <Filter>Source\External_Files\ParFiles</Filter>
     </ClInclude>
+    <ClInclude Include="Primitives.h">
+      <Filter>Source\Tools\Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\include\Geometry\KDTree.inl">
@@ -537,6 +543,9 @@
     </Filter>
     <Filter Include="Source\External_Files\ParFiles">
       <UniqueIdentifier>{c1619794-9086-43e1-b8b2-ab429fa6c703}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Tools\Geometry">
+      <UniqueIdentifier>{103b048b-b2a5-489d-a24e-76ab859791fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
