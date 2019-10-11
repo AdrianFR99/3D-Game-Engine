@@ -28,7 +28,7 @@ public:
 		void SendToBuff();
 		void Draw();
 
-		void DestroyPrim();
+		void DestroyBuff();
 
 
 public:
@@ -40,4 +40,15 @@ protected:
 	Primitive_Type type;
 
 };
+
+class Cube : public Primitives
+{
+public:
+	Cube();
+	Cube(float sizeX, float sizeY, float sizeZ);
+	
+public:
+	vec3 size;
+};
+
 #endif //__PRIMITIVE_H__

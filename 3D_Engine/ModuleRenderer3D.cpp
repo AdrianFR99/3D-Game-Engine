@@ -4,6 +4,7 @@
 
 
 
+
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include "imgui/imgui.h"
@@ -162,8 +163,7 @@ bool ModuleRenderer3D::Start() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);*/
 
 
-
-
+	
 	return true;
 
 }
@@ -219,24 +219,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	
 
 
-	//glEnableClientState(GL_VERTEX_ARRAY);
-
-
-	//glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);
-	//glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-	//glBindBuffer(GL_ARRAY_BUFFER, buffer[1]);
-	//glVertexPointer(3, GL_FLOAT, 0, NULL);
-
-
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[2]);
-	//glDrawElements(GL_TRIANGLES, p, GL_UNSIGNED_SHORT, nullptr);
-
-
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-	//glDisableClientState(GL_VERTEX_ARRAY);
+	
 
 
 
@@ -253,7 +236,7 @@ bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
 
-
+	
 	
 
 

@@ -15,9 +15,9 @@ Primitives::~Primitives()
 
 }
 
-void Primitives::DestroyPrim() {
+void Primitives::DestroyBuff() {
 
-	par_shapes_free_mesh(mesh);
+	
 	glDeleteBuffers(2, bufferID);
 
 }
@@ -59,7 +59,7 @@ void Primitives::SendToBuff() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(PAR_SHAPES_T) * mesh->ntriangles * 3, mesh->triangles, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-
+	par_shapes_free_mesh(mesh);
 }
 
 void Primitives::Draw() {
@@ -79,3 +79,24 @@ void Primitives::Draw() {
 	glDisableClientState(GL_VERTEX_ARRAY);
 
 }
+
+
+// CUBE ============================================
+Cube::Cube() : Primitives(), size(1.0f, 1.0f, 1.0f)
+{
+	type = Primitive_Type::CUBE;
+	mesh = par_shapes_create_cube();
+	par_shapes_scale(mesh, size.x, size.y,size.z);
+	par_shapes_translate(mesh,0,0,0);
+	
+}
+
+Cube::Cube(float sizeX, float sizeY, float sizeZ) : Primitives(), size(sizeX, sizeY, sizeZ)
+{
+	type = Primitive_Type::CUBE;
+	mesh = par_shapes_create_cube();
+	par_shapes_scale(mesh, sizeX, sizeY, sizeZ);
+	par_shapes_translate(mesh, 0, 0, 0);
+
+}
+
