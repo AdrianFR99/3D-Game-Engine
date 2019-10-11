@@ -1,6 +1,7 @@
-#include "ModuleAssets.h"
-#include "Globals.h"
+
 #include "Application.h"
+#include "ModuleAssets.h"
+
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -30,6 +31,13 @@ bool ModuleAssets::Start() {
 	return true;
 }
 
+
+
+
+
+
+
+
 void ModuleAssets::Draw() {
 
 
@@ -56,7 +64,6 @@ bool ModuleAssets::ImportMesh(const char* path) {
 
 	if (Scene != nullptr && Scene->HasMeshes())
 	{
-
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
 		{
 		

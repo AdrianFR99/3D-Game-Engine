@@ -28,10 +28,9 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
-	AddModule(UI_Layer);
 	AddModule(hardware);
 	AddModule(Assets);
-
+	AddModule(UI_Layer);
 	// Renderer last!
 	AddModule(renderer3D);
 

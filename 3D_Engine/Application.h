@@ -11,19 +11,31 @@
 #include "ModuleCamera3D.h"
 #include "ModuleEngineUI.h"
 #include "ModuleHardware.h"
-#include "JSONLoader.h"
 #include "ModuleAssets.h"
+#include "JSONLoader.h"
+
+
+
+//class Module;
+//class ModuleWindow;
+//class ModuleInput;
+//class ModuleRenderer3D;
+//class ModuleCamera3D;
+//class ModuleEngineUI
+//class ModuleHardware;
+//class ModuleAssets;
+
 
 class Application
 {
 public:
-	ModuleWindow* window;
-	ModuleInput* input;
-	ModuleRenderer3D* renderer3D;
-	ModuleCamera3D* camera;
-	ModuleEngineUI* UI_Layer;
-	ModuleHardware* hardware;
-	ModuleAssets*Assets;
+	ModuleWindow* window=nullptr;
+	ModuleInput* input = nullptr;
+	ModuleRenderer3D* renderer3D = nullptr;
+	ModuleCamera3D* camera = nullptr;
+	ModuleEngineUI* UI_Layer = nullptr;
+	ModuleHardware* hardware = nullptr;
+	ModuleAssets* Assets = nullptr;
 
 private:
 

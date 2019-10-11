@@ -2,13 +2,11 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 
-
-
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include "imgui/imgui.h"
 
-#include "ParFiles/par_shapes.h"
+
 
 
 //#include <gl/GL.h>
