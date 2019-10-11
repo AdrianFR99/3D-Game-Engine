@@ -12,7 +12,7 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	UI_Layer = new ModuleEngineUI(this);
 	hardware = new ModuleHardware(this);
-	
+	Assets = new ModuleAssets(this);
 
 	Current_frames = 0; //current frame the program is
 	FPS_counter = 0;   //Frame per cicle
@@ -30,7 +30,8 @@ Application::Application()
 	AddModule(input);
 	AddModule(UI_Layer);
 	AddModule(hardware);
-	
+	AddModule(Assets);
+
 	// Renderer last!
 	AddModule(renderer3D);
 

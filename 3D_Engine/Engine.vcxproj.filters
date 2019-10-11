@@ -172,6 +172,9 @@
     <ClCompile Include="Primitives.cpp">
       <Filter>Source\Tools\Geometry</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleAssets.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleCamera3D.h">
@@ -464,6 +467,9 @@
     </ClInclude>
     <ClInclude Include="Primitives.h">
       <Filter>Source\Tools\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleAssets.h">
+      <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

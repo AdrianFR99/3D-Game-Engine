@@ -12,7 +12,7 @@
 #include "ModuleEngineUI.h"
 #include "ModuleHardware.h"
 #include "JSONLoader.h"
-
+#include "ModuleAssets.h"
 
 class Application
 {
@@ -23,6 +23,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleEngineUI* UI_Layer;
 	ModuleHardware* hardware;
+	ModuleAssets*Assets;
 
 private:
 
