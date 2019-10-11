@@ -4,12 +4,11 @@
 
 
 
-
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include "imgui/imgui.h"
 
-
+#include "ParFiles/par_shapes.h"
 
 
 //#include <gl/GL.h>
@@ -125,45 +124,6 @@ bool ModuleRenderer3D::Init()
 bool ModuleRenderer3D::Start() {
 
 
-	//GLubyte indices[36]={
-
-	//	0,1,2, 2,3,0,
-	//	0,3,4, 3,7,4,
-	//	3,2,7, 2,6,7,
-	//	6,4,7, 4,6,5,
-	//	1,0,4, 5,1,4,
-	//	1,5,2, 2,5,6,
-	//};
-
-	//
-	//float vertices[24] = {
-
-	//	0.f,1.f,0.f,//0
-	//	0.f,0.f,0.f,//1
-	//	0.f,0.f,1.f,//2
-	//	0.f, 1.f, 1.f,//3
-	//	1.f,1.f,0.f,//4
-	//	1.f,0.f,0.f,//5
-	//	1.f,0.f,1.f,//6
-	//	1.f, 1.f, 1.f,//7
-	//};
-
-
-
-	/*
-	glGenBuffers(1, (GLuint*) &(ID_Vertices));
-	glBindBuffer(GL_ARRAY_BUFFER,ID_Vertices);
-	glBufferData(GL_ARRAY_BUFFER,sizeof(uint)*num_Vertices, vertices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER,0);
-
-
-	glGenBuffers(1, (GLuint*) &(ID_indices));
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID_indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint)*num_indices, indices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);*/
-
-
-	
 	return true;
 
 }
@@ -211,17 +171,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	glLineWidth(1.0f);
 
 
-
-
-
-
-
 	
-
-
-	
-
-
 
 	App->UI_Layer->Draw();
 	SDL_GL_SwapWindow(App->window->window);
@@ -236,9 +186,8 @@ bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
 
-	
-	
 
+	
 
 	SDL_GL_DeleteContext(context);
 
@@ -270,3 +219,6 @@ void ModuleRenderer3D::changeLight(bool value)
 		lights[0].Active(false);
 	}
 }
+
+
+

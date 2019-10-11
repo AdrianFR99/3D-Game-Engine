@@ -30,14 +30,6 @@ public:
 
 public:
 
-	
-	/*uint ID_indices = 1;
-	uint num_indices = 36;
-
-	uint ID_Vertices = 1;
-	uint num_Vertices =24;
-*/
-
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 	mat3x3 NormalMatrix;
