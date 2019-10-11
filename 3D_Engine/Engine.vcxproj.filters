@@ -175,6 +175,9 @@
     <ClCompile Include="ModuleAssets.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="AssetMesh.cpp">
+      <Filter>Source\Tools\Import_Assets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleCamera3D.h">
@@ -471,6 +474,9 @@
     <ClInclude Include="ModuleAssets.h">
       <Filter>Source\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="AssetMesh.h">
+      <Filter>Source\Tools\Import_Assets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\include\Geometry\KDTree.inl">
@@ -552,6 +558,9 @@
     </Filter>
     <Filter Include="Source\Tools\Geometry">
       <UniqueIdentifier>{103b048b-b2a5-489d-a24e-76ab859791fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Tools\Import_Assets">
+      <UniqueIdentifier>{86a5ca8c-a69f-4687-abaf-bac1f7169edd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

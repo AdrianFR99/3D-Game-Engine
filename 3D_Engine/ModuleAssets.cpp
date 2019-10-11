@@ -11,6 +11,20 @@
 
 #include "mmgr/mmgr.h"
 
+
+
+Asset::Asset(Asset_Type type)
+{
+	
+}
+
+Asset::~Asset()
+{
+
+
+
+}
+
 ModuleAssets::ModuleAssets(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -21,6 +35,11 @@ ModuleAssets::~ModuleAssets()
 }
 bool ModuleAssets::Init(){
 
+	// Stream log messages to Debug window
+	struct aiLogStream stream;
+	//stream.callback = MyAssimpCallback;
+	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
+	aiAttachLogStream(&stream);
 
 	return true;
 }
@@ -32,15 +51,10 @@ bool ModuleAssets::Start() {
 }
 
 
-
-
-
-
-
-
 void ModuleAssets::Draw() {
 
-
+	// detach log stream
+	aiDetachAllLogStreams();
 
 }
 

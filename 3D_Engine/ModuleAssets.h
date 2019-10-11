@@ -5,6 +5,20 @@
 #include "Module.h"
 
 
+class  Asset
+{
+public:
+	enum class Asset_Type
+	{
+		NONE = 0,
+		MESH
+	};
+
+	Asset(Asset_Type type);
+	Asset_Type type;
+	virtual ~Asset();
+
+};
 class ModuleAssets:	public Module
 {
 public:
