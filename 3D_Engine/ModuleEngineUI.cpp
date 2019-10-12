@@ -305,7 +305,14 @@ void ModuleEngineUI::Menu_Bar() {
 			if (ImGui::MenuItem("Console", "Ctrl+C")) {
 				showConsole = !showConsole;
 			}
-			//aqui
+			if ( ImGui::MenuItem("Settings")) {
+				if (settingsPanel->isActive()==false)
+				{
+					settingsPanel->SetState(true);
+
+				}
+				
+			}
 
 			ImGui::EndMenu();
 		}

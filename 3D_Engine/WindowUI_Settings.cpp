@@ -19,7 +19,7 @@ WindowUI_Settings::~WindowUI_Settings()
 
 bool WindowUI_Settings::Display() {
 
-
+	if (active)
 	Config_Window();
 
 
@@ -56,12 +56,23 @@ void WindowUI_Settings::Config_Window() {
 	}
 
 
+
+
 	Config_Window_App();
 	Config_Window_Window();
 	Config_Window_FileSystem();
 	Config_Window_Input();
 	Config_Window_Hardware();
 	Config_Window_Buttons();
+
+
+	/*if (active==false)
+	{
+		ImGui::End();
+		ImGui::EndMenu();
+			active = false;
+		
+	}*/
 
 	ImGui::End();
 
