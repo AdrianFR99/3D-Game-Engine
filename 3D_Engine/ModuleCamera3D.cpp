@@ -47,28 +47,36 @@ update_status ModuleCamera3D::Update(float dt)
 
 	vec3 newPos(0,0,0);
 	float speed = 3.0f * dt;
+
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		speed = 8.0f * dt;
 
-	if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
+	/*if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
 	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
-
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
-
-
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
-
-	Position += newPos;
-	Reference += newPos;
+*/
 
 	// Mouse motion ----------------
 
+	// while Right click freely look arrpund and be able to move with wasd keys
 	if(App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
-		int dx = -App->input->GetMouseXMotion();
-		int dy = -App->input->GetMouseYMotion();
+
+		// WASP movement
+			if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
+			if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
+			if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
+			if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+
+			Position += newPos;
+			Reference += newPos;
+		// end of wasp move
+
+		// mouse position and free look
+		/*int dx = -App->input->GetMouseXMotion();
+		int dy = -App->input->GetMouseYMotion();*/
+
+			int dx = -App->input->GetMouseXMotion();
+			int dy = -App->input->GetMouseYMotion();
 
 		float Sensitivity = 0.25f;
 
@@ -100,13 +108,21 @@ update_status ModuleCamera3D::Update(float dt)
 		Position = Reference + Z * length(Position);
 	}
 
+	//mouse wheel
+
+	newPos -= Z * App->input->GetMouseZ();
+	Position += newPos;
+
+	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+
+		// Orbiting around center --- CalculateMouseRotation() is the reference postion
+		Rotate(vec3(0, 0, 0));
+	}
+
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 
-	math::Sphere sphere;
-	float3 spherepos = float3(0.0f, 0.0f, 0.0f);
-	sphere.pos = spherepos;
-	sphere.r = 3.0f;
+
 
 	return UPDATE_CONTINUE;
 }
@@ -146,6 +162,7 @@ void ModuleCamera3D::LookAt( const vec3 &Spot)
 // -----------------------------------------------------------------
 void ModuleCamera3D::Move(const vec3 &Movement)
 {
+
 	Position += Movement;
 	Reference += Movement;
 
@@ -161,6 +178,22 @@ float* ModuleCamera3D::GetViewMatrix()
 // -----------------------------------------------------------------
 void ModuleCamera3D::CalculateViewMatrix()
 {
-	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
+	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f,
+		X.y, Y.y, Z.y, 0.0f,
+		X.z, Y.z, Z.z, 0.0f,
+		-dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
 	ViewMatrixInverse = inverse(ViewMatrix);
 }
+
+// Called for rotating in a point
+void ModuleCamera3D::Rotate(const const vec3 &ReferencetoRot)
+{
+	Reference = ReferencetoRot;
+
+	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
+	Y = cross(Z, X);
+
+	CalculateViewMatrix();
+
+}
+
