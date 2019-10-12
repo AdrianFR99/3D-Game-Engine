@@ -166,11 +166,15 @@ static bool ImGui_ImplSDL2_Init(SDL_Window* window)
     g_MouseCursors[ImGuiMouseCursor_ResizeNWSE] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_SIZENWSE);
     g_MouseCursors[ImGuiMouseCursor_Hand] = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);
 
+	// Our mouse update function expect PlatformHandle to be filled for the main viewport
+	ImGuiViewport* main_viewport = ImGui::GetMainViewport();
+	main_viewport->PlatformHandle = (void*)window;
 #ifdef _WIN32
     SDL_SysWMinfo wmInfo;
     SDL_VERSION(&wmInfo.version);
     SDL_GetWindowWMInfo(window, &wmInfo);
-    //io.ImeWindowHandle = wmInfo.info.win.window;
+		main_viewport->PlatformHandleRaw = wmInfo.info.win.window;
+
 #else
     (void)window;
 #endif

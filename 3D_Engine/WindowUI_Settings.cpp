@@ -66,13 +66,6 @@ void WindowUI_Settings::Config_Window() {
 	Config_Window_Buttons();
 
 
-	/*if (active==false)
-	{
-		ImGui::End();
-		ImGui::EndMenu();
-			active = false;
-		
-	}*/
 
 	ImGui::End();
 
