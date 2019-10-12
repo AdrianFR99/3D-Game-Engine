@@ -72,10 +72,12 @@ update_status ModuleCamera3D::Update(float dt)
 		// end of wasp move
 
 		// mouse position and free look
-		
-		//Orbit(Position, App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
 
-		/*int dx = -App->input->GetMouseXMotion();
+		RotateYourself(App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
+
+		
+
+		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
 
 		float Sensitivity = 0.25f;
@@ -103,7 +105,7 @@ update_status ModuleCamera3D::Update(float dt)
 				Z = vec3(0.0f, Z.y > 0.0f ? 1.0f : -1.0f, 0.0f);
 				Y = cross(Z, X);
 			}
-		}*/
+		}
 
 		Position = Reference + Z * length(Position);
 	}
@@ -115,10 +117,16 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
 
-		// Orbiting around center --- CalculateMouseRotation() is the reference postion
+		//rotate around the object
 		Orbit(vec3(0, 0, 0), App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
 
-		//App->window->GetCursor()->SizeAll();
+		
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_UP)
+	{
+		Reference= vec3(0, 0, 0);
+		Position = Reference + Z * premadeDist;
 	}
 
 	// Recalculate matrix -------------
@@ -224,6 +232,35 @@ void ModuleCamera3D::Orbit(const vec3& orbit_center, const float& motion_x, cons
 		float DeltaY = (float)dy;
 
 		// Rotate arround the X direction
+		Y = rotate(Y, DeltaY, X);
+		Z = rotate(Z, DeltaY, X);
+	}
+
+	Position = Reference + Z * length(Position);
+}
+
+void ModuleCamera3D::RotateYourself(const float& motion_x, const float& motion_y)
+{
+	Reference = Position;
+
+	int dx = -motion_x;
+	int dy = -motion_y;
+
+	Position -= Reference;
+
+	if (dx != 0)
+	{
+		float DeltaX = (float)dx * mouse_sensitivity;
+
+		X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+		Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+		Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+	}
+
+	if (dy != 0)
+	{
+		float DeltaY = (float)dy * mouse_sensitivity;
+
 		Y = rotate(Y, DeltaY, X);
 		Z = rotate(Z, DeltaY, X);
 	}

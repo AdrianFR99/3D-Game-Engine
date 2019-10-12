@@ -21,6 +21,7 @@ public:
 
 	// camera movement
 	void Orbit(const vec3 & rotate_center, const float & motion_x, const float & motion_y);
+	void RotateYourself(const float& motion_x, const float& motion_y);
 
 private:
 
@@ -29,10 +30,10 @@ private:
 public:
 	
 	vec3 X, Y, Z, Position, Reference;
-
+	float premadeDist = 15.0f;
 	
 
 private:
-
+	float mouse_sensitivity = 0.25f;
 	mat4x4 ViewMatrix, ViewMatrixInverse;
 };
