@@ -1,7 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-
+#include "glmath.h"
 
 class ModuleCamera3D : public Module
 {
@@ -20,7 +20,7 @@ public:
 	float* GetViewMatrix();
 
 	// camera movement
-
+	void Orbit(const vec3 & rotate_center, const float & motion_x, const float & motion_y);
 
 private:
 
