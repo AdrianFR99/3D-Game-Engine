@@ -11,6 +11,11 @@
 
 #include "mmgr/mmgr.h"
 
+#include "glew/include/glew.h"
+#include "SDL\include\SDL_opengl.h"
+#include <gl/GL.h>
+#include <gl/GLU.h>
+
 
 
 Asset::Asset(Asset_Type type)
@@ -53,12 +58,24 @@ bool ModuleAssets::Start() {
 
 void ModuleAssets::Draw() {
 
-	// detach log stream
-	aiDetachAllLogStreams();
+	
 
 }
 
 bool ModuleAssets::CleanUp() {
+	// detach log stream
+	aiDetachAllLogStreams();
+
+
+	/*for (int i = 0; i < Meshes_Vec.size();++i) {
+		
+		glDeleteBuffers(2,Meshes_Vec[i]->buffer);
+		glDeleteBuffers(1,&Meshes_Vec[i]->VAO);
+
+
+
+
+	}*/
 
 
 	return true;
@@ -81,10 +98,11 @@ bool ModuleAssets::LoadMesh(const char* path) {
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
 		{
 
+			AssetMesh* NewMesh = new AssetMesh;
 
+			NewMesh->importMesh(Scene->mMeshes[i]);
 
-
-
+			//Meshes_Vec.push_back(NewMesh);
 
 		}
 	}

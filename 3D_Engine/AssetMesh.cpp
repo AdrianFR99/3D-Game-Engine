@@ -1,5 +1,5 @@
-#include "AssetMesh.h"
 
+#include "AssetMesh.h"
 
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
@@ -11,7 +11,10 @@
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
 
-AssetMesh::AssetMesh():Asset(type=Asset_Type::MESH){}
+
+
+
+AssetMesh::AssetMesh():Asset(Asset_Type::MESH){}
 
 AssetMesh::~AssetMesh(){}
 
@@ -108,8 +111,8 @@ void AssetMesh::ToBuffer() {
 	glBindVertexArray(VAO);// VAO
 	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);// VBO 
 	
-	// Send Vertex struct info
-	//Pos
+	/* Send Vertex struct info
+	Pos*/
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex_Data), (void*)(offsetof(Vertex_Data,Pos)));
 	glEnableVertexAttribArray(0);
 	//Normal

@@ -1,24 +1,30 @@
 #ifndef __MODULEASSETS_H__
 #define __MODULEASSETS_H__
 
+#include<vector>
 #include "Globals.h"
 #include "Module.h"
 
+#include "AssetMesh.h"
+
+
+
+enum class Asset_Type
+{
+	NONE = 0,
+	MESH
+};
 
 class  Asset
 {
 public:
-	enum class Asset_Type
-	{
-		NONE = 0,
-		MESH
-	};
-
+	
 	Asset(Asset_Type type);
 	Asset_Type type;
 	virtual ~Asset();
 
 };
+
 class ModuleAssets:	public Module
 {
 public:
@@ -40,7 +46,7 @@ public:
 	
 	bool LoadMesh(const char* path);
 
-
+	//std::vector<AssetMesh*>Meshes_Vec;
 };
 
 
