@@ -36,9 +36,9 @@ public:
 	void Draw();
 	
 	bool CleanUp();
-	bool ImportFiles(const char* path);
+	bool LoadFiles(const char* path);
 	
-	bool ImportMesh(const char* path);
+	bool LoadMesh(const char* path);
 
 
 };

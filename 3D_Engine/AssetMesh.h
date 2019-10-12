@@ -4,12 +4,12 @@
 
 struct aiMesh;
 
-struct Vertex
+struct Vertex_Data
 {
 	GLfloat Pos[3];
 	GLfloat Normal[3];
-	GLubyte Color[4];
 	GLfloat TexCoord[2];
+	GLubyte Color[4];
 };
 
 class AssetMesh :public Asset
@@ -18,7 +18,7 @@ public:
 	AssetMesh();
 	~AssetMesh();
 
-	void importMesh(aiMesh Mesh);
+	void importMesh(aiMesh* Mesh);
 	void ToBuffer();
 
 public:
@@ -30,7 +30,7 @@ public:
 	uint* indices = nullptr;
 	
 	uint num_vertex = 0;
-	float* vertices = nullptr;
+	Vertex_Data* vertices = nullptr;
 
 
 

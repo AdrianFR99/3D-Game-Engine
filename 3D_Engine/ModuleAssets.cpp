@@ -64,15 +64,15 @@ bool ModuleAssets::CleanUp() {
 	return true;
 }
 
-bool ModuleAssets::ImportFiles(const char* path) {
+bool ModuleAssets::LoadFiles(const char* path) {
 	
 
-	ImportMesh(path);
+	LoadMesh(path);
 
 	return true;
 }
 
-bool ModuleAssets::ImportMesh(const char* path) {
+bool ModuleAssets::LoadMesh(const char* path) {
 
 	const aiScene* Scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 
@@ -80,7 +80,7 @@ bool ModuleAssets::ImportMesh(const char* path) {
 	{
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
 		{
-		
+
 
 
 
