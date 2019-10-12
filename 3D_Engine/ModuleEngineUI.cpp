@@ -63,7 +63,7 @@ bool ModuleEngineUI::Start() {
 	ImGui_ImplOpenGL3_Init();
 	
 
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_DockingEnable;     // Enable Keyboard Controls
 
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
@@ -82,6 +82,8 @@ update_status  ModuleEngineUI::PreUpdate(float dt) {
 	ImGui_ImplSDL2_NewFrame(App->window->window);
 	ImGui::NewFrame();
 
+	if (ImGuiConfigFlags_DockingEnable)
+		UpdatedockingWindos();
 
 	return UPDATE_CONTINUE;
 }
@@ -109,6 +111,9 @@ update_status  ModuleEngineUI::PostUpdate(float dt) {
 	{
 		GearConsole.Draw("Gear Console",&showConsole);
 	}
+
+	if (ImGuiConfigFlags_DockingEnable)
+		ImGui::End();
 	
 	return UPDATE_CONTINUE;
 }
@@ -349,3 +354,51 @@ void ModuleEngineUI::Menu_Bar() {
 
 
 	}
+
+	void ModuleEngineUI::UpdatedockingWindos(int style) const
+	{
+		
+		ImGuiViewport* viewport = ImGui::GetMainViewport();
+		ImGui::SetNextWindowPos(viewport->Pos);
+		ImGui::SetNextWindowSize(viewport->Size);
+		ImGui::SetNextWindowViewport(viewport->ID);
+
+		ImGuiWindowFlags window_flags= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_NoBackground;
+		window_flags |= ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize;
+
+		if (style == 0)
+		{
+			
+			// prepared to set varios styles of docking flags. main idea is o pass a bool and decide what premade styles you want. 
+			//For now the default is a movable window with lateral resize capability
+			window_flags = ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus | ImGuiWindowFlags_NoBackground;
+			window_flags |= ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize;
+
+		}
+		else
+		{
+			
+
+		}
+
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 1.0f);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 1.0f);
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(1.0f, 1.0f));
+
+			//cant pass a bool directily, must be a static bool
+		static bool static_true = true;
+
+		ImGui::Begin("DockSpace Demo", &static_true, window_flags);
+		ImGui::PopStyleVar(3);
+
+		ImGuiID dockspace_id = ImGui::GetID("MyDockspace");
+		ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
+		ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+
+	
+
+		
+
+	}
+
+	

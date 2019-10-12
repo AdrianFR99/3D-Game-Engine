@@ -76,6 +76,10 @@ public:
 	AppConsole GearConsole;
 	bool showConsole = false;
 
+	//dock
+	void ModuleEngineUI::UpdatedockingWindos(int style=1) const;
+
+
 
 };
 
