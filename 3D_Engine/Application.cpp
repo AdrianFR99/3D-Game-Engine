@@ -3,11 +3,13 @@
 
 
 
+
 Application::Application()
 {
 
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
+	//fs = new ModuleFileSystem(ASSETS_FOLDER));
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	UI_Layer = new ModuleEngineUI(this);

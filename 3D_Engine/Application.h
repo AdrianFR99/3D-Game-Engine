@@ -12,6 +12,7 @@
 #include "ModuleEngineUI.h"
 #include "ModuleHardware.h"
 #include "JSONLoader.h"
+//#include "ModuleFileSystem.h"
 
 
 class Application
@@ -23,6 +24,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleEngineUI* UI_Layer;
 	ModuleHardware* hardware;
+	//ModuleFileSystem* fs = nullptr;
 
 private:
 
