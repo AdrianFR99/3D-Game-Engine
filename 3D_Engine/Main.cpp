@@ -12,6 +12,9 @@
 
 enum main_states
 {
+
+	//needs an awake
+
 	MAIN_CREATION,
 	MAIN_START,
 	MAIN_UPDATE,

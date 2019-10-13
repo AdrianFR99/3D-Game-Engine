@@ -5,6 +5,7 @@
 #include "Module.h"
 #include "WindowConsole.h"
 
+
 #include <vector>
 
 typedef int ImGuiWindowFlags;
@@ -12,6 +13,16 @@ typedef int ImGuiWindowFlags;
 class WindowUI;
 class WindowUI_Settings;
 
+
+
+struct ImVec3 { 
+
+	float x, y, z; 
+	ImVec3(float _x = 0.0f, float _y = 0.0f, float _z = 0.0f) 
+	{
+		x = _x; y = _y; z = _z;
+	} 
+};
 
 class ModuleEngineUI:public Module 
 {
@@ -23,12 +34,12 @@ public:
 
 	bool Init();
 	bool Start();
+	bool Awake();
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 	void Draw() const;
-
 
 
 	
@@ -79,7 +90,8 @@ public:
 	//dock
 	void ModuleEngineUI::UpdatedockingWindos(int style=1) const;
 
-
+	//appereance
+	void Selecet_Style(const int style=3);
 
 };
 
