@@ -6,12 +6,15 @@
 #pragma comment( lib, "SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "SDL/libx86/SDL2main.lib" )
 
-#pragma comment(lib, "Brofiler/ProfilerCore32.lib")
 #include "Brofiler/Brofiler.h"
+#pragma comment(lib, "Brofiler/ProfilerCore32.lib")
 
 
 enum main_states
 {
+
+	//needs an awake
+
 	MAIN_CREATION,
 	MAIN_START,
 	MAIN_UPDATE,
@@ -63,6 +66,10 @@ int main(int argc, char ** argv)
 
 		case MAIN_UPDATE:
 		{
+			BROFILER_FRAME("HOLA TELETUBI");
+
+			BROFILER_CATEGORY("Update", Profiler::Color::AntiqueWhite);
+
 			int update_return = App->Update();
 
 			if (update_return == UPDATE_ERROR)

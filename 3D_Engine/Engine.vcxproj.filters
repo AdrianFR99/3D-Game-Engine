@@ -177,6 +177,8 @@
     </ClCompile>
     <ClCompile Include="AssetMesh.cpp">
       <Filter>Source\Tools\Import_Assets</Filter>
+    <ClCompile Include="ModuleFileSystem.cpp">
+      <Filter>Source\Modules\UI_Elements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -476,6 +478,9 @@
     </ClInclude>
     <ClInclude Include="AssetMesh.h">
       <Filter>Source\Tools\Import_Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleFileSystem.h">
+      <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

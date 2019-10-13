@@ -30,7 +30,7 @@ bool ModuleInput::Init()
 		ret = false;
 	}
 
-	
+
 
 	return ret;
 }
@@ -41,7 +41,7 @@ update_status ModuleInput::PreUpdate(float dt)
 	SDL_PumpEvents();
 
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
-	
+
 	for(int i = 0; i < MAX_KEYS; ++i)
 	{
 		if(keys[i] == 1)
@@ -85,7 +85,7 @@ update_status ModuleInput::PreUpdate(float dt)
 	}
 
 	mouse_x_motion = mouse_y_motion = 0;
-	
+
 	SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
 
 	bool quit = false;
@@ -132,9 +132,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 	}
 
-
-
-	if(quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP)
+	if(quit == true )
 		return UPDATE_STOP;
 
 	return UPDATE_CONTINUE;

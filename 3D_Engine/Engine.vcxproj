@@ -84,6 +84,7 @@
     <ClInclude Include="glew\include\wglew.h" />
     <ClInclude Include="glmath.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="ModuleFileSystem.h" />
     <ClInclude Include="ModuleAssets.h" />
     <ClInclude Include="ParFiles\par_shapes.h" />
     <ClInclude Include="Primitives.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="ModuleAssets.cpp" />
     <ClCompile Include="ModuleCamera3D.cpp" />
     <ClCompile Include="ModuleEngineUI.cpp" />
+    <ClCompile Include="ModuleFileSystem.cpp" />
     <ClCompile Include="ModuleHardware.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />

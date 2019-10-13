@@ -37,6 +37,9 @@ public:
 	//FPS
 	void FPS_vec_Alloc(float FPS, float ms);
 
+
+	//About
+	void  DrawAbout( bool* openWindowAbout, int* current_tab);
 private:
 	std::vector<float> FPS_LOG;
 	std::vector<float> MS_LOG;
@@ -58,6 +61,7 @@ private:
 	bool ambient_and_diffuse = true;
 	bool color_material = true;
 	bool texture_2d = false;
+	
 
 
 };

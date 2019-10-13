@@ -54,6 +54,7 @@ enum update_status
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
 #define TITLE "Gears Engine"
+#define ASSETS_FOLDER "/Assets/"
 
 //define Colors
 

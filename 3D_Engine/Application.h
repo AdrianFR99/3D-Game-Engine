@@ -13,6 +13,7 @@
 #include "ModuleHardware.h"
 #include "ModuleAssets.h"
 #include "JSONLoader.h"
+//#include "ModuleFileSystem.h"
 
 
 
@@ -35,6 +36,7 @@ public:
 	ModuleCamera3D* camera = nullptr;
 	ModuleEngineUI* UI_Layer = nullptr;
 	ModuleHardware* hardware = nullptr;
+	//ModuleFileSystem* fs = nullptr;
 	ModuleAssets* Assets = nullptr;
 
 private:
@@ -48,7 +50,7 @@ private:
 	int					last_FPS;
 	uint				capped_ms;
 	int					last_frame_time;
-	
+
 	std::list<Module*> list_modules;
 
 

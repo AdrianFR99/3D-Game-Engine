@@ -3,11 +3,13 @@
 
 
 
+
 Application::Application()
 {
 
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
+	//fs = new ModuleFileSystem(ASSETS_FOLDER));
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	UI_Layer = new ModuleEngineUI(this);
@@ -118,7 +120,7 @@ void Application::FinishUpdate()
 update_status Application::Update()
 {
 
-	BROFILER_CATEGORY("App_Update", Profiler::Color::AntiqueWhite);
+	BROFILER_CATEGORY("App_Update", Profiler::Color::Yellow);
 
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
