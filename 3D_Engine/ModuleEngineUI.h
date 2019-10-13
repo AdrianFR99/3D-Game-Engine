@@ -76,8 +76,10 @@ public:
 	void Menu_Bar_Component();
 	void Menu_Bar_Window();
 	void Menu_Bar_Help();
+	void Menu_Bar_About();
 
-
+	int current_tab = 1;
+	bool openWindowAbout = false;
 	
 	//FPS
 	void Assign_FPS_Data(float fps,float ms);

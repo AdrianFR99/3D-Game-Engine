@@ -20,8 +20,7 @@ WindowUI_Settings::~WindowUI_Settings()
 bool WindowUI_Settings::Display() {
 
 	if (active)
-	Config_Window();
-
+		Config_Window();
 
 
 	return true;
@@ -71,6 +70,10 @@ void WindowUI_Settings::Config_Window() {
 
 
 }
+
+
+
+
 void WindowUI_Settings::Config_Window_App() {
 
 	if (ImGui::CollapsingHeader("Application"))
@@ -624,4 +627,91 @@ void WindowUI_Settings::FPS_vec_Alloc(float FPS, float ms) {
 
 	FPS_LOG[counter - 1] = FPS;
 	MS_LOG[counter - 1] = ms;
+}
+
+void WindowUI_Settings::DrawAbout( bool* openWindowAbout,int* current_tab)
+{
+	/*openWindowAbout = !openWindowAbout;
+
+	if (!openWindowAbout)
+	return;*/
+
+	if (ImGui::Begin("About Gear Engine", openWindowAbout))
+	{
+		ImGui::RadioButton("General", current_tab, 1); ImGui::SameLine();
+		ImGui::RadioButton("Licence", current_tab, 2); ImGui::SameLine();
+		ImGui::RadioButton("Libreries", current_tab, 3); ImGui::SameLine();
+		ImGui::RadioButton("Github", current_tab, 4);
+
+		// if the tab is general, display
+		if (*current_tab == 1)
+		{
+			ImGui::Text("Gear Engine %s"/*, App->GetVersion()*/);
+			ImGui::Separator();
+			ImGui::Text("By Adrian Font and Andres Saladrigas");
+			ImGui::Text("3D Engine developed as a proyect during the 3rd year of");
+			ImGui::Text("Game Design and Game Development degree at CITM-UPC Barcelona,Spain");
+			ImGui::Separator();
+
+		}
+		//  if the tab is licence, display
+		else if (*current_tab == 2)
+		{
+			ImGui::Text("MIT License");
+			ImGui::Text("Copyright (c) 2019 Adrián Font Romero & Andres Ricardo Saladrigas Perez");
+			ImGui::Text("Permission is hereby granted, free of charge, to any person obtaining a copy");
+			ImGui::Text("of this software and associated documentation files(the ""Software""), to deal");
+			ImGui::Text("in the Software without restriction, including without limitation the rights");
+			ImGui::Text("to use, copy, modify, merge, publish, distribute, sublicense, and/or sell");
+			ImGui::Text("copies of the Software, and to permit persons to whom the Software is");
+			ImGui::Text("furnished to do so, subject to the following conditions :");
+
+			ImGui::Text("The above copyright notice and this permission notice shall be included in all");
+			ImGui::Text("copies or substantial portions of the Software.");
+
+			ImGui::Text("THE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR");
+			ImGui::Text("IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,");
+			ImGui::Text("FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE");
+			ImGui::Text("AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER");
+			ImGui::Text("LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,");
+			ImGui::Text("OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE");
+			ImGui::Text("SOFTWARE.");
+
+
+		}
+		//  if the tab is libreries, display
+		else if (*current_tab == 3)
+		{
+			ImGui::Columns(2, "Name");
+			ImGui::Separator();
+			ImGui::Text("Library"); ImGui::NextColumn();
+			ImGui::Text("Version"); ImGui::NextColumn();
+			ImGui::Separator();
+			
+			const char* name[11] = { "SDL", "MathGeoLib", "ImGui", "JSON for modern C++", "OpenGL", "Glew", "Devil", "Assimp", "mmgr", "Brofiler","Par_shapes" };
+			const char* version[11] = { "v2.0.10", "v2.0", "v1.74", "3.7.0", "4.6.0", "v7.0", "devil", "assimp", "mmgr","bro","par" };
+			//static int selected = -1;
+			for (int i = 0; i < 11; i++)
+			{
+				ImGui::Text(name[i]); ImGui::NextColumn();
+				ImGui::Text(version[i]); ImGui::NextColumn();
+			}
+			ImGui::Columns(1);
+			ImGui::Separator();
+		}
+		//  if the tab is github, display
+		else if (*current_tab == 4)
+		{
+			if (ImGui::Button("GitHub Repository"))
+				App->RequestBrowser("https://github.com/AdrianFR99/3D-Game-Engine");
+
+		}
+
+
+
+
+
+		ImGui::End();
+	}
+
 }

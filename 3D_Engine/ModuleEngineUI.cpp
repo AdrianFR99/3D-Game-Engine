@@ -132,6 +132,10 @@ update_status  ModuleEngineUI::PostUpdate(float dt) {
 	{
 		GearConsole.Draw("Gear Console",&showConsole);
 	}
+	if (openWindowAbout)
+	{
+		settingsPanel->DrawAbout(&openWindowAbout, &current_tab);
+	}
 
 	if (ImGuiConfigFlags_DockingEnable)
 		ImGui::End();
@@ -173,6 +177,7 @@ void ModuleEngineUI::Menu_Bar() {
 		Menu_Bar_Component();
 		Menu_Bar_Window();
 		Menu_Bar_Help();
+		Menu_Bar_About();
 
 		ImGui::EndMainMenuBar();
 	}
@@ -345,6 +350,8 @@ void ModuleEngineUI::Menu_Bar() {
 
 			if (ImGui::MenuItem("Gui Demo","", Show_ImGui_Demo,true))
 				Show_ImGui_Demo = !Show_ImGui_Demo;
+			if (ImGui::MenuItem("GitHub Repository"))
+				App->RequestBrowser("https://github.com/AdrianFR99/3D-Game-Engine");
 			if (ImGui::MenuItem("Documentation"))
 				App->RequestBrowser("https://github.com/AdrianFR99/3D-Game-Engine/wiki");
 			if (ImGui::MenuItem("Download latest"))
@@ -354,6 +361,21 @@ void ModuleEngineUI::Menu_Bar() {
 
 			ImGui::EndMenu();
 		}
+	}
+
+	void ModuleEngineUI::Menu_Bar_About() {
+
+
+		if (ImGui::BeginMenu("About"))
+		{
+
+			if (ImGui::MenuItem("About")) {
+				openWindowAbout = !openWindowAbout;
+			}
+			
+			ImGui::EndMenu();
+		}
+		
 	}
 
 	ImGuiWindowFlags ModuleEngineUI::Setting_Flag_bools(bool no_titlebar, bool no_scrollbar,
@@ -784,3 +806,5 @@ void ModuleEngineUI::Menu_Bar() {
 		}
 
 	}
+
+	
