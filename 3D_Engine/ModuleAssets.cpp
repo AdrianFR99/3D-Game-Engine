@@ -3,7 +3,7 @@
 #include "ModuleAssets.h"
 #include "AssetMesh.h"
 
-
+#include "imgui_defines.h"
 
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
@@ -60,17 +60,43 @@ void ModuleAssets::Draw() {
 			glVertexPointer(3, GL_FLOAT, 0, NULL);
 			// Index
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,Meshes_Vec[i]->IBO);
-
 			// Draw
 			glDrawElements((GLenum)GL_TRIANGLES,Meshes_Vec[i]->num_index, GL_UNSIGNED_INT, NULL);
-
-			
 
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
+		
+
+			if (Meshes_Vec[i]->normals!=nullptr)
+			{
+				glBegin(GL_LINES);
+				glLineWidth(1.0f);
+				uint Normal_length = 1;
+
+				glColor4f(0.0f, 0.5f, 0.5f, 1.0f);
+
+				for (uint j = 0; j < Meshes_Vec[i]->num_vertex; ++j)
+				{
+					glVertex3f(Meshes_Vec[i]->vertices[j].x, Meshes_Vec[i]->vertices[j].y, Meshes_Vec[i]->vertices[j].z);
+
+					glVertex3f( Meshes_Vec[i]->vertices[j].x + Meshes_Vec[i]->normals[j].x* Normal_length,
+								Meshes_Vec[i]->vertices[j].y + Meshes_Vec[i]->normals[j].y* Normal_length,
+								Meshes_Vec[i]->vertices[j].z + Meshes_Vec[i]->normals[j].z* Normal_length
+					);
+				}
+
+				glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+				glEnd();
+
+			}
+
+		
 		}
+
+			   
 
 	}
 

@@ -4,6 +4,7 @@
 
 #include "ModuleAssets.h"
 
+#include "MathGeoLib/include/Math/float3.h"
 
 struct aiMesh;
 typedef float GLfloat;
@@ -25,17 +26,20 @@ public:
 	uint VBO;
 	uint IBO;
 	uint VAO;
-
+	uint NBO;
 	//indices
 	uint num_index = 0;
 	uint* indices = nullptr;
 	
 	//vertices
 	uint num_vertex = 0;
-	float* vertices = nullptr;
-	
-	/*uint num_UVs = 0;
-	float*UVs = nullptr;*/
+	float3* vertices = nullptr;
+
+	//Normal
+	uint num_normals = 0;
+	float3*normals = nullptr;
+	float3*normals_vertex = nullptr;
+
 
 };
 

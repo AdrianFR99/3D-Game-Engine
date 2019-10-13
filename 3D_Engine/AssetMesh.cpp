@@ -24,51 +24,28 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 
 	//vertices
 	num_vertex = Mesh->mNumVertices;
-	vertices = new float[num_vertex*3];
-	memcpy(vertices,Mesh->mVertices,sizeof(float)*num_vertex*3);
+	vertices = new float3[num_vertex];
+	memcpy(vertices,Mesh->mVertices,sizeof(float3)*num_vertex);
 
-	//Indeces
+	//Indices
 	num_index = Mesh->mNumFaces*3;
 	indices = new uint[num_index];
 
 	if (Mesh->HasFaces()) {
-		// Assume each face is a triangle
+		//each face is a triangle
 		for (uint i = 0; i < Mesh->mNumFaces; ++i)
 		{
 			if (Mesh->mFaces[i].mNumIndices == 3)
 			{
 				memcpy(&indices[i * 3], Mesh->mFaces[i].mIndices, 3 * sizeof(uint));
 			}
-
 		}
-
 	}
-	
-	
-
-
-	////Normals
-	//if (Mesh->HasNormals())
-	//	for (int i = 0; i < num_vertex;++i){
-	//		//	memcpy(Normals, mesh->mNormals, sizeof(float3)*mesh->mNumVertices);
-	//		vertices[i].Normal[0] = (GLfloat)Mesh->mNormals[i].x;
-	//		vertices[i].Normal[1] = (GLfloat)Mesh->mNormals[i].y;
-	//		vertices[i].Normal[2] = (GLfloat)Mesh->mNormals[i].z;
-	//	}
-	////Color
-	//for (int i = 0; i < num_vertex;++i) {
-	//	if (Mesh->HasVertexColors(i)) {
-	//		vertices[i].Color[0] = (GLubyte)Mesh->mColors[i]->r;
-	//		vertices[i].Color[1] = (GLubyte)Mesh->mColors[i]->g;
-	//		vertices[i].Color[2] = (GLubyte)Mesh->mColors[i]->b;
-	//		vertices[i].Color[3] = (GLubyte)Mesh->mColors[i]->a;
-	//	}
-	//}
-	//TexCoord
-
-
-
-
+	if (Mesh->HasNormals())
+	{
+		normals = new float3[num_vertex];
+		memcpy(normals, Mesh->mNormals,sizeof(float3)*num_vertex);
+	}
 
 	ToBuffer();
 
@@ -84,7 +61,7 @@ void AssetMesh::ToBuffer() {
 	assert(vertices != nullptr);
 	
 	glBindBuffer(GL_ARRAY_BUFFER,VBO);// VBO
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertex*3, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * num_vertex, vertices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	// Index Buffer Object
@@ -95,6 +72,16 @@ void AssetMesh::ToBuffer() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_index*3, indices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	
+
+	glGenBuffers(1, &NBO);// Gen VBO,IBP
+
+	// Vertex Buffer Object
+	assert(normals != nullptr);
+
+	glBindBuffer(GL_ARRAY_BUFFER, NBO);// NBO
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * num_vertex, normals, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+
 
 }
