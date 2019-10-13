@@ -38,8 +38,7 @@ public:
 	//Normal
 	uint num_normals = 0;
 	float3*normals = nullptr;
-	float3*normals_vertex = nullptr;
-
+	
 
 };
 
