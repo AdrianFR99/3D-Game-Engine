@@ -22,62 +22,52 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 	
 	LOG("Importing Mesh");
 
-	//Filling struct Vertex Data
+	//vertices
 	num_vertex = Mesh->mNumVertices;
-	vertices = new Vertex_Data[num_vertex];
-	//position
-	for (int i = 0; i < num_vertex;++i) {
+	vertices = new float[num_vertex*3];
+	memcpy(vertices,Mesh->mVertices,sizeof(float)*num_vertex*3);
 
-		vertices[i].Pos[0] = (GLfloat)Mesh->mVertices[i].x;
-		vertices[i].Pos[1] = (GLfloat)Mesh->mVertices[i].y;
-		vertices[i].Pos[2] = (GLfloat)Mesh->mVertices[i].z;
-	}
-	//Normals
-	if (Mesh->HasNormals())
-		for (int i = 0; i < num_vertex;++i){
-			//	memcpy(Normals, mesh->mNormals, sizeof(float3)*mesh->mNumVertices);
-			vertices[i].Normal[0] = (GLfloat)Mesh->mNormals[i].x;
-			vertices[i].Normal[1] = (GLfloat)Mesh->mNormals[i].y;
-			vertices[i].Normal[2] = (GLfloat)Mesh->mNormals[i].z;
-		}
-	//Color
-	for (int i = 0; i < num_vertex;++i) {
-		if (Mesh->HasVertexColors(i)) {
-			vertices[i].Color[0] = (GLubyte)Mesh->mColors[i]->r;
-			vertices[i].Color[1] = (GLubyte)Mesh->mColors[i]->g;
-			vertices[i].Color[2] = (GLubyte)Mesh->mColors[i]->b;
-			vertices[i].Color[3] = (GLubyte)Mesh->mColors[i]->a;
-		}
-	}
-	//TexCoord
-	for (int i = 0; i < num_vertex; ++i)
-	{
-		if (Mesh->HasTextureCoords(i))
-		{
-			vertices[i].TexCoord[0] = (GLfloat)Mesh->mTextureCoords[i]->x;
-			vertices[i].TexCoord[1] = (GLfloat)Mesh->mTextureCoords[i]->y;
-		}
-	}
-
-	//Index
-
+	//Indeces
 	num_index = Mesh->mNumFaces*3;
 	indices = new uint[num_index];
 
 	if (Mesh->HasFaces()) {
-
-		for (int i = 0; i < Mesh->mNumFaces;++i) {
-			
-			indices[i*3] =	Mesh->mFaces[i].mIndices[0];
-			indices[i*3+1] = Mesh->mFaces[i].mIndices[1];
-			indices[i*3+2] = Mesh->mFaces[i].mIndices[2];
-
-
+		// Assume each face is a triangle
+		for (uint i = 0; i < Mesh->mNumFaces; ++i)
+		{
+			if (Mesh->mFaces[i].mNumIndices == 3)
+			{
+				memcpy(&indices[i * 3], Mesh->mFaces[i].mIndices, 3 * sizeof(uint));
+			}
 
 		}
 
-
 	}
+	
+	
+
+
+	////Normals
+	//if (Mesh->HasNormals())
+	//	for (int i = 0; i < num_vertex;++i){
+	//		//	memcpy(Normals, mesh->mNormals, sizeof(float3)*mesh->mNumVertices);
+	//		vertices[i].Normal[0] = (GLfloat)Mesh->mNormals[i].x;
+	//		vertices[i].Normal[1] = (GLfloat)Mesh->mNormals[i].y;
+	//		vertices[i].Normal[2] = (GLfloat)Mesh->mNormals[i].z;
+	//	}
+	////Color
+	//for (int i = 0; i < num_vertex;++i) {
+	//	if (Mesh->HasVertexColors(i)) {
+	//		vertices[i].Color[0] = (GLubyte)Mesh->mColors[i]->r;
+	//		vertices[i].Color[1] = (GLubyte)Mesh->mColors[i]->g;
+	//		vertices[i].Color[2] = (GLubyte)Mesh->mColors[i]->b;
+	//		vertices[i].Color[3] = (GLubyte)Mesh->mColors[i]->a;
+	//	}
+	//}
+	//TexCoord
+
+
+
 
 
 	ToBuffer();
@@ -94,7 +84,7 @@ void AssetMesh::ToBuffer() {
 	assert(vertices != nullptr);
 	
 	glBindBuffer(GL_ARRAY_BUFFER,VBO);// VBO
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex_Data) * num_vertex, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertex*3, vertices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	// Index Buffer Object
@@ -102,31 +92,9 @@ void AssetMesh::ToBuffer() {
 	glGenBuffers(1, &IBO);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,IBO);// IBO
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * num_index, indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_index*3, indices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 	
-	// Vertex Array Object
-
-	glGenVertexArrays(1,&VAO);// Gen VAO
-	glBindVertexArray(VAO);// VAO
-	glBindBuffer(GL_ARRAY_BUFFER,VBO);// VBO 
-	
-	/* Send Vertex struct info
-	Pos*/
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex_Data), (void*)(offsetof(Vertex_Data,Pos)));
-	glEnableVertexAttribArray(0);
-	//Normal
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex_Data), (void*)(offsetof(Vertex_Data,Normal)));
-	glEnableVertexAttribArray(1);
-	//Color
-	glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex_Data), (void*)(offsetof(Vertex_Data,Color)));
-	glEnableVertexAttribArray(2);
-	//Tex coords
-	glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex_Data), (void*)(offsetof(Vertex_Data,TexCoord)));
-	glEnableVertexAttribArray(3);
-
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 }

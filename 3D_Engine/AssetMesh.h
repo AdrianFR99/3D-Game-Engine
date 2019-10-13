@@ -10,15 +10,6 @@ typedef float GLfloat;
 typedef unsigned char GLubyte;
 
 
-struct Vertex_Data
-{
-	GLfloat Pos[3];
-	GLfloat Normal[3];
-	GLubyte Color[4];
-	GLfloat TexCoord[2];
-};
-
-
 class AssetMesh 
 {
 public:
@@ -30,16 +21,21 @@ public:
 
 public:
 
+	//buffer
 	uint VBO;
 	uint IBO;
 	uint VAO;
 
+	//indices
 	uint num_index = 0;
 	uint* indices = nullptr;
 	
+	//vertices
 	uint num_vertex = 0;
-	Vertex_Data* vertices = nullptr;
+	float* vertices = nullptr;
 	
+	/*uint num_UVs = 0;
+	float*UVs = nullptr;*/
 
 };
 

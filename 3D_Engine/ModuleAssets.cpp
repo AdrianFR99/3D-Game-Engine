@@ -20,9 +20,6 @@
 #include "mmgr/mmgr.h"
 
 
-
-
-
 ModuleAssets::ModuleAssets(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 }
@@ -55,18 +52,27 @@ void ModuleAssets::Draw() {
 
 	for (int i = 0; i < Meshes_Vec.size();++i) {
 
-		glBindVertexArray(Meshes_Vec[i]->VAO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Meshes_Vec[i]->IBO);
+		if (Meshes_Vec[i] != nullptr) {
+			// Vertex
+			glEnableClientState(GL_VERTEX_ARRAY);
+			
+			glBindBuffer(GL_ARRAY_BUFFER, Meshes_Vec[i]->VBO);
+			glVertexPointer(3, GL_FLOAT, 0, NULL);
+			// Index
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,Meshes_Vec[i]->IBO);
 
-		glDrawElements(GL_TRIANGLES,Meshes_Vec[i]->num_index,GL_UNSIGNED_INT, NULL);
+			// Draw
+			glDrawElements((GLenum)GL_TRIANGLES,Meshes_Vec[i]->num_index, GL_UNSIGNED_INT, NULL);
 
+			
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
-		glBindVertexArray(0);
+			glDisableClientState(GL_VERTEX_ARRAY);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+		}
 
 	}
-
-
 
 }
 
@@ -79,7 +85,7 @@ bool ModuleAssets::CleanUp() {
 		
 		glDeleteBuffers(1,&Meshes_Vec[i]->VBO);
 		glDeleteBuffers(1,&Meshes_Vec[i]->IBO);
-		glDeleteBuffers(1,&Meshes_Vec[i]->VAO);
+		/*glDeleteBuffers(1,&Meshes_Vec[i]->VAO);*/
 
 		RELEASE_ARRAY(Meshes_Vec[i]->vertices);
 		RELEASE_ARRAY(Meshes_Vec[i]->indices);
