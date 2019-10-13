@@ -123,7 +123,7 @@ bool ModuleRenderer3D::Init()
 bool ModuleRenderer3D::Start() {
 
 
-	App->Assets->LoadFiles("../TESTING/warrior.FBX");
+	/*App->Assets->LoadFiles("../TESTING/warrior.FBX");*/
 
 
 	return true;

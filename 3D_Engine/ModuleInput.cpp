@@ -30,6 +30,8 @@ bool ModuleInput::Init()
 		ret = false;
 	}
 
+	
+
 	return ret;
 }
 
@@ -83,6 +85,8 @@ update_status ModuleInput::PreUpdate(float dt)
 	}
 
 	mouse_x_motion = mouse_y_motion = 0;
+	
+	SDL_EventState(SDL_DROPFILE, SDL_ENABLE);
 
 	bool quit = false;
 	SDL_Event e;
@@ -111,8 +115,24 @@ update_status ModuleInput::PreUpdate(float dt)
 				if(e.window.event == SDL_WINDOWEVENT_RESIZED)
 					App->renderer3D->OnResize(e.window.data1, e.window.data2);
 			}
+			break;
+
+			case SDL_DROPFILE:
+
+				dropped_filedir = e.drop.file;
+
+				App->Assets->LoadFiles(dropped_filedir);
+
+				SDL_free(dropped_filedir);
+
+				break;
 		}
+
+
+
 	}
+
+
 
 	if(quit == true || keyboard[SDL_SCANCODE_ESCAPE] == KEY_UP)
 		return UPDATE_STOP;
