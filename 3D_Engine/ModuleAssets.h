@@ -5,25 +5,8 @@
 #include "Globals.h"
 #include "Module.h"
 
-#include "AssetMesh.h"
 
-
-
-enum class Asset_Type
-{
-	NONE = 0,
-	MESH
-};
-
-class  Asset
-{
-public:
-	
-	Asset(Asset_Type type);
-	Asset_Type type;
-	virtual ~Asset();
-
-};
+class AssetMesh;
 
 class ModuleAssets:	public Module
 {
@@ -35,9 +18,7 @@ public:
 	bool Init();
 	bool Start();
 	
-	/*update_status PreUpdate(float dt);
-	update_status Update(float dt);
-	update_status PostUpdate(float dt);*/
+	
 
 	void Draw();
 	
@@ -46,7 +27,7 @@ public:
 	
 	bool LoadMesh(const char* path);
 
-	//std::vector<AssetMesh*>Meshes_Vec;
+	std::vector<AssetMesh*> Meshes_Vec;
 };
 
 

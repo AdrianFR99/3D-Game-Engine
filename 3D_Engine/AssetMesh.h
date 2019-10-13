@@ -19,7 +19,7 @@ struct Vertex_Data
 };
 
 
-class AssetMesh :public Asset
+class AssetMesh 
 {
 public:
 	AssetMesh();
@@ -30,7 +30,8 @@ public:
 
 public:
 
-	uint* buffer;
+	uint VBO;
+	uint IBO;
 	uint VAO;
 
 	uint num_index = 0;

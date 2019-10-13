@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleAssets.h"
 
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
@@ -122,6 +123,9 @@ bool ModuleRenderer3D::Init()
 bool ModuleRenderer3D::Start() {
 
 
+	App->Assets->LoadFiles("../TESTING/warrior.FBX");
+
+
 	return true;
 
 }
@@ -169,7 +173,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	glLineWidth(1.0f);
 
 
-	
+	App->Assets->Draw();
 
 	App->UI_Layer->Draw();
 	SDL_GL_SwapWindow(App->window->window);

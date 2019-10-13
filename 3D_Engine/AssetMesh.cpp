@@ -14,7 +14,7 @@
 
 
 
-AssetMesh::AssetMesh():Asset(Asset_Type::MESH){}
+AssetMesh::AssetMesh(){}
 
 AssetMesh::~AssetMesh(){}
 
@@ -66,9 +66,9 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 
 	if (Mesh->HasFaces()) {
 
-		for (int i = 0; i < num_index;++i) {
+		for (int i = 0; i < Mesh->mNumFaces;++i) {
 			
-			indices[i*3] = Mesh->mFaces[i].mIndices[0];
+			indices[i*3] =	Mesh->mFaces[i].mIndices[0];
 			indices[i*3+1] = Mesh->mFaces[i].mIndices[1];
 			indices[i*3+2] = Mesh->mFaces[i].mIndices[2];
 
@@ -88,19 +88,20 @@ void AssetMesh::ToBuffer() {
 
 	
 	
-	glGenBuffers(2, buffer);// Gen VBO,IBP
+	glGenBuffers(1,&VBO);// Gen VBO,IBP
 
 	// Vertex Buffer Object
 	assert(vertices != nullptr);
 	
-	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);// VBO
+	glBindBuffer(GL_ARRAY_BUFFER,VBO);// VBO
 	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex_Data) * num_vertex, vertices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	// Index Buffer Object
 	assert(indices != nullptr);
-	
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer[1]);// IBO
+	glGenBuffers(1, &IBO);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,IBO);// IBO
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * num_index, indices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
@@ -109,7 +110,7 @@ void AssetMesh::ToBuffer() {
 
 	glGenVertexArrays(1,&VAO);// Gen VAO
 	glBindVertexArray(VAO);// VAO
-	glBindBuffer(GL_ARRAY_BUFFER, buffer[0]);// VBO 
+	glBindBuffer(GL_ARRAY_BUFFER,VBO);// VBO 
 	
 	/* Send Vertex struct info
 	Pos*/

@@ -1,7 +1,14 @@
 
 #include "Application.h"
 #include "ModuleAssets.h"
+#include "AssetMesh.h"
 
+
+
+#include "glew/include/glew.h"
+#include "SDL\include\SDL_opengl.h"
+#include <gl/GL.h>
+#include <gl/GLU.h>
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"
@@ -9,26 +16,12 @@
 #include "Assimp/include/cfileio.h"
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
+
 #include "mmgr/mmgr.h"
 
-#include "glew/include/glew.h"
-#include "SDL\include\SDL_opengl.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
 
 
 
-Asset::Asset(Asset_Type type)
-{
-	
-}
-
-Asset::~Asset()
-{
-
-
-
-}
 
 ModuleAssets::ModuleAssets(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -60,6 +53,21 @@ void ModuleAssets::Draw() {
 
 	
 
+	for (int i = 0; i < Meshes_Vec.size();++i) {
+
+		glBindVertexArray(Meshes_Vec[i]->VAO);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Meshes_Vec[i]->IBO);
+
+		glDrawElements(GL_TRIANGLES,Meshes_Vec[i]->num_index,GL_UNSIGNED_INT, NULL);
+
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+		glBindVertexArray(0);
+
+	}
+
+
+
 }
 
 bool ModuleAssets::CleanUp() {
@@ -67,15 +75,17 @@ bool ModuleAssets::CleanUp() {
 	aiDetachAllLogStreams();
 
 
-	/*for (int i = 0; i < Meshes_Vec.size();++i) {
+	for (int i = 0; i < Meshes_Vec.size();++i) {
 		
-		glDeleteBuffers(2,Meshes_Vec[i]->buffer);
+		glDeleteBuffers(1,&Meshes_Vec[i]->VBO);
+		glDeleteBuffers(1,&Meshes_Vec[i]->IBO);
 		glDeleteBuffers(1,&Meshes_Vec[i]->VAO);
 
-
-
-
-	}*/
+		RELEASE_ARRAY(Meshes_Vec[i]->vertices);
+		RELEASE_ARRAY(Meshes_Vec[i]->indices);
+	
+		delete(Meshes_Vec[i]);
+	}
 
 
 	return true;
@@ -102,7 +112,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 			NewMesh->importMesh(Scene->mMeshes[i]);
 
-			//Meshes_Vec.push_back(NewMesh);
+			Meshes_Vec.push_back(NewMesh);
 
 		}
 	}
