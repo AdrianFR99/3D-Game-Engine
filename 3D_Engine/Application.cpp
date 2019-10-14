@@ -222,3 +222,9 @@ void Application::load()
 	JSONLoad.Load("test.json");
 
 }
+
+void Application::BroadcastEvent(const Event& event)
+{
+	for (std::list<Module*>::iterator it = list_modules.begin(); it != list_modules.end(); ++it)
+		(*it)->ReceiveEvent(event);
+}

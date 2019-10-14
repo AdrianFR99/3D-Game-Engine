@@ -23,8 +23,10 @@ public:
 	void Draw();
 	
 	bool CleanUp();
-	bool LoadFiles(const char* path);
 	
+	void ReceiveEvent(const Event& event) override;
+	
+	bool LoadFiles(const char* path);
 	bool LoadMesh(const char* path);
 
 	std::vector<AssetMesh*> Meshes_Vec;

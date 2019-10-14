@@ -12,6 +12,7 @@ enum KEY_STATE
 	KEY_UP
 };
 
+
 class ModuleInput : public Module
 {
 public:
@@ -59,7 +60,7 @@ public:
 	}
 
 
-	char* dropped_filedir;
+	
 
 private:
 	KEY_STATE* keyboard;

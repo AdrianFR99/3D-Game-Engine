@@ -3,6 +3,7 @@
 
 class Application;
 struct PhysBody3D;
+struct Event;
 
 class Module
 {
@@ -48,8 +49,10 @@ public:
 		return true; 
 	}
 
-	virtual void OnCollision(PhysBody3D* body1, PhysBody3D* body2)
-	{}
+	virtual void ReceiveEvent(const Event& event)
+	{ }
+
+	
 };
 
 #endif // __MODULE_H__

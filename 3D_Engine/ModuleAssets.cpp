@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleAssets.h"
 #include "AssetMesh.h"
+#include "Event.h"
 
 #include "imgui_defines.h"
 
@@ -152,5 +153,21 @@ bool ModuleAssets::LoadMesh(const char* path) {
 		LOG("|[error]: Error loading scene %s", path);
 
 	return true;
+
+}
+
+void ModuleAssets::ReceiveEvent(const Event& event) {
+
+	switch (event.type)
+	{
+	case Event::EventType::file_dropped:
+
+	
+		LoadFiles(event.string);
+
+		break;
+	}
+
+
 
 }

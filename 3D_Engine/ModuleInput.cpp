@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
+#include "Event.h"
 
 #define MAX_KEYS 300
 
@@ -118,12 +119,10 @@ update_status ModuleInput::PreUpdate(float dt)
 			break;
 
 			case SDL_DROPFILE:
-
-				dropped_filedir = e.drop.file;
-
-				App->Assets->LoadFiles(dropped_filedir);
-
-				SDL_free(dropped_filedir);
+				Event ev(Event::EventType::file_dropped);
+				ev.string = e.drop.file; 
+				App->BroadcastEvent(ev);
+				SDL_free(&ev.string);
 
 				break;
 		}

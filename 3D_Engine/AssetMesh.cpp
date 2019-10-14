@@ -45,8 +45,12 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 	{
 		normals = new float3[num_vertex];
 		memcpy(normals, Mesh->mNormals,sizeof(float3)*num_vertex);
+		
+
 	}
 
+
+	
 	ToBuffer();
 
 }

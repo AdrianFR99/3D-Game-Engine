@@ -16,16 +16,7 @@
 //#include "ModuleFileSystem.h"
 
 
-
-//class Module;
-//class ModuleWindow;
-//class ModuleInput;
-//class ModuleRenderer3D;
-//class ModuleCamera3D;
-//class ModuleEngineUI
-//class ModuleHardware;
-//class ModuleAssets;
-
+struct Event;
 
 class Application
 {
@@ -78,7 +69,8 @@ public:
 
 //Web
 	void RequestBrowser(const char*URL);
-
+//Event
+	void BroadcastEvent(const Event& event);
 //Info
 	const char* GetAppName()const;
 
