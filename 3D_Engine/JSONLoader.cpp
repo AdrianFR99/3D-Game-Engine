@@ -1,8 +1,9 @@
 #include "JSONLoader.h"
 #include <fstream>
+#include <iomanip>
 
 // for convenience
-using json = nlohmann::json;
+//using json = nlohmann::json;
 
 bool JSONLoader::Load(const char * FiletoLoad)
 {
@@ -14,10 +15,10 @@ bool JSONLoader::Load(const char * FiletoLoad)
 
 
 	//create a json doc
-	json doc;
+	nlohmann::json doc;
 
 	//parse dta in document
-	doc = json::parse(incomingStream);
+	doc = nlohmann::json::parse(incomingStream);
 
 	if (FiletoLoad == nullptr || incomingStream.is_open())
 	{
@@ -32,7 +33,7 @@ bool JSONLoader::Load(const char * FiletoLoad)
 	return true;
 }
 
-bool JSONLoader::Save(const char * data, json doc)
+bool JSONLoader::Save(const char * data, nlohmann::json doc)
 {
 	//save to json file
 
@@ -52,7 +53,7 @@ bool JSONLoader::Save(const char * data, json doc)
 	return false;
 }
 
-json JSONLoader::getFile()
+nlohmann::json JSONLoader::getFile()
 {
 	return file;
 }

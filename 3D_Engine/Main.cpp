@@ -13,9 +13,8 @@
 enum main_states
 {
 
-	//needs an awake
-
 	MAIN_CREATION,
+	MAIN_AWAKE,
 	MAIN_START,
 	MAIN_UPDATE,
 	MAIN_FINISH,
@@ -45,7 +44,23 @@ int main(int argc, char ** argv)
 
 			LOG("-------------- Application Creation --------------");
 			App = new Application();
-			state = MAIN_START;
+			state = MAIN_AWAKE;
+			break;
+
+		case MAIN_AWAKE :
+
+			LOG("-------------- Application awake --------------");
+			if (App->Awake() == false)
+			{
+				LOG("Application AWAKE exits with ERROR");
+				state = MAIN_EXIT;
+			}
+			else
+			{
+				state = MAIN_START;
+				LOG("-------------- Application AWAKE --------------");
+			}
+		
 			break;
 
 		case MAIN_START:

@@ -13,6 +13,7 @@
 #include "ModuleHardware.h"
 #include "ModuleAssets.h"
 #include "JSONLoader.h"
+
 //#include "ModuleFileSystem.h"
 
 
@@ -60,6 +61,7 @@ public:
 	~Application();
 
 	bool Init();
+	bool Awake();
 	update_status Update();
 	bool CleanUp();
 
@@ -67,6 +69,7 @@ public:
 public:
 
 	std::string AppName;
+	std::string StudyCenter;
 
 
 
@@ -90,9 +93,10 @@ private:
 
 
 	void save();
-	void load();
+	void load(nlohmann::json& file);
+
 	JSONLoader JSONLoad;
-	json settings;
+	nlohmann::json settings;
 };
 
 // access everywhere
