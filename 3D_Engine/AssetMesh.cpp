@@ -45,6 +45,20 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 	{
 		normals = new float3[num_vertex];
 		memcpy(normals, Mesh->mNormals,sizeof(float3)*num_vertex);
+
+
+	/*	for (int i = 0; i < num_vertex;i+=3) {
+
+			float3 vert1 = vertices[i];
+			float3 vert2=  vertices[i+1];
+			float3 vert3 = vertices[i+2];
+
+			float3 vector1 = vert2 - vert1;
+			float3 vector2 = vert3 - vert1;
+
+			float3 normalAux = Cross(vector1,vector2);
+
+		}*/
 	}
 
 	ToBuffer();
