@@ -13,6 +13,28 @@ ModuleWindow::~ModuleWindow()
 {
 }
 
+// Called to init variables
+void ModuleWindow::Load(nlohmann::json& file)
+{
+	LOG("Load variables from Json to module Window");
+	
+	
+	//Window sizes
+	 Screen_Width = file["Modules"]["Window"]["Width"];
+	 Screen_Height = file["Modules"]["Window"]["Height"];
+	 RefreshRate = file["Modules"]["Window"]["RefreshRate"];
+	 disp_Width = file["Modules"]["Window"]["DispalyWidth"];
+	 disp_Height = file["Modules"]["Window"]["DisplayHeight"];
+
+	// --- Win Flags ---
+	 fullscreen = file["Modules"]["Window"]["Fullscreen"];
+	 resizable = file["Modules"]["Window"]["Resizable"];
+	 borderless = file["Modules"]["Window"]["Borderless"];
+	 fullscreen_desktop = file["Modules"]["Window"]["FullscreenDesktop"];
+
+	
+}
+
 // Called before render is available
 bool ModuleWindow::Init()
 {

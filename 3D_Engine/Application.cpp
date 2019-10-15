@@ -94,7 +94,7 @@ bool Application::Awake()
 	JSONLoad.Load("SettingConfig/GearConfig.json");
 	settings = JSONLoad.getFile();
 
-
+	load(settings);
 
 	//pugi::xml_document	config_file;
 	//pugi::xml_node		config;
@@ -273,10 +273,10 @@ void Application::save()
 void Application::load(nlohmann::json& file)
 {
 
-	std::string name = file["App"]["Name"];
+	std::string name = file["Modules"]["App"]["Name"];
 	AppName = name;
 
-	std::string Uniname = file["App"]["Uni"];
+	std::string Uniname = file["Modules"]["App"]["Uni"];
 	StudyCenter = Uniname;
 
 	std::list<Module*>::iterator item = list_modules.begin();

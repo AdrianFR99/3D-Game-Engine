@@ -31,6 +31,19 @@ bool ModuleCamera3D::Start()
 	return ret;
 }
 
+// Called to init variables
+void ModuleCamera3D::Load(nlohmann::json& file)
+{
+	LOG("Load variables from Json to module Camera3D");
+
+	premadeDist = file["Modules"]["Camera"]["PremadeDistance"];
+	mouse_sensitivity = file["Modules"]["Camera"]["Mouse_sensitivity"];
+	wheel_speed = file["Modules"]["Camera"]["Wheel_speed"];
+	camera_speed = file["Modules"]["Camera"]["Camera_speed"];
+
+
+}
+
 // -----------------------------------------------------------------
 bool ModuleCamera3D::CleanUp()
 {
@@ -46,10 +59,10 @@ update_status ModuleCamera3D::Update(float dt)
 	// Now we can make this movememnt frame rate independant!
 
 	vec3 newPos(0,0,0);
-	float speed = 3.0f * dt;
+	float camera_speed = 3.0f * dt;
 
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
-		speed = 8.0f * dt;
+		camera_speed = 8.0f * dt;
 
 	/*if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
 	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
@@ -62,10 +75,10 @@ update_status ModuleCamera3D::Update(float dt)
 	{
 
 		// WASP movement
-			if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * speed;
-			if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * speed;
-			if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * speed;
-			if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * speed;
+			if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * camera_speed;
+			if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * camera_speed;
+			if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * camera_speed;
+			if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * camera_speed;
 
 			Position += newPos;
 			Reference += newPos;
@@ -85,7 +98,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	//mouse wheel
 
-	newPos -= Z * App->input->GetMouseZ();
+	newPos -= Z * App->input->GetMouseZ()*wheel_speed;
 	Position += newPos;
 
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {

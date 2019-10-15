@@ -179,7 +179,7 @@
       <Filter>Source\Tools\Import_Assets</Filter>
     </ClCompile>
     <ClCompile Include="ModuleFileSystem.cpp">
-      <Filter>Source\Modules\UI_Elements</Filter>
+      <Filter>Source\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

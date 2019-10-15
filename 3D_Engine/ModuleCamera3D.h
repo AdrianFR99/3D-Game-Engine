@@ -12,6 +12,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
+	void Load(nlohmann::json& file);
 
 	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = false);
 	void LookAt(const vec3 &Spot);
@@ -34,6 +35,8 @@ public:
 	
 
 private:
-	float mouse_sensitivity = 0.25f;
+	float mouse_sensitivity =0.0f;
 	mat4x4 ViewMatrix, ViewMatrixInverse;
+	float wheel_speed = 0.0f;
+	float camera_speed = 0.0f;
 };

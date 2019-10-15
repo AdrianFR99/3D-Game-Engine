@@ -14,11 +14,11 @@ bool JSONLoader::Load(const char * FiletoLoad)
 	assert(incomingStream.is_open());
 
 
-	//create a json doc
-	nlohmann::json doc;
+	//using a json doc name file in .h
+	//file
 
 	//parse dta in document
-	doc = nlohmann::json::parse(incomingStream);
+	file = nlohmann::json::parse(incomingStream);
 
 	if (FiletoLoad == nullptr || incomingStream.is_open())
 	{
@@ -26,9 +26,11 @@ bool JSONLoader::Load(const char * FiletoLoad)
 		return false;
 	}
 	
-	//clos stream of data
+
+	
+	//close stream of data
 	incomingStream.close();
-	file = doc;
+
 
 	return true;
 }

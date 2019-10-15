@@ -18,8 +18,7 @@
 #include "Maths.h"
 
 
-bool show_demo_window = true;
-bool show_another_window = false;
+
 ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 
@@ -54,6 +53,22 @@ bool ModuleEngineUI::Awake()
 	
 	
 	return ret;
+}
+
+//Called to init variables
+void ModuleEngineUI::Load(nlohmann::json& file)
+{
+	LOG("Load variables from Json to module UI");
+
+	show_demo_window = file["Modules"]["IMGUI"]["show_demo_window"];
+	show_another_window = file["Modules"]["IMGUI"]["show_another_window"];
+	current_tab = file["Modules"]["IMGUI"]["current_tab"];
+	openWindowAbout = file["Modules"]["IMGUI"]["openWindowAbout"];
+	showConsole = file["Modules"]["IMGUI"]["showConsole"];
+	Show_ImGui_Demo = file["Modules"]["IMGUI"]["Show_ImGui_Demo"];
+	Exit_Pressed = file["Modules"]["IMGUI"]["Exit_Pressed"];
+
+
 }
 
 bool ModuleEngineUI::Start() {

@@ -26,6 +26,18 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 ModuleRenderer3D::~ModuleRenderer3D()
 {}
 
+ //Called to init variables
+void ModuleRenderer3D::Load(nlohmann::json& file)
+{
+	LOG("Load variables from Json to module Renderer");
+
+	Light_num = file["Modules"]["Render"]["LightNumber"];
+	Vsync = file["Modules"]["Render"]["VSync"];
+
+}
+
+
+
 // Called before render is available
 bool ModuleRenderer3D::Init()
 {
@@ -40,10 +52,12 @@ bool ModuleRenderer3D::Init()
 		ret = false;
 	}
 	
+	
+
 	if(ret == true)
 	{
 		//Use Vsync
-		if(VSYNC && SDL_GL_SetSwapInterval(1) < 0)
+		if(Vsync && SDL_GL_SetSwapInterval(1) < 0)
 			LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 
 
