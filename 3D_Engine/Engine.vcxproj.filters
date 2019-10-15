@@ -181,6 +181,9 @@
     <ClCompile Include="ModuleFileSystem.cpp">
       <Filter>Source\Modules\UI_Elements</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleTexture.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleCamera3D.h">
@@ -481,6 +484,9 @@
       <Filter>Source\Tools\Import_Assets</Filter>
     </ClInclude>
     <ClInclude Include="ModuleFileSystem.h">
+      <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleTexture.h">
       <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>

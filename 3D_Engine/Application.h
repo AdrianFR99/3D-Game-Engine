@@ -12,6 +12,7 @@
 #include "ModuleEngineUI.h"
 #include "ModuleHardware.h"
 #include "ModuleAssets.h"
+#include "ModuleTexture.h"
 #include "JSONLoader.h"
 //#include "ModuleFileSystem.h"
 
@@ -38,6 +39,7 @@ public:
 	ModuleHardware* hardware = nullptr;
 	//ModuleFileSystem* fs = nullptr;
 	ModuleAssets* Assets = nullptr;
+	ModuleTexture*Textures = nullptr;
 
 private:
 
