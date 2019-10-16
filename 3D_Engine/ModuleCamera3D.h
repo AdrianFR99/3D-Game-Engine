@@ -13,7 +13,7 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 	void Load(nlohmann::json& file);
-
+	void Save(nlohmann::json& file);
 	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = false);
 	void LookAt(const vec3 &Spot);
 	void Move(const vec3 &Movement);

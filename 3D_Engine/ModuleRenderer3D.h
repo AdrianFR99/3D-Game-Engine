@@ -24,6 +24,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 	void Load(nlohmann::json& file);
+	void Save(nlohmann::json& file);
 	void OnResize(int width, int height);
 	void changeLight(bool value);
 

@@ -37,7 +37,17 @@ void ModuleRenderer3D::Load(nlohmann::json& file)
 
 }
 
+// Called to save variables
+void ModuleRenderer3D::Save(nlohmann::json& file)
+{
+	LOG("Save variables from Module Render to Config");
+	App->GearConsole.AddLog(" Save variables from Module Render to Config ");
 
+	file["Modules"]["Render"]["LightNumber"] = Light_num;
+	file["Modules"]["Render"]["VSync"] = Vsync;
+
+
+}
 
 // Called before render is available
 bool ModuleRenderer3D::Init()

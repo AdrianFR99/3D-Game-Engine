@@ -56,6 +56,9 @@ public:
 
 	virtual void Load(nlohmann::json& file)
 	{}
+
+	virtual void Save(nlohmann::json& file)
+	{}
 };
 
 #endif // __MODULE_H__

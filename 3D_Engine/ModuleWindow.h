@@ -18,6 +18,7 @@ public:
 	bool Init();
 	bool CleanUp();
 	void Load(nlohmann::json& file);
+	void Save(nlohmann::json& file);
 	void SetTitle( char* title);
 
 	const uint GetDisplayRefRate() const;

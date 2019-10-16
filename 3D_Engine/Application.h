@@ -94,7 +94,7 @@ private:
 	void FinishUpdate();
 
 
-	void save();
+	void save(nlohmann::json& file);
 	void load(nlohmann::json& file);
 
 	JSONLoader JSONLoad;

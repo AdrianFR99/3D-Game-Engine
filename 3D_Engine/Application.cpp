@@ -209,7 +209,7 @@ update_status Application::Update()
 
 bool Application::CleanUp()
 {
-	save();
+	
 	bool ret = true;
 	std::list<Module*>::reverse_iterator item = list_modules.rbegin();
 
@@ -258,18 +258,21 @@ const char* Application::GetAppName() const {
 
 }
 
-void Application::save()
+void Application::save(nlohmann::json& file)
 {
-	/*json test;
-	test = {
-		{ "Test",{
-			{ "mic", "1,2,3" }
-		} }
-	};
 
+	file["Modules"]["App"]["Name"] = AppName.data();
 	
+	file["Modules"]["App"]["Uni"] = StudyCenter.data();
 
-	JSONLoad.Save("test.json", test);*/
+
+	std::list<Module*>::iterator item = list_modules.begin();
+
+	while (item != list_modules.end())
+	{
+		(*item)->Save(file);
+		item++;
+	}
 	
 }
 

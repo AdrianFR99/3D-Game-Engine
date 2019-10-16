@@ -35,6 +35,28 @@ void ModuleWindow::Load(nlohmann::json& file)
 	
 }
 
+// Called to save variables
+void ModuleWindow::Save(nlohmann::json& file)
+{
+	LOG("Save variables from Module Window to Config");
+	App->GearConsole.AddLog(" Save variables from Module Window to Config ");
+
+	//Window sizes
+	file["Modules"]["Window"]["Width"] = Screen_Width;
+	file["Modules"]["Window"]["Height"] = Screen_Height;
+	file["Modules"]["Window"]["RefreshRate"] = RefreshRate;
+	file["Modules"]["Window"]["DispalyWidth"] = disp_Width;
+	file["Modules"]["Window"]["DisplayHeight"] = disp_Height;
+
+	// --- Win Flags ---
+	file["Modules"]["Window"]["Fullscreen"] = fullscreen;
+	file["Modules"]["Window"]["Resizable"] = resizable;
+	file["Modules"]["Window"]["Borderless"] = borderless;
+	file["Modules"]["Window"]["FullscreenDesktop"] = fullscreen_desktop;
+
+
+}
+
 // Called before render is available
 bool ModuleWindow::Init()
 {

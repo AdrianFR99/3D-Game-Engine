@@ -61,6 +61,9 @@ public:
 	//load data
 	void Load(nlohmann::json& file);
 
+	//load data
+	void Save(nlohmann::json& file);
+
 	//setting up bools flags for the window
 	ImGuiWindowFlags Setting_Flag_bools(bool no_titlebar =false, bool no_scrollbar = false,
 		bool no_menu = false, bool no_move = false, bool no_resize = false, bool no_collapse = false, bool no_close = false,

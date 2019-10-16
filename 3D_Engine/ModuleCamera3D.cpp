@@ -46,6 +46,20 @@ void ModuleCamera3D::Load(nlohmann::json& file)
 
 }
 
+// Called to save variables
+void ModuleCamera3D::Save(nlohmann::json& file)
+{
+	LOG("Save variables from Module Camera to Config");
+	App->GearConsole.AddLog(" Save variables from Module Render to Config ");
+
+	file["Modules"]["Camera"]["PremadeDistance"] = premadeDist;
+	file["Modules"]["Camera"]["Mouse_sensitivity"] = mouse_sensitivity;
+	file["Modules"]["Camera"]["Wheel_speed"] = wheel_speed;
+	file["Modules"]["Camera"]["Camera_speed"] = camera_speed;
+
+}
+
+
 // -----------------------------------------------------------------
 bool ModuleCamera3D::CleanUp()
 {

@@ -74,6 +74,25 @@ void ModuleEngineUI::Load(nlohmann::json& file)
 
 }
 
+// Called to init variables
+void ModuleEngineUI::Save(nlohmann::json& file)
+{
+	LOG("Save variables from Module UI to Config");
+	App->GearConsole.AddLog(" Save variables from Module UI to Config ");
+
+	file["Modules"]["IMGUI"]["show_demo_window"] = show_demo_window;
+	file["Modules"]["IMGUI"]["show_another_window"] = show_another_window;
+	file["Modules"]["IMGUI"]["current_tab"] = current_tab;
+	file["Modules"]["IMGUI"]["openWindowAbout"] = openWindowAbout;
+	file["Modules"]["IMGUI"]["showConsole"] = showConsole;
+	file["Modules"]["IMGUI"]["Show_ImGui_Demo"] = Show_ImGui_Demo;
+	file["Modules"]["IMGUI"]["Exit_Pressed"] = Exit_Pressed;
+
+
+
+
+}
+
 bool ModuleEngineUI::Start() {
 
 
