@@ -393,9 +393,9 @@ void WindowUI_Settings::Config_Window_Hardware() {
 		ImGui::SameLine();
 		ImGui::TextColored(IMGUI_YELLOW, "%s", glGetString(GL_VERSION));
 		//Devel
-		ImGui::Text("Devil Version:");
+		ImGui::Text("DevIL Version:");
 		ImGui::SameLine();
-		ImGui::TextColored(IMGUI_YELLOW, "please fill");
+		ImGui::TextColored(IMGUI_YELLOW, "1.8.0");
 		ImGui::Separator();
 
 
@@ -700,8 +700,8 @@ void WindowUI_Settings::DrawAbout( bool* openWindowAbout,int* current_tab)
 			ImGui::Text("Version"); ImGui::NextColumn();
 			ImGui::Separator();
 			
-			const char* name[11] = { "SDL", "MathGeoLib", "ImGui", "JSON for modern C++", "OpenGL", "Glew", "Devil", "Assimp", "mmgr", "Brofiler","Par_shapes" };
-			const char* version[11] = { "v2.0.10", "v2.0", "v1.74", "3.7.0", "4.6.0", "v7.0", "devil", "assimp", "mmgr","bro","par" };
+			const char* name[11] = { "SDL", "MathGeoLib", "ImGui", "JSON for modern C++", "OpenGL", "Glew", "DevIL", "Assimp", "mmgr", "Brofiler","Par_shapes" };
+			const char* version[11] = { "v2.0.10", "v2.0", "v1.74", "3.7.0", "4.6.0", "v7.0", "v1.8.0", "v3.1.1", "---","v1.1.2","---" };
 			//static int selected = -1;
 			for (int i = 0; i < 11; i++)
 			{
