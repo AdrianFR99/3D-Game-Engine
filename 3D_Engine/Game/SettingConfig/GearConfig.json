@@ -1,47 +1,39 @@
 {
-  "Modules": {
-
-    "App": {
-      "Name": "Gear Engine",
-      "Uni": "UPC//CITM"
-
-    },
-
-    "IMGUI": {
-
-      "show_demo_window": true,
-      "show_another_window": false,
-      "current_tab": 1,
-      "openWindowAbout": false,
-      "showConsole": false,
-      "Show_ImGui_Demo": false,
-      "Exit_Pressed": false
-
-    },
-
-    "Window": {
-      "Width": 1280,
-      "Height": 1024,
-      "RefreshRate": 0,
-      "DispalyWidth": 600,
-      "DisplayHeight": 600,
-      "Fullscreen": false,
-      "Resizable": true,
-      "Borderless": false,
-      "FullscreenDesktop": false
-
-    },
-
-    "Camera": {
-      "Mouse_sensitivity": 0.25,
-      "Wheel_speed": 5,
-      "Camera_speed": 20,
-      "PremadeDistance": 15.0
-    },
-
-    "Render": {
-      "LightNumber": 8,
-      "VSync": true
+    "Modules": {
+        "App": {
+            "Name": "Gear Engine",
+            "Uni": "UPC//CITM"
+        },
+        "Camera": {
+            "Camera_speed": 20.0,
+            "Mouse_sensitivity": 0.25,
+            "PremadeDistance": 15.0,
+            "Wheel_speed": 5.0
+        },
+        "IMGUI": {
+            "Exit_Pressed": false,
+            "Show_ImGui_Demo": false,
+            "current_tab": 1,
+            "openWindowAbout": false,
+            "showConsole": false,
+            "show_another_window": false,
+            "show_demo_window": true
+        },
+        "Render": {
+            "LightNumber": 8,
+            "VSync": true
+        },
+        "Window": {
+            "Borderless": false,
+            "DispalyWidth": 600,
+            "DisplayHeight": 600,
+            "Fullscreen": false,
+            "FullscreenDesktop": false,
+            "Height": 810,
+            "RefreshRate": 60,
+            "Resizable": true,
+            "Width": 1440
+            
+        }
     }
-  }
 }

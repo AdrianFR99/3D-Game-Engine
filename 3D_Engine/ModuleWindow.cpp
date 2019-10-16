@@ -31,6 +31,7 @@ void ModuleWindow::Load(nlohmann::json& file)
 	 resizable = file["Modules"]["Window"]["Resizable"];
 	 borderless = file["Modules"]["Window"]["Borderless"];
 	 fullscreen_desktop = file["Modules"]["Window"]["FullscreenDesktop"];
+	 
 
 	
 }
@@ -54,7 +55,8 @@ void ModuleWindow::Save(nlohmann::json& file)
 	file["Modules"]["Window"]["Borderless"] = borderless;
 	file["Modules"]["Window"]["FullscreenDesktop"] = fullscreen_desktop;
 
-
+	int a = 0;
+	file["Modules"]["Window"]["lol"] = a;
 }
 
 // Called before render is available

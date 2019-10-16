@@ -234,7 +234,9 @@ void ModuleEngineUI::Menu_Bar() {
 			
 			ImGui::Separator(); 
 			
-			if (ImGui::MenuItem("Save", "Ctrl+S")) {}
+			if (ImGui::MenuItem("Save", "Ctrl+S")) {
+				toSave = true;
+			}
 			if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {}
 			
 			ImGui::Separator();

@@ -94,6 +94,8 @@ public:
 	//appereance
 	void Selecet_Style(const int style=3);
 
+	bool toSave = false;
+
 	//variables for loading
 	bool show_demo_window = true;
 	bool show_another_window = false;

@@ -168,6 +168,11 @@ void Application::FinishUpdate()
 
 	UI_Layer->Assign_FPS_Data((float)last_FPS,(float)last_frame_time);
 
+	if (UI_Layer->toSave == true)
+	{
+		UI_Layer->toSave = false;
+		save(settings);
+	}
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -274,6 +279,7 @@ void Application::save(nlohmann::json& file)
 		item++;
 	}
 	
+	JSONLoad.Save("SettingConfig/GearConfig.json", settings); 
 }
 
 void Application::load(nlohmann::json& file)
