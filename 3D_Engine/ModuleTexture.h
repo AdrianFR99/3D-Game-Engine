@@ -18,8 +18,10 @@ public:
 	bool CleanUp();
 
 	void CreateCheckeredTex();
-	void ToTexBuffer();
+	void SetTextureOptions(int ClampOptions,int FilterMag,int FilterMin);
+	uint ToTexBuffer(uint size, int format, int width, int height,uint Wrapping, uint FilterMag, uint FilterMin, const void* Texture);
 
+	
 
 	uint IDChecker;
 };
