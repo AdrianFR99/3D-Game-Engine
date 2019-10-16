@@ -18,11 +18,11 @@ As stated on the license, anyone can look at or modify the code of this project.
    
 The engine is developed in collaboration of 
 
-- AndrÈs Ricardo Saladrigas Perez
-   - [AndrÈs' GitHub Link](https://github.com/TheArzhel)
+- Andr√©s Ricardo Saladrigas Perez
+   - [Andr√©s' GitHub Link](https://github.com/TheArzhel)
    
 - Adrian Font Romero
-   - [“scar's GitHub Link](https://github.com/AdrianFR99)
+   - [Adrian's GitHub Link](https://github.com/AdrianFR99)
    
 
 ### Downloading
@@ -49,27 +49,27 @@ Once inside the Engine, you may refer to the manu tool bar to open windows to ed
 
 The proyect is using a external open libraries. which are listed here:
 
--SDL: V2.0.10
+- SDL: V2.0.10
 
--MathGeoLib: V2.0
+- MathGeoLib: V2.0
 
--ImGui: V1.74
+- ImGui: V1.74
 
--JSON for Modern C++: V3.7.0
+- JSON for Modern C++: V3.7.0
 
--OpenGl:V4.6.0
+- OpenGl:V4.6.0
 
--Glew: V7.0
+- Glew: V7.0
 
-_DevIL: V1.8.0
+- DevIL: V1.8.0
 
--Assimp:V3.1.1
+- Assimp:V3.1.1
 
--mmgr
+- mmgr
 
--Brofiler: V1.1.2
+- Brofiler: V1.1.2
 
--Par_shapes
+- Par_shapes
 
 
 ## Engine controls
@@ -165,7 +165,7 @@ Be sure to check out their sites or githubs to get more info about them.
 
 MIT License
 
-Copyright (c) 2019 Adri·n Font Romero & Andres Ricardo Saladrigas Perez
+Copyright (c) 2019 Adri√°n Font Romero & Andres Ricardo Saladrigas Perez
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
