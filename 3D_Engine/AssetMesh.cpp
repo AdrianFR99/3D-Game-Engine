@@ -85,7 +85,7 @@ void AssetMesh::ToBuffer() {
 	glGenBuffers(1, &IBO);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,IBO);// IBO
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_index*3, indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_index, indices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
