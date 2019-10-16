@@ -30,7 +30,7 @@ ModuleRenderer3D::~ModuleRenderer3D()
 void ModuleRenderer3D::Load(nlohmann::json& file)
 {
 	LOG("Load variables from Json to module Renderer");
-	App->GearConsole.AddLog(" Load Config varibales for input ");
+	App->GearConsole.AddLog(" Load Config varibales for Renderer ");
 
 	Light_num = file["Modules"]["Render"]["LightNumber"];
 	Vsync = file["Modules"]["Render"]["VSync"];

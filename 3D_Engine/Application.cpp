@@ -266,6 +266,7 @@ const char* Application::GetAppName() const {
 void Application::save(nlohmann::json& file)
 {
 
+	App->GearConsole.AddLog(" Save variables ");
 	file["Modules"]["App"]["Name"] = AppName.data();
 	
 	file["Modules"]["App"]["Uni"] = StudyCenter.data();
