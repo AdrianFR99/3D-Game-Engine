@@ -51,6 +51,7 @@ bool ModuleEngineUI::Awake()
 	bool ret = true;
 
 	LOG("Loading ImGui");
+	App->GearConsole.AddLog(" Loading ImGui ");
 	
 	
 	return ret;
@@ -60,6 +61,7 @@ bool ModuleEngineUI::Awake()
 void ModuleEngineUI::Load(nlohmann::json& file)
 {
 	LOG("Load variables from Json to module UI");
+	App->GearConsole.AddLog(" Load Config Variables for UI ");
 
 	show_demo_window = file["Modules"]["IMGUI"]["show_demo_window"];
 	show_another_window = file["Modules"]["IMGUI"]["show_another_window"];
@@ -78,8 +80,8 @@ bool ModuleEngineUI::Start() {
 
 
 
-	App->GearConsole.AddLog("glew version:");
-	App->GearConsole.AddLog("%s", glewGetString(GLEW_VERSION));
+	App->GearConsole.AddLog(" glew version:");
+	//App->GearConsole.AddLog(" %s", glewGetString(GLEW_VERSION));
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -91,7 +93,9 @@ bool ModuleEngineUI::Start() {
 	ImGui::StyleColorsDark();
 
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window,App->renderer3D->context);
+	App->GearConsole.AddLog(" Init SDL2 for OpenGl ");
 	ImGui_ImplOpenGL3_Init();
+	App->GearConsole.AddLog(" Init OpenGL3 ");
 	
 
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_DockingEnable;     // Enable Keyboard Controls
@@ -110,6 +114,7 @@ bool ModuleEngineUI::Start() {
 					  //4: cherry
 					  //5: another dark theme
 
+	App->GearConsole.AddLog(" Load IMGUI theme ");
 	return true;
 }
 

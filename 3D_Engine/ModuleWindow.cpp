@@ -17,7 +17,7 @@ ModuleWindow::~ModuleWindow()
 void ModuleWindow::Load(nlohmann::json& file)
 {
 	LOG("Load variables from Json to module Window");
-	
+	App->GearConsole.AddLog(" Load Config varibales for Window ");
 	
 	//Window sizes
 	 Screen_Width = file["Modules"]["Window"]["Width"];
@@ -39,6 +39,8 @@ void ModuleWindow::Load(nlohmann::json& file)
 bool ModuleWindow::Init()
 {
 	LOG("Init SDL window & surface");
+	//App->GearConsole.AddLog(" Init SDL window ");
+
 	bool ret = true;
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0)

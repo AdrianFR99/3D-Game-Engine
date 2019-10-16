@@ -29,7 +29,9 @@ int main(int argc, char ** argv)
 	
 
 	LOG("Starting Engine '%s'...", TITLE);
+	App->GearConsole.AddLog(" Gear Engine: ON  ");
 
+	App->GearConsole.AddLog(" Brofiler integrated succesfully in main ");
 
 	int main_return = EXIT_FAILURE;
 	main_states state = MAIN_CREATION;

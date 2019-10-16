@@ -30,6 +30,7 @@ ModuleRenderer3D::~ModuleRenderer3D()
 void ModuleRenderer3D::Load(nlohmann::json& file)
 {
 	LOG("Load variables from Json to module Renderer");
+	App->GearConsole.AddLog(" Load Config varibales for input ");
 
 	Light_num = file["Modules"]["Render"]["LightNumber"];
 	Vsync = file["Modules"]["Render"]["VSync"];
@@ -114,6 +115,7 @@ bool ModuleRenderer3D::Init()
 		lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
 		lights[0].SetPos(0.0f, 0.0f, 2.5f);
 		lights[0].Init();
+		App->GearConsole.AddLog(" Render Lights system Init ");
 		
 		GLfloat MaterialAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, MaterialAmbient);
@@ -126,7 +128,7 @@ bool ModuleRenderer3D::Init()
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
-	//	glCullFace(GL_FRONT_AND_BACK);
+		glCullFace(GL_FRONT_AND_BACK);
 
 		App->GearConsole.AddLog(" Enable GL Depth test ");
 		App->GearConsole.AddLog(" Enable Cull face ");

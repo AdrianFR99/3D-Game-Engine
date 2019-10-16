@@ -59,7 +59,7 @@ bool Application::Init()
 	AppName = "Gear Engine";
 	App->GearConsole.AddLog("Welcome to Gear Engine");
 	
-	// Call Init() in all modules
+//	 Call Init() in all modules
 	std::list<Module*>::const_iterator item = list_modules.begin();
 
 	while(item != list_modules.end() && ret == true)
