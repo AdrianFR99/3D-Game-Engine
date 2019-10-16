@@ -94,12 +94,13 @@ bool ModuleAssets::CleanUp() {
 		
 		glDeleteBuffers(1,&Meshes_Vec[i]->VBO);
 		glDeleteBuffers(1,&Meshes_Vec[i]->IBO);
-		glDeleteBuffers(1,&Meshes_Vec[i]->NBO);
+		
 
 		RELEASE_ARRAY(Meshes_Vec[i]->vertices);
 		RELEASE_ARRAY(Meshes_Vec[i]->indices);
 		RELEASE_ARRAY(Meshes_Vec[i]->normals);
 		RELEASE_ARRAY(Meshes_Vec[i]->normals_faces);
+		RELEASE_ARRAY(Meshes_Vec[i]->normals_faces_pos);
 
 		delete(Meshes_Vec[i]);
 	}

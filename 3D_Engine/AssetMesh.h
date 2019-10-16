@@ -42,6 +42,8 @@ public:
 	float3*normals_faces = nullptr;
 	float3*normals_faces_pos = nullptr;
 
+
+
 public:
 
 	void DrawNormals(float width,uint lenght,float3 &colorNV, float3 &colorNF,float alpha);

@@ -98,26 +98,6 @@ void AssetMesh::ToBuffer() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
-	//glGenBuffers(1, &NBO);// Gen NBO
-
-	//// Vertex Buffer Object
-	//assert(normals != nullptr);
-
-	//glBindBuffer(GL_ARRAY_BUFFER, NBO);// NBO
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * num_vertex, normals, GL_STATIC_DRAW);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-
-	//glGenBuffers(1, &NFBO);// Gen NFBO
-
-	//// Vertex Buffer Object
-	//assert(normals != nullptr);
-
-	//glBindBuffer(GL_ARRAY_BUFFER, NBO);// NBO
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * num_normals_faces, normals_faces, GL_STATIC_DRAW);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-
 }
 
 void AssetMesh::DrawNormals(float width, uint lenght, float3 &colorNV, float3 &colorNF,float alpha) {
