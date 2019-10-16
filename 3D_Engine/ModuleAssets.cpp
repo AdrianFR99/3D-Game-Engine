@@ -129,14 +129,14 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 	LoadMesh(path);
 
-	//App->GearConsole.AddLog(" Loading File %s",path);
+	App->GearConsole.AddLog(" Loading File %s",path);
 
 	return true;
 }
 
 bool ModuleAssets::LoadMesh(const char* path) {
 
-//	App->GearConsole.AddLog(" Loading Mesh from %s ",path);
+	App->GearConsole.AddLog(" Loading Mesh from %s ",path);
 
 	const aiScene* Scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 

@@ -44,7 +44,7 @@ bool ModuleRenderer3D::Init()
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
-	App->GearConsole.AddLog("Creating 3D Renderer context");
+	App->GearConsole.AddLog(" Creating 3D Renderer context");
 
 	
 	//Create context
@@ -66,7 +66,7 @@ bool ModuleRenderer3D::Init()
 
 		// Initialize glew
 		GLenum error = glewInit();
-		App->GearConsole.AddLog("GLEW external lib init");
+		App->GearConsole.AddLog(" GLEW external lib init");
 
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
@@ -115,6 +115,7 @@ bool ModuleRenderer3D::Init()
 		lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
 		lights[0].SetPos(0.0f, 0.0f, 2.5f);
 		lights[0].Init();
+		
 		App->GearConsole.AddLog(" Render Lights system Init ");
 		
 		GLfloat MaterialAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};

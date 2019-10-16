@@ -39,7 +39,7 @@ void ModuleWindow::Load(nlohmann::json& file)
 bool ModuleWindow::Init()
 {
 	LOG("Init SDL window & surface");
-	//App->GearConsole.AddLog(" Init SDL window ");
+	App->GearConsole.AddLog(" Init SDL window ");
 
 	bool ret = true;
 

@@ -57,7 +57,7 @@ bool Application::Init()
 
 
 	AppName = "Gear Engine";
-	App->GearConsole.AddLog("Welcome to Gear Engine");
+	App->GearConsole.AddLog(" Welcome to Gear Engine");
 	
 //	 Call Init() in all modules
 	std::list<Module*>::const_iterator item = list_modules.begin();
@@ -91,7 +91,7 @@ bool Application::Awake()
 {
 	//load config
 	//not loading variables from, just parcing doc
-	App->GearConsole.AddLog("Loading Config File and Configuration");
+	App->GearConsole.AddLog(" Loading Config File and Configuration");
 	JSONLoad.Load("SettingConfig/GearConfig.json");
 	settings = JSONLoad.getFile();
 
@@ -218,6 +218,9 @@ bool Application::CleanUp()
 		ret = (*item)->CleanUp();
 		item++;
 	}
+
+	GearConsole.ClearLog();
+
 	return ret;
 }
 

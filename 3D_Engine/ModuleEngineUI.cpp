@@ -81,7 +81,7 @@ bool ModuleEngineUI::Start() {
 
 
 	App->GearConsole.AddLog(" glew version:");
-	//App->GearConsole.AddLog(" %s", glewGetString(GLEW_VERSION));
+	App->GearConsole.AddLog(" %s", glewGetString(GLEW_VERSION));
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
