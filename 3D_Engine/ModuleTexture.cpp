@@ -11,8 +11,6 @@
 
 #include "mmgr/mmgr.h"
 
-#define CHECKERS_HEIGHT 64
-#define CHECKERS_WIDTH 64
 
 ModuleTexture::ModuleTexture(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -50,18 +48,21 @@ bool ModuleTexture::Init() {
 bool ModuleTexture::Start() {
 
 
-
+	IDChecker = CreateCheckeredTex();
 
 	return true;
 }
 bool ModuleTexture::CleanUp() {
 
+	if (IDChecker > 0)
+		glDeleteTextures(1, (GLuint*)&IDChecker);
 
+	return true;
 
 
 	return true;
 }
-void ModuleTexture::CreateCheckeredTex() {
+uint ModuleTexture::CreateCheckeredTex() {
 
 	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
@@ -74,10 +75,9 @@ void ModuleTexture::CreateCheckeredTex() {
 		}
 	}
 
-
-
+	return ToTexBuffer(1,GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,checkImage);
 }
-uint ModuleTexture::ToTexBuffer( uint size, int format, int width, int height, uint Wrapping, uint FilterMag, uint FilterMin, const void* Texture) {
+uint ModuleTexture::ToTexBuffer(uint size, int format, int width, int height,const void* Texture) {
 	
 	uint ID = 0;
 	// Affect the operation of subsequent glReadPixels as well as the unpacking of texture patterns
@@ -87,7 +87,7 @@ uint ModuleTexture::ToTexBuffer( uint size, int format, int width, int height, u
 	glBindTexture(GL_TEXTURE_2D, ID);	//Binding texture
 	
 	//wrapping and filtering
-	SetTextureOptions(Wrapping, FilterMag, FilterMin);
+	SetTextureOptions(GL_REPEAT, GL_LINEAR,GL_LINEAR_MIPMAP_LINEAR);
 	
 	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, Texture);
 
@@ -107,5 +107,41 @@ void ModuleTexture::SetTextureOptions(int ClampOptions, int FilterMag, int Filte
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, FilterMag);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, FilterMin);
 
+
+}
+uint ModuleTexture::CreateTexture(const char*path) {
+
+	uint texID = 0;
+	if (path == nullptr)
+	{
+		LOG("Error loading texture from path. ERROR: Path %s was nullptr", path);
+		return texID;
+	}
+
+	uint ImageID = 0;
+	ilGenImages(1, (ILuint*)&ImageID);
+	ilBindImage(ImageID);
+
+	//Loading image
+	if (ilLoadImage(path))
+	{
+		ILinfo imageInfo;
+		iluGetImageInfo(&imageInfo);
+	
+		if (imageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+			iluFlipImage();
+		
+		if (ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE))
+		{
+			texID = ToTexBuffer(1,ilGetInteger(IL_IMAGE_FORMAT), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),ilGetData());
+		}
+	
+	}
+	
+	ilDeleteImages(1, (const ILuint*)&ImageID);
+
+	
+
+	return texID;
 
 }
