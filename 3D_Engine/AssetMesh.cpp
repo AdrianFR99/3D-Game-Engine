@@ -11,7 +11,9 @@
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
 
+#include "Application.h"
 
+#include "mmgr/nommgr.h"
 
 
 AssetMesh::AssetMesh(){}
@@ -22,16 +24,25 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 	
 	LOG("Importing Mesh");
 
-	
+
+	App->GearConsole.AddLog(" Importing Mesh ");
+
+
 
 	//vertices
 	num_vertex = Mesh->mNumVertices;
 	vertices = new float3[num_vertex];
 	memcpy(vertices,Mesh->mVertices,sizeof(float3)*num_vertex);
 
+	App->GearConsole.AddLog(" the Number of Vertices is %i ", num_vertex);
+
 	//Indices
 	num_index = Mesh->mNumFaces*3;
 	indices = new uint[num_index];
+
+	App->GearConsole.AddLog(" The number of inices is %i", num_index);
+
+	App->GearConsole.AddLog(" The number of Triangles is %i",Mesh->mNumFaces);
 
 	if (Mesh->HasFaces()) {
 		//each face is a triangle
@@ -62,6 +73,11 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 
 		}*/
 	}
+
+
+	//App->GearConsole.AddLog(" The number of Vertex vertices is %i",num_normals);
+
+	//App->GearConsole.AddLog(" The number of Face normals is %i ",num_normals_faces);
 
 	ToBuffer();
 

@@ -8,6 +8,7 @@
 
 #include "WindowUI.h"
 
+
 struct AppConsole
 {
 	char                  InputBuf[256];

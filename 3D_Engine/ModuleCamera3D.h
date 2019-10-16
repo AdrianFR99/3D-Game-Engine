@@ -34,9 +34,10 @@ public:
 	float premadeDist = 15.0f;
 	
 
-private:
 	float mouse_sensitivity =0.0f;
-	mat4x4 ViewMatrix, ViewMatrixInverse;
 	float wheel_speed = 0.0f;
 	float camera_speed = 0.0f;
+
+private:
+	mat4x4 ViewMatrix, ViewMatrixInverse;
 };
