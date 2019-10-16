@@ -13,6 +13,7 @@
 #include "ModuleHardware.h"
 #include "ModuleAssets.h"
 #include "JSONLoader.h"
+#include "WindowConsole.h"
 
 //#include "ModuleFileSystem.h"
 
@@ -71,7 +72,8 @@ public:
 	std::string AppName;
 	std::string StudyCenter;
 
-
+	//Console
+	AppConsole GearConsole;
 
 public:
 

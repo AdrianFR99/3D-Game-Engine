@@ -81,7 +81,7 @@ int main(int argc, char ** argv)
 
 		case MAIN_UPDATE:
 		{
-			BROFILER_FRAME("HOLA TELETUBI");
+			BROFILER_FRAME("MAIN update");
 
 			BROFILER_CATEGORY("Update", Profiler::Color::AntiqueWhite);
 
@@ -115,6 +115,7 @@ int main(int argc, char ** argv)
 		}
 	}
 
+	
 	delete App;
 	LOG("Exiting game '%s'...\n", TITLE);
 	return main_return;

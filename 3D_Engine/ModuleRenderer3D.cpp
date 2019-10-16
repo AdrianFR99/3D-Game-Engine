@@ -43,6 +43,8 @@ bool ModuleRenderer3D::Init()
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
+	App->GearConsole.AddLog("Creating 3D Renderer context");
+
 	
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
@@ -63,10 +65,12 @@ bool ModuleRenderer3D::Init()
 
 		// Initialize glew
 		GLenum error = glewInit();
+		App->GearConsole.AddLog("GLEW external lib init");
 
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
+		
 
 		//Check for error
 		 error = glGetError();
@@ -123,6 +127,11 @@ bool ModuleRenderer3D::Init()
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
 	//	glCullFace(GL_FRONT_AND_BACK);
+
+		App->GearConsole.AddLog(" Enable GL Depth test ");
+		App->GearConsole.AddLog(" Enable Cull face ");
+		App->GearConsole.AddLog(" Enable lights ");
+		App->GearConsole.AddLog(" Enable Color Material ");
 		
 	}
 
@@ -229,10 +238,12 @@ void ModuleRenderer3D::changeLight(bool value)
 	if (value)
 	{
 		lights[0].Active(true);
+		App->GearConsole.AddLog(" Add lights ");
 	}
 	else
 	{
 		lights[0].Active(false);
+		App->GearConsole.AddLog(" Clear lights ");
 	}
 }
 

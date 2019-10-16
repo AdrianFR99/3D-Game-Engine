@@ -22,6 +22,8 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 	
 	LOG("Importing Mesh");
 
+	
+
 	//vertices
 	num_vertex = Mesh->mNumVertices;
 	vertices = new float3[num_vertex];

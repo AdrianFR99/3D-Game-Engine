@@ -27,6 +27,7 @@ bool ModuleCamera3D::Start()
 	
 	Move(vec3(10.0f, 0.0f, 0.0f));
 	LookAt(vec3(0.0f, 0.0f, 0.0f));
+	App->GearConsole.AddLog(" Set 3D camera in position");
 
 	return ret;
 }
@@ -35,6 +36,7 @@ bool ModuleCamera3D::Start()
 void ModuleCamera3D::Load(nlohmann::json& file)
 {
 	LOG("Load variables from Json to module Camera3D");
+	App->GearConsole.AddLog(" Load Config variables for Camera ");
 
 	premadeDist = file["Modules"]["Camera"]["PremadeDistance"];
 	mouse_sensitivity = file["Modules"]["Camera"]["Mouse_sensitivity"];

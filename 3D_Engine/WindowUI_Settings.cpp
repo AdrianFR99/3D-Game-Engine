@@ -313,20 +313,6 @@ void WindowUI_Settings::Config_Window_Hardware() {
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
 
-		//SDL
-		ImGui::Text("SDL Version:");
-		ImGui::SameLine();
-		ImGui::TextColored(IMGUI_YELLOW, "%i", hardware_specs.sdl_version);
-		//OPENGL
-		ImGui::Text("OpenGL Version:");
-		ImGui::SameLine();
-		ImGui::TextColored(IMGUI_YELLOW, "%s", glGetString(GL_VERSION));
-		//Devel
-		ImGui::Text("Devil Version:");
-		ImGui::SameLine();
-		ImGui::TextColored(IMGUI_YELLOW, "please fill");
-		ImGui::Separator();
-
 		// CPUS
 		ImGui::Text("CPUs:");
 		ImGui::SameLine();

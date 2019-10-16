@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iomanip>
 
+
 // for convenience
 //using json = nlohmann::json;
 
@@ -23,6 +24,7 @@ bool JSONLoader::Load(const char * FiletoLoad)
 	if (FiletoLoad == nullptr || incomingStream.is_open())
 	{
 		LOG("Json File load error");
+	
 		return false;
 	}
 	

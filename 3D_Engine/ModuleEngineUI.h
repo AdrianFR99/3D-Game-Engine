@@ -3,7 +3,7 @@
 
 
 #include "Module.h"
-#include "WindowConsole.h"
+
 
 
 #include <vector>
@@ -83,8 +83,7 @@ public:
 	void Assign_FPS_Data(float fps,float ms);
 
 
-	//Console
-	AppConsole GearConsole;
+	
 
 	//dock
 	void ModuleEngineUI::UpdatedockingWindos(int style=1) const;

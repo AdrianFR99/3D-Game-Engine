@@ -42,6 +42,7 @@ bool ModuleEngineUI::Init() {
 	settingsPanel = new WindowUI_Settings("Configurations");
 	Panels.push_back(settingsPanel);
 
+	App->GearConsole.AddLog(" Init UI subsystem ");
 	return true;
 }
 
@@ -77,13 +78,14 @@ bool ModuleEngineUI::Start() {
 
 
 
-	GearConsole.AddLog("is anyone there?");
-	GearConsole.AddLog("%s", glewGetString(GLEW_VERSION));
+	App->GearConsole.AddLog("glew version:");
+	App->GearConsole.AddLog("%s", glewGetString(GLEW_VERSION));
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
+	App->GearConsole.AddLog(" create IMGUI Context ");
 	
 
 	ImGui::StyleColorsDark();
@@ -145,7 +147,7 @@ update_status  ModuleEngineUI::PostUpdate(float dt) {
 
 	if (showConsole)
 	{
-		GearConsole.Draw("Gear Console",&showConsole);
+		App->GearConsole.Draw("Gear Console",&showConsole);
 	}
 	if (openWindowAbout)
 	{
