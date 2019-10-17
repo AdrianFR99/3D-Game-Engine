@@ -3,11 +3,11 @@
 
 #include "Globals.h"
 #include "json/json.hpp"
-#include <fstream>
-#include <iomanip>
+
 
 // for convenience
-using json = nlohmann::json;
+//using json = nlohmann::json;
+//this does not work, using the whole namespace
 
 class JSONLoader
 {
@@ -17,13 +17,13 @@ public:
 	~JSONLoader() {}
 
 	bool Load(const char* FiletoLoad);
-	bool Save(const char* data, json doc);
+	bool Save(const char* data, nlohmann::json doc);
 
 	bool done = false;
 
-	json getFile();
+	nlohmann::json getFile();
 
-	json file;
+	nlohmann::json file;
 };
 
 #endif

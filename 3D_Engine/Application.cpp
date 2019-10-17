@@ -4,6 +4,7 @@
 
 
 
+
 Application::Application()
 {
 
@@ -57,9 +58,11 @@ bool Application::Init()
 {
 	bool ret = true;
 
-	AppName = "Engine";
 
-	// Call Init() in all modules
+	AppName = "Gear Engine";
+	App->GearConsole.AddLog(" Welcome to Gear Engine");
+	
+//	 Call Init() in all modules
 	std::list<Module*>::const_iterator item = list_modules.begin();
 
 	while(item != list_modules.end() && ret == true)
@@ -81,9 +84,61 @@ bool Application::Init()
 	ms_timer.Start();
 	SetMaxFrameRate(0);
 
-	load();
-	settings = JSONLoad.getFile();
+
+
 	return ret;
+}
+
+// Called to load config
+bool Application::Awake()
+{
+	//load config
+	//not loading variables from, just parcing doc
+	App->GearConsole.AddLog(" Loading Config File and Configuration");
+	JSONLoad.Load("SettingConfig/GearConfig.json");
+	settings = JSONLoad.getFile();
+
+	load(settings);
+
+	//pugi::xml_document	config_file;
+	//pugi::xml_node		config;
+	//pugi::xml_node		app_config;
+
+	//bool ret = false;
+
+	//config = LoadConfig(config_file, "config.xml");
+
+	//if (config.empty() == false)
+	//{
+	//	// self-config
+	//	ret = true;
+	//	app_config = config.child("app");
+	//	title.create(app_config.child("title").child_value());
+	//	organization.create(app_config.child("organization").child_value());
+
+	//	framerate_cap = app_config.attribute("framerate_cap").as_uint();
+
+	//	if (framerate_cap > 0.0f)
+	//	{
+	//		capped_ms = 1000.0f / framerate_cap;
+	//	}
+	//}
+
+	//if (ret == true)
+	//{
+	//	p2List_item<j1Module*>* item;
+	//	item = modules.start;
+
+	//	while (item != NULL && ret == true)
+	//	{
+	//		ret = item->data->Awake(config.child(item->data->name.GetString()));
+	//		item = item->next;
+	//	}
+	//}
+
+	//PERF_PEEK(ptimer);
+
+	return true;
 }
 
 // ---------------------------------------------
@@ -116,6 +171,11 @@ void Application::FinishUpdate()
 
 	UI_Layer->Assign_FPS_Data((float)last_FPS,(float)last_frame_time);
 
+	if (UI_Layer->toSave == true)
+	{
+		UI_Layer->toSave = false;
+		save(settings);
+	}
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -157,7 +217,7 @@ update_status Application::Update()
 
 bool Application::CleanUp()
 {
-	save();
+	
 	bool ret = true;
 	std::list<Module*>::reverse_iterator item = list_modules.rbegin();
 
@@ -166,14 +226,17 @@ bool Application::CleanUp()
 		ret = (*item)->CleanUp();
 		item++;
 	}
+
+	GearConsole.ClearLog();
+
 	return ret;
 }
 
 void Application::AddModule(Module* mod)
 {
-
   list_modules.push_back(mod);
 }
+
 void  Application::RequestBrowser(const char*URL) {
 	
 	ShellExecuteA(NULL, "open", URL, NULL, NULL, SW_SHOWNORMAL);
@@ -203,24 +266,42 @@ const char* Application::GetAppName() const {
 
 }
 
-void Application::save()
+void Application::save(nlohmann::json& file)
 {
-	json test;
-	test = {
-		{ "Test",{
-			{ "mic", "1,2,3" }
-		} }
-	};
 
+	App->GearConsole.AddLog(" Save variables ");
+	file["Modules"]["App"]["Name"] = AppName.data();
 	
+	file["Modules"]["App"]["Uni"] = StudyCenter.data();
 
-	JSONLoad.Save("test.json", test);
+
+	std::list<Module*>::iterator item = list_modules.begin();
+
+	while (item != list_modules.end())
+	{
+		(*item)->Save(file);
+		item++;
+	}
 	
+	JSONLoad.Save("SettingConfig/GearConfig.json", settings); 
 }
 
-
-void Application::load()
+void Application::load(nlohmann::json& file)
 {
-	JSONLoad.Load("test.json");
+
+	std::string name = file["Modules"]["App"]["Name"];
+	AppName = name;
+
+	std::string Uniname = file["Modules"]["App"]["Uni"];
+	StudyCenter = Uniname;
+
+	std::list<Module*>::iterator item = list_modules.begin();
+
+	while (item != list_modules.end())
+	{
+		(*item)->Load(file);
+		item++;
+	}
+
 
 }

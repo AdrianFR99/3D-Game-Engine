@@ -114,10 +114,14 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 	LoadMesh(path);
 
+	App->GearConsole.AddLog(" Loading File %s",path);
+
 	return true;
 }
 
 bool ModuleAssets::LoadMesh(const char* path) {
+
+	App->GearConsole.AddLog(" Loading Mesh from %s ",path);
 
 	const aiScene* Scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 
@@ -135,7 +139,11 @@ bool ModuleAssets::LoadMesh(const char* path) {
 		}
 	}
 	else
+	{
+
 		LOG("|[error]: Error loading scene %s", path);
+		App->GearConsole.AddLog(" Error Loading Mesh, no meshes or irregular path ");
+	}
 
 	return true;
 

@@ -1,8 +1,11 @@
 #ifndef __MODULE_H__
 #define __MODULE_H__
 
+#include "JSONLoader.h"
+
 class Application;
 struct PhysBody3D;
+
 
 class Module
 {
@@ -49,6 +52,12 @@ public:
 	}
 
 	virtual void OnCollision(PhysBody3D* body1, PhysBody3D* body2)
+	{}
+
+	virtual void Load(nlohmann::json& file)
+	{}
+
+	virtual void Save(nlohmann::json& file)
 	{}
 };
 

@@ -11,7 +11,9 @@
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
 
+#include "Application.h"
 
+#include "mmgr/nommgr.h"
 
 
 AssetMesh::AssetMesh(){}
@@ -19,17 +21,28 @@ AssetMesh::AssetMesh(){}
 AssetMesh::~AssetMesh(){}
 
 void AssetMesh::importMesh(aiMesh* Mesh) {
-	
+
 	LOG("Importing Mesh");
+
+
+	App->GearConsole.AddLog(" Importing Mesh ");
+
+
 
 	//vertices
 	num_vertex = Mesh->mNumVertices;
 	vertices = new float3[num_vertex];
 	memcpy(vertices,Mesh->mVertices,sizeof(float3)*num_vertex);
 
+	App->GearConsole.AddLog(" the Number of Vertices is %i ", num_vertex);
+
 	//Indices
 	num_index = Mesh->mNumFaces*3;
 	indices = new uint[num_index];
+
+	App->GearConsole.AddLog(" The number of inices is %i", num_index);
+
+	App->GearConsole.AddLog(" The number of Triangles is %i",Mesh->mNumFaces);
 
 	if (Mesh->HasFaces()) {
 		//each face is a triangle
@@ -43,10 +56,10 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 	}
 
 
-	
+
 	if (Mesh->HasNormals())
 	{
-				
+
 		normals = new float3[num_vertex];
 		memcpy(normals, Mesh->mNormals, sizeof(float3)*num_vertex);
 		num_normals_faces = Mesh->mNumFaces;
@@ -57,14 +70,14 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 		for (int i = 0; i < num_vertex;i+=3) {
 
 			if (i % 3 == 0 && i!=0) {
-				
+
 				float3 vert1 = vertices[i + 2];
 				float3 vert2 = vertices[i + 1];
 				float3 vert3 = vertices[i];
-			
+
 				float3 vector1 = vert2 - vert1;
 				float3 vector2 = vert3 - vert1;
-				
+
 				normals_faces[iterator] = Cross(vector1, vector2);
 				normals_faces_pos[iterator]=CenterTri(vert1,vert2,vert3);
 
@@ -73,9 +86,9 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 
 		}
 	}
-	
+
 	if (Mesh->HasTextureCoords(0)) {
-		
+
 		num_uv = Mesh->mNumVertices * 2;//x and y
 		uv_coord = new float[num_uv];
 
@@ -88,20 +101,24 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 
 	}
 
-	
+
+	//App->GearConsole.AddLog(" The number of Vertex vertices is %i",num_normals);
+
+	//App->GearConsole.AddLog(" The number of Face normals is %i ",num_normals_faces);
+
 	ToBuffer();
 
 }
 
 void AssetMesh::ToBuffer() {
 
-	
-	
+
+
 	glGenBuffers(1,&VBO);// Gen VBO,IBP
 
 	// Vertex Buffer Object
 	assert(vertices != nullptr);
-	
+
 	glBindBuffer(GL_ARRAY_BUFFER,VBO);// VBO
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float3) * num_vertex, vertices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -127,11 +144,11 @@ void AssetMesh::ToBuffer() {
 
 void AssetMesh::DrawNormals(float width, uint lenght, float3 &colorNV, float3 &colorNF,float alpha) {
 
-	
+
 	glBegin(GL_LINES);
 	glLineWidth(width);
 	uint Normal_length = lenght;
-	
+
 	glColor4f(colorNV.x, colorNV.y, colorNV.z,alpha);
 
 	for (uint j = 0; j < num_vertex; ++j)

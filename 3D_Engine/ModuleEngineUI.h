@@ -3,7 +3,7 @@
 
 
 #include "Module.h"
-#include "WindowConsole.h"
+
 
 
 #include <vector>
@@ -44,10 +44,6 @@ public:
 
 	
 
-	//bools
-	bool Show_ImGui_Demo = false;
-	bool Exit_Pressed=false; //Exit engine pressed
-	
 	//Flags
 	ImGuiWindowFlags window_flags;
 
@@ -61,6 +57,13 @@ public:
 
 public:
 	
+
+	//load data
+	void Load(nlohmann::json& file);
+
+	//load data
+	void Save(nlohmann::json& file);
+
 	//setting up bools flags for the window
 	ImGuiWindowFlags Setting_Flag_bools(bool no_titlebar =false, bool no_scrollbar = false,
 		bool no_menu = false, bool no_move = false, bool no_resize = false, bool no_collapse = false, bool no_close = false,
@@ -78,22 +81,30 @@ public:
 	void Menu_Bar_Help();
 	void Menu_Bar_About();
 
-	int current_tab = 1;
-	bool openWindowAbout = false;
 	
 	//FPS
 	void Assign_FPS_Data(float fps,float ms);
 
 
-	//Console
-	AppConsole GearConsole;
-	bool showConsole = false;
+	
 
 	//dock
 	void ModuleEngineUI::UpdatedockingWindos(int style=1) const;
 
 	//appereance
 	void Selecet_Style(const int style=3);
+
+	bool toSave = false;
+
+	//variables for loading
+	bool show_demo_window = true;
+	bool show_another_window = false;
+	int current_tab = 1;
+	bool openWindowAbout = false;
+	bool showConsole = false;
+	bool Show_ImGui_Demo = false;
+	bool Exit_Pressed=false; //Exit engine pressed
+	
 
 };
 

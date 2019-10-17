@@ -31,6 +31,7 @@ public:
 	void Config_Window_Window();
 	void Config_Window_FileSystem();
 	void Config_Window_Input();
+	void Config_Window_Camera();
 	void Config_Window_Hardware();
 	void Config_Window_Buttons();
 

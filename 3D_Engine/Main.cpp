@@ -13,9 +13,8 @@
 enum main_states
 {
 
-	//needs an awake
-
 	MAIN_CREATION,
+	MAIN_AWAKE,
 	MAIN_START,
 	MAIN_UPDATE,
 	MAIN_FINISH,
@@ -30,7 +29,7 @@ int main(int argc, char ** argv)
 	
 
 	LOG("Starting Engine '%s'...", TITLE);
-
+	
 
 	int main_return = EXIT_FAILURE;
 	main_states state = MAIN_CREATION;
@@ -45,7 +44,27 @@ int main(int argc, char ** argv)
 
 			LOG("-------------- Application Creation --------------");
 			App = new Application();
-			state = MAIN_START;
+			state = MAIN_AWAKE;
+
+			App->GearConsole.AddLog(" Gear Engine: ON  ");
+
+			App->GearConsole.AddLog(" Brofiler integrated succesfully in main ");
+			break;
+
+		case MAIN_AWAKE :
+
+			LOG("-------------- Application awake --------------");
+			if (App->Awake() == false)
+			{
+				LOG("Application AWAKE exits with ERROR");
+				state = MAIN_EXIT;
+			}
+			else
+			{
+				state = MAIN_START;
+				LOG("-------------- Application AWAKE --------------");
+			}
+		
 			break;
 
 		case MAIN_START:
@@ -66,7 +85,7 @@ int main(int argc, char ** argv)
 
 		case MAIN_UPDATE:
 		{
-			BROFILER_FRAME("HOLA TELETUBI");
+			BROFILER_FRAME("MAIN update");
 
 			BROFILER_CATEGORY("Update", Profiler::Color::AntiqueWhite);
 
@@ -100,6 +119,7 @@ int main(int argc, char ** argv)
 		}
 	}
 
+	
 	delete App;
 	LOG("Exiting game '%s'...\n", TITLE);
 	return main_return;

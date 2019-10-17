@@ -18,8 +18,7 @@
 #include "Maths.h"
 
 
-bool show_demo_window = true;
-bool show_another_window = false;
+
 ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 
@@ -43,6 +42,7 @@ bool ModuleEngineUI::Init() {
 	settingsPanel = new WindowUI_Settings("Configurations");
 	Panels.push_back(settingsPanel);
 
+	App->GearConsole.AddLog(" Init UI subsystem ");
 	return true;
 }
 
@@ -51,9 +51,46 @@ bool ModuleEngineUI::Awake()
 	bool ret = true;
 
 	LOG("Loading ImGui");
+	App->GearConsole.AddLog(" Loading ImGui ");
 	
 	
 	return ret;
+}
+
+//Called to init variables
+void ModuleEngineUI::Load(nlohmann::json& file)
+{
+	LOG("Load variables from Json to module UI");
+	App->GearConsole.AddLog(" Load Config Variables for UI ");
+
+	show_demo_window = file["Modules"]["IMGUI"]["show_demo_window"];
+	show_another_window = file["Modules"]["IMGUI"]["show_another_window"];
+	current_tab = file["Modules"]["IMGUI"]["current_tab"];
+	openWindowAbout = file["Modules"]["IMGUI"]["openWindowAbout"];
+	showConsole = file["Modules"]["IMGUI"]["showConsole"];
+	Show_ImGui_Demo = file["Modules"]["IMGUI"]["Show_ImGui_Demo"];
+	Exit_Pressed = file["Modules"]["IMGUI"]["Exit_Pressed"];
+
+
+}
+
+// Called to init variables
+void ModuleEngineUI::Save(nlohmann::json& file)
+{
+	LOG("Save variables from Module UI to Config");
+	App->GearConsole.AddLog(" Save variables from Module UI to Config ");
+
+	file["Modules"]["IMGUI"]["show_demo_window"] = show_demo_window;
+	file["Modules"]["IMGUI"]["show_another_window"] = show_another_window;
+	file["Modules"]["IMGUI"]["current_tab"] = current_tab;
+	file["Modules"]["IMGUI"]["openWindowAbout"] = openWindowAbout;
+	file["Modules"]["IMGUI"]["showConsole"] = showConsole;
+	file["Modules"]["IMGUI"]["Show_ImGui_Demo"] = Show_ImGui_Demo;
+	file["Modules"]["IMGUI"]["Exit_Pressed"] = Exit_Pressed;
+
+
+
+
 }
 
 bool ModuleEngineUI::Start() {
@@ -62,19 +99,22 @@ bool ModuleEngineUI::Start() {
 
 
 
-	GearConsole.AddLog("is anyone there?");
-	GearConsole.AddLog("%s", glewGetString(GLEW_VERSION));
+	App->GearConsole.AddLog(" glew version:");
+	App->GearConsole.AddLog(" %s", glewGetString(GLEW_VERSION));
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
+	App->GearConsole.AddLog(" create IMGUI Context ");
 	
 
 	ImGui::StyleColorsDark();
 
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window,App->renderer3D->context);
+	App->GearConsole.AddLog(" Init SDL2 for OpenGl ");
 	ImGui_ImplOpenGL3_Init();
+	App->GearConsole.AddLog(" Init OpenGL3 ");
 	
 
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard | ImGuiConfigFlags_DockingEnable;     // Enable Keyboard Controls
@@ -93,6 +133,7 @@ bool ModuleEngineUI::Start() {
 					  //4: cherry
 					  //5: another dark theme
 
+	App->GearConsole.AddLog(" Load IMGUI theme ");
 	return true;
 }
 
@@ -130,7 +171,7 @@ update_status  ModuleEngineUI::PostUpdate(float dt) {
 
 	if (showConsole)
 	{
-		GearConsole.Draw("Gear Console",&showConsole);
+		App->GearConsole.Draw("Gear Console",&showConsole);
 	}
 	if (openWindowAbout)
 	{
@@ -193,7 +234,9 @@ void ModuleEngineUI::Menu_Bar() {
 			
 			ImGui::Separator(); 
 			
-			if (ImGui::MenuItem("Save", "Ctrl+S")) {}
+			if (ImGui::MenuItem("Save", "Ctrl+S")) {
+				toSave = true;
+			}
 			if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {}
 			
 			ImGui::Separator();
