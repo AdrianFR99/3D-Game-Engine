@@ -1,7 +1,7 @@
 {
     "Modules": {
         "App": {
-            "Assets": "../Assets/BakerHouse.fbx",
+            "Assets": "Assets/BakerHouse.fbx",
             "Name": "Gear Engine",
             "Uni": "UPC//CITM"
         },
