@@ -82,7 +82,7 @@ bool Application::Init()
 	}
 	
 	ms_timer.Start();
-	SetMaxFrameRate(0);
+	SetMaxFrameRate(60);
 
 
 

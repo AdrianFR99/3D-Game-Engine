@@ -245,6 +245,8 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadMatrixf(&ProjectionMatrix);
 
 	glMatrixMode(GL_MODELVIEW);
+	App->window->Screen_Height = height;
+	App->window->Screen_Width = width;
 	glLoadIdentity();
 }
 

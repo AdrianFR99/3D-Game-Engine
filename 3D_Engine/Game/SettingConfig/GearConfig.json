@@ -1,10 +1,10 @@
 {
     "Modules": {
-      "App": {
-        "Name": "Gear Engine",
-        "Uni": "UPC//CITM",
-        "Assets": "../Assets/BakerHouse.fbx"
-      },
+        "App": {
+            "Assets": "../Assets/BakerHouse.fbx",
+            "Name": "Gear Engine",
+            "Uni": "UPC//CITM"
+        },
         "Camera": {
             "Camera_speed": 3.0,
             "Mouse_sensitivity": 0.25,
@@ -26,15 +26,14 @@
         },
         "Window": {
             "Borderless": false,
-            "DispalyWidth": 600,
-            "DisplayHeight": 600,
+            "DispalyWidth": 1152,
+            "DisplayHeight": 648,
             "Fullscreen": false,
             "FullscreenDesktop": false,
-            "Height": 810,
-            "RefreshRate": 60,
+            "Height": 723,
+            "RefreshRate": 120,
             "Resizable": true,
-            "Width": 1440
-            
+            "Width": 1165
         }
     }
 }

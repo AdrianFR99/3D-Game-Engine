@@ -83,8 +83,7 @@ struct AppConsole
 			ImGui::EndPopup();
 		}
 
-		ImGui::TextWrapped("This example implements a console with basic coloring, completion and history. A more elaborate implementation may want to store entries along with extra data such as timestamp, emitter, etc.");
-		ImGui::TextWrapped("Enter 'HELP' for help, press TAB to use text completion.");
+		ImGui::TextWrapped("Gear Engine Console");
 
 		// TODO: display items starting from the bottom
 
@@ -103,12 +102,12 @@ struct AppConsole
 			ImGui::EndPopup();
 		}
 
-		// Options, Filter
-		if (ImGui::Button("Options"))
-			ImGui::OpenPopup("Options");
-		ImGui::SameLine();
-		Filter.Draw("Filter (\"incl,-excl\") (\"error\")", 180);
-		ImGui::Separator();
+		//// Options, Filter
+		//if (ImGui::Button("Options"))
+		//	ImGui::OpenPopup("Options");
+		//ImGui::SameLine();
+		//Filter.Draw("Filter (\"incl,-excl\") (\"error\")", 180);
+		//ImGui::Separator();
 
 		const float footer_height_to_reserve = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing(); // 1 separator, 1 input text
 		ImGui::BeginChild("ScrollingRegion", ImVec2(0, -footer_height_to_reserve), false, ImGuiWindowFlags_HorizontalScrollbar); // Leave room for 1 separator + 1 InputText
