@@ -1,9 +1,10 @@
 {
     "Modules": {
-        "App": {
-            "Name": "Gear Engine",
-            "Uni": "UPC//CITM"
-        },
+      "App": {
+        "Name": "Gear Engine",
+        "Uni": "UPC//CITM",
+        "Assets": "../Assets/BakerHouse.fbx"
+      },
         "Camera": {
             "Camera_speed": 3.0,
             "Mouse_sensitivity": 0.25,

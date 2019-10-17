@@ -100,44 +100,6 @@ bool Application::Awake()
 
 	load(settings);
 
-	//pugi::xml_document	config_file;
-	//pugi::xml_node		config;
-	//pugi::xml_node		app_config;
-
-	//bool ret = false;
-
-	//config = LoadConfig(config_file, "config.xml");
-
-	//if (config.empty() == false)
-	//{
-	//	// self-config
-	//	ret = true;
-	//	app_config = config.child("app");
-	//	title.create(app_config.child("title").child_value());
-	//	organization.create(app_config.child("organization").child_value());
-
-	//	framerate_cap = app_config.attribute("framerate_cap").as_uint();
-
-	//	if (framerate_cap > 0.0f)
-	//	{
-	//		capped_ms = 1000.0f / framerate_cap;
-	//	}
-	//}
-
-	//if (ret == true)
-	//{
-	//	p2List_item<j1Module*>* item;
-	//	item = modules.start;
-
-	//	while (item != NULL && ret == true)
-	//	{
-	//		ret = item->data->Awake(config.child(item->data->name.GetString()));
-	//		item = item->next;
-	//	}
-	//}
-
-	//PERF_PEEK(ptimer);
-
 	return true;
 }
 
@@ -294,6 +256,9 @@ void Application::load(nlohmann::json& file)
 
 	std::string Uniname = file["Modules"]["App"]["Uni"];
 	StudyCenter = Uniname;
+
+	std::string toload = file["Modules"]["App"]["Assets"];
+	AssetModel = toload;
 
 	std::list<Module*>::iterator item = list_modules.begin();
 

@@ -65,6 +65,8 @@ public:
 	std::string AppName;
 	std::string StudyCenter;
 
+	std::string AssetModel;
+
 	//Console
 	AppConsole GearConsole;
 
