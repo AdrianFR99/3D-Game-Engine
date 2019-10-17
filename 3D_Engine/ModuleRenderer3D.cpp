@@ -50,6 +50,17 @@ void ModuleRenderer3D::Save(nlohmann::json& file)
 
 }
 
+// Called to load variables
+void ModuleRenderer3D::ReloadFromConfig()
+{
+	LOG("Load variables from Config");
+	App->GearConsole.AddLog(" Load variables from Config to Renderer");
+
+
+
+}
+
+
 // Called before render is available
 bool ModuleRenderer3D::Init()
 {
@@ -57,7 +68,7 @@ bool ModuleRenderer3D::Init()
 	bool ret = true;
 	App->GearConsole.AddLog(" Creating 3D Renderer context");
 
-	
+
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
 	if(context == NULL)
@@ -65,8 +76,8 @@ bool ModuleRenderer3D::Init()
 		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
-	
-	
+
+
 
 	if(ret == true)
 	{
@@ -82,7 +93,7 @@ bool ModuleRenderer3D::Init()
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		
+
 
 		//Check for error
 		 error = glGetError();
@@ -103,10 +114,10 @@ bool ModuleRenderer3D::Init()
 			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
-		
+
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 		glClearDepth(1.0f);
-		
+
 		//Initialize clear color
 		glClearColor(0.f, 0.f, 0.f, 1.f);
 		glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
@@ -117,36 +128,37 @@ bool ModuleRenderer3D::Init()
 			LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
-		
+
 		GLfloat LightModelAmbient[] = {0.0f, 0.0f, 0.0f, 1.0f};
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
-		
+
 		lights[0].ref = GL_LIGHT0;
 		lights[0].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
 		lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
 		lights[0].SetPos(0.0f, 0.0f, 2.5f);
 		lights[0].Init();
-		
+
 		App->GearConsole.AddLog(" Render Lights system Init ");
-		
+
 		GLfloat MaterialAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, MaterialAmbient);
 
 		GLfloat MaterialDiffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
-		
+
 		glEnable(GL_DEPTH_TEST);
+		glCullFace(GL_BACK);
 		glEnable(GL_CULL_FACE);
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
-		
+
 
 		App->GearConsole.AddLog(" Enable GL Depth test ");
 		App->GearConsole.AddLog(" Enable Cull face ");
 		App->GearConsole.AddLog(" Enable lights ");
 		App->GearConsole.AddLog(" Enable Color Material ");
-		
+
 	}
 
 	// Projection matrix for
@@ -187,26 +199,26 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	
+
 
 	glBegin(GL_LINES);
-	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+	glColor4f(1.00f, 0.22f, 0.27f, 1.00f);
 
-	for (float x = 0.0; x<100; x ++)
+	for (float x = -500.0; x<500; x ++)
 	{
-		glVertex3f(x, 0.0f, 0.0f);
-		glVertex3f(x, 0.0f, 100.0f);
+		glVertex3f(x, 0.0f,-500.0f);
+		glVertex3f(x, 0.0f, 500.0f);
 	}
-	for (float y = 0.0; y < 100; y++)
+	for (float y = -500.0; y < 500; y++)
 	{
-		glVertex3f(0.0, 0.0f, y);
-		glVertex3f(100.0f, 0.0f, y);
+		glVertex3f(-500.0f, 0.0f, y);
+		glVertex3f(500.0f, 0.0f, y);
 
 	}
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 	glEnd();
-	
+
 	glLineWidth(1.0f);
 
 
@@ -226,7 +238,7 @@ bool ModuleRenderer3D::CleanUp()
 	LOG("Destroying 3D Renderer");
 
 
-	
+
 
 	SDL_GL_DeleteContext(context);
 
@@ -244,6 +256,8 @@ void ModuleRenderer3D::OnResize(int width, int height)
 	glLoadMatrixf(&ProjectionMatrix);
 
 	glMatrixMode(GL_MODELVIEW);
+	App->window->Screen_Height = height;
+	App->window->Screen_Width = width;
 	glLoadIdentity();
 }
 
@@ -260,6 +274,3 @@ void ModuleRenderer3D::changeLight(bool value)
 		App->GearConsole.AddLog(" Clear lights ");
 	}
 }
-
-
-

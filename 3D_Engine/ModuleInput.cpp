@@ -123,7 +123,8 @@ update_status ModuleInput::PreUpdate(float dt)
 				Event ev(Event::EventType::file_dropped);
 				ev.string = e.drop.file; 
 				App->BroadcastEvent(ev);
-				SDL_free(&ev.string);
+				ev.string = nullptr;
+				SDL_free(&ev);
 
 				break;
 		}

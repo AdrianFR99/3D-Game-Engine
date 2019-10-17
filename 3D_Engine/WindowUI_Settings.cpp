@@ -86,15 +86,22 @@ void WindowUI_Settings::Config_Window_App() {
 		//App Name	
 		static char app_name[120];
 		strcpy_s(app_name,120,App->GetAppName());
-		if (ImGui::InputText("App Name","Engine", 120, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll));
+		if (ImGui::InputText("App Name",app_name, 120, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll));
 		App->window->SetTitle(app_name);
 	
 		//FrameRate
 		int Framerate = App->GetMaxFrameRate();
-		if (ImGui::SliderInt("Max FPS", &Framerate, 0, App->window->GetDisplayRefRate()))
-		App->SetMaxFrameRate(Framerate);
-
+		if (ImGui::SliderInt("Max FPS", &Framerate, 1, 60))
+		{
+			App->SetMaxFrameRate(Framerate);
+		}
 		ImGui::Spacing();
+
+
+
+		if (ImGui::Checkbox("Vsync", &App->renderer3D->Vsync))
+		{
+		}
 
 		ImGui::Text("Limit framerate:");
 		ImGui::SameLine();
@@ -306,10 +313,6 @@ void WindowUI_Settings::Config_Window_Input() {
 		int mouse_x, mouse_y,mouse_z;
 		mouse_x = App->input->GetMouseX();
 		mouse_y = App->input->GetMouseY();
-		
-		mouse_x = App->input->GetMouseXMotion();
-		mouse_y = App->input->GetMouseYMotion();
-		mouse_z = App->input->GetMouseZ();
 
 		// ---print  Mouse position
 
@@ -317,7 +320,12 @@ void WindowUI_Settings::Config_Window_Input() {
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(255, 255, 0, 255), "(%i,%i)", mouse_x, mouse_y);
 
+		
+		mouse_x = App->input->GetMouseXMotion();
+		mouse_y = App->input->GetMouseYMotion();
+		mouse_z = App->input->GetMouseZ();
 
+		
 		// --- print Mouse Motion ---
 		
 		ImGui::Text("Mouse Motion:");
@@ -391,15 +399,15 @@ void WindowUI_Settings::Config_Window_Hardware() {
 		//GPU
 		ImGui::Text("GPUs Vendor:");
 		ImGui::SameLine();
-		ImGui::TextColored(IMGUI_BLUE, "%s", hardware_specs.gpu_vendor.data());
+		ImGui::TextColored(IMGUI_YELLOW, "%s", hardware_specs.gpu_vendor.data());
 
 		ImGui::Text("GPUs Brand:");
 		ImGui::SameLine();
-		ImGui::TextColored(IMGUI_BLUE, "%s", hardware_specs.gpu_brand.data());
+		ImGui::TextColored(IMGUI_YELLOW, "%s", hardware_specs.gpu_brand.data());
 
 		ImGui::Text("GPUs Driver:");
 		ImGui::SameLine();
-		ImGui::TextColored(IMGUI_BLUE, "%s", hardware_specs.gpu_driver.data());
+		ImGui::TextColored(IMGUI_YELLOW, "%s", hardware_specs.gpu_driver.data());
 
 		ImGui::Separator();
 
@@ -477,8 +485,8 @@ void WindowUI_Settings::Config_Window_Buttons() {
 			{
 				if (face_cull)
 				{
+					glCullFace(GL_BACK);
 					glEnable(GL_CULL_FACE);
-					//glCullFace(GL_FRONT);
 				}
 				else
 				{

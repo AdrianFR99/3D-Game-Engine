@@ -25,6 +25,7 @@ public:
 	bool CleanUp();
 	void Load(nlohmann::json& file);
 	void Save(nlohmann::json& file);
+	void ReloadFromConfig();
 	void OnResize(int width, int height);
 	void changeLight(bool value);
 
@@ -35,7 +36,8 @@ public:
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
+	bool Vsync = false;
+
 private:
 	uint Light_num = 0;
-	bool Vsync = false;
 };

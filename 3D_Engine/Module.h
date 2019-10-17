@@ -62,6 +62,10 @@ public:
 
 	virtual void Save(nlohmann::json& file)
 	{}
+
+
+	virtual void ReloadFromConfig()
+	{}
 };
 
 #endif // __MODULE_H__

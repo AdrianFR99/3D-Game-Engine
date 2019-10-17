@@ -33,7 +33,8 @@ void ModuleWindow::Load(nlohmann::json& file)
 	 fullscreen_desktop = file["Modules"]["Window"]["FullscreenDesktop"];
 	 
 
-	
+	 ReloadFromConfig();
+
 }
 
 // Called to save variables
@@ -41,6 +42,7 @@ void ModuleWindow::Save(nlohmann::json& file)
 {
 	LOG("Save variables from Module Window to Config");
 	App->GearConsole.AddLog(" Save variables from Module Window to Config ");
+
 
 	//Window sizes
 	file["Modules"]["Window"]["Width"] = Screen_Width;
@@ -55,8 +57,20 @@ void ModuleWindow::Save(nlohmann::json& file)
 	file["Modules"]["Window"]["Borderless"] = borderless;
 	file["Modules"]["Window"]["FullscreenDesktop"] = fullscreen_desktop;
 
-	int a = 0;
-	file["Modules"]["Window"]["lol"] = a;
+}
+
+// Called to load variables
+void ModuleWindow::ReloadFromConfig()
+{
+	LOG("Load variables from Config");
+	App->GearConsole.AddLog(" Load variables from Config to Window");
+
+	changeBordeless(borderless);
+	changeFullscreenDestop(fullscreen_desktop);
+	changeResize(resizable);
+	changeFullscreen(fullscreen);
+	changeWinSize();
+
 }
 
 // Called before render is available
@@ -77,6 +91,8 @@ bool ModuleWindow::Init()
 		//Using SDL_Display funtions ->getting displaying data
 		
 		SDL_DisplayMode Display;
+		Display.w = Screen_Width;
+		Display.h = Screen_Height;
 		//SDL_GetCurrentDisplayMode() -> return the previous native display mode
 		//SDL_GetDesktopDisplayMode() -> In that case this function will return the current display mode
 		if (SDL_GetDesktopDisplayMode(0, &Display) != 0) {
@@ -87,15 +103,15 @@ bool ModuleWindow::Init()
 		else
 			RefreshRate = Display.refresh_rate;
 
-		//Create window
-		Screen_Width = uint(Display.w*0.75f);
-		Screen_Height = uint(Display.h *0.75f);
 
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
 
-		//Use OpenGL 2.1
+		//Use OpenGL 3.1
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+		//SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+		SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
 		if(WIN_FULLSCREEN == true)
 		{
@@ -246,6 +262,7 @@ void ModuleWindow::changeResize(bool value)
 	{
 		resizable = value;
 		SDL_SetWindowResizable(window, SDL_TRUE);
+		
 	}
 	else
 	{

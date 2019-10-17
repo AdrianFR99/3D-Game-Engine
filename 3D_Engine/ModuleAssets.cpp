@@ -42,6 +42,7 @@ bool ModuleAssets::Init(){
 
 bool ModuleAssets::Start() {
 
+	LoadFiles(App->AssetModel.data());
 
 	return true;
 }
@@ -117,9 +118,11 @@ bool ModuleAssets::CleanUp() {
 		RELEASE_ARRAY(Meshes_Vec[i]->normals_faces_pos);
 		RELEASE_ARRAY(Meshes_Vec[i]->uv_coord);
 
-		delete(Meshes_Vec[i]);
+		//delete(Meshes_Vec[i]);
+		RELEASE(Meshes_Vec[i]);
 	}
 
+		Meshes_Vec.clear();
 
 	return true;
 }
