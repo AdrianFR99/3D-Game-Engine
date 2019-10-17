@@ -477,8 +477,8 @@ void WindowUI_Settings::Config_Window_Buttons() {
 			{
 				if (face_cull)
 				{
+					glCullFace(GL_BACK);
 					glEnable(GL_CULL_FACE);
-					//glCullFace(GL_FRONT);
 				}
 				else
 				{

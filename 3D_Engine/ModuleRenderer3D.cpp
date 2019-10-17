@@ -136,11 +136,12 @@ bool ModuleRenderer3D::Init()
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
 		
 		glEnable(GL_DEPTH_TEST);
+		glCullFace(GL_BACK);
 		glEnable(GL_CULL_FACE);
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
-		glCullFace(GL_FRONT_AND_BACK);
+	
 
 		App->GearConsole.AddLog(" Enable GL Depth test ");
 		App->GearConsole.AddLog(" Enable Cull face ");
