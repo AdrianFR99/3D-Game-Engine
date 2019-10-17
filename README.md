@@ -151,6 +151,22 @@ To navegate the Scene
 - Docking
 	- Windows Docking
 
+### **v0.06**
+#### Implementations
+- Textures:
+	
+- Load and Save
+	- Manual Save 
+	- Manual Load
+- ImGui
+	- Theme and Colors
+- Scene
+	- Clear scene from meshes
+- Bug Fixing
+	- Config Menu bugs
+	- Load and Save Bugs
+
+
 ## Disclosure 
 
 ```
