@@ -89,10 +89,6 @@ void ModuleAssets::Draw() {
 			}
 
 
-
-
-
-
 		
 		}
 
@@ -111,6 +107,7 @@ bool ModuleAssets::CleanUp() {
 		
 		glDeleteBuffers(1,&Meshes_Vec[i]->VBO);
 		glDeleteBuffers(1,&Meshes_Vec[i]->IBO);
+		glDeleteBuffers(1, &Meshes_Vec[i]->UVC);
 		
 
 		RELEASE_ARRAY(Meshes_Vec[i]->vertices);
@@ -118,6 +115,7 @@ bool ModuleAssets::CleanUp() {
 		RELEASE_ARRAY(Meshes_Vec[i]->normals);
 		RELEASE_ARRAY(Meshes_Vec[i]->normals_faces);
 		RELEASE_ARRAY(Meshes_Vec[i]->normals_faces_pos);
+		RELEASE_ARRAY(Meshes_Vec[i]->uv_coord);
 
 		delete(Meshes_Vec[i]);
 	}
