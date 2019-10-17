@@ -53,7 +53,7 @@ bool ModuleTexture::Init() {
 bool ModuleTexture::Start() {
 
 
-	ID=CreateTexture("../TESTING/Baker_house.dds");
+	ID=CreateTexture("../TESTING/Baker_house.png");
 
 	return true;
 }
@@ -91,17 +91,17 @@ uint ModuleTexture::ToTexBuffer(uint size, int format, int width, int height,con
 	glGenTextures(size, (GLuint*)&id);
 	glBindTexture(GL_TEXTURE_2D, id);	//Binding texture
 	
+	
 	//wrapping and filtering
 	SetTextureOptions(GL_REPEAT, GL_LINEAR,GL_LINEAR_MIPMAP_LINEAR);
 
-
+	
 	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, Texture);
+	glGenerateMipmap(GL_TEXTURE_2D);
 
 	glBindTexture(GL_TEXTURE_2D, 0);//unbind buff texture
 
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-
+	
 	return id;
 }
 
