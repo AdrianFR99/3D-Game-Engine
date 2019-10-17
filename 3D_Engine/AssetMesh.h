@@ -11,7 +11,7 @@ typedef float GLfloat;
 typedef unsigned char GLubyte;
 
 
-class AssetMesh 
+class AssetMesh
 {
 public:
 	AssetMesh();
@@ -25,22 +25,29 @@ public:
 	//buffer
 	uint VBO;
 	uint IBO;
-	uint VAO;
-	uint NBO;
+	uint UVC;//uv coord
+
 	//indices
 	uint num_index = 0;
 	uint* indices = nullptr;
-	
+
 	//vertices
 	uint num_vertex = 0;
 	float3* vertices = nullptr;
 
 	//Normal
 	uint num_normals = 0;
+	uint num_normals_faces = 0;
 	float3*normals = nullptr;
-	float3*normal_faces = nullptr;
+	float3*normals_faces = nullptr;
+	float3*normals_faces_pos = nullptr;
 
+	uint num_uv = 0;
+	float*uv_coord = nullptr;
 
+public:
+	void DrawNormals(float width,uint lenght,float3 &colorNV, float3 &colorNF,float alpha);
+	float3 CenterTri(float3&vertex1,float3&vertex2,float3&vertex3);
 };
 
 #endif // !__ASSETMESH_H__

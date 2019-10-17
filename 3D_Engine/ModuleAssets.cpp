@@ -72,26 +72,9 @@ void ModuleAssets::Draw() {
 
 			if (Meshes_Vec[i]->normals!=nullptr)
 			{
-				glBegin(GL_LINES);
-				glLineWidth(1.0f);
-				uint Normal_length = 1;
-
-				glColor4f(0.0f, 0.5f, 0.5f, 1.0f);
-
-				for (uint j = 0; j < Meshes_Vec[i]->num_vertex; ++j)
-				{
-					glVertex3f(Meshes_Vec[i]->vertices[j].x, Meshes_Vec[i]->vertices[j].y, Meshes_Vec[i]->vertices[j].z);
-
-					glVertex3f( Meshes_Vec[i]->vertices[j].x + Meshes_Vec[i]->normals[j].x* Normal_length,
-								Meshes_Vec[i]->vertices[j].y + Meshes_Vec[i]->normals[j].y* Normal_length,
-								Meshes_Vec[i]->vertices[j].z + Meshes_Vec[i]->normals[j].z* Normal_length
-					);
-				}
-
-				glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-				glEnd();
-
+			
+				Meshes_Vec[i]->DrawNormals(1.0f,1,float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f),1.0f);
+			
 			}
 
 		
@@ -112,11 +95,14 @@ bool ModuleAssets::CleanUp() {
 		
 		glDeleteBuffers(1,&Meshes_Vec[i]->VBO);
 		glDeleteBuffers(1,&Meshes_Vec[i]->IBO);
-		/*glDeleteBuffers(1,&Meshes_Vec[i]->VAO);*/
+		
 
 		RELEASE_ARRAY(Meshes_Vec[i]->vertices);
 		RELEASE_ARRAY(Meshes_Vec[i]->indices);
-	
+		RELEASE_ARRAY(Meshes_Vec[i]->normals);
+		RELEASE_ARRAY(Meshes_Vec[i]->normals_faces);
+		RELEASE_ARRAY(Meshes_Vec[i]->normals_faces_pos);
+
 		delete(Meshes_Vec[i]);
 	}
 
@@ -129,10 +115,14 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 	LoadMesh(path);
 
+	App->GearConsole.AddLog(" Loading File %s",path);
+
 	return true;
 }
 
 bool ModuleAssets::LoadMesh(const char* path) {
+
+	App->GearConsole.AddLog(" Loading Mesh from %s ",path);
 
 	const aiScene* Scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 
@@ -150,7 +140,11 @@ bool ModuleAssets::LoadMesh(const char* path) {
 		}
 	}
 	else
+	{
+
 		LOG("|[error]: Error loading scene %s", path);
+		App->GearConsole.AddLog(" Error Loading Mesh, no meshes or irregular path ");
+	}
 
 	return true;
 

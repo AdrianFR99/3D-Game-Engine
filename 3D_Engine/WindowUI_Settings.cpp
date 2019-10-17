@@ -3,6 +3,7 @@
 #include "ModuleHardware.h"
 #include "imgui_defines.h"
 #include "ModuleWindow.h"
+#include "ModuleCamera3D.h"
 
 #include "mmgr/mmgr.h"
 
@@ -61,6 +62,7 @@ void WindowUI_Settings::Config_Window() {
 	Config_Window_Window();
 	Config_Window_FileSystem();
 	Config_Window_Input();
+	Config_Window_Camera();
 	Config_Window_Hardware();
 	Config_Window_Buttons();
 
@@ -239,6 +241,7 @@ void WindowUI_Settings::Config_Window_Window() {
 
 
 }
+
 void WindowUI_Settings::Config_Window_FileSystem() {
 
 	if (ImGui::CollapsingHeader("File system"))
@@ -269,6 +272,30 @@ void WindowUI_Settings::Config_Window_FileSystem() {
 
 }
 
+void WindowUI_Settings::Config_Window_Camera() {
+
+	if (ImGui::CollapsingHeader("Camera"))
+	{
+		
+		//Slider for mouse 
+
+		if (ImGui::SliderFloat("Speed", &App->camera->camera_speed, 1.0, 50.0))
+		{
+
+		}
+
+	
+		
+
+
+
+
+	}
+
+
+
+}
+
 void WindowUI_Settings::Config_Window_Input() {
 
 	if (ImGui::CollapsingHeader("Input"))
@@ -276,13 +303,13 @@ void WindowUI_Settings::Config_Window_Input() {
 		ImGui::Spacing();
 		ImGui::Spacing();
 		// --- Get Mouse position & Mouse Motin¡on
-		int mouse_x, mouse_y;
+		int mouse_x, mouse_y,mouse_z;
 		mouse_x = App->input->GetMouseX();
 		mouse_y = App->input->GetMouseY();
 		
 		mouse_x = App->input->GetMouseXMotion();
 		mouse_y = App->input->GetMouseYMotion();
-
+		mouse_z = App->input->GetMouseZ();
 
 		// ---print  Mouse position
 
@@ -297,35 +324,38 @@ void WindowUI_Settings::Config_Window_Input() {
 		ImGui::SameLine();
 		ImGui::TextColored(ImVec4(255, 255, 0, 255), "(%i,%i)", mouse_x, mouse_y);
 
+		// --- print Mouse Wheel ---
+
+		ImGui::Text("Mouse Wheel:");
+		ImGui::SameLine();
+		ImGui::TextColored(ImVec4(255, 255, 0, 255), "(%i)",mouse_z );
+
+		//Slider for mouse 
+
+		if (ImGui::SliderFloat("Sensitivity", &App->camera->mouse_sensitivity, 0.1, 0.5))
+		{
+
+		}
+
+		if (ImGui::SliderFloat("Wheel Speed", &App->camera->wheel_speed, 1.0, 10.0))
+		{
+			
+		}
+
 		
-
-
 
 	}
 
 
 
 }
+
 void WindowUI_Settings::Config_Window_Hardware() {
 
 	hw_info hardware_specs = App->hardware->GetInfo();
 
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
-
-		//SDL
-		ImGui::Text("SDL Version:");
-		ImGui::SameLine();
-		ImGui::TextColored(IMGUI_YELLOW, "%i", hardware_specs.sdl_version);
-		//OPENGL
-		ImGui::Text("OpenGL Version:");
-		ImGui::SameLine();
-		ImGui::TextColored(IMGUI_YELLOW, "%s", glGetString(GL_VERSION));
-		//Devel
-		ImGui::Text("Devil Version:");
-		ImGui::SameLine();
-		ImGui::TextColored(IMGUI_YELLOW, "please fill");
-		ImGui::Separator();
 
 		// CPUS
 		ImGui::Text("CPUs:");
@@ -407,9 +437,9 @@ void WindowUI_Settings::Config_Window_Hardware() {
 		ImGui::SameLine();
 		ImGui::TextColored(IMGUI_YELLOW, "%s", glGetString(GL_VERSION));
 		//Devel
-		ImGui::Text("Devil Version:");
+		ImGui::Text("DevIL Version:");
 		ImGui::SameLine();
-		ImGui::TextColored(IMGUI_YELLOW, "please fill");
+		ImGui::TextColored(IMGUI_YELLOW, "1.8.0");
 		ImGui::Separator();
 
 
@@ -421,7 +451,7 @@ void WindowUI_Settings::Config_Window_Buttons() {
 
 	
 	
-	if (ImGui::CollapsingHeader("Buttons"))
+	if (ImGui::CollapsingHeader("Renderer Buttons"))
 	{
 		if (ImGui::TreeNode("Poly configuration"))
 		{
@@ -714,8 +744,8 @@ void WindowUI_Settings::DrawAbout( bool* openWindowAbout,int* current_tab)
 			ImGui::Text("Version"); ImGui::NextColumn();
 			ImGui::Separator();
 			
-			const char* name[11] = { "SDL", "MathGeoLib", "ImGui", "JSON for modern C++", "OpenGL", "Glew", "Devil", "Assimp", "mmgr", "Brofiler","Par_shapes" };
-			const char* version[11] = { "v2.0.10", "v2.0", "v1.74", "3.7.0", "4.6.0", "v7.0", "devil", "assimp", "mmgr","bro","par" };
+			const char* name[11] = { "SDL", "MathGeoLib", "ImGui", "JSON for modern C++", "OpenGL", "Glew", "DevIL", "Assimp", "mmgr", "Brofiler","Par_shapes" };
+			const char* version[11] = { "v2.0.10", "v2.0", "v1.74", "3.7.0", "4.6.0", "v7.0", "v1.8.0", "v3.1.1", "---","v1.1.2","---" };
 			//static int selected = -1;
 			for (int i = 0; i < 11; i++)
 			{

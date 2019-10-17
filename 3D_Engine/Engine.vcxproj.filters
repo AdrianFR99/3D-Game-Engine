@@ -178,8 +178,11 @@
     <ClCompile Include="AssetMesh.cpp">
       <Filter>Source\Tools\Import_Assets</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleTexture.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
     <ClCompile Include="ModuleFileSystem.cpp">
-      <Filter>Source\Modules\UI_Elements</Filter>
+      <Filter>Source\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -485,6 +488,9 @@
     </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>Source\Tools</Filter>
+      </ClInclude>
+    <ClInclude Include="ModuleTexture.h">
+      <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

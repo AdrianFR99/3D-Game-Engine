@@ -12,7 +12,10 @@
 #include "ModuleEngineUI.h"
 #include "ModuleHardware.h"
 #include "ModuleAssets.h"
+#include "ModuleTexture.h"
 #include "JSONLoader.h"
+#include "WindowConsole.h"
+
 //#include "ModuleFileSystem.h"
 
 
@@ -29,6 +32,7 @@ public:
 	ModuleHardware* hardware = nullptr;
 	//ModuleFileSystem* fs = nullptr;
 	ModuleAssets* Assets = nullptr;
+	ModuleTexture*Textures = nullptr;
 
 private:
 
@@ -51,6 +55,7 @@ public:
 	~Application();
 
 	bool Init();
+	bool Awake();
 	update_status Update();
 	bool CleanUp();
 
@@ -58,8 +63,10 @@ public:
 public:
 
 	std::string AppName;
+	std::string StudyCenter;
 
-
+	//Console
+	AppConsole GearConsole;
 
 public:
 
@@ -81,10 +88,11 @@ private:
 	void FinishUpdate();
 
 
-	void save();
-	void load();
+	void save(nlohmann::json& file);
+	void load(nlohmann::json& file);
+
 	JSONLoader JSONLoad;
-	json settings;
+	nlohmann::json settings;
 };
 
 // access everywhere

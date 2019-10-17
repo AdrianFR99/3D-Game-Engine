@@ -6,6 +6,7 @@
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include "imgui/imgui.h"
+#include "mmgr/mmgr.h"
 
 
 
@@ -26,11 +27,36 @@ ModuleRenderer3D::ModuleRenderer3D(Application* app, bool start_enabled) : Modul
 ModuleRenderer3D::~ModuleRenderer3D()
 {}
 
+ //Called to init variables
+void ModuleRenderer3D::Load(nlohmann::json& file)
+{
+	LOG("Load variables from Json to module Renderer");
+	App->GearConsole.AddLog(" Load Config varibales for Renderer ");
+
+	Light_num = file["Modules"]["Render"]["LightNumber"];
+	Vsync = file["Modules"]["Render"]["VSync"];
+
+}
+
+// Called to save variables
+void ModuleRenderer3D::Save(nlohmann::json& file)
+{
+	LOG("Save variables from Module Render to Config");
+	App->GearConsole.AddLog(" Save variables from Module Render to Config ");
+
+	file["Modules"]["Render"]["LightNumber"] = Light_num;
+	file["Modules"]["Render"]["VSync"] = Vsync;
+
+
+}
+
 // Called before render is available
 bool ModuleRenderer3D::Init()
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
+	App->GearConsole.AddLog(" Creating 3D Renderer context");
+
 	
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
@@ -40,19 +66,23 @@ bool ModuleRenderer3D::Init()
 		ret = false;
 	}
 	
+	
+
 	if(ret == true)
 	{
 		//Use Vsync
-		if(VSYNC && SDL_GL_SetSwapInterval(1) < 0)
+		if(Vsync && SDL_GL_SetSwapInterval(1) < 0)
 			LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 
 
 		// Initialize glew
 		GLenum error = glewInit();
+		App->GearConsole.AddLog(" GLEW external lib init");
 
 		//Initialize Projection Matrix
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
+		
 
 		//Check for error
 		 error = glGetError();
@@ -97,6 +127,8 @@ bool ModuleRenderer3D::Init()
 		lights[0].SetPos(0.0f, 0.0f, 2.5f);
 		lights[0].Init();
 		
+		App->GearConsole.AddLog(" Render Lights system Init ");
+		
 		GLfloat MaterialAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, MaterialAmbient);
 
@@ -108,7 +140,12 @@ bool ModuleRenderer3D::Init()
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
-	//	glCullFace(GL_FRONT_AND_BACK);
+		glCullFace(GL_FRONT_AND_BACK);
+
+		App->GearConsole.AddLog(" Enable GL Depth test ");
+		App->GearConsole.AddLog(" Enable Cull face ");
+		App->GearConsole.AddLog(" Enable lights ");
+		App->GearConsole.AddLog(" Enable Color Material ");
 		
 	}
 
@@ -215,10 +252,12 @@ void ModuleRenderer3D::changeLight(bool value)
 	if (value)
 	{
 		lights[0].Active(true);
+		App->GearConsole.AddLog(" Add lights ");
 	}
 	else
 	{
 		lights[0].Active(false);
+		App->GearConsole.AddLog(" Clear lights ");
 	}
 }
 

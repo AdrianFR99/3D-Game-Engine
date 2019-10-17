@@ -13,10 +13,58 @@ ModuleWindow::~ModuleWindow()
 {
 }
 
+// Called to init variables
+void ModuleWindow::Load(nlohmann::json& file)
+{
+	LOG("Load variables from Json to module Window");
+	App->GearConsole.AddLog(" Load Config varibales for Window ");
+	
+	//Window sizes
+	 Screen_Width = file["Modules"]["Window"]["Width"];
+	 Screen_Height = file["Modules"]["Window"]["Height"];
+	 RefreshRate = file["Modules"]["Window"]["RefreshRate"];
+	 disp_Width = file["Modules"]["Window"]["DispalyWidth"];
+	 disp_Height = file["Modules"]["Window"]["DisplayHeight"];
+
+	// --- Win Flags ---
+	 fullscreen = file["Modules"]["Window"]["Fullscreen"];
+	 resizable = file["Modules"]["Window"]["Resizable"];
+	 borderless = file["Modules"]["Window"]["Borderless"];
+	 fullscreen_desktop = file["Modules"]["Window"]["FullscreenDesktop"];
+	 
+
+	
+}
+
+// Called to save variables
+void ModuleWindow::Save(nlohmann::json& file)
+{
+	LOG("Save variables from Module Window to Config");
+	App->GearConsole.AddLog(" Save variables from Module Window to Config ");
+
+	//Window sizes
+	file["Modules"]["Window"]["Width"] = Screen_Width;
+	file["Modules"]["Window"]["Height"] = Screen_Height;
+	file["Modules"]["Window"]["RefreshRate"] = RefreshRate;
+	file["Modules"]["Window"]["DispalyWidth"] = disp_Width;
+	file["Modules"]["Window"]["DisplayHeight"] = disp_Height;
+
+	// --- Win Flags ---
+	file["Modules"]["Window"]["Fullscreen"] = fullscreen;
+	file["Modules"]["Window"]["Resizable"] = resizable;
+	file["Modules"]["Window"]["Borderless"] = borderless;
+	file["Modules"]["Window"]["FullscreenDesktop"] = fullscreen_desktop;
+
+	int a = 0;
+	file["Modules"]["Window"]["lol"] = a;
+}
+
 // Called before render is available
 bool ModuleWindow::Init()
 {
 	LOG("Init SDL window & surface");
+	App->GearConsole.AddLog(" Init SDL window ");
+
 	bool ret = true;
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0)

@@ -23,9 +23,9 @@ public:
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
-
+	void Load(nlohmann::json& file);
+	void Save(nlohmann::json& file);
 	void OnResize(int width, int height);
-
 	void changeLight(bool value);
 
 public:
@@ -34,4 +34,8 @@ public:
 	SDL_GLContext context;
 	mat3x3 NormalMatrix;
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
+
+private:
+	uint Light_num = 0;
+	bool Vsync = false;
 };

@@ -1,9 +1,12 @@
 #ifndef __MODULE_H__
 #define __MODULE_H__
 
+#include "JSONLoader.h"
+
 class Application;
 struct PhysBody3D;
 struct Event;
+
 
 class Module
 {
@@ -19,9 +22,9 @@ public:
 	virtual ~Module()
 	{}
 
-	virtual bool Init() 
+	virtual bool Init()
 	{
-		return true; 
+		return true;
 	}
 
 	virtual bool Start()
@@ -44,15 +47,21 @@ public:
 		return UPDATE_CONTINUE;
 	}
 
-	virtual bool CleanUp() 
-	{ 
-		return true; 
+	virtual bool CleanUp()
+	{
+		return true;
 	}
 
 	virtual void ReceiveEvent(const Event& event)
 	{ }
 
-	
+
+
+	virtual void Load(nlohmann::json& file)
+	{}
+
+	virtual void Save(nlohmann::json& file)
+	{}
 };
 
 #endif // __MODULE_H__

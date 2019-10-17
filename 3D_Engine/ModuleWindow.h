@@ -17,7 +17,8 @@ public:
 
 	bool Init();
 	bool CleanUp();
-
+	void Load(nlohmann::json& file);
+	void Save(nlohmann::json& file);
 	void SetTitle( char* title);
 
 	const uint GetDisplayRefRate() const;
@@ -55,11 +56,11 @@ public:
 
 
 	//Window sizes
-	uint Screen_Width = 1280;
-	uint Screen_Height = 1024;
+	uint Screen_Width = 0;
+	uint Screen_Height = 0;
 	uint RefreshRate = 0;
-	uint disp_Width = 600;
-	uint disp_Height = 600;
+	uint disp_Width = 0;
+	uint disp_Height = 0;
 
 	// --- Win Flags ---
 	bool fullscreen = false;
