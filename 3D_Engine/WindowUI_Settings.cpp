@@ -97,6 +97,12 @@ void WindowUI_Settings::Config_Window_App() {
 		}
 		ImGui::Spacing();
 
+
+
+		if (ImGui::Checkbox("Vsync", &App->renderer3D->Vsync))
+		{
+		}
+
 		ImGui::Text("Limit framerate:");
 		ImGui::SameLine();
 		ImGui::TextColored(IMGUI_YELLOW,"%i",App->GetMaxFrameRate());
