@@ -178,10 +178,10 @@
     <ClCompile Include="AssetMesh.cpp">
       <Filter>Source\Tools\Import_Assets</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleFileSystem.cpp">
-      <Filter>Source\Modules\UI_Elements</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleTexture.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFileSystem.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
   </ItemGroup>
