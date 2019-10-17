@@ -104,9 +104,11 @@ bool ModuleAssets::CleanUp() {
 		RELEASE_ARRAY(Meshes_Vec[i]->normals_faces);
 		RELEASE_ARRAY(Meshes_Vec[i]->normals_faces_pos);
 
-		delete(Meshes_Vec[i]);
+		//delete(Meshes_Vec[i]);
+		RELEASE(Meshes_Vec[i]);
 	}
 
+		Meshes_Vec.clear();
 
 	return true;
 }

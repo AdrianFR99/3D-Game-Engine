@@ -3,7 +3,7 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "Glew/include/glew.h"
-
+#include "ModuleAssets.h"
 
 #include "WindowUI.h"
 #include "WindowUI_Settings.h"
@@ -229,7 +229,11 @@ void ModuleEngineUI::Menu_Bar() {
 		if (ImGui::BeginMenu("File"))
 		{
 			//ImGui::MenuItem("(menu)", NULL, false, false);
-			if (ImGui::MenuItem("New Scene","Ctrl+N")) {}
+			if (ImGui::MenuItem("New Scene","Ctrl+N")) 
+			{
+				App->Assets->CleanUp();
+			
+			}
 			if (ImGui::MenuItem("Open Scene", "Ctrl+O")) {}
 			
 			ImGui::Separator(); 

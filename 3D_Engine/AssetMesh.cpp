@@ -102,9 +102,9 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 	}
 
 
-	//App->GearConsole.AddLog(" The number of Vertex vertices is %i",num_normals);
+	App->GearConsole.AddLog(" The number of Vertex vertices is %i",num_normals);
 
-	//App->GearConsole.AddLog(" The number of Face normals is %i ",num_normals_faces);
+	App->GearConsole.AddLog(" The number of Face normals is %i ",num_normals_faces);
 
 	ToBuffer();
 

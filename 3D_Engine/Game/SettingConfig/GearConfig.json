@@ -30,10 +30,10 @@
             "DisplayHeight": 648,
             "Fullscreen": false,
             "FullscreenDesktop": false,
-            "Height": 723,
-            "RefreshRate": 120,
+            "Height": 1024,
+            "RefreshRate": 60,
             "Resizable": true,
-            "Width": 1165
+            "Width": 1280
         }
     }
 }
