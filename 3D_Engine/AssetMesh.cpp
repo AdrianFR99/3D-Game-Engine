@@ -41,10 +41,12 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 			}
 		}
 	}
+
+
+	
 	if (Mesh->HasNormals())
 	{
-
-		
+				
 		normals = new float3[num_vertex];
 		memcpy(normals, Mesh->mNormals, sizeof(float3)*num_vertex);
 		num_normals_faces = Mesh->mNumFaces;
@@ -71,7 +73,22 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 
 		}
 	}
+	
+	if (Mesh->HasTextureCoords(0)) {
+		
+		num_uv = Mesh->mNumVertices * 2;//x and y
+		uv_coord = new float[num_uv];
 
+		for (int i = 0; i < num_vertex;++i) {
+
+			uv_coord[i * 2] = Mesh->mTextureCoords[0][i].x;
+			uv_coord[(i * 2)+1] = Mesh->mTextureCoords[0][i].y;
+
+		}
+
+	}
+
+	
 	ToBuffer();
 
 }
@@ -98,7 +115,15 @@ void AssetMesh::ToBuffer() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
+	assert(uv_coord!=nullptr);
+
+	glGenBuffers(1,&UVC);
+	glBindBuffer(GL_ARRAY_BUFFER,UVC);
+	glBufferData(GL_ARRAY_BUFFER,sizeof(float)*num_uv,uv_coord,GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 }
+
 
 void AssetMesh::DrawNormals(float width, uint lenght, float3 &colorNV, float3 &colorNF,float alpha) {
 

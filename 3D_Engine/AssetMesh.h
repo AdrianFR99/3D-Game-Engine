@@ -25,8 +25,8 @@ public:
 	//buffer
 	uint VBO;
 	uint IBO;
-	uint NBO;
-	uint NFBO;
+	uint UVC;//uv coord
+
 	//indices
 	uint num_index = 0;
 	uint* indices = nullptr;
@@ -42,10 +42,10 @@ public:
 	float3*normals_faces = nullptr;
 	float3*normals_faces_pos = nullptr;
 
-
+	uint num_uv = 0;
+	float*uv_coord = nullptr;
 
 public:
-
 	void DrawNormals(float width,uint lenght,float3 &colorNV, float3 &colorNF,float alpha);
 	float3 CenterTri(float3&vertex1,float3&vertex2,float3&vertex3);
 };
