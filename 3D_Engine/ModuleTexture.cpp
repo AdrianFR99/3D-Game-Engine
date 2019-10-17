@@ -1,6 +1,11 @@
 #include "Application.h"
 #include "ModuleTexture.h"
 
+#include "glew/include/glew.h"
+#include "SDL\include\SDL_opengl.h"
+#include <gl/GL.h>
+#include <gl/GLU.h>
+
 #include "DevIL/include/il.h"
 #include "DevIL/include/ilu.h"
 #include "DevIL/include/ilut.h"
@@ -48,14 +53,14 @@ bool ModuleTexture::Init() {
 bool ModuleTexture::Start() {
 
 
-	IDChecker = CreateCheckeredTex();
+	ID=CreateTexture("../TESTING/Baker_house.dds");
 
 	return true;
 }
 bool ModuleTexture::CleanUp() {
 
-	if (IDChecker > 0)
-		glDeleteTextures(1, (GLuint*)&IDChecker);
+	if (ID > 0)
+		glDeleteTextures(1, (GLuint*)&ID);
 
 	return true;
 
@@ -79,21 +84,25 @@ uint ModuleTexture::CreateCheckeredTex() {
 }
 uint ModuleTexture::ToTexBuffer(uint size, int format, int width, int height,const void* Texture) {
 	
-	uint ID = 0;
+	uint id;
 	// Affect the operation of subsequent glReadPixels as well as the unpacking of texture patterns
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	// Generate the texture ID 
-	glGenTextures(size, (GLuint*)&ID);
-	glBindTexture(GL_TEXTURE_2D, ID);	//Binding texture
+	glGenTextures(size, (GLuint*)&id);
+	glBindTexture(GL_TEXTURE_2D, id);	//Binding texture
 	
 	//wrapping and filtering
 	SetTextureOptions(GL_REPEAT, GL_LINEAR,GL_LINEAR_MIPMAP_LINEAR);
-	
+
+
 	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, Texture);
 
 	glBindTexture(GL_TEXTURE_2D, 0);//unbind buff texture
 
-	return ID;
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+
+	return id;
 }
 
 void ModuleTexture::SetTextureOptions(int ClampOptions, int FilterMag, int FilterMin) {
