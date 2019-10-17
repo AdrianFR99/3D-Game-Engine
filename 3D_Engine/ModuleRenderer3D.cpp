@@ -50,6 +50,17 @@ void ModuleRenderer3D::Save(nlohmann::json& file)
 
 }
 
+// Called to load variables
+void ModuleRenderer3D::ReloadFromConfig()
+{
+	LOG("Load variables from Config");
+	App->GearConsole.AddLog(" Load variables from Config to Renderer");
+
+	
+
+}
+
+
 // Called before render is available
 bool ModuleRenderer3D::Init()
 {

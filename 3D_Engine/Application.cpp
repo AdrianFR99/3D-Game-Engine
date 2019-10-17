@@ -138,6 +138,15 @@ void Application::FinishUpdate()
 		UI_Layer->toSave = false;
 		save(settings);
 	}
+
+	if (UI_Layer->toLoad == true)
+	{
+		UI_Layer->toLoad = false;
+		load(settings);
+
+		RefreshConfig();
+
+	}
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -275,4 +284,12 @@ void Application::BroadcastEvent(const Event& event)
 {
 	for (std::list<Module*>::iterator it = list_modules.begin(); it != list_modules.end(); ++it)
 		(*it)->ReceiveEvent(event);
+}
+
+
+
+void Application::RefreshConfig()
+{
+	for (std::list<Module*>::iterator it = list_modules.begin(); it != list_modules.end(); ++it)
+		(*it)->ReloadFromConfig();
 }

@@ -93,6 +93,16 @@ void ModuleEngineUI::Save(nlohmann::json& file)
 
 }
 
+// Called to load variables
+void ModuleEngineUI::ReloadFromConfig()
+{
+	LOG("Load variables from Config");
+	App->GearConsole.AddLog(" Load variables from Config to UI");
+
+
+
+}
+
 bool ModuleEngineUI::Start() {
 
 
@@ -243,6 +253,14 @@ void ModuleEngineUI::Menu_Bar() {
 			}
 			if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {}
 			
+			ImGui::Separator();
+
+
+			if (ImGui::MenuItem("Load")) {
+				toLoad = true;
+			}
+			
+
 			ImGui::Separator();
 
 			if (ImGui::MenuItem("New Project")) {}

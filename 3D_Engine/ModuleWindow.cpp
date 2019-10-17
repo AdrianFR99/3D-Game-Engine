@@ -33,7 +33,7 @@ void ModuleWindow::Load(nlohmann::json& file)
 	 fullscreen_desktop = file["Modules"]["Window"]["FullscreenDesktop"];
 	 
 
-	 
+	 ReloadFromConfig();
 
 }
 
@@ -56,6 +56,20 @@ void ModuleWindow::Save(nlohmann::json& file)
 	file["Modules"]["Window"]["Resizable"] = resizable;
 	file["Modules"]["Window"]["Borderless"] = borderless;
 	file["Modules"]["Window"]["FullscreenDesktop"] = fullscreen_desktop;
+
+}
+
+// Called to load variables
+void ModuleWindow::ReloadFromConfig()
+{
+	LOG("Load variables from Config");
+	App->GearConsole.AddLog(" Load variables from Config to Window");
+
+	changeBordeless(borderless);
+	changeFullscreenDestop(fullscreen_desktop);
+	changeResize(resizable);
+	changeFullscreen(fullscreen);
+	changeWinSize();
 
 }
 

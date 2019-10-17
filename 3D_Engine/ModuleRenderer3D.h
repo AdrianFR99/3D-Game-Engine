@@ -25,6 +25,7 @@ public:
 	bool CleanUp();
 	void Load(nlohmann::json& file);
 	void Save(nlohmann::json& file);
+	void ReloadFromConfig();
 	void OnResize(int width, int height);
 	void changeLight(bool value);
 
