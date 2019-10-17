@@ -42,6 +42,7 @@ bool ModuleAssets::Init(){
 
 bool ModuleAssets::Start() {
 
+	LoadFiles(App->AssetModel.data());
 
 	return true;
 }
@@ -49,14 +50,25 @@ bool ModuleAssets::Start() {
 
 void ModuleAssets::Draw() {
 
-	
+	glEnable(GL_TEXTURE_2D);
 
 	for (int i = 0; i < Meshes_Vec.size();++i) {
 
 		if (Meshes_Vec[i] != nullptr) {
 			// Vertex
-			glEnableClientState(GL_VERTEX_ARRAY);
 			
+			
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			
+			
+			glBindTexture(GL_TEXTURE_2D,App->Textures->ID); // start using texture
+			glActiveTexture(GL_TEXTURE0);
+			glBindBuffer(GL_ARRAY_BUFFER, Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
+			glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format			
+			
+			
+			glEnableClientState(GL_VERTEX_ARRAY);
+
 			glBindBuffer(GL_ARRAY_BUFFER, Meshes_Vec[i]->VBO);
 			glVertexPointer(3, GL_FLOAT, 0, NULL);
 			// Index
@@ -64,18 +76,19 @@ void ModuleAssets::Draw() {
 			// Draw
 			glDrawElements((GLenum)GL_TRIANGLES,Meshes_Vec[i]->num_index, GL_UNSIGNED_INT, NULL);
 
+
+			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-		
+			
 
 			if (Meshes_Vec[i]->normals!=nullptr)
 			{
-			
 				Meshes_Vec[i]->DrawNormals(1.0f,1,float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f),1.0f);
 			
 			}
+
 
 		
 		}
@@ -95,6 +108,7 @@ bool ModuleAssets::CleanUp() {
 		
 		glDeleteBuffers(1,&Meshes_Vec[i]->VBO);
 		glDeleteBuffers(1,&Meshes_Vec[i]->IBO);
+		glDeleteBuffers(1, &Meshes_Vec[i]->UVC);
 		
 
 		RELEASE_ARRAY(Meshes_Vec[i]->vertices);
@@ -102,10 +116,13 @@ bool ModuleAssets::CleanUp() {
 		RELEASE_ARRAY(Meshes_Vec[i]->normals);
 		RELEASE_ARRAY(Meshes_Vec[i]->normals_faces);
 		RELEASE_ARRAY(Meshes_Vec[i]->normals_faces_pos);
+		RELEASE_ARRAY(Meshes_Vec[i]->uv_coord);
 
-		delete(Meshes_Vec[i]);
+		//delete(Meshes_Vec[i]);
+		RELEASE(Meshes_Vec[i]);
 	}
 
+		Meshes_Vec.clear();
 
 	return true;
 }

@@ -3,7 +3,7 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "Glew/include/glew.h"
-
+#include "ModuleAssets.h"
 
 #include "WindowUI.h"
 #include "WindowUI_Settings.h"
@@ -93,6 +93,16 @@ void ModuleEngineUI::Save(nlohmann::json& file)
 
 }
 
+// Called to load variables
+void ModuleEngineUI::ReloadFromConfig()
+{
+	LOG("Load variables from Config");
+	App->GearConsole.AddLog(" Load variables from Config to UI");
+
+
+
+}
+
 bool ModuleEngineUI::Start() {
 
 
@@ -126,7 +136,7 @@ bool ModuleEngineUI::Start() {
 	/*ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
 	ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);*/
 
-	Selecet_Style(2); // default style 
+	Selecet_Style(4); // default style 
 					  //1: Corporate Grey
 					  //2: Light Green
 					  //3: blue ayes
@@ -229,7 +239,11 @@ void ModuleEngineUI::Menu_Bar() {
 		if (ImGui::BeginMenu("File"))
 		{
 			//ImGui::MenuItem("(menu)", NULL, false, false);
-			if (ImGui::MenuItem("New Scene","Ctrl+N")) {}
+			if (ImGui::MenuItem("New Scene","Ctrl+N")) 
+			{
+				App->Assets->CleanUp();
+			
+			}
 			if (ImGui::MenuItem("Open Scene", "Ctrl+O")) {}
 			
 			ImGui::Separator(); 
@@ -239,6 +253,14 @@ void ModuleEngineUI::Menu_Bar() {
 			}
 			if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {}
 			
+			ImGui::Separator();
+
+
+			if (ImGui::MenuItem("Load")) {
+				toLoad = true;
+			}
+			
+
 			ImGui::Separator();
 
 			if (ImGui::MenuItem("New Project")) {}

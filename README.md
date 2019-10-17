@@ -76,6 +76,7 @@ The proyect is using a external open libraries. which are listed here:
 ### Controller
 #### Main menu tool bar
 - File collapsing menu
+	- New Scene: Delete current meshes on screen
 	- Save: save variables changes to Config
 	- Exit: exit the application.
 - Window collapsing menu

@@ -27,7 +27,8 @@ public:
 
 public:
 	
-	uint IDChecker;
+	
+	uint ID;
 };
 
 #endif //__MODULETEXTURE_H__

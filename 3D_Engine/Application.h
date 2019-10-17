@@ -65,6 +65,8 @@ public:
 	std::string AppName;
 	std::string StudyCenter;
 
+	std::string AssetModel;
+
 	//Console
 	AppConsole GearConsole;
 
@@ -87,9 +89,9 @@ private:
 	void PrepareUpdate();
 	void FinishUpdate();
 
-
 	void save(nlohmann::json& file);
 	void load(nlohmann::json& file);
+	void RefreshConfig();
 
 	JSONLoader JSONLoad;
 	nlohmann::json settings;

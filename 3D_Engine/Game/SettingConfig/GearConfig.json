@@ -1,6 +1,7 @@
 {
     "Modules": {
         "App": {
+            "Assets": "../Assets/BakerHouse.fbx",
             "Name": "Gear Engine",
             "Uni": "UPC//CITM"
         },
@@ -25,15 +26,14 @@
         },
         "Window": {
             "Borderless": false,
-            "DispalyWidth": 600,
-            "DisplayHeight": 600,
+            "DispalyWidth": 1152,
+            "DisplayHeight": 648,
             "Fullscreen": false,
             "FullscreenDesktop": false,
-            "Height": 810,
+            "Height": 1024,
             "RefreshRate": 60,
             "Resizable": true,
-            "Width": 1440
-            
+            "Width": 1280
         }
     }
 }

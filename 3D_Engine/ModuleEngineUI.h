@@ -64,6 +64,9 @@ public:
 	//load data
 	void Save(nlohmann::json& file);
 
+	//load data
+	void ReloadFromConfig();
+
 	//setting up bools flags for the window
 	ImGuiWindowFlags Setting_Flag_bools(bool no_titlebar =false, bool no_scrollbar = false,
 		bool no_menu = false, bool no_move = false, bool no_resize = false, bool no_collapse = false, bool no_close = false,
@@ -95,6 +98,7 @@ public:
 	void Selecet_Style(const int style=3);
 
 	bool toSave = false;
+	bool toLoad = false;
 
 	//variables for loading
 	bool show_demo_window = true;
