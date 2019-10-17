@@ -190,17 +190,17 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	
 
 	glBegin(GL_LINES);
-	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+	glColor4f(1.00f, 0.22f, 0.27f, 1.00f);
 
-	for (float x = 0.0; x<100; x ++)
+	for (float x = -500.0; x<500; x ++)
 	{
-		glVertex3f(x, 0.0f, 0.0f);
-		glVertex3f(x, 0.0f, 100.0f);
+		glVertex3f(x, 0.0f,-500.0f);
+		glVertex3f(x, 0.0f, 500.0f);
 	}
-	for (float y = 0.0; y < 100; y++)
+	for (float y = -500.0; y < 500; y++)
 	{
-		glVertex3f(0.0, 0.0f, y);
-		glVertex3f(100.0f, 0.0f, y);
+		glVertex3f(-500.0f, 0.0f, y);
+		glVertex3f(500.0f, 0.0f, y);
 
 	}
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
