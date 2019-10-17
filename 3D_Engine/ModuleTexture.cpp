@@ -53,7 +53,7 @@ bool ModuleTexture::Init() {
 bool ModuleTexture::Start() {
 
 
-	ID=CreateTexture("../TESTING/Baker_house.png");
+	ID=CreateTexture("../Assets/Baker_house.png");
 
 	return true;
 }
