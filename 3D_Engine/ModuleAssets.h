@@ -31,6 +31,9 @@ public:
 	bool LoadMesh(const char* path);
 
 	std::vector<AssetMesh*> Meshes_Vec;
+
+	bool DrawFaceNormals = false;
+	bool DrawVertexNormals = false;
 };
 
 

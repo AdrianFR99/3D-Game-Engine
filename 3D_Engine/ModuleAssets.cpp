@@ -83,9 +83,9 @@ void ModuleAssets::Draw() {
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 			
 
-			if (Meshes_Vec[i]->normals!=nullptr)
+			if (Meshes_Vec[i]->normals!=nullptr && (DrawFaceNormals || DrawVertexNormals))
 			{
-				Meshes_Vec[i]->DrawNormals(1.0f,1,float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f),1.0f);
+				Meshes_Vec[i]->DrawNormals(1.0f,1,float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f),1.0f, DrawFaceNormals, DrawVertexNormals);
 			
 			}
 

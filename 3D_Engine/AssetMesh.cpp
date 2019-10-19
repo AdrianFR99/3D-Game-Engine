@@ -145,39 +145,46 @@ void AssetMesh::ToBuffer() {
 }
 
 
-void AssetMesh::DrawNormals(float width, uint lenght, float3 &colorNV, float3 &colorNF,float alpha) {
+void AssetMesh::DrawNormals (float width, uint lenght, float3 &colorNV, float3 &colorNF,float alpha, bool &faces, bool &vertex) {
 
 
 	glBegin(GL_LINES);
 	glLineWidth(width);
 	uint Normal_length = lenght;
 
-	glColor4f(colorNV.x, colorNV.y, colorNV.z,alpha);
 
-	for (uint j = 0; j < num_vertex; ++j)
+	if (vertex)
 	{
-		glVertex3f(vertices[j].x, vertices[j].y, vertices[j].z);
-		glVertex3f(vertices[j].x + normals[j].x* Normal_length,
-					vertices[j].y + normals[j].y* Normal_length,
-					vertices[j].z + normals[j].z* Normal_length
-		);
+	glColor4f(colorNV.x, colorNV.y, colorNV.z,alpha);
+		for (uint j = 0; j < num_vertex; ++j)
+		{
+			glVertex3f(vertices[j].x, vertices[j].y, vertices[j].z);
+			glVertex3f(vertices[j].x + normals[j].x* Normal_length,
+				vertices[j].y + normals[j].y* Normal_length,
+				vertices[j].z + normals[j].z* Normal_length
+			);
+		}
+
+
 	}
 
-	glColor4f(colorNF.x, colorNF.y, colorNF.z, alpha);
-
-
-	for (uint j = 0; j < num_normals_faces; ++j)
+	if (faces)
 	{
-		glVertex3f(normals_faces_pos[j].x, normals_faces_pos[j].y,normals_faces_pos[j].z);
-		float3 Aux=normals_faces[j].Normalized();
-		glVertex3f(normals_faces_pos[j].x + Aux.x* Normal_length,
+			glColor4f(colorNF.x, colorNF.y, colorNF.z, alpha);
+		for (uint j = 0; j < num_normals_faces; ++j)
+		{
+			glVertex3f(normals_faces_pos[j].x, normals_faces_pos[j].y, normals_faces_pos[j].z);
+			float3 Aux = normals_faces[j].Normalized();
+			glVertex3f(normals_faces_pos[j].x + Aux.x* Normal_length,
 				normals_faces_pos[j].y + Aux.y* Normal_length,
 				normals_faces_pos[j].z + Aux.z* Normal_length
-		);
+			);
+
+		}
+
 
 	}
-
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 	glEnd();
 

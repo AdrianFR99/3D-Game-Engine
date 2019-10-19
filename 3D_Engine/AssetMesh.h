@@ -46,7 +46,7 @@ public:
 	float*uv_coord = nullptr;
 
 public:
-	void DrawNormals(float width,uint lenght,float3 &colorNV, float3 &colorNF,float alpha);
+	 void DrawNormals (float width,uint lenght,float3 &colorNV, float3 &colorNF,float alpha, bool &faces, bool &vertex) ;
 	float3 CenterTri(float3&vertex1,float3&vertex2,float3&vertex3);
 };
 

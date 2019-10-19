@@ -4,6 +4,7 @@
 #include "imgui_defines.h"
 #include "ModuleWindow.h"
 #include "ModuleCamera3D.h"
+#include "ModuleAssets.h"
 
 #include "mmgr/mmgr.h"
 
@@ -525,11 +526,32 @@ void WindowUI_Settings::Config_Window_Buttons() {
 
 			}
 
+			
+			
 
 			ImGui::TreePop();
 		}
 
-	
+		if (ImGui::TreeNode("Normals")) {
+
+			if (ImGui::Checkbox("Draw Face Normals", &App->Assets->DrawFaceNormals))
+			{
+
+
+			}
+
+			ImGui::SameLine();
+
+			if (ImGui::Checkbox("Draw Vertex Normals", &App->Assets->DrawVertexNormals))
+			{
+
+
+			}
+
+			ImGui::TreePop();
+		}
+
+
 		if (ImGui::TreeNode("Materials")){
 
 			if (ImGui::Checkbox("Color Material", &color_material))
