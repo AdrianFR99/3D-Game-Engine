@@ -33,6 +33,7 @@ public:
 	
 	std::string TexturePath;
 	uint ID;
+	uint ID2;
 };
 
 #endif //__MODULETEXTURE_H__

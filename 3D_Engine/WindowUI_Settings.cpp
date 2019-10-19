@@ -589,6 +589,9 @@ void WindowUI_Settings::Config_Window_Buttons() {
 			//ID
 			ImGui::Text("Current Texture ID:");
 			ImGui::SameLine();
+			if (App->Assets->TextChecker)
+			ImGui::TextColored(IMGUI_TEAL_GREEN, "%i", App->Textures->ID2);
+			else 
 			ImGui::TextColored(IMGUI_TEAL_GREEN, "%i", App->Textures->ID);
 
 			ImGui::Spacing();
@@ -597,7 +600,10 @@ void WindowUI_Settings::Config_Window_Buttons() {
 			//Path
 			ImGui::Text("Texture Path:");
 			ImGui::SameLine();
+			if (!App->Assets->TextChecker)
 			ImGui::TextColored(IMGUI_YELLOW, "%s", App->Textures->TexturePath.data());
+			else 
+			ImGui::TextColored(IMGUI_YELLOW, "----- (checkers texture auto generated)");
 
 			ImGui::Spacing();
 			ImGui::Separator();
@@ -640,6 +646,22 @@ void WindowUI_Settings::Config_Window_Buttons() {
 			{
 				ImGui::ColorPicker4("Specular color##4", Color_Specular, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB | ImGuiColorEditFlags_AlphaPreview, NULL);
 				App->renderer3D->ChangeSpecularSettings(specular, Color_Specular);
+			}
+
+			ImGui::Spacing();
+			ImGui::Separator();
+
+			if (ImGui::Checkbox("Checkers Texture", &App->Assets->TextChecker))
+			{
+				if (App->Assets->TextChecker)
+				{
+					App->Assets->TextNormal = false;
+				}
+				else
+				{
+					App->Assets->TextNormal = true;
+				}
+				
 			}
 
 			//if (ImGui::Checkbox("Specular", &specular))

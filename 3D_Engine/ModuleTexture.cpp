@@ -84,7 +84,8 @@ bool ModuleTexture::Init() {
 bool ModuleTexture::Start() {
 
 
-	ID=CreateTexture(TexturePath.data());
+	ID = CreateTexture(TexturePath.data());
+	ID2 = CreateCheckeredTex();
 
 	return true;
 }
@@ -99,7 +100,10 @@ bool ModuleTexture::CleanUp() {
 
 	return true;
 }
+
 uint ModuleTexture::CreateCheckeredTex() {
+
+	App->GearConsole.AddLog(" Create checkered texture");
 
 	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
@@ -114,6 +118,7 @@ uint ModuleTexture::CreateCheckeredTex() {
 
 	return ToTexBuffer(1,GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,checkImage);
 }
+
 uint ModuleTexture::ToTexBuffer(uint size, int format, int width, int height,const void* Texture) {
 	
 	uint id;
@@ -150,6 +155,7 @@ void ModuleTexture::SetTextureOptions(int ClampOptions, int FilterMag, int Filte
 
 
 }
+
 uint ModuleTexture::CreateTexture(const char*path) {
 
 	uint texID = 0;
@@ -166,6 +172,8 @@ uint ModuleTexture::CreateTexture(const char*path) {
 	//Loading image
 	if (ilLoadImage(path))
 	{
+		App->GearConsole.AddLog(" Laoding texture from %s ", path);
+
 		ILinfo imageInfo;
 		iluGetImageInfo(&imageInfo);
 	

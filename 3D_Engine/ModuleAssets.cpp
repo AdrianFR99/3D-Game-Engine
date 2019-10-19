@@ -56,15 +56,25 @@ void ModuleAssets::Draw() {
 
 		if (Meshes_Vec[i] != nullptr) {
 			// Vertex
-			
-			
+
+
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			
-			
-			glBindTexture(GL_TEXTURE_2D,App->Textures->ID); // start using texture
-			glActiveTexture(GL_TEXTURE0);
-			glBindBuffer(GL_ARRAY_BUFFER, Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
-			glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format			
+
+			//texture
+			if (TextNormal)
+			{
+				glBindTexture(GL_TEXTURE_2D,App->Textures->ID); // start using texture
+				glActiveTexture(GL_TEXTURE0);
+				glBindBuffer(GL_ARRAY_BUFFER, Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
+				glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format			
+			}
+			else if (TextChecker)
+			{
+				glBindTexture(GL_TEXTURE_2D, App->Textures->ID2); // start using texture
+				glActiveTexture(GL_TEXTURE0);
+				glBindBuffer(GL_ARRAY_BUFFER, Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
+				glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format			
+			}
 			
 			
 			glEnableClientState(GL_VERTEX_ARRAY);
