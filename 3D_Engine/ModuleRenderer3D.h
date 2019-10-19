@@ -29,6 +29,11 @@ public:
 	void OnResize(int width, int height);
 	void changeLight(bool value);
 
+	//changers
+	const void ChangeAmbientSettings (bool & active, const float color [4] ) const;
+	const void ChangeDiffuseSettings(bool & active, const float color[4] ) const;
+	const void ChangeSpecularSettings(bool & active, const float color[4] ) const;
+
 public:
 
 	Light lights[MAX_LIGHTS];

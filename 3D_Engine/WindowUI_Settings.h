@@ -62,8 +62,11 @@ private:
 	bool emission = false;
 	bool ambient_and_diffuse = true;
 	bool color_material = true;
-	bool texture_2d = false;
-	
+	bool texture_2d = true;
+
+	float Color_Ambient[4] = { 0.25f, 0.25f, 0.25f, 1.0f };
+	float Color_Diffuse[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	float Color_Specular[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 
 };

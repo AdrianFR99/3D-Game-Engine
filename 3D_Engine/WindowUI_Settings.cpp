@@ -552,7 +552,7 @@ void WindowUI_Settings::Config_Window_Buttons() {
 		}
 
 
-		if (ImGui::TreeNode("Materials")){
+		if (ImGui::TreeNode("Materials & Texture")){
 
 			if (ImGui::Checkbox("Color Material", &color_material))
 			{
@@ -570,6 +570,58 @@ void WindowUI_Settings::Config_Window_Buttons() {
 				else
 					glDisable(GL_TEXTURE_2D);
 
+			}
+
+			ImGui::Separator();
+
+			//ID
+			ImGui::Text("Current Texture ID:");
+			ImGui::SameLine();
+			ImGui::TextColored(IMGUI_TEAL_GREEN, "%i", App->Textures->ID);
+
+			ImGui::Separator();
+
+			//Path
+			ImGui::Text("Texture Path:");
+			ImGui::SameLine();
+			ImGui::TextColored(IMGUI_YELLOW, "%s", App->Textures->TexturePath.data());
+
+			ImGui::Separator();
+
+			//Colors
+			ImGui::Text("Texture Configurations:");
+			
+			if (ImGui::Checkbox("Ambient", &ambient))
+			{
+				App->renderer3D->ChangeAmbientSettings(ambient, Color_Ambient);
+			}
+
+			if (ambient)
+			{
+				ImGui::ColorPicker4("Ambient color##4", Color_Ambient, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB | ImGuiColorEditFlags_AlphaPreview, NULL);
+				App->renderer3D->ChangeAmbientSettings(ambient, Color_Ambient);
+			}
+
+			if (ImGui::Checkbox("Diffuse", &diffuse))
+			{
+				App->renderer3D->ChangeDiffuseSettings(diffuse, Color_Diffuse);
+			}
+
+			if (diffuse)
+			{
+				ImGui::ColorPicker4("Difuse color##4", Color_Diffuse, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB | ImGuiColorEditFlags_AlphaPreview, NULL);
+				App->renderer3D->ChangeDiffuseSettings(diffuse, Color_Diffuse);
+			}
+
+			if (ImGui::Checkbox("Specular", &specular))
+			{
+				App->renderer3D->ChangeSpecularSettings(specular, Color_Specular);
+			}
+
+			if (specular)
+			{
+				ImGui::ColorPicker4("Specular color##4", Color_Specular, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB | ImGuiColorEditFlags_AlphaPreview, NULL);
+				App->renderer3D->ChangeSpecularSettings(specular, Color_Specular);
 			}
 
 			//if (ImGui::Checkbox("Specular", &specular))
@@ -689,6 +741,9 @@ void WindowUI_Settings::Config_Window_Buttons() {
 
 			ImGui::TreePop();
 		}
+
+		
+
 	}
 
 

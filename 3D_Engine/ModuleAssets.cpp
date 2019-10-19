@@ -50,7 +50,7 @@ bool ModuleAssets::Start() {
 
 void ModuleAssets::Draw() {
 
-	glEnable(GL_TEXTURE_2D);
+	
 
 	for (int i = 0; i < Meshes_Vec.size();++i) {
 
