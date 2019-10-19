@@ -35,8 +35,8 @@ public:
 	bool DrawFaceNormals = false;
 	bool DrawVertexNormals = false;
 
-	bool TextChecker = true;
-	bool TextNormal = false;
+	bool TextChecker = false;
+	bool TextNormal = true;
 };
 
 
