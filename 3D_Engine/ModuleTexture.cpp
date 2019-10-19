@@ -27,6 +27,37 @@ ModuleTexture::~ModuleTexture()
 {
 }
 
+
+//Called to init variables
+void ModuleTexture::Load(nlohmann::json& file)
+{
+	LOG("Load variables from Json to module Texture");
+	App->GearConsole.AddLog(" Load Config varibales for texture ");
+
+	std::string tmp = file["Modules"]["Texture"]["Location"];
+	TexturePath = tmp;
+
+
+}
+
+// Called to save variables
+void ModuleTexture::Save(nlohmann::json& file)
+{
+	LOG("Save variables from Module Textue to Config");
+	App->GearConsole.AddLog(" Save variables from Module Texture to Config ");
+
+
+}
+
+// Called to load variables
+void ModuleTexture::ReloadFromConfig()
+{
+	LOG("Load variables from Config");
+	App->GearConsole.AddLog(" Load variables from Config to Texture");
+
+}
+
+
 bool ModuleTexture::Init() {
 
 	bool ret = true;
@@ -53,10 +84,11 @@ bool ModuleTexture::Init() {
 bool ModuleTexture::Start() {
 
 
-	ID=CreateTexture("Assets/Baker_house.png");
+	ID=CreateTexture(TexturePath.data());
 
 	return true;
 }
+
 bool ModuleTexture::CleanUp() {
 
 	if (ID > 0)

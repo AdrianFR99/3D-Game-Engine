@@ -1,39 +1,43 @@
 {
-    "Modules": {
-        "App": {
-            "Assets": "Assets/BakerHouse.fbx",
-            "Name": "Gear Engine",
-            "Uni": "UPC//CITM"
-        },
-        "Camera": {
-            "Camera_speed": 3.0,
-            "Mouse_sensitivity": 0.25,
-            "PremadeDistance": 15.0,
-            "Wheel_speed": 5.0
-        },
-        "IMGUI": {
-            "Exit_Pressed": false,
-            "Show_ImGui_Demo": false,
-            "current_tab": 1,
-            "openWindowAbout": false,
-            "showConsole": false,
-            "show_another_window": false,
-            "show_demo_window": true
-        },
-        "Render": {
-            "LightNumber": 8,
-            "VSync": true
-        },
-        "Window": {
-            "Borderless": false,
-            "DispalyWidth": 1152,
-            "DisplayHeight": 648,
-            "Fullscreen": false,
-            "FullscreenDesktop": false,
-            "Height": 1024,
-            "RefreshRate": 60,
-            "Resizable": true,
-            "Width": 1280
-        }
+  "Modules": {
+    "App": {
+      "Assets": "Assets/BakerHouse.fbx",
+      "Name": "Gear Engine",
+      "Uni": "UPC//CITM"
+    },
+    "Camera": {
+      "Camera_speed": 3.0,
+      "Mouse_sensitivity": 0.25,
+      "PremadeDistance": 15.0,
+      "Wheel_speed": 5.0
+    },
+    "IMGUI": {
+      "Exit_Pressed": false,
+      "Show_ImGui_Demo": false,
+      "current_tab": 1,
+      "openWindowAbout": false,
+      "showConsole": false,
+      "show_another_window": false,
+      "show_demo_window": true
+    },
+    "Render": {
+      "LightNumber": 8,
+      "VSync": true
+    },
+    "Window": {
+      "Borderless": false,
+      "DispalyWidth": 1152,
+      "DisplayHeight": 648,
+      "Fullscreen": false,
+      "FullscreenDesktop": false,
+      "Height": 1024,
+      "RefreshRate": 60,
+      "Resizable": true,
+      "Width": 1280
+    },
+    "Texture": {
+      "Location": "Assets/Baker_house.png"
+
     }
+  }
 }
