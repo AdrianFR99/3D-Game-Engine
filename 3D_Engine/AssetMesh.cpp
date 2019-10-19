@@ -71,8 +71,8 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 
 			if (i % 3 == 0 && i!=0) {
 
-				float3 vert1 = vertices[i + 2];
-				float3 vert2 = vertices[i + 1];
+				float3 vert1 = vertices[i - 2];
+				float3 vert2 = vertices[i - 1];
 				float3 vert3 = vertices[i];
 
 				float3 vector1 = vert2 - vert1;
