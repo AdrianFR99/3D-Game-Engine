@@ -497,6 +497,7 @@ void WindowUI_Settings::Config_Window_Buttons() {
 
 			}
 
+			ImGui::Spacing();
 
 
 			if (ImGui::Checkbox("Ligth", &lighting))
@@ -526,11 +527,16 @@ void WindowUI_Settings::Config_Window_Buttons() {
 
 			}
 
-			
+			ImGui::Spacing();
+			ImGui::Separator();
 			
 
 			ImGui::TreePop();
 		}
+
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
 
 		if (ImGui::TreeNode("Normals")) {
 
@@ -548,9 +554,14 @@ void WindowUI_Settings::Config_Window_Buttons() {
 
 			}
 
+			ImGui::Spacing();
+			ImGui::Separator();
 			ImGui::TreePop();
 		}
 
+		ImGui::Spacing();
+		ImGui::Spacing();
+		ImGui::Spacing();
 
 		if (ImGui::TreeNode("Materials & Texture")){
 
@@ -572,6 +583,7 @@ void WindowUI_Settings::Config_Window_Buttons() {
 
 			}
 
+			ImGui::Spacing();
 			ImGui::Separator();
 
 			//ID
@@ -579,6 +591,7 @@ void WindowUI_Settings::Config_Window_Buttons() {
 			ImGui::SameLine();
 			ImGui::TextColored(IMGUI_TEAL_GREEN, "%i", App->Textures->ID);
 
+			ImGui::Spacing();
 			ImGui::Separator();
 
 			//Path
@@ -586,6 +599,7 @@ void WindowUI_Settings::Config_Window_Buttons() {
 			ImGui::SameLine();
 			ImGui::TextColored(IMGUI_YELLOW, "%s", App->Textures->TexturePath.data());
 
+			ImGui::Spacing();
 			ImGui::Separator();
 
 			//Colors
@@ -602,6 +616,8 @@ void WindowUI_Settings::Config_Window_Buttons() {
 				App->renderer3D->ChangeAmbientSettings(ambient, Color_Ambient);
 			}
 
+			ImGui::Spacing();
+
 			if (ImGui::Checkbox("Diffuse", &diffuse))
 			{
 				App->renderer3D->ChangeDiffuseSettings(diffuse, Color_Diffuse);
@@ -612,6 +628,8 @@ void WindowUI_Settings::Config_Window_Buttons() {
 				ImGui::ColorPicker4("Difuse color##4", Color_Diffuse, ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_RGB | ImGuiColorEditFlags_AlphaPreview, NULL);
 				App->renderer3D->ChangeDiffuseSettings(diffuse, Color_Diffuse);
 			}
+
+			ImGui::Spacing();
 
 			if (ImGui::Checkbox("Specular", &specular))
 			{
