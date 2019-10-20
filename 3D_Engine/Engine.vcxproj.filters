@@ -184,6 +184,9 @@
     <ClCompile Include="ModuleFileSystem.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="WindowInspector.cpp">
+      <Filter>Source\Modules\UI_Elements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleCamera3D.h">
@@ -488,9 +491,12 @@
     </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>Source\Tools</Filter>
-      </ClInclude>
+    </ClInclude>
     <ClInclude Include="ModuleTexture.h">
       <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowInspector.h">
+      <Filter>Source\Modules\UI_Elements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

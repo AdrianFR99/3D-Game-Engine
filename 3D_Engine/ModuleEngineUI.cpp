@@ -7,7 +7,7 @@
 
 #include "WindowUI.h"
 #include "WindowUI_Settings.h"
-
+#include "WindowInspector.h"
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_sdl.h"
