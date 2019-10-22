@@ -33,10 +33,11 @@ public:
 
 public:
 	
-	Texture* tex = nullptr;
+	Texture* CurrentTex = nullptr;
+	
 
 	std::vector<Texture*> TextureIDs;
-	uint ID;
+	uint CheckeredID;
 };
 
 #endif //__MODULETEXTURE_H__

@@ -25,7 +25,7 @@ public:
 	
 	bool CleanUp();
 	
-	void ReceiveEvent(const Event& event) override;
+	void CallbackEvent(const Event& event) override;
 	
 	bool LoadFiles(const char* path);
 	bool LoadMesh(const char* path);

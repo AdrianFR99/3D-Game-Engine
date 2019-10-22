@@ -60,8 +60,11 @@ void ModuleAssets::Draw() {
 			
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			
+			if(App->Textures->CurrentTex!=nullptr)
+			glBindTexture(GL_TEXTURE_2D,App->Textures->CurrentTex->id); // start using texture
+			else
+			glBindTexture(GL_TEXTURE_2D, App->Textures->CheckeredID); // start using texture
 			
-			glBindTexture(GL_TEXTURE_2D,App->Textures->ID); // start using texture
 			glActiveTexture(GL_TEXTURE0);
 			glBindBuffer(GL_ARRAY_BUFFER, Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
 			glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format			
@@ -129,8 +132,13 @@ bool ModuleAssets::CleanUp() {
 
 bool ModuleAssets::LoadFiles(const char* path) {
 	
+	std::string path_Aux = path;
 
-	LoadMesh(path);
+	if (path_Aux.find(".fbx") != std::string::npos)
+		LoadMesh(path);
+	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos)
+		App->Textures->CreateTexture(path);
+	
 
 	App->GearConsole.AddLog(" Loading File %s",path);
 
@@ -167,7 +175,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 }
 
-void ModuleAssets::ReceiveEvent(const Event& event) {
+void ModuleAssets::CallbackEvent(const Event& event) {
 
 	switch (event.type)
 	{

@@ -120,9 +120,10 @@ update_status ModuleInput::PreUpdate(float dt)
 			break;
 
 			case SDL_DROPFILE:
+
 				Event ev(Event::EventType::file_dropped);
-				ev.string = e.drop.file; 
-				App->BroadcastEvent(ev);
+				ev.string = e.drop.file;
+				App->SendEvent(ev);
 				ev.string = nullptr;
 				SDL_free(&ev);
 

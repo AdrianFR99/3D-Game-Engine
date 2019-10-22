@@ -280,10 +280,10 @@ void Application::load(nlohmann::json& file)
 
 }
 
-void Application::BroadcastEvent(const Event& event)
+void Application::SendEvent(const Event& event)
 {
 	for (std::list<Module*>::iterator it = list_modules.begin(); it != list_modules.end(); ++it)
-		(*it)->ReceiveEvent(event);
+		(*it)->CallbackEvent(event);
 }
 
 

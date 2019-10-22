@@ -79,7 +79,7 @@ public:
 //Web
 	void RequestBrowser(const char*URL);
 //Event
-	void BroadcastEvent(const Event& event);
+	void SendEvent(const Event& event);
 //Info
 	const char* GetAppName()const;
 

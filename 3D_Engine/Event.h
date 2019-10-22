@@ -22,19 +22,6 @@ struct Event
 
 	const char* string;
 
-	//union
-	//{
-	//	struct
-	//	{
-	//		const char* ptr;
-	//	} string;
-
-	//	struct
-	//	{
-	//		int x, y;
-	//	} point2d;
-	//};
-
 
 };
 

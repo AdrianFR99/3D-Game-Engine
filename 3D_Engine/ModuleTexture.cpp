@@ -53,14 +53,15 @@ bool ModuleTexture::Init() {
 bool ModuleTexture::Start() {
 
 
-	ID= CreateCheckeredTex();
+	CheckeredID= CreateCheckeredTex();
+
 
 	return true;
 }
 bool ModuleTexture::CleanUp() {
 
-	if (ID > 0)
-		glDeleteTextures(1, (GLuint*)&ID);
+	if (CheckeredID > 0)
+		glDeleteTextures(1, (GLuint*)&CheckeredID);
 
 	for (int i = 0; i < TextureIDs.size();++i) {
 
@@ -160,14 +161,17 @@ uint ModuleTexture::CreateTexture(const char*path) {
 
 
 	
-	tex = new Texture;
-	tex->id = texID;
-	tex->path = path;
-	TextureIDs.push_back(tex);
-	   
-	ilDeleteImages(1, (const ILuint*)&ImageID);
+	CurrentTex = new Texture;
+	CurrentTex->id = texID;
+	CurrentTex->path = path;
+	TextureIDs.push_back(CurrentTex);
 
 	
+	
+
+
+
+	ilDeleteImages(1, (const ILuint*)&ImageID);
 
 	return texID;
 

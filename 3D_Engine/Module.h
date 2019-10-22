@@ -52,7 +52,7 @@ public:
 		return true;
 	}
 
-	virtual void ReceiveEvent(const Event& event)
+	virtual void CallbackEvent(const Event& event)
 	{ }
 
 
