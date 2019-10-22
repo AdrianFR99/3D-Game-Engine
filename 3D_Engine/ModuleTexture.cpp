@@ -53,7 +53,7 @@ bool ModuleTexture::Init() {
 bool ModuleTexture::Start() {
 
 
-	ID=CreateTexture("Assets/Baker_house.png");
+	ID= CreateCheckeredTex();
 
 	return true;
 }
@@ -61,6 +61,15 @@ bool ModuleTexture::CleanUp() {
 
 	if (ID > 0)
 		glDeleteTextures(1, (GLuint*)&ID);
+
+	for (int i = 0; i < TextureIDs.size();++i) {
+
+		delete TextureIDs[i];
+		TextureIDs[i] = nullptr;
+
+
+	}
+
 
 	return true;
 
@@ -100,6 +109,8 @@ uint ModuleTexture::ToTexBuffer(uint size, int format, int width, int height,con
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	glBindTexture(GL_TEXTURE_2D, 0);//unbind buff texture
+
+
 
 	
 	return id;
@@ -146,7 +157,14 @@ uint ModuleTexture::CreateTexture(const char*path) {
 		}
 	
 	}
+
+
 	
+	tex = new Texture;
+	tex->id = texID;
+	tex->path = path;
+	TextureIDs.push_back(tex);
+	   
 	ilDeleteImages(1, (const ILuint*)&ImageID);
 
 	

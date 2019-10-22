@@ -38,6 +38,7 @@ public:
 	//Normal
 	uint num_normals = 0;
 	uint num_normals_faces = 0;
+
 	float3*normals = nullptr;
 	float3*normals_faces = nullptr;
 	float3*normals_faces_pos = nullptr;

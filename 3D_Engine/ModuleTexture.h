@@ -8,6 +8,12 @@
 #define CHECKERS_WIDTH 64
 
 
+struct Texture {
+
+	std::string path;
+	uint id;
+};
+
 class ModuleTexture :
 	public Module
 {
@@ -27,7 +33,9 @@ public:
 
 public:
 	
-	
+	Texture* tex = nullptr;
+
+	std::vector<Texture*> TextureIDs;
 	uint ID;
 };
 

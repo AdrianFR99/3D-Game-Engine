@@ -67,13 +67,13 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 		normals_faces_pos = new float3[num_normals_faces];
 
 		int iterator=0;
-		for (int i = 0; i < num_vertex;i+=3) {
+		for (int i = 0; i < num_index;i+=3) {
 
-			if (i % 3 == 0 && i!=0) {
+		
 
-				float3 vert1 = vertices[i + 2];
-				float3 vert2 = vertices[i + 1];
-				float3 vert3 = vertices[i];
+				float3 vert1 = vertices[indices[i + 2]];
+				float3 vert2 = vertices[indices[i + 1]];
+				float3 vert3 = vertices[indices[i]];
 
 				float3 vector1 = vert2 - vert1;
 				float3 vector2 = vert3 - vert1;
@@ -82,7 +82,7 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 				normals_faces_pos[iterator]=CenterTri(vert1,vert2,vert3);
 
 				++iterator;
-			}
+			
 
 		}
 	}
