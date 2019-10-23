@@ -6,8 +6,8 @@
 #include "Module.h"
 
 
-
 class AssetMesh;
+class Primitives;
 
 class ModuleAssets:	public Module
 {
@@ -31,6 +31,7 @@ public:
 	bool LoadMesh(const char* path);
 
 	std::vector<AssetMesh*> Meshes_Vec;
+	std::vector<Primitives*> Primitives_Vec;
 };
 
 

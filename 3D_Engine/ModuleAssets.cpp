@@ -3,6 +3,7 @@
 #include "ModuleAssets.h"
 #include "AssetMesh.h"
 #include "Event.h"
+#include "Primitives.h"
 
 #include "imgui_defines.h"
 
@@ -42,8 +43,11 @@ bool ModuleAssets::Init(){
 
 bool ModuleAssets::Start() {
 
-	LoadFiles(App->AssetModel.data());
+	//LoadFiles(App->AssetModel.data());
 
+	Primitives*aux = nullptr;
+	aux = new Cube(1.0f, 1.0f, 1.0f);
+	
 	return true;
 }
 
@@ -80,6 +84,7 @@ void ModuleAssets::Draw() {
 			glDrawElements((GLenum)GL_TRIANGLES,Meshes_Vec[i]->num_index, GL_UNSIGNED_INT, NULL);
 
 
+
 			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -99,6 +104,16 @@ void ModuleAssets::Draw() {
 			   
 
 	}
+
+	if (Primitives_Vec.size() > 0) {
+		
+
+		for (int i = 0; i < Primitives_Vec.size(); ++i)
+			Primitives_Vec[i]->Draw();
+
+
+	}
+	
 
 }
 

@@ -33,7 +33,7 @@ public:
 
 public:
 	
-	Texture* CurrentTex = nullptr;
+	Texture* CurrentTex  = nullptr;
 	
 
 	std::vector<Texture*> TextureIDs;
