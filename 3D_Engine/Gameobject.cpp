@@ -33,6 +33,19 @@ void Gameobject::Disable()
 
 void Gameobject::Cleanup()
 {
+	active = false;
+	nameGameObject = nullptr;
+	ID = 0;
+
+	for (int i = 0; i < ComponentList.size(); ++i) {
+
+		ComponentList[i]->Cleanup();
+
+		//delete(Meshes_Vec[i]);
+		RELEASE(ComponentList[i]);
+	}
+
+	ComponentList.clear();
 	//pointers must be set to null ptr;
 }
 

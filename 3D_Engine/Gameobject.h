@@ -1,8 +1,9 @@
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
+#include "Globals.h"
 #include "Component.h"
-#include <list>
+#include<vector>
 
 enum CompType;
 class Component;
@@ -33,7 +34,7 @@ public:
 	int ID = 0;
 
 	//list of components inside
-	std::list<Component*> ComponentList;
+	std::vector<Component*> ComponentList;
 
 	//list of child
 	/*std::vector<Gameobjects*> ChildGameobjects;

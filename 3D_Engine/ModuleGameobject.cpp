@@ -21,7 +21,7 @@ bool ModuleGameobject::Init() {
 
 bool ModuleGameobject::Start() {
 
-	CreateGameObject();
+	
 
 	return true;
 }
@@ -37,6 +37,16 @@ void ModuleGameobject::Draw() {
 
 bool ModuleGameobject::CleanUp() {
 	
+
+	for (int i = 0; i < GameobjectList.size(); ++i) {
+
+		GameobjectList[i]->Cleanup();
+
+		//delete(Meshes_Vec[i]);
+		RELEASE(GameobjectList[i]);
+	}
+
+	GameobjectList.clear();
 	return true;
 }
 
