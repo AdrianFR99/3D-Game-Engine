@@ -17,6 +17,7 @@ Application::Application()
 	hardware = new ModuleHardware(this);
 	Assets = new ModuleAssets(this);
 	Textures = new ModuleTexture(this);
+	Gameobjects = new ModuleGameobject(this);
 
 	Current_frames = 0; //current frame the program is
 	FPS_counter = 0;   //Frame per cicle
@@ -35,6 +36,7 @@ Application::Application()
 	AddModule(hardware);
 	AddModule(Assets);
 	AddModule(Textures);
+	AddModule(Gameobjects);
 	AddModule(UI_Layer);
 	// Renderer last!
 	AddModule(renderer3D);

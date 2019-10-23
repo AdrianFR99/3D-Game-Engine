@@ -17,6 +17,7 @@
 #include "WindowConsole.h"
 
 //#include "ModuleFileSystem.h"
+#include "ModuleGameobject.h"
 
 
 struct Event;
@@ -32,7 +33,8 @@ public:
 	ModuleHardware* hardware = nullptr;
 	//ModuleFileSystem* fs = nullptr;
 	ModuleAssets* Assets = nullptr;
-	ModuleTexture*Textures = nullptr;
+	ModuleTexture* Textures = nullptr;
+	ModuleGameobject* Gameobjects = nullptr;
 
 private:
 

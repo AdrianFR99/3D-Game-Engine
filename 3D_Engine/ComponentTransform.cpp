@@ -1,5 +1,4 @@
 #include "ComponentTransform.h"
-#include "Component.h"
 
 
 ComponentTransform::ComponentTransform(Gameobject * owner, CompType newtype) : Component(newtype, owner)
@@ -7,17 +6,19 @@ ComponentTransform::ComponentTransform(Gameobject * owner, CompType newtype) : C
 	//set name and type
 
 	nameComponent = owner->nameGameObject;
-	Init();
-	Enable();
+	//Init();
+	//Enable();
 }
 
 ComponentTransform::~ComponentTransform()
 {
+
 }
 
 void ComponentTransform::Init()
 {
-	transform = transform.zero;
+	float4x4 zero = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	transform = zero;
 	Enable();
 }
 
@@ -28,7 +29,8 @@ void ComponentTransform::Update()
 
 void ComponentTransform::CleanUp()
 {
-	transform.zero;
+	float4x4 zero = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	transform = zero;
 	active = false;
 	belongsTo = nullptr;
 	nameComponent = nullptr;

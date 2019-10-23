@@ -92,6 +92,7 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="ModuleFileSystem.h" />
     <ClInclude Include="ModuleAssets.h" />
+    <ClInclude Include="ModuleGameobject.h" />
     <ClInclude Include="ModuleTexture.h" />
     <ClInclude Include="ParFiles\par_shapes.h" />
     <ClInclude Include="Primitives.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="ModuleCamera3D.cpp" />
     <ClCompile Include="ModuleEngineUI.cpp" />
     <ClCompile Include="ModuleFileSystem.cpp" />
+    <ClCompile Include="ModuleGameobject.cpp" />
     <ClCompile Include="ModuleHardware.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />

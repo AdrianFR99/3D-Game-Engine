@@ -7,6 +7,8 @@
 Gameobject::Gameobject(int id)
 {
 	ID = id;
+	CreateComponent(this, TRANSFORM, true);
+	Enable();
 }
 
 Gameobject::~Gameobject()
