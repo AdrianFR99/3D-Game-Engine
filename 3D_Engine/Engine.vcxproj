@@ -78,6 +78,8 @@
     <ClInclude Include="AssetMesh.h" />
     <ClInclude Include="Brofiler\Brofiler.h" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="Gameobject.h" />
     <ClInclude Include="glew\include\eglew.h" />
     <ClInclude Include="glew\include\glew.h" />
     <ClInclude Include="glew\include\glxew.h" />
@@ -182,6 +184,8 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AssetMesh.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Gameobject.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
