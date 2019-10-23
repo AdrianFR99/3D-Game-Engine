@@ -2,6 +2,10 @@
 #define __COMPONENTTRANSFORM_H__
 
 #include "Component.h"
+#include "MathGeoLib\include\MathBuildConfig.h"
+#include "MathGeoLib\include\MathGeoLib.h"
+
+
 class Gameobject;
 
 class ComponentTransform : public Component
@@ -18,9 +22,8 @@ public:
 	void Disable();
 
 
-private:
-
-
+public:
+	float4x4 transform;
 };
 
 #endif //COMOPNENTTRANSFROM

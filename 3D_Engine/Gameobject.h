@@ -1,9 +1,11 @@
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
-
 #include "Component.h"
+#include <list>
 
+enum CompType;
+class Component;
 
 class Gameobject
 {
@@ -12,7 +14,7 @@ public:
 	Gameobject(int id);
 	virtual ~Gameobject();
 
-private:
+public:
 
 	void Update();
 	void Enable();
@@ -20,6 +22,7 @@ private:
 	void Cleanup();
 
 	//create component
+	void CreateComponent(Gameobject * object, CompType tocreate, bool active);
 
 	
 	//parent
@@ -29,8 +32,13 @@ private:
 	char* nameGameObject = nullptr;
 	int ID = 0;
 
+	//list of components inside
+	std::list<Component*> ComponentList;
 
+	//list of child
+	/*std::vector<Gameobjects*> ChildGameobjects;
 
+	Gameobjects* Father;*/
 
 };
 

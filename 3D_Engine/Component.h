@@ -5,9 +5,9 @@
 
 class Gameobject;
 
-enum class CompType
+enum CompType
 {
-	TRANSFORM,
+	TRANSFORM=0,
 	MESH,
 	MATERIAL,
 	LIGHT

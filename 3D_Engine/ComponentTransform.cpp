@@ -5,7 +5,7 @@
 ComponentTransform::ComponentTransform(Gameobject * owner, CompType newtype) : Component(newtype, owner)
 {
 	//set name and type
-
+	Init();
 }
 
 ComponentTransform::~ComponentTransform()
