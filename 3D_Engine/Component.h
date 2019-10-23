@@ -3,20 +3,22 @@
 
 #include "Gameobject.h"
 
+class Gameobject;
+
 enum class CompType
 {
 	TRANSFORM,
 	MESH,
 	MATERIAL,
-	LIGHT 
-}
+	LIGHT
+};
 
 
-class Component
+class Component 
 {
 public:
-	Component{}
-	virtual ~Component{};
+	Component(CompType intype, Gameobject* owner);
+	virtual ~Component();
 
 	virtual void Init() {};
 	virtual void Update() {};
@@ -29,12 +31,12 @@ public:
 
 private:
 	//vars
-	boo active = false;
+	bool active = false;
 	Gameobject* belongsTo = nullptr;
 	CompType type;
-	sttd::string name;
+	char* nameComponent = nullptr;
 
-}
+};
 
 
 #endif

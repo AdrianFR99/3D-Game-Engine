@@ -1,8 +1,19 @@
 #include "Gameobject.h"
 
-void Gameobject::Update()
+
+Gameobject::Gameobject(int id)
+{
+	ID = id;
+}
+
+Gameobject::~Gameobject()
 {
 
+}
+
+void Gameobject::Update()
+{
+	//nothing
 }
 
 void Gameobject::Enable()

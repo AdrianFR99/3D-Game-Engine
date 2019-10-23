@@ -2,15 +2,15 @@
 #define __GAMEOBJECT_H__
 
 
-//#include "Component.h"
+#include "Component.h"
 
 
 class Gameobject
 {
-puclic:
+public:
 
-	Gameobject{};
-	virtual ~Gameobject{};
+	Gameobject(int id);
+	virtual ~Gameobject();
 
 private:
 
@@ -26,13 +26,13 @@ private:
 	//chield
 
 	bool active = false;
-	std::string name;
+	char* nameGameObject = nullptr;
 	int ID = 0;
 
 
 
 
-}
+};
 
 
 
