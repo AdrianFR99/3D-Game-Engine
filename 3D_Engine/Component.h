@@ -28,13 +28,13 @@ public:
 	void Disable();
 
 
-
-private:
 	//vars
 	bool active = false;
 	Gameobject* belongsTo = nullptr;
 	CompType type;
 	char* nameComponent = nullptr;
+
+private:
 
 };
 

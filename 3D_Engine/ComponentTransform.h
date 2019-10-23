@@ -21,6 +21,10 @@ public:
 	void Enable();
 	void Disable();
 
+	float4x4 const GetTransform() const;
+	float3 const GetPosition() const;
+	float3 const GetRotation() const;
+	float3 const GetScale() const;
 
 public:
 	float4x4 transform;

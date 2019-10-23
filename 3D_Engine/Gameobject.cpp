@@ -43,7 +43,6 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 	switch (tocreate)
 	{
 		
-
 		case TRANSFORM:
 		{
 			temp = new ComponentTransform(this, TRANSFORM);
