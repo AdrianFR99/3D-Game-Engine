@@ -134,6 +134,8 @@ bool ModuleAssets::CleanUp() {
 
 		Meshes_Vec.clear();
 
+		App->camera->premadeDist = -1.0f;
+		App->camera->Reference = vec3(0, 0, 0);
 	return true;
 }
 

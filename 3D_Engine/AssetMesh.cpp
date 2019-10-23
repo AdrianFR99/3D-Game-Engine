@@ -12,6 +12,7 @@
 #include "Assimp/include/cfileio.h"
 
 #include "Application.h"
+//#include "ModuleCamera3D.h"
 
 #include "mmgr/nommgr.h"
 
@@ -32,7 +33,8 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 	//vertices
 	num_vertex = Mesh->mNumVertices;
 	vertices = new float3[num_vertex];
-	memcpy(vertices,Mesh->mVertices,sizeof(float3)*num_vertex);
+	memcpy(vertices, Mesh->mVertices, sizeof(float3)*num_vertex);
+	CalculateDistance();
 
 	App->GearConsole.AddLog(" the Number of Vertices is %i ", num_vertex);
 
@@ -198,4 +200,75 @@ float3 AssetMesh::CenterTri(float3&vertex1, float3&vertex2, float3&vertex3) {
 	Aux.z = (vertex1.z + vertex2.z + vertex3.z)/3;
 
 	return Aux;
+}
+
+//function to triangulate the position of the camera depending on the size of the meshes
+void AssetMesh::CalculateDistance() {
+
+	for (int i = 0; i < num_vertex; ++i)
+	{
+		if (vertices[i].x > maxX)
+		{
+			maxX = vertices[i].x;
+		}
+		if (vertices[i].x < minX)
+		{
+			minX = vertices[i].x;
+		}
+
+		if (vertices[i].y > maxY)
+		{
+			maxY = vertices[i].y;
+		}
+		if (vertices[i].y < minY)
+		{
+			minY = vertices[i].y;
+		}
+
+		if (vertices[i].z > maxZ)
+		{
+			maxZ = vertices[i].z;
+		}
+		if (vertices[i].z < minZ)
+		{
+			minZ = vertices[i].z;
+		}
+	}
+
+	medX = (int)(maxX + minX)*0.5;
+
+	medY = (int)(maxY + minY)*0.5;
+
+	medZ = (int)(maxZ + minZ)*0.5;
+
+	vec3 baseMax;
+	baseMax.x = maxX;
+	baseMax.y = maxY;
+	baseMax.z = maxZ;
+
+	vec3 baseMin;
+	baseMin.x = minX;
+	baseMin.y = minY;
+	baseMin.z = minZ;
+
+	float TriagulateBaseDistance = (float)length(baseMax - baseMin);
+
+	if (TriagulateBaseDistance < 0)
+		TriagulateBaseDistance = -(TriagulateBaseDistance);
+	else
+		TriagulateBaseDistance = TriagulateBaseDistance;
+
+
+
+	faraway = (sqrt(3)*0.5)* TriagulateBaseDistance;
+
+	if (faraway > App->camera->premadeDist)
+		App->camera->premadeDist = faraway;
+
+	App->camera->Reference.x = medX;
+
+	App->camera->Reference.y = medY;
+
+	App->camera->Reference.z = medZ;
+	
 }

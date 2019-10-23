@@ -42,12 +42,27 @@ public:
 	float3*normals_faces = nullptr;
 	float3*normals_faces_pos = nullptr;
 
+	//camera
+	int maxX = 0;
+	int minX = 0;
+	int medX = 0;
+	int maxY = 0;
+	int minY = 0;
+	int medY = 0;
+	int maxZ = 0;
+	int minZ = 0;
+	int medZ = 0;
+	float basedistance = 0;
+	float faraway = 0.0f;
+
 	uint num_uv = 0;
 	float*uv_coord = nullptr;
 
 public:
 	 void DrawNormals (float width,uint lenght,float3 &colorNV, float3 &colorNF,float alpha, bool &faces, bool &vertex) ;
 	float3 CenterTri(float3&vertex1,float3&vertex2,float3&vertex3);
+
+	void CalculateDistance();
 };
 
 #endif // !__ASSETMESH_H__

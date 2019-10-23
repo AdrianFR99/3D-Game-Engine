@@ -31,7 +31,7 @@ private:
 public:
 	
 	vec3 X, Y, Z, Position, Reference;
-	float premadeDist = 15.0f;
+	float premadeDist = -1.0f;
 	
 
 	float mouse_sensitivity =0.0f;
