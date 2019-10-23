@@ -56,6 +56,7 @@ void ModuleAssets::Draw() {
 
 	glEnable(GL_TEXTURE_2D);
 
+
 	for (int i = 0; i < Meshes_Vec.size();++i) {
 
 		if (Meshes_Vec[i] != nullptr) {
@@ -105,13 +106,12 @@ void ModuleAssets::Draw() {
 
 	}
 
+
 	if (Primitives_Vec.size() > 0) {
-		
 
 		for (int i = 0; i < Primitives_Vec.size(); ++i)
 			Primitives_Vec[i]->Draw();
-
-
+		
 	}
 	
 

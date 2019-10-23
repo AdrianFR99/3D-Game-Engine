@@ -89,7 +89,7 @@ void Primitives::Draw() {
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnable(GL_TEXTURE_2D);
 
-	glBindTexture(GL_TEXTURE_2D, ID_Texture);
+	glBindTexture(GL_TEXTURE_2D, App->Textures->CheckeredID);
 	glActiveTexture(GL_TEXTURE0);
 	glBindBuffer(GL_ARRAY_BUFFER, UVC);
 	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
@@ -123,8 +123,6 @@ Cube::Cube(float sizeX, float sizeY, float sizeZ) : Primitives(), size(float3(si
 	num_uv = num_vertex * 2 / 3;//3D space->2D space
 
 	SetVert_Ind(size);
-
-	ID_Texture = App->Textures->CheckeredID;
 
 	SendToBuff();
 
