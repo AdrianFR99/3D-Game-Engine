@@ -6,8 +6,8 @@ ComponentTransform::ComponentTransform(Gameobject * owner, CompType newtype) : C
 	//set name and type
 
 	nameComponent = owner->nameGameObject;
-	//Init();
-	//Enable();
+	Init();
+	Enable();
 }
 
 ComponentTransform::~ComponentTransform()
@@ -17,8 +17,7 @@ ComponentTransform::~ComponentTransform()
 
 void ComponentTransform::Init()
 {
-	float4x4 zero = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-	transform = zero;
+	transform;
 	Enable();
 }
 
