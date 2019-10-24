@@ -92,9 +92,9 @@ void Primitives::Draw() {
 
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
+	
 
-	glBindTexture(GL_TEXTURE_2D, App->Textures->CheckeredID);
+	glBindTexture(GL_TEXTURE_2D, App->Textures->ChekeredID);
 	glActiveTexture(GL_TEXTURE0);
 	glBindBuffer(GL_ARRAY_BUFFER, UVC);
 	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
@@ -108,7 +108,6 @@ void Primitives::Draw() {
 	glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL); 
 
 	
-	glDisable(GL_TEXTURE_2D);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glDisableClientState(GL_VERTEX_ARRAY);

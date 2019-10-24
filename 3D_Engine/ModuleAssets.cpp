@@ -55,6 +55,11 @@ bool ModuleAssets::Start() {
 void ModuleAssets::Draw(Gameobject* tmp) {
 
 
+	if (tmp->meshPointer->Primitives_Vec.size() > 0) {
+
+		for (int i = 0; i < tmp->meshPointer->Primitives_Vec.size(); ++i)
+			tmp->meshPointer->Primitives_Vec[i]->Draw();
+	}
 
 	for (int i = 0; i < tmp->meshPointer->Meshes_Vec.size();++i) {
 
@@ -113,11 +118,6 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 	}
 
 
-	if (tmp->meshPointer->Primitives_Vec.size() > 0) {
-
-		for (int i = 0; i < tmp->meshPointer->Primitives_Vec.size(); ++i)
-			tmp->meshPointer->Primitives_Vec[i]->Draw();
-	}
 
 
 }
@@ -209,7 +209,7 @@ void ModuleAssets::CreatePrimitive()
 	tmp->CreateComponent(tmp, MESH, true);
 
 	Primitives*aux = nullptr;
-	aux = new Primitives(Primitive_Type::CUBE);
+	aux = new Primitives(Primitive_Type::BOTTLE);
 	//TODO
 	//make switch and pass parameter to function for what to create
 	tmp->meshPointer->Primitives_Vec.push_back(aux);

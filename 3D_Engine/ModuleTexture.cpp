@@ -84,18 +84,16 @@ bool ModuleTexture::Init() {
 bool ModuleTexture::Start() {
 
 
-	CheckeredID= CreateCheckeredTex();
-
 	ID = CreateTexture(TexturePath.data());
-	ID2 = CreateCheckeredTex();
+	ChekeredID = CreateCheckeredTex();
 
 	return true;
 }
 
 bool ModuleTexture::CleanUp() {
 
-	if (CheckeredID > 0)
-		glDeleteTextures(1, (GLuint*)&CheckeredID);
+	if (ChekeredID > 0)
+		glDeleteTextures(1, (GLuint*)&ChekeredID);
 
 	for (int i = 0; i < TextureIDs.size();++i) {
 

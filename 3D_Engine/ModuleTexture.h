@@ -41,10 +41,9 @@ public:
 
 
 	std::vector<Texture*> TextureIDs;
-	uint CheckeredID;
 	std::string TexturePath;
 	uint ID;
-	uint ID2;
+	uint ChekeredID;
 };
 
 #endif //__MODULETEXTURE_H__
