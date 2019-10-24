@@ -126,6 +126,7 @@ void Primitives::CreatePrimitive(Primitive_Type type) {
 	case Primitive_Type::CUBE:
 
 		Mesh = par_shapes_create_cube();
+		
 
 		break;
 	case Primitive_Type::SPHERE:
@@ -140,10 +141,45 @@ void Primitives::CreatePrimitive(Primitive_Type type) {
 
 		break;
 
+	case Primitive_Type::CONE:
+
+		Mesh = par_shapes_create_cone(10, 8);
+
+		break;
+
+
+	case Primitive_Type::DODECA:
+
+		Mesh = par_shapes_create_dodecahedron();
+		
+		break;
+
+	case Primitive_Type::TETRA:
+
+		Mesh = par_shapes_create_tetrahedron();
+
+		break;
+
+	case Primitive_Type::OCTO:
+
+		Mesh = par_shapes_create_octahedron();
+		
+		break;
+
+	case Primitive_Type::ICOSA:
+
+		Mesh = par_shapes_create_icosahedron();
+		
+		break;
+
+	case Primitive_Type::BOTTLE:
+
+		Mesh = par_shapes_create_klein_bottle(10,8);
+
+		break;
 
 	}
-
-
+	
 	num_vertex = Mesh->npoints * 3;
 	vertices = new float3[num_vertex];
 

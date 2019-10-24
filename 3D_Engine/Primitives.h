@@ -10,7 +10,13 @@ enum class Primitive_Type
 {
 	CUBE,
 	SPHERE,
-	CYLINDER
+	CYLINDER,
+	CONE,
+	DODECA,
+	TETRA,
+	OCTO,
+	ICOSA,
+	BOTTLE
 
 };
 

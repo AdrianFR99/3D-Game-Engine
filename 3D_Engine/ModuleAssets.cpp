@@ -46,7 +46,7 @@ bool ModuleAssets::Start() {
 	//LoadFiles(App->AssetModel.data());
 
 	Primitives*aux = nullptr;
-	aux = new Primitives(Primitive_Type::CYLINDER);
+	aux = new Primitives(Primitive_Type::BOTTLE);
 	
 	return true;
 }
