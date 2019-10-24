@@ -230,11 +230,3 @@ void Primitives::CreatePrimitive(Primitive_Type type) {
 }
 
 
-
-
-void Primitives::toAssetMesh() {
-
-	AssetMesh*NewMesh = new AssetMesh;
-
-
-}
