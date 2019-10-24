@@ -31,13 +31,20 @@ public:
 	void SetTextureOptions(int ClampOptions,int FilterMag,int FilterMin);
 	uint ToTexBuffer(uint size, int format, int width, int height,const void* Texture);
 
+	void Load(nlohmann::json& file);
+	void Save(nlohmann::json& file);
+	void ReloadFromConfig();
+
 public:
-	
+
 	Texture* CurrentTex  = nullptr;
-	
+
 
 	std::vector<Texture*> TextureIDs;
 	uint CheckeredID;
+	std::string TexturePath;
+	uint ID;
+	uint ID2;
 };
 
 #endif //__MODULETEXTURE_H__

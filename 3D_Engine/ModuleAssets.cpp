@@ -4,6 +4,8 @@
 #include "AssetMesh.h"
 #include "Event.h"
 #include "Primitives.h"
+#include "ModuleGameobject.h"
+#include "ComponentMesh.h"
 
 #include "imgui_defines.h"
 
@@ -47,42 +49,48 @@ bool ModuleAssets::Start() {
 
 	Primitives*aux = nullptr;
 	aux = new Primitives(Primitive_Type::BOTTLE);
-	
+
 	return true;
 }
 
 
-void ModuleAssets::Draw() {
-
-	glEnable(GL_TEXTURE_2D);
+void ModuleAssets::Draw(Gameobject* tmp) {
 
 
-	for (int i = 0; i < Meshes_Vec.size();++i) {
 
-		if (Meshes_Vec[i] != nullptr) {
+	for (int i = 0; i < tmp->meshPointer->Meshes_Vec.size();++i) {
+
+		if (tmp->meshPointer->Meshes_Vec[i] != nullptr) {
 			// Vertex
-			
-			
+
+
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			
-			if(App->Textures->CurrentTex!=nullptr)
-			glBindTexture(GL_TEXTURE_2D,App->Textures->CurrentTex->id); // start using texture
-			else
-			glBindTexture(GL_TEXTURE_2D, App->Textures->CheckeredID); // start using texture
-			
-			glActiveTexture(GL_TEXTURE0);
-			glBindBuffer(GL_ARRAY_BUFFER, Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
-			glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format			
-			
-			
+
+			//texture
+			if (TextNormal)
+			{
+				glBindTexture(GL_TEXTURE_2D,App->Textures->ID); // start using texture
+				glActiveTexture(GL_TEXTURE0);
+				glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
+				glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
+			}
+			else if (TextChecker)
+			{
+				glBindTexture(GL_TEXTURE_2D, App->Textures->ID2); // start using texture
+				glActiveTexture(GL_TEXTURE0);
+				glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
+				glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
+			}
+
+
 			glEnableClientState(GL_VERTEX_ARRAY);
 
-			glBindBuffer(GL_ARRAY_BUFFER, Meshes_Vec[i]->VBO);
+			glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->VBO);
 			glVertexPointer(3, GL_FLOAT, 0, NULL);
 			// Index
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,Meshes_Vec[i]->IBO);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->IBO);
 			// Draw
-			glDrawElements((GLenum)GL_TRIANGLES,Meshes_Vec[i]->num_index, GL_UNSIGNED_INT, NULL);
+			glDrawElements((GLenum)GL_TRIANGLES, tmp->meshPointer->Meshes_Vec[i]->num_index, GL_UNSIGNED_INT, NULL);
 
 
 
@@ -90,19 +98,19 @@ void ModuleAssets::Draw() {
 			glDisableClientState(GL_VERTEX_ARRAY);
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-			
 
-			if (Meshes_Vec[i]->normals!=nullptr)
+
+			if (tmp->meshPointer->Meshes_Vec[i]->normals!=nullptr && (DrawFaceNormals || DrawVertexNormals))
 			{
-				Meshes_Vec[i]->DrawNormals(1.0f,1,float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f),1.0f);
-			
+				tmp->meshPointer->Meshes_Vec[i]->DrawNormals(1.0f,1,float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f),1.0f, DrawFaceNormals, DrawVertexNormals);
+
 			}
 
 
-		
+
 		}
 
-			   
+
 
 	}
 
@@ -111,49 +119,51 @@ void ModuleAssets::Draw() {
 
 		for (int i = 0; i < Primitives_Vec.size(); ++i)
 			Primitives_Vec[i]->Draw();
-		
+
 	}
-	
+
 
 }
 
-bool ModuleAssets::CleanUp() {
+bool ModuleAssets::CleanUp(Gameobject* tmp) {
 	// detach log stream
 	aiDetachAllLogStreams();
 
 
-	for (int i = 0; i < Meshes_Vec.size();++i) {
-		
-		glDeleteBuffers(1,&Meshes_Vec[i]->VBO);
-		glDeleteBuffers(1,&Meshes_Vec[i]->IBO);
-		glDeleteBuffers(1, &Meshes_Vec[i]->UVC);
-		
+	for (int i = 0; i < tmp->meshPointer->Meshes_Vec.size();++i) {
 
-		RELEASE_ARRAY(Meshes_Vec[i]->vertices);
-		RELEASE_ARRAY(Meshes_Vec[i]->indices);
-		RELEASE_ARRAY(Meshes_Vec[i]->normals);
-		RELEASE_ARRAY(Meshes_Vec[i]->normals_faces);
-		RELEASE_ARRAY(Meshes_Vec[i]->normals_faces_pos);
-		RELEASE_ARRAY(Meshes_Vec[i]->uv_coord);
+		glDeleteBuffers(1, &tmp->meshPointer->Meshes_Vec[i]->VBO);
+		glDeleteBuffers(1, &tmp->meshPointer->Meshes_Vec[i]->IBO);
+		glDeleteBuffers(1, &tmp->meshPointer->Meshes_Vec[i]->UVC);
+
+
+		RELEASE_ARRAY(tmp->meshPointer->Meshes_Vec[i]->vertices);
+		RELEASE_ARRAY(tmp->meshPointer->Meshes_Vec[i]->indices);
+		RELEASE_ARRAY(tmp->meshPointer->Meshes_Vec[i]->normals);
+		RELEASE_ARRAY(tmp->meshPointer->Meshes_Vec[i]->normals_faces);
+		RELEASE_ARRAY(tmp->meshPointer->Meshes_Vec[i]->normals_faces_pos);
+		RELEASE_ARRAY(tmp->meshPointer->Meshes_Vec[i]->uv_coord);
 
 		//delete(Meshes_Vec[i]);
-		RELEASE(Meshes_Vec[i]);
+		RELEASE(tmp->meshPointer->Meshes_Vec[i]);
 	}
 
-		Meshes_Vec.clear();
+	tmp->meshPointer->Meshes_Vec.clear();
 
+		App->camera->premadeDist = -1.0f;
+		App->camera->Reference = vec3(0, 0, 0);
 	return true;
 }
 
 bool ModuleAssets::LoadFiles(const char* path) {
-	
+
 	std::string path_Aux = path;
 
 	if (path_Aux.find(".fbx") != std::string::npos)
 		LoadMesh(path);
 	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos)
 		App->Textures->CreateTexture(path);
-	
+
 
 	App->GearConsole.AddLog(" Loading File %s",path);
 
@@ -168,6 +178,9 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 	if (Scene != nullptr && Scene->HasMeshes())
 	{
+		Gameobject* tmp = App->Gameobjects->CreateGameObject();
+		tmp->CreateComponent(tmp, MESH, true);
+
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
 		{
 
@@ -175,7 +188,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 			NewMesh->importMesh(Scene->mMeshes[i]);
 
-			Meshes_Vec.push_back(NewMesh);
+			tmp->meshPointer->Meshes_Vec.push_back(NewMesh);
 
 		}
 	}
@@ -196,7 +209,7 @@ void ModuleAssets::CallbackEvent(const Event& event) {
 	{
 	case Event::EventType::file_dropped:
 
-	
+
 		LoadFiles(event.string);
 
 		break;

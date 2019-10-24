@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleAssets.h"
+#include "ModuleGameobject.h"
 
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
@@ -152,6 +153,7 @@ bool ModuleRenderer3D::Init()
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_COLOR_MATERIAL);
+		glEnable(GL_TEXTURE_2D);
 
 
 		App->GearConsole.AddLog(" Enable GL Depth test ");
@@ -222,7 +224,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	glLineWidth(1.0f);
 
 
-	App->Assets->Draw();
+	App->Gameobjects->Draw();
 
 	App->UI_Layer->Draw();
 	SDL_GL_SwapWindow(App->window->window);
@@ -273,4 +275,38 @@ void ModuleRenderer3D::changeLight(bool value)
 		lights[0].Active(false);
 		App->GearConsole.AddLog(" Clear lights ");
 	}
+}
+
+const void ModuleRenderer3D::ChangeAmbientSettings(bool & active, const float color[4]) const
+{
+	if (active)
+	{
+		glLightfv(GL_LIGHT0, GL_AMBIENT, color);
+		glEnable(GL_LIGHT0);
+	}
+	else 
+		glDisable(GL_LIGHT0);
+}
+
+
+const void ModuleRenderer3D::ChangeDiffuseSettings(bool & active, const float color[4]) const
+{
+	if (active)
+	{
+		glLightfv(GL_LIGHT1, GL_DIFFUSE, color);
+		glEnable(GL_LIGHT1);
+	}
+	else
+		glDisable(GL_LIGHT1);
+}
+
+const void ModuleRenderer3D::ChangeSpecularSettings(bool & active, const float color[4]) const
+{
+	if (active)
+	{
+		glLightfv(GL_LIGHT2, GL_SPECULAR, color);
+		glEnable(GL_LIGHT2);
+	}
+	else
+		glDisable(GL_LIGHT2);
 }

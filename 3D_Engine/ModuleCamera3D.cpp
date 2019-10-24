@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleCamera3D.h"
 #include "Maths.h"
-
+#include "ModuleAssets.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -38,7 +38,7 @@ void ModuleCamera3D::Load(nlohmann::json& file)
 	LOG("Load variables from Json to module Camera3D");
 	App->GearConsole.AddLog(" Load Config variables for Camera ");
 
-	premadeDist = file["Modules"]["Camera"]["PremadeDistance"];
+//	premadeDist = file["Modules"]["Camera"]["PremadeDistance"];
 	mouse_sensitivity = file["Modules"]["Camera"]["Mouse_sensitivity"];
 	wheel_speed = file["Modules"]["Camera"]["Wheel_speed"];
 	camera_speed = file["Modules"]["Camera"]["Camera_speed"];
@@ -52,7 +52,7 @@ void ModuleCamera3D::Save(nlohmann::json& file)
 	LOG("Save variables from Module Camera to Config");
 	App->GearConsole.AddLog(" Save variables from Module Camera to Config ");
 
-	file["Modules"]["Camera"]["PremadeDistance"] = premadeDist;
+	//file["Modules"]["Camera"]["PremadeDistance"] = premadeDist;
 	file["Modules"]["Camera"]["Mouse_sensitivity"] = mouse_sensitivity;
 	file["Modules"]["Camera"]["Wheel_speed"] = wheel_speed;
 	file["Modules"]["Camera"]["Camera_speed"] = camera_speed;
@@ -127,7 +127,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_UP)
 	{
-		Reference= vec3(0, 0, 0);
+		//Reference= vec3(0, 0, 0);
 		Position = Reference + Z * premadeDist;
 	}
 

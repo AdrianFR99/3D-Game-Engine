@@ -12,6 +12,7 @@
 #include "Assimp/include/cfileio.h"
 
 #include "Application.h"
+//#include "ModuleCamera3D.h"
 
 #include "mmgr/nommgr.h"
 
@@ -32,7 +33,8 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 	//vertices
 	num_vertex = Mesh->mNumVertices;
 	vertices = new float3[num_vertex];
-	memcpy(vertices,Mesh->mVertices,sizeof(float3)*num_vertex);
+	memcpy(vertices, Mesh->mVertices, sizeof(float3)*num_vertex);
+	CalculateDistance();
 
 	App->GearConsole.AddLog(" the Number of Vertices is %i ", num_vertex);
 
@@ -69,7 +71,7 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 		int iterator=0;
 		for (int i = 0; i < num_index;i+=3) {
 
-		
+
 
 				float3 vert1 = vertices[indices[i + 2]];
 				float3 vert2 = vertices[indices[i + 1]];
@@ -82,7 +84,7 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 				normals_faces_pos[iterator]=CenterTri(vert1,vert2,vert3);
 
 				++iterator;
-			
+
 
 		}
 	}
@@ -145,39 +147,46 @@ void AssetMesh::ToBuffer() {
 }
 
 
-void AssetMesh::DrawNormals(float width, uint lenght, float3 &colorNV, float3 &colorNF,float alpha) {
+void AssetMesh::DrawNormals (float width, uint lenght, float3 &colorNV, float3 &colorNF,float alpha, bool &faces, bool &vertex) {
 
 
 	glBegin(GL_LINES);
 	glLineWidth(width);
 	uint Normal_length = lenght;
 
-	glColor4f(colorNV.x, colorNV.y, colorNV.z,alpha);
 
-	for (uint j = 0; j < num_vertex; ++j)
+	if (vertex)
 	{
-		glVertex3f(vertices[j].x, vertices[j].y, vertices[j].z);
-		glVertex3f(vertices[j].x + normals[j].x* Normal_length,
-					vertices[j].y + normals[j].y* Normal_length,
-					vertices[j].z + normals[j].z* Normal_length
-		);
+	glColor4f(colorNV.x, colorNV.y, colorNV.z,alpha);
+		for (uint j = 0; j < num_vertex; ++j)
+		{
+			glVertex3f(vertices[j].x, vertices[j].y, vertices[j].z);
+			glVertex3f(vertices[j].x + normals[j].x* Normal_length,
+				vertices[j].y + normals[j].y* Normal_length,
+				vertices[j].z + normals[j].z* Normal_length
+			);
+		}
+
+
 	}
 
-	glColor4f(colorNF.x, colorNF.y, colorNF.z, alpha);
-
-
-	for (uint j = 0; j < num_normals_faces; ++j)
+	if (faces)
 	{
-		glVertex3f(normals_faces_pos[j].x, normals_faces_pos[j].y,normals_faces_pos[j].z);
-		float3 Aux=normals_faces[j].Normalized();
-		glVertex3f(normals_faces_pos[j].x + Aux.x* Normal_length,
+			glColor4f(colorNF.x, colorNF.y, colorNF.z, alpha);
+		for (uint j = 0; j < num_normals_faces; ++j)
+		{
+			glVertex3f(normals_faces_pos[j].x, normals_faces_pos[j].y, normals_faces_pos[j].z);
+			float3 Aux = normals_faces[j].Normalized();
+			glVertex3f(normals_faces_pos[j].x + Aux.x* Normal_length,
 				normals_faces_pos[j].y + Aux.y* Normal_length,
 				normals_faces_pos[j].z + Aux.z* Normal_length
-		);
+			);
+
+		}
+
 
 	}
-
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 	glEnd();
 
@@ -191,4 +200,75 @@ float3 AssetMesh::CenterTri(float3&vertex1, float3&vertex2, float3&vertex3) {
 	Aux.z = (vertex1.z + vertex2.z + vertex3.z)/3;
 
 	return Aux;
+}
+
+//function to triangulate the position of the camera depending on the size of the meshes
+void AssetMesh::CalculateDistance() {
+
+	for (int i = 0; i < num_vertex; ++i)
+	{
+		if (vertices[i].x > maxX)
+		{
+			maxX = vertices[i].x;
+		}
+		if (vertices[i].x < minX)
+		{
+			minX = vertices[i].x;
+		}
+
+		if (vertices[i].y > maxY)
+		{
+			maxY = vertices[i].y;
+		}
+		if (vertices[i].y < minY)
+		{
+			minY = vertices[i].y;
+		}
+
+		if (vertices[i].z > maxZ)
+		{
+			maxZ = vertices[i].z;
+		}
+		if (vertices[i].z < minZ)
+		{
+			minZ = vertices[i].z;
+		}
+	}
+
+	medX = (int)(maxX + minX)*0.5;
+
+	medY = (int)(maxY + minY)*0.5;
+
+	medZ = (int)(maxZ + minZ)*0.5;
+
+	vec3 baseMax;
+	baseMax.x = maxX;
+	baseMax.y = maxY;
+	baseMax.z = maxZ;
+
+	vec3 baseMin;
+	baseMin.x = minX;
+	baseMin.y = minY;
+	baseMin.z = minZ;
+
+	float TriagulateBaseDistance = (float)length(baseMax - baseMin);
+
+	if (TriagulateBaseDistance < 0)
+		TriagulateBaseDistance = -(TriagulateBaseDistance);
+	else
+		TriagulateBaseDistance = TriagulateBaseDistance;
+
+
+
+	faraway = (sqrt(3)*0.5)* TriagulateBaseDistance;
+
+	if (faraway > App->camera->premadeDist)
+		App->camera->premadeDist = faraway;
+
+	App->camera->Reference.x = medX;
+
+	App->camera->Reference.y = medY;
+
+	App->camera->Reference.z = medZ;
+
 }
