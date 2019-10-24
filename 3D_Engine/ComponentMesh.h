@@ -6,6 +6,7 @@
 
 class Gameobject;
 class AssetMesh;
+class Primitives;
 
 class ComponentMesh : public Component
 {
@@ -23,6 +24,9 @@ public:
 	
 	//list of Meshes
 	std::vector<AssetMesh*> Meshes_Vec;
+
+	//list of Primitives
+	std::vector<Primitives*> Primitives_Vec;
 private:
 	
 

@@ -46,10 +46,8 @@ bool ModuleAssets::Init(){
 bool ModuleAssets::Start() {
 
 	LoadFiles(App->AssetModel.data());
-
-	/*Primitives*aux = nullptr;
-	aux = new Primitives(Primitive_Type::CUBE);*/
-
+	CreatePrimitive();
+	
 	return true;
 }
 
@@ -115,11 +113,11 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 	}
 
 
-	/*if (Primitives_Vec.size() > 0) {
+	if (tmp->meshPointer->Primitives_Vec.size() > 0) {
 
-		for (int i = 0; i < Primitives_Vec.size(); ++i)
-			Primitives_Vec[i]->Draw();
-	}*/
+		for (int i = 0; i < tmp->meshPointer->Primitives_Vec.size(); ++i)
+			tmp->meshPointer->Primitives_Vec[i]->Draw();
+	}
 
 
 }
@@ -151,6 +149,9 @@ bool ModuleAssets::CleanUp(Gameobject* tmp) {
 
 		App->camera->premadeDist = -1.0f;
 		App->camera->Reference = vec3(0, 0, 0);
+
+		//TODO2
+		//primitive clean up
 	return true;
 }
 
@@ -199,6 +200,19 @@ bool ModuleAssets::LoadMesh(const char* path) {
 	}
 
 	return true;
+
+}
+
+void ModuleAssets::CreatePrimitive()
+{
+	Gameobject* tmp = App->Gameobjects->CreateGameObject();
+	tmp->CreateComponent(tmp, MESH, true);
+
+	Primitives*aux = nullptr;
+	aux = new Primitives(Primitive_Type::CUBE);
+	//TODO
+	//make switch and pass parameter to function for what to create
+	tmp->meshPointer->Primitives_Vec.push_back(aux);
 
 }
 

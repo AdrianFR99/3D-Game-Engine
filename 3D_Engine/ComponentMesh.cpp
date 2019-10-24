@@ -1,7 +1,7 @@
 #include "ComponentMesh.h"
 #include "Component.h"
 #include "Application.h"
-
+#include "Primitives.h"
 
 ComponentMesh::ComponentMesh(Gameobject * owner, CompType newtype) : Component(newtype, owner)
 {
@@ -39,6 +39,9 @@ void ComponentMesh::Draw()
 void ComponentMesh::CleanUp()
 {
 	App->Assets->CleanUp(belongsTo);
+
+	//TODO2
+	//must complete cleanup from primitive
 }
 
 void ComponentMesh::Enable()

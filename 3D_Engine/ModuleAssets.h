@@ -30,9 +30,8 @@ public:
 	bool LoadFiles(const char* path);
 	bool LoadMesh(const char* path);
 
-	std::vector<AssetMesh*> Meshes_Vec;
-	std::vector<Primitives*> Primitives_Vec;
-	//std::vector<AssetMesh*> Meshes_Vec;
+	void CreatePrimitive();
+
 
 	bool DrawFaceNormals = false;
 	bool DrawVertexNormals = false;

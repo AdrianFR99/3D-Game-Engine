@@ -15,7 +15,7 @@ Primitives::Primitives(Primitive_Type type)
 
 	SendToBuff();
 	
-	App->Assets->Primitives_Vec.push_back(this);
+	
 }
 
 
