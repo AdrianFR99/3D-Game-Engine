@@ -4,7 +4,7 @@
 
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
-
+#include "AssetMesh.h"
 
 #include "mmgr/mmgr.h"
 
@@ -189,6 +189,9 @@ void Primitives::CreatePrimitive(Primitive_Type type) {
 	num_uv = Mesh->npoints*2;
 	uv_coord = new float[num_uv];
 
+
+	num_normals = num_vertex;
+
 	for (uint i = 0; i < Mesh->npoints; ++i) {
 
 		vertices[i].x = Mesh->points[i * 3];
@@ -202,14 +205,25 @@ void Primitives::CreatePrimitive(Primitive_Type type) {
 		indices[i] = Mesh->triangles[i];
 	}
 
-		for (uint i = 0; i < num_uv; ++i) {
+	for (uint i = 0; i < num_uv; ++i) {
 			if (Mesh->tcoords != nullptr)
 			uv_coord[i] = Mesh->tcoords[i];
 			else
 				uv_coord[i] = 0.0f;
+	}
+
+	if (Mesh->normals!=nullptr) {
+
+		for (uint i = 0; i < num_normals; ++i) {
+
+			normals[i].x = Mesh->normals[i * 3];
+			normals[i].y = Mesh->normals[(i * 3) + 1];
+			normals[i].z = Mesh->normals[(i * 3) + 2];
 		}
-	
-	
+
+	}
+
+
 
 	par_shapes_free_mesh(Mesh);
 
@@ -218,3 +232,9 @@ void Primitives::CreatePrimitive(Primitive_Type type) {
 
 
 
+void Primitives::toAssetMesh() {
+
+	AssetMesh*NewMesh = new AssetMesh;
+
+
+}
