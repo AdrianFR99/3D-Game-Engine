@@ -78,7 +78,7 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 			transformPointer = (ComponentTransform*)temp;
 			counter++;
 		}
-
+		break;
 		case MESH:
 		{
 
@@ -86,6 +86,15 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 			meshPointer = (ComponentMesh*)temp;
 			counter++;
 		}
+		break;
+		case MATERIAL:
+		{
+
+			temp = new ComponentMesh(this, MATERIAL);
+			materialPointer = (ComponentMaterial*)temp;
+			counter++;
+		}
+
 		break;
 
 		default: 

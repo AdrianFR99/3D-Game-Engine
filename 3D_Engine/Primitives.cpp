@@ -88,13 +88,13 @@ void Primitives::SendToBuff() {
 
 }
 
-void Primitives::Draw() {
+void Primitives::Draw(Gameobject* tmp) {
 
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	
 
-	glBindTexture(GL_TEXTURE_2D, App->Textures->ChekeredID);
+	glBindTexture(GL_TEXTURE_2D, tmp->materialPointer->GetCurrentTextureID());
 	glActiveTexture(GL_TEXTURE0);
 	glBindBuffer(GL_ARRAY_BUFFER, UVC);
 	glTexCoordPointer(2, GL_FLOAT, 0, NULL);

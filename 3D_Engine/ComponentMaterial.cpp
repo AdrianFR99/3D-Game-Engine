@@ -5,7 +5,12 @@
 ComponentMaterial::ComponentMaterial(Gameobject * owner, CompType newtype) : Component(newtype, owner)
 {
 	//set name and type
-
+	belongsTo = owner;
+	if (owner->nameGameObject != nullptr)
+		nameComponent = owner->nameGameObject;
+	else
+		nameComponent = nullptr;
+	Init();
 }
 
 ComponentMaterial::~ComponentMaterial()
@@ -14,6 +19,7 @@ ComponentMaterial::~ComponentMaterial()
 
 void ComponentMaterial::Init()
 {
+	Enable();
 }
 
 void ComponentMaterial::Update()
@@ -21,13 +27,59 @@ void ComponentMaterial::Update()
 
 }
 
+
+void ComponentMaterial::Draw()
+{
+
+}
+
+void ComponentMaterial::SetTextureID(uint diffuse)
+{
+	ID = diffuse;
+	currentID = ID;
+}
+
+void ComponentMaterial::SerTextureChekeredID(uint chekers)
+{
+	ID2 = chekers;
+}
+
+void ComponentMaterial::SetTexturePath(std::string path)
+{
+	TexturePath = path.data();
+}
+
+std::string ComponentMaterial::GetTexturePath()
+{
+	return TexturePath;
+}
+
 void ComponentMaterial::CleanUp()
 {
 
 }
 
+uint const ComponentMaterial::GetCurrentTextureID() const
+{
+	return currentID;
+}
+
+uint const ComponentMaterial::GetCheckeredTextureID() const
+{
+	return ID2;
+}
+
+void ComponentMaterial::UseCheckered(bool use)
+{
+	if (use)
+		currentID = ID2;
+	else
+		currentID = ID;
+}
+
 void ComponentMaterial::Enable()
 {
+	active = true;
 }
 
 void ComponentMaterial::Disable()

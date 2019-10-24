@@ -14,6 +14,16 @@ public:
 	void Init();
 	void Update();
 	void CleanUp();
+	void Draw();
+
+	void SetTextureID(uint diffuse);
+	void SerTextureChekeredID(uint chekers);
+	void SetTexturePath(std::string path);
+
+	std::string GetTexturePath();
+	uint const GetCurrentTextureID()const;
+	uint const GetCheckeredTextureID()const;
+	void UseCheckered(bool use);
 
 	void Enable();
 	void Disable();
@@ -21,6 +31,10 @@ public:
 
 private:
 
+	std::string TexturePath;
+	uint currentID = 0;
+	uint ID;
+	uint ID2;
 
 };
 

@@ -4,7 +4,7 @@
 
 #include "MathGeoLib/include/Math/float3.h"
 #include "Globals.h"
-
+#include "Gameobject.h"
 
 enum class Primitive_Type
 {
@@ -35,7 +35,7 @@ public:
 
 
 		virtual void SendToBuff();
-		virtual	void Draw();
+		virtual	void Draw(Gameobject* tmp);
 		void CreatePrimitive(Primitive_Type type);
 
 public:

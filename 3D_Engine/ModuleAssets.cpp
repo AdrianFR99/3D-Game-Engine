@@ -6,6 +6,7 @@
 #include "Primitives.h"
 #include "ModuleGameobject.h"
 #include "ComponentMesh.h"
+#include "ModuleTexture.h"
 
 #include "imgui_defines.h"
 
@@ -45,8 +46,8 @@ bool ModuleAssets::Init(){
 
 bool ModuleAssets::Start() {
 
-	LoadFiles(App->AssetModel.data());
-	CreatePrimitive();
+	//LoadFiles(App->AssetModel.data());
+	//CreatePrimitive();
 	
 	return true;
 }
@@ -58,7 +59,7 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 	if (tmp->meshPointer->Primitives_Vec.size() > 0) {
 
 		for (int i = 0; i < tmp->meshPointer->Primitives_Vec.size(); ++i)
-			tmp->meshPointer->Primitives_Vec[i]->Draw();
+			tmp->meshPointer->Primitives_Vec[i]->Draw(tmp);
 	}
 
 	for (int i = 0; i < tmp->meshPointer->Meshes_Vec.size();++i) {
@@ -72,14 +73,14 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 			//texture
 			if (TextNormal)
 			{
-				glBindTexture(GL_TEXTURE_2D,App->Textures->ID); // start using texture
+				glBindTexture(GL_TEXTURE_2D, tmp->materialPointer->GetCurrentTextureID()); // start using texture
 				glActiveTexture(GL_TEXTURE0);
 				glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
 				glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
 			}
-			else if (TextChecker)
+			else if (TextChecker) //TODO must change this to selec objects and change individually
 			{
-				glBindTexture(GL_TEXTURE_2D, App->Textures->ID2); // start using texture
+				glBindTexture(GL_TEXTURE_2D,tmp->materialPointer->GetCurrentTextureID()); // start using texture
 				glActiveTexture(GL_TEXTURE0);
 				glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
 				glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
@@ -180,6 +181,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 	{
 		Gameobject* tmp = App->Gameobjects->CreateGameObject();
 		tmp->CreateComponent(tmp, MESH, true);
+		App->Textures->CreateGameobjectTexture(tmp);
 
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
 		{
@@ -210,6 +212,10 @@ void ModuleAssets::CreatePrimitive()
 
 	Primitives*aux = nullptr;
 	aux = new Primitives(Primitive_Type::BOTTLE);
+	
+	App->Textures->CreateGameobjectTexture(tmp);
+	tmp->materialPointer->UseCheckered(true);
+
 	//TODO
 	//make switch and pass parameter to function for what to create
 	tmp->meshPointer->Primitives_Vec.push_back(aux);

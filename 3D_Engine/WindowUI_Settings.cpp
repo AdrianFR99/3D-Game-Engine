@@ -590,7 +590,7 @@ void WindowUI_Settings::Config_Window_Buttons() {
 			ImGui::Text("Current Texture ID:");
 			ImGui::SameLine();
 			if (App->Assets->TextChecker)
-			ImGui::TextColored(IMGUI_TEAL_GREEN, "%i", App->Textures->ID2);
+			ImGui::TextColored(IMGUI_TEAL_GREEN, "%i", App->Textures->ChekeredID);
 			else 
 			ImGui::TextColored(IMGUI_TEAL_GREEN, "%i", App->Textures->ID);
 

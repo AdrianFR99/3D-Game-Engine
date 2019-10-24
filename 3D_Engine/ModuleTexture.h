@@ -3,6 +3,8 @@
 
 #include "Globals.h"
 #include "Module.h"
+#include "ComponentMaterial.h"
+#include "Gameobject.h"
 
 #define CHECKERS_HEIGHT 64
 #define CHECKERS_WIDTH 64
@@ -30,6 +32,8 @@ public:
 	uint CreateTexture(const char*path);
 	void SetTextureOptions(int ClampOptions,int FilterMag,int FilterMin);
 	uint ToTexBuffer(uint size, int format, int width, int height,const void* Texture);
+
+	void CreateGameobjectTexture(Gameobject* tmp);
 
 	void Load(nlohmann::json& file);
 	void Save(nlohmann::json& file);
