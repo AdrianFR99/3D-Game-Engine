@@ -9,7 +9,8 @@
 enum class Primitive_Type
 {
 	CUBE,
-	SPHERE
+	SPHERE,
+	CYLINDER
 
 };
 
@@ -19,7 +20,7 @@ typedef unsigned int GLuint;
 class Primitives
 {
 public:
-	Primitives();
+	Primitives(Primitive_Type type);
 	~Primitives();
 
 		void SetPos(float3 pos);
@@ -29,7 +30,7 @@ public:
 
 		virtual void SendToBuff();
 		virtual	void Draw();
-		virtual void SetVert_Ind(float3 size) {};
+		void CreatePrimitive(Primitive_Type type);
 
 public:
 
@@ -63,38 +64,6 @@ protected:
 
 };
 
-class Cube : public Primitives
-{
-public:
 
-	Cube(float sizeX, float sizeY, float sizeZ);
-
-	void SetVert_Ind(float3 size) override;
-
-	
-public:
-
-	uint num_faces = 6;
-	
-	//float ID_Mat[72]={
-	//		//Front face
-	//		1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1, 1,   // v0,v1,v2,v3 
-	//		//Right face
-	//		1, 1, 1, 1, -1, 1, 1, -1, -1, 1, 1, -1,   // v0,v3,v4,v5
-	//		//Top face
-	//		1, 1, 1, 1, 1, -1, -1, 1, -1, -1, 1, 1,   // v0,v5,v6,v1 
-	//		//Left face
-	//		-1, 1, 1, -1, 1, -1, -1, -1, -1, -1, -1, 1,   // v1,v6,v7,v2 
-	//		//Bottom face
-	//		-1, -1, -1, 1, -1, -1, 1, -1, 1, -1, -1, 1,   // v7,v4,v3,v2 
-	//		//Back face
-	//		1, -1, -1, -1, -1, -1, -1, 1, -1, 1, 1, -1    // v4,v7,v6,v5 
-	//};
-
-	float3 size;
-
-
-	
-};
 
 #endif //__PRIMITIVE_H__

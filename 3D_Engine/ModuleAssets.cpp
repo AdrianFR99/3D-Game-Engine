@@ -46,7 +46,7 @@ bool ModuleAssets::Start() {
 	//LoadFiles(App->AssetModel.data());
 
 	Primitives*aux = nullptr;
-	aux = new Cube(1.0f, 1.0f, 1.0f);
+	aux = new Primitives(Primitive_Type::CYLINDER);
 	
 	return true;
 }

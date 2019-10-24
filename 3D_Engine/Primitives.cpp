@@ -8,9 +8,14 @@
 
 #include "mmgr/mmgr.h"
 
-Primitives::Primitives()
+Primitives::Primitives(Primitive_Type type)
 {
+
+	CreatePrimitive(type);
+
+	SendToBuff();
 	
+	App->Assets->Primitives_Vec.push_back(this);
 }
 
 
@@ -73,12 +78,12 @@ void Primitives::SendToBuff() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) *num_index,indices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	//glGenBuffers(1, &UVC);
-	//assert(uv_coord != nullptr);
+	glGenBuffers(1, &UVC);
+	assert(uv_coord != nullptr);
 
-	//glBindBuffer(GL_ARRAY_BUFFER, UVC);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_uv, uv_coord, GL_STATIC_DRAW);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, UVC);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_uv, uv_coord, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 
 }
@@ -89,10 +94,10 @@ void Primitives::Draw() {
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnable(GL_TEXTURE_2D);
 
-	/*glBindTexture(GL_TEXTURE_2D, App->Textures->CheckeredID);
+	glBindTexture(GL_TEXTURE_2D, App->Textures->CheckeredID);
 	glActiveTexture(GL_TEXTURE0);
 	glBindBuffer(GL_ARRAY_BUFFER, UVC);
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);*/
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
 
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -111,54 +116,69 @@ void Primitives::Draw() {
 	
 }
 
+void Primitives::CreatePrimitive(Primitive_Type type) {
 
-// Cube
+	par_shapes_mesh*Mesh;
 
-Cube::Cube(float sizeX, float sizeY, float sizeZ) : Primitives(), size(float3(sizeX, sizeY, sizeZ))
-{
-	type = Primitive_Type::CUBE;
-	
-	
+	switch(type)
+	{
 
-	//num_vertex = 72; //4*3*6//four vertices per face,six faces,3D space
-	//num_index = 36; //6*2*3 //six faces, two triangles per face//3D space
-	//num_uv = num_vertex * 2 / 3;//3D space->2D space
+	case Primitive_Type::CUBE:
 
-	SetVert_Ind(size);
+		Mesh = par_shapes_create_cube();
 
-	SendToBuff();
+		break;
+	case Primitive_Type::SPHERE:
 
-	App->Assets->Primitives_Vec.push_back(this);
-		
-}
+		Mesh = par_shapes_create_subdivided_sphere(2);
 
-void Cube::SetVert_Ind(float3 size) {
+		break;
 
-	par_shapes_mesh*Mesh = par_shapes_create_cube();
+	case Primitive_Type::CYLINDER:
 
-	num_vertex = Mesh->npoints*3;
+		Mesh = par_shapes_create_cylinder(10,8);
+
+		break;
+
+
+	}
+
+
+	num_vertex = Mesh->npoints * 3;
 	vertices = new float3[num_vertex];
 
-
-	num_uv = num_uv;
-	uv_coord = new float[num_uv];
-
-	for (uint i = 0; i < Mesh->npoints;++i) {
-
-		vertices[i].x = Mesh->points[i*3];
-		vertices[i].y = Mesh->points[(i*3)+1];
-		vertices[i].z = Mesh->points[(i*3)+2];
-	}
-	
 	num_index = Mesh->ntriangles * 3;
 	indices = new uint[num_index];
 
-	for (uint i = 0; i < Mesh->ntriangles * 3; i++)
-	{
-		indices[i]=Mesh->triangles[i];
+	num_uv = Mesh->npoints*2;
+	uv_coord = new float[num_uv];
+
+	for (uint i = 0; i < Mesh->npoints; ++i) {
+
+		vertices[i].x = Mesh->points[i * 3];
+		vertices[i].y = Mesh->points[(i * 3) + 1];
+		vertices[i].z = Mesh->points[(i * 3) + 2];
+
 	}
 
+	for (uint i = 0; i < num_index; ++i)
+	{
+		indices[i] = Mesh->triangles[i];
+	}
+
+		for (uint i = 0; i < num_uv; ++i) {
+			if (Mesh->tcoords != nullptr)
+			uv_coord[i] = Mesh->tcoords[i];
+			else
+				uv_coord[i] = 0.0f;
+		}
 	
+	
+
 	par_shapes_free_mesh(Mesh);
 
 }
+
+
+
+
