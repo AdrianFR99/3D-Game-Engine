@@ -167,6 +167,18 @@ To navegate the Scene
 	- Config Menu bugs
 	- Load and Save Bugs
 
+### **v0.07**
+#### Implementations
+- Gameobjects
+- Components
+- Normal Display
+	- vertex normals
+	- Face Normals
+- FBX and DDS load
+- F in camera
+- code rework
+
+
 
 ## Disclosure 
 
