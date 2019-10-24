@@ -29,7 +29,12 @@ bool ModuleGameobject::Start() {
 
 void ModuleGameobject::Draw() {
 
+	for (int i = 0; i < GameobjectList.size(); ++i) {
 
+		GameobjectList[i]->Draw();
+
+		
+	}
 
 	
 
@@ -61,7 +66,7 @@ Gameobject * ModuleGameobject::CreateGameObject()
 	GameobjectList.push_back(creation);
 
 
-	return nullptr;
+	return creation;
 }
 
 bool ModuleGameobject::LoadFiles(const char* path) {

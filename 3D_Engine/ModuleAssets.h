@@ -4,7 +4,7 @@
 #include<vector>
 #include "Globals.h"
 #include "Module.h"
-
+#include "Gameobject.h"
 
 
 class AssetMesh;
@@ -21,16 +21,16 @@ public:
 	
 	
 
-	void Draw();
+	void Draw(Gameobject* tmp);
 	
-	bool CleanUp();
+	bool CleanUp(Gameobject* tmp);
 	
 	void ReceiveEvent(const Event& event) override;
 	
 	bool LoadFiles(const char* path);
 	bool LoadMesh(const char* path);
 
-	std::vector<AssetMesh*> Meshes_Vec;
+	//std::vector<AssetMesh*> Meshes_Vec;
 
 	bool DrawFaceNormals = false;
 	bool DrawVertexNormals = false;

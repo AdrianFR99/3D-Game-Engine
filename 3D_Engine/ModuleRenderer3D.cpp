@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleAssets.h"
+#include "ModuleGameobject.h"
 
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
@@ -223,7 +224,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	glLineWidth(1.0f);
 
 
-	App->Assets->Draw();
+	App->Gameobjects->Draw();
 
 	App->UI_Layer->Draw();
 	SDL_GL_SwapWindow(App->window->window);

@@ -4,10 +4,12 @@
 ComponentTransform::ComponentTransform(Gameobject * owner, CompType newtype) : Component(newtype, owner)
 {
 	//set name and type
-
-	nameComponent = owner->nameGameObject;
+	belongsTo = owner;
+	if (owner->nameGameObject != nullptr)
+		nameComponent = owner->nameGameObject;
+	else
+		nameComponent = nullptr;
 	Init();
-	Enable();
 }
 
 ComponentTransform::~ComponentTransform()

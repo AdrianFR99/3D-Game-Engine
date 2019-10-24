@@ -17,7 +17,7 @@ public:
 	void Init();
 	void Update();
 	void CleanUp();
-
+	
 	void Enable();
 	void Disable();
 
@@ -30,6 +30,7 @@ public:
 	float4x4 transform = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	/*float4x4 zero = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	float4x4 identity = float4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);*/
+
 };
 
 #endif //COMOPNENTTRANSFROM

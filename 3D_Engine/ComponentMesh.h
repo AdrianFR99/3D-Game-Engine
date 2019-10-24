@@ -2,8 +2,10 @@
 #define __COMPONENTMESH_H__
 
 #include "Component.h"
+#include "AssetMesh.h"
 
 class Gameobject;
+class AssetMesh;
 
 class ComponentMesh : public Component
 {
@@ -14,11 +16,13 @@ public:
 	void Init();
 	void Update();
 	void CleanUp();
-
+	void Draw();
 	void Enable();
 	void Disable();
 
-
+	
+	//list of Meshes
+	std::vector<AssetMesh*> Meshes_Vec;
 private:
 	
 

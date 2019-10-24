@@ -3,6 +3,16 @@
 
 #include "Globals.h"
 #include "Component.h"
+
+//#include "ComponentTransform.h"
+//#include "ComponentMesh.h"
+//#include "ComponentMaterial.h"
+
+class Component;
+class ComponentTransform;
+class ComponentMesh;
+class ComponentMaterial;
+
 #include<vector>
 
 enum CompType;
@@ -21,6 +31,7 @@ public:
 	void Enable();
 	void Disable();
 	void Cleanup();
+	void Draw();
 
 	//create component
 	void CreateComponent(Gameobject * object, CompType tocreate, bool active);
@@ -40,6 +51,10 @@ public:
 	/*std::vector<Gameobjects*> ChildGameobjects;
 
 	Gameobjects* Father;*/
+
+	ComponentTransform* transformPointer = nullptr;
+	ComponentMesh* meshPointer = nullptr;
+	ComponentMaterial* materialPointer = nullptr;
 
 };
 

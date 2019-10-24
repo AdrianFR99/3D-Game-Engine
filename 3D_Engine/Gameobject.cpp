@@ -21,6 +21,16 @@ void Gameobject::Update()
 	//nothing
 }
 
+
+void Gameobject::Draw()
+{
+	for (int i = 0; i < ComponentList.size(); ++i) {
+
+		ComponentList[i]->Draw();
+
+	}
+}
+
 void Gameobject::Enable()
 {
 	active = true;
@@ -46,6 +56,9 @@ void Gameobject::Cleanup()
 	}
 
 	ComponentList.clear();
+	 transformPointer = nullptr;
+	 meshPointer = nullptr;
+	 materialPointer = nullptr;
 	//pointers must be set to null ptr;
 }
 
@@ -60,7 +73,17 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 		
 		case TRANSFORM:
 		{
+
 			temp = new ComponentTransform(this, TRANSFORM);
+			transformPointer = (ComponentTransform*)temp;
+			counter++;
+		}
+
+		case MESH:
+		{
+
+			temp = new ComponentMesh(this, MESH);
+			meshPointer = (ComponentMesh*)temp;
 			counter++;
 		}
 		break;
