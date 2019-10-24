@@ -45,10 +45,10 @@ bool ModuleAssets::Init(){
 
 bool ModuleAssets::Start() {
 
-	//LoadFiles(App->AssetModel.data());
+	LoadFiles(App->AssetModel.data());
 
-	Primitives*aux = nullptr;
-	aux = new Primitives(Primitive_Type::BOTTLE);
+	/*Primitives*aux = nullptr;
+	aux = new Primitives(Primitive_Type::CUBE);*/
 
 	return true;
 }
@@ -115,12 +115,11 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 	}
 
 
-	if (Primitives_Vec.size() > 0) {
+	/*if (Primitives_Vec.size() > 0) {
 
 		for (int i = 0; i < Primitives_Vec.size(); ++i)
 			Primitives_Vec[i]->Draw();
-
-	}
+	}*/
 
 
 }

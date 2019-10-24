@@ -212,18 +212,7 @@ void Primitives::CreatePrimitive(Primitive_Type type) {
 				uv_coord[i] = 0.0f;
 	}
 
-	if (Mesh->normals!=nullptr) {
-
-		for (uint i = 0; i < num_normals; ++i) {
-
-			normals[i].x = Mesh->normals[i * 3];
-			normals[i].y = Mesh->normals[(i * 3) + 1];
-			normals[i].z = Mesh->normals[(i * 3) + 2];
-		}
-
-	}
-
-
+	
 
 	par_shapes_free_mesh(Mesh);
 
