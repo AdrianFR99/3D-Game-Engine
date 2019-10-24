@@ -43,7 +43,7 @@ public:
 
 	//vertices
 	uint num_vertex = 0;
-	float* vertices = nullptr;
+	float3* vertices = nullptr;
 
 	//Normal
 	uint num_normals = 0;
@@ -55,8 +55,8 @@ public:
 
 	uint num_uv = 0;
 	float*uv_coord = nullptr;
-
 	uint ID_Texture;
+
 
 protected:
 	Primitive_Type type;
@@ -71,6 +71,7 @@ public:
 
 	void SetVert_Ind(float3 size) override;
 
+	
 public:
 
 	uint num_faces = 6;
@@ -91,6 +92,7 @@ public:
 	//};
 
 	float3 size;
+
 
 	
 };
