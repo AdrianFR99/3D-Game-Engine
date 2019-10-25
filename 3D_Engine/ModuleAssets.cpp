@@ -46,8 +46,8 @@ bool ModuleAssets::Init(){
 
 bool ModuleAssets::Start() {
 
-	//LoadFiles(App->AssetModel.data());
-	//CreatePrimitive();
+	LoadFiles(App->AssetModel.data());
+	CreatePrimitive();
 	
 	return true;
 }

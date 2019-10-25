@@ -221,8 +221,8 @@ void ModuleTexture::CreateGameobjectTexture(Gameobject * tmp)
 {
 	tmp->CreateComponent(tmp, MATERIAL, true);
 
-	tmp->materialPointer->SetTexturePath(TextureIDs[ID]->path.data());
-	tmp->materialPointer->SetTextureID(ID);
-	tmp->materialPointer->SerTextureChekeredID(ChekeredID);
+	//tmp->materialPointer->SetTexturePath(TextureIDs[ID]->path.data());
+	//tmp->materialPointer->SetTextureID(ID);
+	//tmp->materialPointer->SerTextureChekeredID(ChekeredID);
 }
 

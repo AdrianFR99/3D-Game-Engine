@@ -8,6 +8,7 @@
 #include "WindowUI.h"
 #include "WindowUI_Settings.h"
 #include "WindowInspector.h"
+#include "WindowHierarchy.h"
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_sdl.h"
@@ -41,6 +42,8 @@ bool ModuleEngineUI::Init() {
 
 	settingsPanel = new WindowUI_Settings("Configurations");
 	Panels.push_back(settingsPanel);
+
+	HierarchyPanel = new WindowHierarchy("Hierarchy");
 
 	App->GearConsole.AddLog(" Init UI subsystem ");
 	return true;
@@ -106,8 +109,9 @@ void ModuleEngineUI::ReloadFromConfig()
 bool ModuleEngineUI::Start() {
 
 
-
-
+	settingsPanel->SetState(true);
+	HierarchyPanel->SetState(true);
+	showConsole = !showConsole;
 
 	App->GearConsole.AddLog(" glew version:");
 	App->GearConsole.AddLog(" %s", glewGetString(GLEW_VERSION));
@@ -173,6 +177,9 @@ update_status  ModuleEngineUI::PostUpdate(float dt) {
 
 
 	settingsPanel->Display();
+	
+	HierarchyPanel->Display();
+	
 
 	Menu_Bar();
 		
@@ -403,6 +410,14 @@ void ModuleEngineUI::Menu_Bar() {
 
 				}
 				
+			}
+			if (ImGui::MenuItem("Hierarchy")) {
+				if (HierarchyPanel->isActive() == false)
+				{
+					HierarchyPanel->SetState(true);
+
+				}
+
 			}
 
 			ImGui::EndMenu();

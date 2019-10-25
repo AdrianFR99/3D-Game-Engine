@@ -12,7 +12,7 @@ typedef int ImGuiWindowFlags;
 
 class WindowUI;
 class WindowUI_Settings;
-
+class WindowHierarchy;
 
 
 struct ImVec3 { 
@@ -52,6 +52,7 @@ public:
 	WindowUI_Settings* settingsPanel=nullptr;
 	std::vector<WindowUI*> Panels;
 
+	WindowHierarchy* HierarchyPanel = nullptr;
 	
 
 

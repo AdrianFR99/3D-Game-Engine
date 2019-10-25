@@ -180,6 +180,7 @@
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="WindowHierarchy.h" />
     <ClInclude Include="WindowInspector.h" />
     <ClInclude Include="WindowUI.h" />
     <ClInclude Include="WindowUI_Settings.h" />
@@ -250,6 +251,7 @@
     <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WindowConsole.cpp" />
+    <ClCompile Include="WindowHierarchy.cpp" />
     <ClCompile Include="WindowInspector.cpp" />
     <ClCompile Include="WindowUI.cpp" />
     <ClCompile Include="WindowUI_Settings.cpp" />
