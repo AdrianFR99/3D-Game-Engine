@@ -181,17 +181,25 @@ bool ModuleAssets::LoadMesh(const char* path) {
 	{
 		Gameobject* tmp = App->Gameobjects->CreateGameObject();
 		tmp->CreateComponent(tmp, MESH, true);
-		App->Textures->CreateGameobjectTexture(tmp);
+	
+		if (Scene->HasMaterials()) {
+			
+			aiMaterial* mat = Scene->mMaterials[0];
+			App->Textures->CreateGameobjectTexture(tmp,mat);
+			
+
+		}
+		
+		
+
+	
+
 
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
 		{
-
 			AssetMesh* NewMesh = new AssetMesh;
-
 			NewMesh->importMesh(Scene->mMeshes[i]);
-
 			tmp->meshPointer->Meshes_Vec.push_back(NewMesh);
-
 		}
 	}
 	else

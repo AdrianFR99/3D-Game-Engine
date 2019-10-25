@@ -10,6 +10,8 @@
 #include "DevIL/include/ilu.h"
 #include "DevIL/include/ilut.h"
 
+#include "Assimp/include/material.h"
+
 #pragma comment (lib, "DevIL/libx86/DevIL.lib")
 #pragma comment (lib, "DevIL/libx86/ILU.lib")
 #pragma comment (lib, "DevIL/libx86/ILUT.lib")
@@ -78,15 +80,19 @@ bool ModuleTexture::Init() {
 	ilutInit();// Initialize ILUT with OpenGL support.
 	ilutRenderer(ILUT_OPENGL);
 
+
+
+	
+
+
 	return ret;
 }
 
 bool ModuleTexture::Start() {
 
-
 	ID = CreateTexture(TexturePath.data());
 	ChekeredID = CreateCheckeredTex();
-
+	
 	return true;
 }
 
@@ -217,10 +223,11 @@ uint ModuleTexture::CreateTexture(const char*path) {
 }
 
 
-void ModuleTexture::CreateGameobjectTexture(Gameobject * tmp)
+void ModuleTexture::CreateGameobjectTexture(Gameobject * tmp,aiMaterial*Material)
 {
 	tmp->CreateComponent(tmp, MATERIAL, true);
 
+	tmp->materialPointer->CreateMaterial(Material,aiTextureType_DIFFUSE,0,"");
 	tmp->materialPointer->SetTexturePath(TextureIDs[ID]->path.data());
 	tmp->materialPointer->SetTextureID(ID);
 	tmp->materialPointer->SerTextureChekeredID(ChekeredID);

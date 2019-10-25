@@ -1,3 +1,4 @@
+#include "Application.h"
 #include "ComponentMaterial.h"
 #include "Component.h"
 
@@ -84,4 +85,13 @@ void ComponentMaterial::Enable()
 
 void ComponentMaterial::Disable()
 {
+}
+
+void ComponentMaterial::CreateMaterial(aiMaterial*Material,aiTextureType type, uint index, std::string path) {
+
+
+	Material->GetTexture(type,index,(aiString*)&path);
+	App->Textures->CreateTexture((const char*)&path);
+
+	Comp_Material = Material;
 }

@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "ModuleScene.h"
-
+#include "ModuleAssets.h"
 
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled):Module(app, start_enabled)
@@ -15,14 +15,14 @@ ModuleScene::~ModuleScene()
 
 bool ModuleScene::Init() {
 
-
+	App->Assets->LoadFiles(App->AssetModel.data());
+	//CreatePrimitive();
 
 
 
 	return true;
 }
 bool ModuleScene::Start() {
-
 
 
 	return true;
