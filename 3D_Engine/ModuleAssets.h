@@ -5,6 +5,7 @@
 #include "Globals.h"
 #include "Module.h"
 #include "Gameobject.h"
+#include "Primitives.h"
 
 class AssetMesh;
 class Primitives;
@@ -30,7 +31,7 @@ public:
 	bool LoadFiles(const char* path);
 	bool LoadMesh(const char* path);
 
-	void CreatePrimitive();
+	void CreatePrimitive(Primitive_Type type);
 
 
 	bool DrawFaceNormals = false;

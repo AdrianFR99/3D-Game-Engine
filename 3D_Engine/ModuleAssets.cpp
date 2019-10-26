@@ -47,8 +47,7 @@ bool ModuleAssets::Init(){
 bool ModuleAssets::Start() {
 
 	LoadFiles(App->AssetModel.data());
-	CreatePrimitive();
-	
+	CreatePrimitive(Primitive_Type::BOTTLE);
 	return true;
 }
 
@@ -213,11 +212,56 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 }
 
-void ModuleAssets::CreatePrimitive()
+void ModuleAssets::CreatePrimitive(Primitive_Type type)
 {
 	Gameobject* tmp = App->Gameobjects->CreateGameObject();
 	tmp->CreateComponent(tmp, MESH, true);
 
+		std::string nameid = std::to_string(tmp->ID);
+
+	switch (type)
+	{
+	case Primitive_Type::CUBE:
+		tmp->nameGameObject = "cube";
+		tmp->nameGameObject.append(nameid);
+		break;
+	case Primitive_Type::SPHERE:
+		tmp->nameGameObject = "sphere";
+		tmp->nameGameObject.append(nameid);
+		break;
+	case Primitive_Type::CYLINDER:
+		tmp->nameGameObject = "cylinder";
+		tmp->nameGameObject.append(nameid);
+		break;
+	case Primitive_Type::CONE:
+		tmp->nameGameObject = "cone";
+		tmp->nameGameObject.append(nameid);
+		break;
+	case Primitive_Type::DODECA:
+		tmp->nameGameObject = "dodeca";
+		tmp->nameGameObject.append(nameid);
+		break;
+	case Primitive_Type::TETRA:
+		tmp->nameGameObject = "tetra";
+		tmp->nameGameObject.append(nameid);
+		break;
+	case Primitive_Type::OCTO:
+		tmp->nameGameObject = "tetra";
+		tmp->nameGameObject.append(nameid);
+		break;
+	case Primitive_Type::ICOSA:
+		tmp->nameGameObject = "icosa";
+		tmp->nameGameObject.append(nameid);
+		break;
+	case Primitive_Type::BOTTLE:
+		tmp->nameGameObject = "bottle";
+		tmp->nameGameObject.append(nameid);
+		break;
+	default:
+		tmp->nameGameObject = "primitive";
+		tmp->nameGameObject.append(nameid);
+		break;
+	}
 	Primitives*aux = nullptr;
 	aux = new Primitives(Primitive_Type::BOTTLE);
 	
