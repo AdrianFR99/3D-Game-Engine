@@ -47,7 +47,7 @@ bool ModuleAssets::Init(){
 bool ModuleAssets::Start() {
 
 	LoadFiles(App->AssetModel.data());
-//	CreatePrimitive(Primitive_Type::BOTTLE);
+	//CreatePrimitive(Primitive_Type::BOTTLE);
 	return true;
 }
 
@@ -235,7 +235,7 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 	Gameobject* tmp = App->Gameobjects->CreateGameObject();
 	tmp->CreateComponent(tmp, MESH, true);
 
-		std::string nameid = std::to_string(tmp->ID);
+	std::string nameid = std::to_string(tmp->ID);
 
 	switch (type)
 	{

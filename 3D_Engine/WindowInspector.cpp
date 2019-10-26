@@ -3,7 +3,7 @@
 #include "imgui_defines.h"
 #include "WindowHierarchy.h"
 #include "ModuleEngineUI.h"
-
+#include "ModuleTexture.h"
 
 #include "mmgr/mmgr.h"
 
@@ -72,10 +72,48 @@ void WindowInspector::Inspector_Window() {
 
 				ImGui::InputFloat3("Scale", toDisplay);
 
-
+				ImGui::Spacing();
+				ImGui::Separator();
 				
 			}
+			if (ImGui::CollapsingHeader("Normals"))
+			{
+				if (ImGui::Checkbox("Draw Face Normals", &App->Assets->DrawFaceNormals))
+				{
 
+
+				}
+
+				ImGui::SameLine();
+
+				if (ImGui::Checkbox("Draw Vertex Normals", &App->Assets->DrawVertexNormals))
+				{
+
+
+				}
+
+				ImGui::Spacing();
+				ImGui::Separator();
+				
+			}
+			if (ImGui::CollapsingHeader("Texture"))
+			{
+				ImGui::Text("Base File Location:");
+				ImGui::SameLine();
+				ImGui::TextColored(IMGUI_YELLOW, "%s", activeobj->materialPointer->Comp_Material.path.data());
+				
+				ImGui::Spacing();
+
+				ImGui::Text("Size:");
+				ImGui::SameLine();
+				int texture = activeobj->materialPointer->GetCurrentTextureID();
+				std::string height = std::to_string(App->Textures->TextureIDs[texture]->Height);
+				std::string width = std::to_string(App->Textures->TextureIDs[texture]->Width);
+				ImGui::TextColored(IMGUI_YELLOW, "%s x %s", height.data(),width.data());
+
+				ImGui::Separator();
+
+			}
 
 		}
 		ImGui::End();

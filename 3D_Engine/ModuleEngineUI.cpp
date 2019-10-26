@@ -112,6 +112,7 @@ bool ModuleEngineUI::Start() {
 
 	settingsPanel->SetState(true);
 	HierarchyPanel->SetState(true);
+	InspectorPanel->SetState(true);
 	showConsole = !showConsole;
 
 	App->GearConsole.AddLog(" glew version:");
