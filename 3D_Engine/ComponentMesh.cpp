@@ -6,13 +6,14 @@
 ComponentMesh::ComponentMesh(Gameobject * owner, CompType newtype) : Component(newtype, owner)
 {
 	//set name and type
-	//set name and type
 
 	belongsTo = owner;
-	if (owner->nameGameObject != nullptr)
+	if (owner->nameGameObject.size() != 0)
 		nameComponent = owner->nameGameObject;
 	else
-		nameComponent = nullptr;
+		nameComponent = "mesh";
+
+	
 	Init();
 }
 

@@ -6,10 +6,10 @@ ComponentMaterial::ComponentMaterial(Gameobject * owner, CompType newtype) : Com
 {
 	//set name and type
 	belongsTo = owner;
-	if (owner->nameGameObject != nullptr)
+	if (owner->nameGameObject.size() != 0)
 		nameComponent = owner->nameGameObject;
 	else
-		nameComponent = nullptr;
+		nameComponent = "material";
 	Init();
 }
 

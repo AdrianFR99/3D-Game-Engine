@@ -2,7 +2,7 @@
 #define  __COMPONENT_H__
 
 #include "Gameobject.h"
-
+#include <string>
 class Gameobject;
 
 enum CompType
@@ -32,7 +32,7 @@ public:
 	bool active = false;
 	Gameobject* belongsTo = nullptr;
 	CompType type;
-	char* nameComponent = nullptr;
+	std::string nameComponent;
 
 private:
 

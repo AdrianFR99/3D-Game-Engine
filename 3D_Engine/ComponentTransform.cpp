@@ -5,10 +5,10 @@ ComponentTransform::ComponentTransform(Gameobject * owner, CompType newtype) : C
 {
 	//set name and type
 	belongsTo = owner;
-	if (owner->nameGameObject != nullptr)
+	if (owner->nameGameObject.size() != 0)
 		nameComponent = owner->nameGameObject;
 	else
-		nameComponent = nullptr;
+		nameComponent = "transform";
 	Init();
 }
 
@@ -33,7 +33,7 @@ void ComponentTransform::CleanUp()
 	transform = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	active = false;
 	belongsTo = nullptr;
-	nameComponent = nullptr;
+	
 }
 
 void ComponentTransform::Enable()

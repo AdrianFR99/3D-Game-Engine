@@ -44,7 +44,6 @@ void Gameobject::Disable()
 void Gameobject::Cleanup()
 {
 	active = false;
-	nameGameObject = nullptr;
 	ID = 0;
 
 	for (int i = 0; i < ComponentList.size(); ++i) {

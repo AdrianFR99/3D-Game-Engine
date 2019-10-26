@@ -40,26 +40,8 @@ void WindowHierarchy::Hierarchy_Window() {
 		{
 			ImGui::PushID((*it)->ID);
 
-			if (ImGui::Selectable("Gameobject"),selected)
+			if (ImGui::Selectable("Gameobject"), (*it)->ID,selected)
 			{
-				//// If ctrl is pressed do multiselection
-				//if (App->input->GetKeyRepeat(SDL_SCANCODE_LCTRL) || App->input->GetKeyRepeat(SDL_SCANCODE_RCTRL))
-				//{
-				//	App->gameobj->AddGameObjectToSelected((*it));
-				//}
-
-				//// If shift is pressed do fill gap selection
-				//else if (App->input->GetKeyRepeat(SDL_SCANCODE_LSHIFT) || App->input->GetKeyRepeat(SDL_SCANCODE_RSHIFT))
-				//{
-
-				//}
-
-				// Monoselection
-				//else
-				//{
-				/*	App->gameobj->ClearSelection();
-					App->gameobj->AddGameObjectToSelected((*it));
-				}*/
 
 				if (selected)
 				{

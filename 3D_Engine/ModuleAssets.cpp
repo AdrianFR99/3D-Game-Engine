@@ -160,7 +160,7 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 	std::string path_Aux = path;
 
-	if (path_Aux.find(".fbx") != std::string::npos)
+	if (path_Aux.find(".fbx") != std::string::npos || path_Aux.find(".FBX") != std::string::npos)
 		LoadMesh(path);
 	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos)
 		App->Textures->CreateTexture(path);
@@ -181,6 +181,14 @@ bool ModuleAssets::LoadMesh(const char* path) {
 	{
 		Gameobject* tmp = App->Gameobjects->CreateGameObject();
 		tmp->CreateComponent(tmp, MESH, true);
+		//insert name game obj
+		std::string filename = path;
+		std::size_t size = filename.find_last_of(".");
+		std::size_t found = filename.find_last_of("/\\");
+		size = (int)size - (int)found;
+		filename = filename.substr(found + 1,size-1);
+		tmp->nameGameObject = filename;
+
 		App->Textures->CreateGameobjectTexture(tmp);
 
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
@@ -215,7 +223,7 @@ void ModuleAssets::CreatePrimitive()
 	
 	App->Textures->CreateGameobjectTexture(tmp);
 	tmp->materialPointer->UseCheckered(true);
-
+	
 	//TODO
 	//make switch and pass parameter to function for what to create
 	tmp->meshPointer->Primitives_Vec.push_back(aux);

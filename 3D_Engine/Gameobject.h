@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 #include "Component.h"
-
+#include <string>
 //#include "ComponentTransform.h"
 //#include "ComponentMesh.h"
 //#include "ComponentMaterial.h"
@@ -41,7 +41,7 @@ public:
 	//chield
 
 	bool active = false;
-	char* nameGameObject = nullptr;
+	std::string nameGameObject ;
 	int ID = 0;
 
 	//list of components inside
