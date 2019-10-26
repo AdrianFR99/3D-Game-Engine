@@ -28,6 +28,7 @@ public:
 private:
 
 	Gameobject* activeOBJ = nullptr;
+	bool selected = false;
 };
 
 #endif //__WINDOWHIERARCHY_H__

@@ -46,7 +46,7 @@ bool ModuleAssets::Init(){
 
 bool ModuleAssets::Start() {
 
-	
+
 	return true;
 }
 
@@ -165,11 +165,11 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 		//TODO:With inspector
 		int id=App->Textures->CreateTexture(path);
-		
+
 		if (App->Gameobjects->GameobjectList.size()>0) {
-			
+
 			App->Gameobjects->GameobjectList[0]->materialPointer->SetTextureID(id);
-		
+
 		}
 
 	}
@@ -290,9 +290,10 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 	Primitives*aux = nullptr;
 	aux = new Primitives(type);
 
-
-	tmp->CreateComponent(tmp,MATERIAL,true);
+	tmp->CreateComponent(tmp, MATERIAL, true);
 	tmp->materialPointer->CreateMaterial();
+
+	tmp->materialPointer->UseCheckered(true);
 
 	/*tmp->materialPointer->UseCheckered(true);*/
 	//TODO

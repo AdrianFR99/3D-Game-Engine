@@ -25,6 +25,8 @@ struct Texture {
 
 	std::string path;
 	uint id;
+	int Height = 0;
+	int Width = 0;
 };
 
 class ModuleTexture :

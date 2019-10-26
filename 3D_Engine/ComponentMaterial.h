@@ -29,6 +29,8 @@ public:
 	void CreateMaterial(std::string&path);
 	void CreateMaterial();
 
+	void CreateMaterial();
+
 	std::string const GetTexturePath()const;
 	uint const GetCurrentTextureID()const;
 	
@@ -40,7 +42,7 @@ public:
 
 	Material Comp_Material;
 private:
-
+	uint DiffuseID;
 	uint currentID;
 	uint CheckeredID;
 

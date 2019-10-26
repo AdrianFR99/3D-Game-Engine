@@ -467,7 +467,7 @@ void WindowUI_Settings::Config_Window_Buttons() {
 
 			if (ImGui::Checkbox("Depth Test", &depth_test))
 			{
-				if (depth_test)
+				if (!depth_test)
 				{
 					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 					glEnable(GL_DEPTH_TEST);

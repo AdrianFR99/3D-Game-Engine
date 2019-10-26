@@ -196,10 +196,14 @@ uint ModuleTexture::CreateTexture(const char*path) {
 		{
 			texID = ToTexBuffer(1,ilGetInteger(IL_IMAGE_FORMAT), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),ilGetData());
 		}
+		
+			
 
 		CurrentTex = new Texture;
 		CurrentTex->id = texID;
 		CurrentTex->path = path;
+		CurrentTex->Height = imageInfo.Height;
+		CurrentTex->Width = imageInfo.Width;
 		TextureIDs.push_back(CurrentTex);
 
 	}
