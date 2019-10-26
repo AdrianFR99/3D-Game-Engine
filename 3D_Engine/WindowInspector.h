@@ -32,6 +32,9 @@ public:
 	float3 rotation;
 	float3 scale;
 
+	bool diffuse = true;
+	bool chekers = false;
+
 };
 
 #endif //__WINDOWINSPECTOR_SETTINGS_H__

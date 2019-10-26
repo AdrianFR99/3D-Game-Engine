@@ -5,6 +5,7 @@
 #include "ModuleEngineUI.h"
 #include "ModuleTexture.h"
 
+
 #include "mmgr/mmgr.h"
 
 
@@ -35,8 +36,6 @@ void WindowInspector::Inspector_Window() {
 	{
 		
 		//display normal
-		//texture path size
-		//checkered material
 		//geometry (verex faces triangles)
 
 		activeobj = App->UI_Layer->HierarchyPanel->getActiveGameobject();
@@ -98,6 +97,9 @@ void WindowInspector::Inspector_Window() {
 			}
 			if (ImGui::CollapsingHeader("Texture"))
 			{
+
+				ImGui::Text("Id: %i", activeobj->materialPointer->GetCurrentTextureID());
+
 				ImGui::Text("Base File Location:");
 				ImGui::SameLine();
 				ImGui::TextColored(IMGUI_YELLOW, "%s", activeobj->materialPointer->Comp_Material.path.data());
@@ -111,7 +113,44 @@ void WindowInspector::Inspector_Window() {
 				std::string width = std::to_string(App->Textures->TextureIDs[texture]->Width);
 				ImGui::TextColored(IMGUI_YELLOW, "%s x %s", height.data(),width.data());
 
+				ImGui::Text("Preview:");
+				ImGui::Image((ImTextureID)activeobj->materialPointer->GetCurrentTextureID(), ImVec2(150, 150));
 				ImGui::Separator();
+
+
+			}
+
+			if (ImGui::CollapsingHeader("Material"))
+			{
+
+				if (ImGui::Checkbox("Diffuse Texture", &diffuse))
+				{
+					chekers = !chekers;
+					if (diffuse)
+					{
+						activeobj->materialPointer->UseCheckered(false);
+					}
+					else
+						activeobj->materialPointer->UseCheckered(true);
+				}
+
+				ImGui::SameLine();
+
+				if (ImGui::Checkbox("Checkered Texture", &chekers))
+				{
+					diffuse = !diffuse;
+					if (chekers)
+					{
+						activeobj->materialPointer->UseCheckered(true);
+					}
+					else
+						activeobj->materialPointer->UseCheckered(false);
+				}
+
+				ImGui::Spacing();
+
+				ImGui::Separator();
+
 
 			}
 

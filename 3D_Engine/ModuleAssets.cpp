@@ -46,8 +46,7 @@ bool ModuleAssets::Init(){
 
 bool ModuleAssets::Start() {
 
-	LoadFiles(App->AssetModel.data());
-	//CreatePrimitive(Primitive_Type::BOTTLE);
+	
 	return true;
 }
 

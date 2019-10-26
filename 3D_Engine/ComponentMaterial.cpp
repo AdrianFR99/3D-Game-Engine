@@ -60,10 +60,10 @@ uint const ComponentMaterial::GetCurrentTextureID() const
 
 void ComponentMaterial::UseCheckered(bool use)
 {
-	//if (use)
-	//	currentID = ID2;
-	//else
-	//	currentID = ID;
+	if (use)
+		currentID = CheckeredID;
+	else
+		currentID = DiffuseID;
 }
 
 void ComponentMaterial::Enable()
@@ -79,9 +79,10 @@ void ComponentMaterial::CreateMaterial(std::string&path) {
 
 
 	currentID=App->Textures->CreateTexture(path.data());
+	DiffuseID = currentID;
+	CheckeredID = App->Textures->ChekeredID;
 
 	if (currentID==NULL) {
-		CheckeredID = App->Textures->ChekeredID;
 		currentID = CheckeredID;
 	}
 	
