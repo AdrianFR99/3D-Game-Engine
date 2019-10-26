@@ -35,6 +35,15 @@ public:
 	bool diffuse = true;
 	bool chekers = false;
 
+	int Triangles = 0;
+	int vertex = 0;
+	int normal = 0;
+	int normal_faces = 0;
+	int index = 0;
+	int uvs = 0;
+
+	
+
 };
 
 #endif //__WINDOWINSPECTOR_SETTINGS_H__

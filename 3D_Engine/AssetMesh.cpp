@@ -28,7 +28,7 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 
 	App->GearConsole.AddLog(" Importing Mesh ");
 
-
+	
 
 	//vertices
 	num_vertex = Mesh->mNumVertices;

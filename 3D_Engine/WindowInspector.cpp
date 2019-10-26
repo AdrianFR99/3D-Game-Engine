@@ -153,7 +153,59 @@ void WindowInspector::Inspector_Window() {
 
 
 			}
+			if (ImGui::CollapsingHeader("Geometry"))
+			{
+				if (activeobj->meshPointer->Meshes_Vec.size() != 0)
+				{
+					for (int i = 0; i < activeobj->meshPointer->Meshes_Vec.size(); ++i) {
 
+						vertex += activeobj->meshPointer->Meshes_Vec[i]->num_vertex;
+						index += activeobj->meshPointer->Meshes_Vec[i]->num_index;
+						normal += activeobj->meshPointer->Meshes_Vec[i]->num_normals;
+						normal_faces += activeobj->meshPointer->Meshes_Vec[i]->num_normals_faces;
+						uvs += activeobj->meshPointer->Meshes_Vec[i]->num_uv;
+						Triangles += activeobj->meshPointer->Meshes_Vec[i]->num_normals_faces;
+
+
+					}
+
+					ImGui::Text("Vertex Count:");
+					ImGui::SameLine();
+					ImGui::TextColored(IMGUI_YELLOW, "%i", vertex);
+
+					ImGui::Text("Index Count:");
+					ImGui::SameLine();
+					ImGui::TextColored(IMGUI_YELLOW, "%i", index);
+
+					ImGui::Text("UVs Count:");
+					ImGui::SameLine();
+					ImGui::TextColored(IMGUI_YELLOW, "%i", uvs);
+
+					ImGui::Text("Normal Count:");
+					ImGui::SameLine();
+					ImGui::TextColored(IMGUI_YELLOW, "%i", normal);
+
+					ImGui::Text("Normal face Count:");
+					ImGui::SameLine();
+					ImGui::TextColored(IMGUI_YELLOW, "%i", normal_faces);
+
+					ImGui::Text("Triangles Faces Count:");
+					ImGui::SameLine();
+					ImGui::TextColored(IMGUI_YELLOW, "%i", Triangles);
+
+					 Triangles = 0;
+					 vertex = 0;
+					 normal = 0;
+					 normal_faces = 0;
+					 index = 0;
+					 uvs = 0;
+
+				}
+				if (activeobj->meshPointer->Primitives_Vec.size() != 0)
+				{
+					ImGui::Text("Primitive must be done:");
+				}
+			}
 		}
 		ImGui::End();
 	}
