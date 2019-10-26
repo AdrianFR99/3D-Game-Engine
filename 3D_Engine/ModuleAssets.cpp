@@ -46,8 +46,7 @@ bool ModuleAssets::Init(){
 
 bool ModuleAssets::Start() {
 
-	LoadFiles(App->AssetModel.data());
-//	CreatePrimitive(Primitive_Type::BOTTLE);
+	
 	return true;
 }
 
@@ -165,8 +164,13 @@ bool ModuleAssets::LoadFiles(const char* path) {
 	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos) {
 
 		//TODO:With inspector
-		App->Gameobjects->GameobjectList[0]->materialPointer->SetTextureID(App->Textures->CreateTexture(path));
-
+		int id=App->Textures->CreateTexture(path);
+		
+		if (App->Gameobjects->GameobjectList.size()>0) {
+			
+			App->Gameobjects->GameobjectList[0]->materialPointer->SetTextureID(id);
+		
+		}
 
 	}
 
@@ -208,7 +212,9 @@ bool ModuleAssets::LoadMesh(const char* path) {
 			filename = filename.substr(0, found+1);
 			filename.append(Texture_path.C_Str());
 
-			App->Textures->CreateGameobjectTexture(tmp, filename);
+
+			tmp->CreateComponent(tmp, MATERIAL, true);
+			tmp->materialPointer->CreateMaterial(filename);
 
 		}
 
@@ -235,7 +241,7 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 	Gameobject* tmp = App->Gameobjects->CreateGameObject();
 	tmp->CreateComponent(tmp, MESH, true);
 
-		std::string nameid = std::to_string(tmp->ID);
+	std::string nameid = std::to_string(tmp->ID);
 
 	switch (type)
 	{
@@ -280,12 +286,15 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 		tmp->nameGameObject.append(nameid);
 		break;
 	}
+
 	Primitives*aux = nullptr;
-	aux = new Primitives(Primitive_Type::BOTTLE);
+	aux = new Primitives(type);
 
-	//App->Textures->CreateGameobjectTexture(tmp);
-	tmp->materialPointer->UseCheckered(true);
 
+	tmp->CreateComponent(tmp,MATERIAL,true);
+	tmp->materialPointer->CreateMaterial();
+
+	/*tmp->materialPointer->UseCheckered(true);*/
 	//TODO
 	//make switch and pass parameter to function for what to create
 	tmp->meshPointer->Primitives_Vec.push_back(aux);

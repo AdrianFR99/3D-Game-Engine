@@ -44,8 +44,6 @@ public:
 	void SetTextureOptions(int ClampOptions,int FilterMag,int FilterMin);
 	uint ToTexBuffer(uint size, int format, int width, int height,const void* Texture);
 
-	void CreateGameobjectTexture(Gameobject* tmp, std::string&path);
-
 	void Load(nlohmann::json& file);
 	void Save(nlohmann::json& file);
 	void ReloadFromConfig();

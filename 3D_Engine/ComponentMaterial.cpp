@@ -90,3 +90,13 @@ void ComponentMaterial::CreateMaterial(std::string&path) {
 
 
 }
+
+void ComponentMaterial::CreateMaterial() {
+
+	CheckeredID = App->Textures->ChekeredID;
+	currentID = CheckeredID;
+
+	Comp_Material.path = "---";
+	Comp_Material.type = Texture_Type::NONE;
+
+}

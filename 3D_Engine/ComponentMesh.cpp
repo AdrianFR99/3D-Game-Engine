@@ -2,6 +2,9 @@
 #include "Component.h"
 #include "Application.h"
 #include "Primitives.h"
+#include "Globals.h"
+
+
 
 ComponentMesh::ComponentMesh(Gameobject * owner, CompType newtype) : Component(newtype, owner)
 {
@@ -40,6 +43,19 @@ void ComponentMesh::Draw()
 void ComponentMesh::Cleanup()
 {
 	App->Assets->CleanUp(belongsTo);
+
+
+	if (Primitives_Vec.size() > 0) {
+		for (int i = 0; i < Primitives_Vec.size(); ++i) {
+			Primitives_Vec[i]->CleanUp();
+			
+			RELEASE(Primitives_Vec[i]);
+
+		}
+
+	}
+	
+
 
 	//TODO2
 	//must complete cleanup from primitive

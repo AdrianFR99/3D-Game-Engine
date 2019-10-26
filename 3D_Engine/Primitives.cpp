@@ -22,10 +22,15 @@ Primitives::Primitives(Primitive_Type type)
 Primitives::~Primitives()
 {
 
+}
+
+bool Primitives::CleanUp() {
+
+
 	glDeleteBuffers(1, (GLuint*)&VBO);
 	glDeleteBuffers(1, (GLuint*)&IBO);
 	glDeleteBuffers(1, (GLuint*)&UVC);
-	
+
 	delete[] vertices;
 	vertices = nullptr;
 
@@ -35,10 +40,8 @@ Primitives::~Primitives()
 	delete[] uv_coord;
 	uv_coord = nullptr;
 
-	
-
+	return true;
 }
-
 
 void Primitives::SetPos(float3 pos) {
 
@@ -212,6 +215,7 @@ void Primitives::CreatePrimitive(Primitive_Type type) {
 	}
 
 	
+
 
 	par_shapes_free_mesh(Mesh);
 

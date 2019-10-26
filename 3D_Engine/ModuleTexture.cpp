@@ -90,7 +90,6 @@ bool ModuleTexture::Init() {
 
 bool ModuleTexture::Start() {
 
-	ID = CreateTexture(TexturePath.data());
 	ChekeredID = CreateCheckeredTex();
 
 	return true;
@@ -213,10 +212,3 @@ uint ModuleTexture::CreateTexture(const char*path) {
 
 }
 
-
-void ModuleTexture::CreateGameobjectTexture(Gameobject * tmp, std::string&path)
-{
-	tmp->CreateComponent(tmp, MATERIAL, true);
-	tmp->materialPointer->CreateMaterial(path);
-
-}

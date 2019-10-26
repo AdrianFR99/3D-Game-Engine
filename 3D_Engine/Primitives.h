@@ -33,11 +33,11 @@ public:
 		void SetRot(float angle, const float3 &axis);
 		void SetScale(float x,float y,float z);
 
-
-		virtual void SendToBuff();
-		virtual	void Draw(Gameobject* tmp);
+		void SendToBuff();
+		void Draw(Gameobject* tmp);
 		void CreatePrimitive(Primitive_Type type);
 
+		bool CleanUp();
 public:
 
 	uint VBO=0;
