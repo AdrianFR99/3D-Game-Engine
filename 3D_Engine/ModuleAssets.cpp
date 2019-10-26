@@ -280,9 +280,11 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 		break;
 	}
 	Primitives*aux = nullptr;
-	aux = new Primitives(Primitive_Type::BOTTLE);
+	aux = new Primitives(type);
 
-	//App->Textures->CreateGameobjectTexture(tmp);
+	tmp->CreateComponent(tmp, MATERIAL, true);
+	tmp->materialPointer->CreateMaterial();
+
 	tmp->materialPointer->UseCheckered(true);
 
 	//TODO

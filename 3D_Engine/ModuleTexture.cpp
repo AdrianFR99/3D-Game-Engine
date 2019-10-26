@@ -90,7 +90,6 @@ bool ModuleTexture::Init() {
 
 bool ModuleTexture::Start() {
 
-	ID = CreateTexture(TexturePath.data());
 	ChekeredID = CreateCheckeredTex();
 
 	return true;

@@ -108,9 +108,20 @@ void WindowInspector::Inspector_Window() {
 
 				ImGui::Text("Size:");
 				ImGui::SameLine();
-				int texture = activeobj->materialPointer->GetCurrentTextureID();
-				std::string height = std::to_string(App->Textures->TextureIDs[texture]->Height);
-				std::string width = std::to_string(App->Textures->TextureIDs[texture]->Width);
+
+				int textureIndex = activeobj->materialPointer->GetCurrentTextureID();
+
+				for (int i = 0; i < App->Textures->TextureIDs.size(); ++i)
+				{
+					if (App->Textures->TextureIDs[i]->id == textureIndex)
+					{
+						textureIndex = i;
+						break;
+					}
+				}
+
+				std::string height = std::to_string(App->Textures->TextureIDs[textureIndex]->Height);
+				std::string width = std::to_string(App->Textures->TextureIDs[textureIndex]->Width);
 				ImGui::TextColored(IMGUI_YELLOW, "%s x %s", height.data(),width.data());
 
 				ImGui::Text("Preview:");
@@ -203,7 +214,48 @@ void WindowInspector::Inspector_Window() {
 				}
 				if (activeobj->meshPointer->Primitives_Vec.size() != 0)
 				{
-					ImGui::Text("Primitive must be done:");
+					for (int i = 0; i < activeobj->meshPointer->Primitives_Vec.size(); ++i) {
+
+						vertex += activeobj->meshPointer->Primitives_Vec[i]->num_vertex;
+						index += activeobj->meshPointer->Primitives_Vec[i]->num_index;
+						//normal += activeobj->meshPointer->Primitives_Vec[i]->num_normals;
+						//normal_faces += activeobj->meshPointer->Primitives_Vec[i]->num_normals_faces;
+						//uvs += activeobj->meshPointer->Primitives_Vec[i]->num_uv;
+						//Triangles += activeobj->meshPointer->Primitives_Vec[i]->num_normals_faces;
+
+
+					}
+
+					ImGui::Text("Vertex Count:");
+					ImGui::SameLine();
+					ImGui::TextColored(IMGUI_YELLOW, "%i", vertex);
+
+					ImGui::Text("Index Count:");
+					ImGui::SameLine();
+					ImGui::TextColored(IMGUI_YELLOW, "%i", index);
+/*
+					ImGui::Text("UVs Count:");
+					ImGui::SameLine();
+					ImGui::TextColored(IMGUI_YELLOW, "%i", uvs);
+
+					ImGui::Text("Normal Count:");
+					ImGui::SameLine();
+					ImGui::TextColored(IMGUI_YELLOW, "%i", normal);
+
+					ImGui::Text("Normal face Count:");
+					ImGui::SameLine();
+					ImGui::TextColored(IMGUI_YELLOW, "%i", normal_faces);
+
+					ImGui::Text("Triangles Faces Count:");
+					ImGui::SameLine();
+					ImGui::TextColored(IMGUI_YELLOW, "%i", Triangles);*/
+
+					Triangles = 0;
+					vertex = 0;
+					normal = 0;
+					normal_faces = 0;
+					index = 0;
+					uvs = 0;
 				}
 			}
 		}

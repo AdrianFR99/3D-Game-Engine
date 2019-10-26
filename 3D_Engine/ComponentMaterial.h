@@ -28,6 +28,8 @@ public:
 	void SetTextureID(uint diffuse);
 	void CreateMaterial(std::string&path);
 
+	void CreateMaterial();
+
 	std::string const GetTexturePath()const;
 	uint const GetCurrentTextureID()const;
 	

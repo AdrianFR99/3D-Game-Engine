@@ -62,6 +62,7 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 	if (Mesh->HasNormals())
 	{
 
+		num_normals = num_vertex;
 		normals = new float3[num_vertex];
 		memcpy(normals, Mesh->mNormals, sizeof(float3)*num_vertex);
 		num_normals_faces = Mesh->mNumFaces;
