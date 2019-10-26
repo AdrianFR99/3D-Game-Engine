@@ -16,7 +16,7 @@ public:
 
 	void Init();
 	void Update();
-	void CleanUp();
+	void Cleanup();
 	void Draw();
 	void Enable();
 	void Disable();

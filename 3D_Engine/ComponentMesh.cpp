@@ -37,7 +37,7 @@ void ComponentMesh::Draw()
 }
 
 
-void ComponentMesh::CleanUp()
+void ComponentMesh::Cleanup()
 {
 	App->Assets->CleanUp(belongsTo);
 

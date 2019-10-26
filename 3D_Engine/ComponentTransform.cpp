@@ -28,9 +28,10 @@ void ComponentTransform::Update()
 
 }
 
-void ComponentTransform::CleanUp()
+void ComponentTransform::Cleanup()
 {
-	transform = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	
+	transform.zero;
 	active = false;
 	belongsTo = nullptr;
 	

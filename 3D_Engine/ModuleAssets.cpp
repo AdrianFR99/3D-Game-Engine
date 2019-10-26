@@ -180,6 +180,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 	{
 		Gameobject* tmp = App->Gameobjects->CreateGameObject();
 		tmp->CreateComponent(tmp, MESH, true);
+		
 		//insert name game obj
 		std::string filename = path;
 		std::size_t size = filename.find_last_of(".");
@@ -187,6 +188,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 		size = (int)size - (int)found;
 		filename = filename.substr(found + 1,size-1);
 		tmp->nameGameObject = filename;
+
 
 		App->Textures->CreateGameobjectTexture(tmp);
 

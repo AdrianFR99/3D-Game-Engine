@@ -54,7 +54,7 @@ std::string ComponentMaterial::GetTexturePath()
 	return TexturePath;
 }
 
-void ComponentMaterial::CleanUp()
+void ComponentMaterial::Cleanup()
 {
 
 }

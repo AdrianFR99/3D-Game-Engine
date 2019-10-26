@@ -4,6 +4,8 @@
 #include "ComponentTransform.h"
 #include "ComponentMesh.h"
 
+#include "mmgr/mmgr.h"
+
 Gameobject::Gameobject(int id)
 {
 	ID = id;
@@ -46,13 +48,18 @@ void Gameobject::Cleanup()
 	active = false;
 	ID = 0;
 
+	
 	for (int i = 0; i < ComponentList.size(); ++i) {
+			
+			ComponentList[i]->Cleanup();
 
-		ComponentList[i]->Cleanup();
+			//delete(Meshes_Vec[i]);
+			delete ComponentList[i];
+			//RELEASE(ComponentList[i]);
 
-		//delete(Meshes_Vec[i]);
-		RELEASE(ComponentList[i]);
+		
 	}
+	
 
 	ComponentList.clear();
 	 transformPointer = nullptr;
@@ -89,7 +96,7 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 		case MATERIAL:
 		{
 
-			temp = new ComponentMesh(this, MATERIAL);
+			temp = new ComponentMaterial(this, MATERIAL);
 			materialPointer = (ComponentMaterial*)temp;
 			counter++;
 		}
