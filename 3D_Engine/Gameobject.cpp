@@ -43,23 +43,20 @@ void Gameobject::Disable()
 	active = false;
 }
 
-void Gameobject::Cleanup()
+void Gameobject::CleanUp()
 {
 	active = false;
 	ID = 0;
 
-	
+
 	for (int i = 0; i < ComponentList.size(); ++i) {
-			
-			ComponentList[i]->Cleanup();
 
-			//delete(Meshes_Vec[i]);
-			delete ComponentList[i];
-			//RELEASE(ComponentList[i]);
 
-		
+		ComponentList[i]->CleanUp();
+		//delete(Meshes_Vec[i]);
+		RELEASE(ComponentList[i]);
 	}
-	
+
 
 	ComponentList.clear();
 	 transformPointer = nullptr;
@@ -76,35 +73,36 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 	// create the component
 	switch (tocreate)
 	{
-		
+
 		case TRANSFORM:
-		{
+
 
 			temp = new ComponentTransform(this, TRANSFORM);
 			transformPointer = (ComponentTransform*)temp;
+			temp = transformPointer;
 			counter++;
-		}
+
 		break;
 		case MESH:
-		{
+
 
 			temp = new ComponentMesh(this, MESH);
 			meshPointer = (ComponentMesh*)temp;
+			temp = meshPointer;
 			counter++;
-		}
+
 		break;
 		case MATERIAL:
-		{
+
 
 			temp = new ComponentMaterial(this, MATERIAL);
 			materialPointer = (ComponentMaterial*)temp;
+			temp = materialPointer;
 			counter++;
-		}
+
 
 		break;
 
-		default: 
-			break;
 
 	}
 

@@ -47,7 +47,7 @@ bool ModuleAssets::Init(){
 bool ModuleAssets::Start() {
 
 	LoadFiles(App->AssetModel.data());
-	CreatePrimitive(Primitive_Type::BOTTLE);
+//	CreatePrimitive(Primitive_Type::BOTTLE);
 	return true;
 }
 
@@ -159,10 +159,16 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 	std::string path_Aux = path;
 
-	if (path_Aux.find(".fbx") != std::string::npos || path_Aux.find(".FBX") != std::string::npos)
+	if (path_Aux.find(".fbx") != std::string::npos || path_Aux.find(".FBX") != std::string::npos) {
 		LoadMesh(path);
-	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos)
-		App->Textures->CreateTexture(path);
+	}
+	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos) {
+
+		//TODO:With inspector
+		App->Gameobjects->GameobjectList[0]->materialPointer->SetTextureID(App->Textures->CreateTexture(path));
+
+
+	}
 
 
 	App->GearConsole.AddLog(" Loading File %s",path);
@@ -180,7 +186,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 	{
 		Gameobject* tmp = App->Gameobjects->CreateGameObject();
 		tmp->CreateComponent(tmp, MESH, true);
-		
+
 		//insert name game obj
 		std::string filename = path;
 		std::size_t size = filename.find_last_of(".");
@@ -189,18 +195,28 @@ bool ModuleAssets::LoadMesh(const char* path) {
 		filename = filename.substr(found + 1,size-1);
 		tmp->nameGameObject = filename;
 
+		if (Scene->HasMaterials()) {
 
-		App->Textures->CreateGameobjectTexture(tmp);
+			aiString Texture_path;
+
+			aiMaterial* mat = Scene->mMaterials[0];
+			mat->GetTexture(aiTextureType_DIFFUSE,0,&Texture_path);
+
+			//Todo
+			std::string filename = path;
+			std::size_t found = filename.find_last_of("/\\");
+			filename = filename.substr(0, found+1);
+			filename.append(Texture_path.C_Str());
+
+			App->Textures->CreateGameobjectTexture(tmp, filename);
+
+		}
 
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
 		{
-
 			AssetMesh* NewMesh = new AssetMesh;
-
 			NewMesh->importMesh(Scene->mMeshes[i]);
-
 			tmp->meshPointer->Meshes_Vec.push_back(NewMesh);
-
 		}
 	}
 	else
@@ -266,10 +282,10 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 	}
 	Primitives*aux = nullptr;
 	aux = new Primitives(Primitive_Type::BOTTLE);
-	
-	App->Textures->CreateGameobjectTexture(tmp);
+
+	//App->Textures->CreateGameobjectTexture(tmp);
 	tmp->materialPointer->UseCheckered(true);
-	
+
 	//TODO
 	//make switch and pass parameter to function for what to create
 	tmp->meshPointer->Primitives_Vec.push_back(aux);

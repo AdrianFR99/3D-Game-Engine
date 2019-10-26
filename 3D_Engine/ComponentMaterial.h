@@ -3,7 +3,16 @@
 #define __COMPONENTMATERIAL_H__
 
 #include "Component.h"
+#include "Assimp/include/material.h"
+
 class Gameobject;
+enum class 	Texture_Type;
+
+struct Material {
+
+	std::string path;
+	Texture_Type type;
+};
 
 class ComponentMaterial : public Component
 {
@@ -17,24 +26,22 @@ public:
 	void Draw();
 
 	void SetTextureID(uint diffuse);
-	void SerTextureChekeredID(uint chekers);
-	void SetTexturePath(std::string path);
+	void CreateMaterial(std::string&path);
 
-	std::string GetTexturePath();
+	std::string const GetTexturePath()const;
 	uint const GetCurrentTextureID()const;
-	uint const GetCheckeredTextureID()const;
+	
 	void UseCheckered(bool use);
 
 	void Enable();
 	void Disable();
 
 
+	Material Comp_Material;
 private:
 
-	std::string TexturePath;
-	uint currentID = 0;
-	uint ID;
-	uint ID2;
+	uint currentID;
+	uint CheckeredID;
 
 };
 

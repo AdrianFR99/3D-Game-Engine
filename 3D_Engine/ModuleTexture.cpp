@@ -10,6 +10,8 @@
 #include "DevIL/include/ilu.h"
 #include "DevIL/include/ilut.h"
 
+#include "Assimp/include/material.h"
+
 #pragma comment (lib, "DevIL/libx86/DevIL.lib")
 #pragma comment (lib, "DevIL/libx86/ILU.lib")
 #pragma comment (lib, "DevIL/libx86/ILUT.lib")
@@ -78,11 +80,15 @@ bool ModuleTexture::Init() {
 	ilutInit();// Initialize ILUT with OpenGL support.
 	ilutRenderer(ILUT_OPENGL);
 
+
+
+
+
+
 	return ret;
 }
 
 bool ModuleTexture::Start() {
-
 
 	ID = CreateTexture(TexturePath.data());
 	ChekeredID = CreateCheckeredTex();
@@ -102,10 +108,6 @@ bool ModuleTexture::CleanUp() {
 
 
 	}
-
-
-	return true;
-
 
 	return true;
 }
@@ -196,17 +198,12 @@ uint ModuleTexture::CreateTexture(const char*path) {
 			texID = ToTexBuffer(1,ilGetInteger(IL_IMAGE_FORMAT), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),ilGetData());
 		}
 
+		CurrentTex = new Texture;
+		CurrentTex->id = texID;
+		CurrentTex->path = path;
+		TextureIDs.push_back(CurrentTex);
+
 	}
-
-
-
-	CurrentTex = new Texture;
-	CurrentTex->id = texID;
-	CurrentTex->path = path;
-	TextureIDs.push_back(CurrentTex);
-
-
-
 
 
 
@@ -217,12 +214,9 @@ uint ModuleTexture::CreateTexture(const char*path) {
 }
 
 
-void ModuleTexture::CreateGameobjectTexture(Gameobject * tmp)
+void ModuleTexture::CreateGameobjectTexture(Gameobject * tmp, std::string&path)
 {
 	tmp->CreateComponent(tmp, MATERIAL, true);
+	tmp->materialPointer->CreateMaterial(path);
 
-	//tmp->materialPointer->SetTexturePath(TextureIDs[ID]->path.data());
-	//tmp->materialPointer->SetTextureID(ID);
-	//tmp->materialPointer->SerTextureChekeredID(ChekeredID);
 }
-

@@ -651,7 +651,7 @@ void WindowUI_Settings::Config_Window_Buttons() {
 			ImGui::Spacing();
 			ImGui::Separator();
 
-			if (ImGui::Checkbox("Checkers Texture", &App->Assets->TextChecker))
+		/*	if (ImGui::Checkbox("Checkers Texture", &App->Assets->TextChecker))
 			{
 				if (App->Assets->TextChecker)
 				{
@@ -662,122 +662,7 @@ void WindowUI_Settings::Config_Window_Buttons() {
 					App->Assets->TextNormal = true;
 				}
 				
-			}
-
-			//if (ImGui::Checkbox("Specular", &specular))
-			//{
-			//	if (specular)
-			//	{
-			//		glEnable(GL_COLOR_MATERIAL);
-			//		glColorMaterial(GL_FRONT_AND_BACK, GL_SPECULAR);
-
-			//		glEnable(GL_LIGHT0);
-
-			//		float fAmbient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-			//		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, fAmbient);
-
-			//		float fDiffuse[] = { 0.8f, 0.8f, 0.8f, 1.0f };
-			//		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, fDiffuse);
-
-			//		diffuse = ambient = ambient_and_diffuse = emission = false;
-			//	}
-			//	else
-			//	{
-			//		glDisable(GL_COLOR_MATERIAL);
-			//		//ambient_and_diffuse = true;
-			//		//glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-			//	}
-
-			//}
-
-			//ImGui::SameLine();
-
-			//if (ImGui::Checkbox("Diffuse", &diffuse))
-			//{
-			//	if (diffuse)
-			//	{
-			//		glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
-			//		glEnable(GL_COLOR_MATERIAL);
-			//		glEnable(GL_LIGHTING);
-			//		specular = ambient = ambient_and_diffuse = emission = false;
-			//	}
-			//	else
-			//	{
-			//		glDisable(GL_COLOR_MATERIAL);
-			//		//ambient_and_diffuse = true;
-			//		//glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-			//	}
-
-			//}
-
-			//if (ImGui::Checkbox("Ambient", &ambient))
-			//{
-			//	if (ambient)
-			//	{
-			//		glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT);
-			//		glEnable(GL_COLOR_MATERIAL);
-			//		glEnable(GL_LIGHTING);
-			//		diffuse = specular = ambient_and_diffuse = emission = false;
-			//	}
-			//	else
-			//	{
-			//		glDisable(GL_COLOR_MATERIAL);
-			//		//ambient_and_diffuse = true;
-			//		//glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-			//	}
-
-			//}
-
-			//ImGui::SameLine();
-
-			//if (ImGui::Checkbox("Emission", &emission))
-			//{
-			//	if (emission)
-			//	{
-			//		glColorMaterial(GL_FRONT_AND_BACK, GL_EMISSION);
-			//		glEnable(GL_COLOR_MATERIAL);
-			//		glEnable(GL_LIGHTING);
-			//		diffuse = ambient = ambient_and_diffuse = specular = false;
-			//	}
-			//	else
-			//	{
-			//		glDisable(GL_COLOR_MATERIAL);
-			//		//ambient_and_diffuse = true;
-			//		//glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-			//	}
-
-			//}
-
-			//if (ImGui::Checkbox("Ambient and Diffuse", &ambient_and_diffuse))
-			//{
-			//	if (ambient_and_diffuse)
-			//	{
-			//		glEnable(GL_COLOR_MATERIAL);
-			//		glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-			//		glEnable(GL_LIGHT0);
-
-			//		float fAmbient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-			//		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, fAmbient);
-
-			//		float fDiffuse[] = { 0.8f, 0.8f, 0.8f, 1.0f };
-			//		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, fDiffuse);
-
-			//		diffuse = ambient = specular = emission = false;
-			//	}
-			//	else
-			//	{
-			//		glDisable(GL_COLOR_MATERIAL);
-			//		//ambient = true;
-			//		//glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT);
-			//	}
-
-			//}
-
-			//if (!diffuse && !ambient && !specular && !emission && !ambient_and_diffuse)
-			//{
-			//	ambient_and_diffuse = true;
-
-			//}
+			}*/
 
 			ImGui::TreePop();
 		}

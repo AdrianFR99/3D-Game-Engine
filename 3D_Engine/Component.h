@@ -22,7 +22,7 @@ public:
 
 	virtual void Init() {};
 	virtual void Update() {};
-	virtual void Cleanup() {};
+	virtual void CleanUp() {};
 	virtual void Draw() {};
 	void Enable();
 	void Disable();

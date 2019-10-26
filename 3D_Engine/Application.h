@@ -15,6 +15,7 @@
 #include "ModuleTexture.h"
 #include "JSONLoader.h"
 #include "WindowConsole.h"
+#include "ModuleScene.h"
 
 //#include "ModuleFileSystem.h"
 #include "ModuleGameobject.h"
@@ -35,6 +36,7 @@ public:
 	ModuleAssets* Assets = nullptr;
 	ModuleTexture* Textures = nullptr;
 	ModuleGameobject* Gameobjects = nullptr;
+	ModuleScene*SceneEngine = nullptr;
 
 private:
 

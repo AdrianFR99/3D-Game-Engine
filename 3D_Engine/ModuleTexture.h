@@ -10,6 +10,17 @@
 #define CHECKERS_WIDTH 64
 
 
+struct aiMaterial;
+
+enum class Texture_Type {
+
+	NONE,
+	DIFFUSE,
+	SPECULAR,
+	UNKNOWN
+	
+};
+
 struct Texture {
 
 	std::string path;
@@ -33,7 +44,7 @@ public:
 	void SetTextureOptions(int ClampOptions,int FilterMag,int FilterMin);
 	uint ToTexBuffer(uint size, int format, int width, int height,const void* Texture);
 
-	void CreateGameobjectTexture(Gameobject* tmp);
+	void CreateGameobjectTexture(Gameobject* tmp, std::string&path);
 
 	void Load(nlohmann::json& file);
 	void Save(nlohmann::json& file);

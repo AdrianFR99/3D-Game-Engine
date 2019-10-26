@@ -30,11 +30,10 @@ void ComponentTransform::Update()
 
 void ComponentTransform::Cleanup()
 {
-	
 	transform.zero;
 	active = false;
 	belongsTo = nullptr;
-	
+
 }
 
 void ComponentTransform::Enable()

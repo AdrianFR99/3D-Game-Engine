@@ -30,7 +30,7 @@ public:
 	void Update();
 	void Enable();
 	void Disable();
-	void Cleanup();
+	void CleanUp();
 	void Draw();
 
 	//create component

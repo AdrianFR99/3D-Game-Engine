@@ -207,6 +207,9 @@
     </ClCompile>
     <ClCompile Include="WindowHierarchy.cpp">
       <Filter>Source\Modules\UI_Elements</Filter>
+        </ClCompile>
+    <ClCompile Include="ModuleScene.cpp">
+      <Filter>Source\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -539,6 +542,9 @@
     </ClInclude>
     <ClInclude Include="WindowHierarchy.h">
       <Filter>Source\Modules\UI_Elements</Filter>
+      </ClInclude>
+    <ClInclude Include="ModuleScene.h">
+      <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
