@@ -13,7 +13,7 @@ typedef int ImGuiWindowFlags;
 class WindowUI;
 class WindowUI_Settings;
 class WindowHierarchy;
-
+class WindowInspector;
 
 struct ImVec3 { 
 
@@ -53,6 +53,7 @@ public:
 	std::vector<WindowUI*> Panels;
 
 	WindowHierarchy* HierarchyPanel = nullptr;
+	WindowInspector* InspectorPanel = nullptr;
 	
 
 

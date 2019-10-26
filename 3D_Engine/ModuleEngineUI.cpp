@@ -44,6 +44,7 @@ bool ModuleEngineUI::Init() {
 	Panels.push_back(settingsPanel);
 
 	HierarchyPanel = new WindowHierarchy("Hierarchy");
+	InspectorPanel = new WindowInspector("Inspector");
 
 	App->GearConsole.AddLog(" Init UI subsystem ");
 	return true;
@@ -179,7 +180,8 @@ update_status  ModuleEngineUI::PostUpdate(float dt) {
 	settingsPanel->Display();
 	
 	HierarchyPanel->Display();
-	
+
+	InspectorPanel->Display();
 
 	Menu_Bar();
 		
@@ -409,6 +411,8 @@ void ModuleEngineUI::Menu_Bar() {
 					settingsPanel->SetState(true);
 
 				}
+				else
+					settingsPanel->SetState(false);
 				
 			}
 			if (ImGui::MenuItem("Hierarchy")) {
@@ -417,6 +421,18 @@ void ModuleEngineUI::Menu_Bar() {
 					HierarchyPanel->SetState(true);
 
 				}
+				else
+					HierarchyPanel->SetState(false);
+
+			}
+			if (ImGui::MenuItem("Inspector")) {
+				if (InspectorPanel->isActive() == false)
+				{
+					InspectorPanel->SetState(true);
+
+				}
+				else
+					InspectorPanel->SetState(false);
 
 			}
 

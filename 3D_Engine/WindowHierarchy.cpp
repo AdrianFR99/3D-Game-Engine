@@ -30,7 +30,7 @@ bool WindowHierarchy::Display() {
 
 void WindowHierarchy::Hierarchy_Window() {
 
-	bool selected = false;
+	
 	if (ImGui::Begin("Hierarchy"),&active)
 	{
 		
@@ -41,13 +41,12 @@ void WindowHierarchy::Hierarchy_Window() {
 			ImGui::PushID((*it)->ID);
 			if ((*it)->nameGameObject.size() != 0)
 			{
-				if (ImGui::Selectable((*it)->nameGameObject.data()), (*it)->ID,selected)
+				if (ImGui::Selectable((*it)->nameGameObject.data()))
 				{
 
-					if (selected)
-					{
-						activeOBJ=(*it);
-					}
+					
+					activeOBJ=(*it);
+					
 				}
 
 			}
