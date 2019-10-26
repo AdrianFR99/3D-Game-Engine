@@ -23,7 +23,7 @@ bool ModuleScene::Init() {
 }
 bool ModuleScene::Start() {
 
-	App->Assets->LoadFiles(App->AssetModel.data());
+//	App->Assets->LoadFiles(App->AssetModel.data());
 
 	return true;
 }

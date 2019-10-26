@@ -161,10 +161,16 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 	std::string path_Aux = path;
 
-	if (path_Aux.find(".fbx") != std::string::npos)
+	if (path_Aux.find(".fbx") != std::string::npos || path_Aux.find(".FBX") != std::string::npos) {
 		LoadMesh(path);
-	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos)
-		App->Textures->CreateTexture(path);
+	}
+	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos) {
+	
+		//TODO:With inspector
+		App->Gameobjects->GameobjectList[0]->materialPointer->SetTextureID(App->Textures->CreateTexture(path));
+	
+	
+	}
 
 
 	App->GearConsole.AddLog(" Loading File %s",path);
