@@ -15,7 +15,6 @@ ModuleScene::~ModuleScene()
 
 bool ModuleScene::Init() {
 
-	App->Assets->LoadFiles(App->AssetModel.data());
 	//CreatePrimitive();
 
 
@@ -24,6 +23,7 @@ bool ModuleScene::Init() {
 }
 bool ModuleScene::Start() {
 
+	App->Assets->LoadFiles(App->AssetModel.data());
 
 	return true;
 }

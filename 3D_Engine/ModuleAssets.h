@@ -38,6 +38,9 @@ public:
 
 	bool TextChecker = false;
 	bool TextNormal = true;
+
+	std::string Directory;
+
 };
 
 

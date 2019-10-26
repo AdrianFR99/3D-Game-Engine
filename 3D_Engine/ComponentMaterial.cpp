@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ComponentMaterial.h"
 #include "Component.h"
+#include "ModuleTexture.h"
 
 
 ComponentMaterial::ComponentMaterial(Gameobject * owner, CompType newtype) : Component(newtype, owner)
@@ -36,27 +37,28 @@ void ComponentMaterial::Draw()
 
 void ComponentMaterial::SetTextureID(uint diffuse)
 {
-	ID = diffuse;
-	currentID = ID;
+	currentID = diffuse;
 }
 
 void ComponentMaterial::SerTextureChekeredID(uint chekers)
 {
-	ID2 = chekers;
+	CheckeredID = chekers;
 }
 
 void ComponentMaterial::SetTexturePath(std::string path)
 {
-	TexturePath = path.data();
+	Comp_Material.path = path.data();
 }
 
-std::string ComponentMaterial::GetTexturePath()
+std::string const ComponentMaterial::GetTexturePath() const
 {
-	return TexturePath;
+	return Comp_Material.path;
 }
 
 void ComponentMaterial::CleanUp()
 {
+
+
 
 }
 
@@ -65,17 +67,12 @@ uint const ComponentMaterial::GetCurrentTextureID() const
 	return currentID;
 }
 
-uint const ComponentMaterial::GetCheckeredTextureID() const
-{
-	return ID2;
-}
-
 void ComponentMaterial::UseCheckered(bool use)
 {
-	if (use)
-		currentID = ID2;
-	else
-		currentID = ID;
+	//if (use)
+	//	currentID = ID2;
+	//else
+	//	currentID = ID;
 }
 
 void ComponentMaterial::Enable()
@@ -87,11 +84,18 @@ void ComponentMaterial::Disable()
 {
 }
 
-void ComponentMaterial::CreateMaterial(aiMaterial*Material,aiTextureType type, uint index, std::string path) {
+void ComponentMaterial::CreateMaterial(std::string&path) {
 
 
-	Material->GetTexture(type,index,(aiString*)&path);
-	App->Textures->CreateTexture((const char*)&path);
+	currentID=App->Textures->CreateTexture(path.data());
 
-	Comp_Material = Material;
+	if (currentID==NULL) {
+		CheckeredID = App->Textures->ChekeredID;
+		currentID = CheckeredID;
+	}
+	
+	Comp_Material.path= path;
+	Comp_Material.type = Texture_Type::DIFFUSE;
+
+
 }

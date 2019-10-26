@@ -50,7 +50,6 @@ void Gameobject::Cleanup()
 	for (int i = 0; i < ComponentList.size(); ++i) {
 
 		ComponentList[i]->Cleanup();
-
 		//delete(Meshes_Vec[i]);
 		RELEASE(ComponentList[i]);
 	}
@@ -72,33 +71,34 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 	{
 		
 		case TRANSFORM:
-		{
+		
 
 			temp = new ComponentTransform(this, TRANSFORM);
 			transformPointer = (ComponentTransform*)temp;
+			temp = transformPointer;
 			counter++;
-		}
+			
 		break;
 		case MESH:
-		{
+		
 
 			temp = new ComponentMesh(this, MESH);
 			meshPointer = (ComponentMesh*)temp;
+			temp = meshPointer;
 			counter++;
-		}
+		
 		break;
 		case MATERIAL:
-		{
+		
 
 			temp = new ComponentMesh(this, MATERIAL);
 			materialPointer = (ComponentMaterial*)temp;
+			temp = materialPointer;
 			counter++;
-		}
+		
 
 		break;
 
-		default: 
-			break;
 
 	}
 

@@ -48,7 +48,8 @@ bool ModuleAssets::Start() {
 
 	//LoadFiles(App->AssetModel.data());
 	//CreatePrimitive();
-	
+	Directory = "Assets/";
+
 	return true;
 }
 
@@ -184,17 +185,17 @@ bool ModuleAssets::LoadMesh(const char* path) {
 	
 		if (Scene->HasMaterials()) {
 			
-			aiMaterial* mat = Scene->mMaterials[0];
-			App->Textures->CreateGameobjectTexture(tmp,mat);
+			aiString Texture_path;
 			
+			aiMaterial* mat = Scene->mMaterials[0];
+			mat->GetTexture(aiTextureType_DIFFUSE,0,&Texture_path);
 
+			Directory.append(Texture_path.C_Str());
+
+			App->Textures->CreateGameobjectTexture(tmp, Directory);
+			
 		}
 		
-		
-
-	
-
-
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
 		{
 			AssetMesh* NewMesh = new AssetMesh;
@@ -221,7 +222,7 @@ void ModuleAssets::CreatePrimitive()
 	Primitives*aux = nullptr;
 	aux = new Primitives(Primitive_Type::BOTTLE);
 	
-	App->Textures->CreateGameobjectTexture(tmp);
+	//App->Textures->CreateGameobjectTexture(tmp);
 	tmp->materialPointer->UseCheckered(true);
 
 	//TODO

@@ -109,10 +109,6 @@ bool ModuleTexture::CleanUp() {
 
 	}
 
-
-	return true;
-
-
 	return true;
 }
 
@@ -202,18 +198,13 @@ uint ModuleTexture::CreateTexture(const char*path) {
 			texID = ToTexBuffer(1,ilGetInteger(IL_IMAGE_FORMAT), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT),ilGetData());
 		}
 
+		CurrentTex = new Texture;
+		CurrentTex->id = texID;
+		CurrentTex->path = path;
+		TextureIDs.push_back(CurrentTex);
+
 	}
-
-
-
-	CurrentTex = new Texture;
-	CurrentTex->id = texID;
-	CurrentTex->path = path;
-	TextureIDs.push_back(CurrentTex);
-
-
-
-
+	
 
 
 	ilDeleteImages(1, (const ILuint*)&ImageID);
@@ -223,13 +214,11 @@ uint ModuleTexture::CreateTexture(const char*path) {
 }
 
 
-void ModuleTexture::CreateGameobjectTexture(Gameobject * tmp,aiMaterial*Material)
+void ModuleTexture::CreateGameobjectTexture(Gameobject * tmp, std::string&path)
 {
 	tmp->CreateComponent(tmp, MATERIAL, true);
 
-	tmp->materialPointer->CreateMaterial(Material,aiTextureType_DIFFUSE,0,"");
-	tmp->materialPointer->SetTexturePath(TextureIDs[ID]->path.data());
-	tmp->materialPointer->SetTextureID(ID);
-	tmp->materialPointer->SerTextureChekeredID(ChekeredID);
+	tmp->materialPointer->CreateMaterial(path);
+
 }
 
