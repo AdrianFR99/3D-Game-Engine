@@ -38,16 +38,7 @@ void ComponentMaterial::Draw()
 void ComponentMaterial::SetTextureID(uint diffuse)
 {
 	currentID = diffuse;
-}
 
-void ComponentMaterial::SerTextureChekeredID(uint chekers)
-{
-	CheckeredID = chekers;
-}
-
-void ComponentMaterial::SetTexturePath(std::string path)
-{
-	Comp_Material.path = path.data();
 }
 
 std::string const ComponentMaterial::GetTexturePath() const

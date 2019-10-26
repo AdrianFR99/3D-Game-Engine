@@ -30,7 +30,7 @@ void ComponentTransform::Update()
 
 void ComponentTransform::CleanUp()
 {
-	transform = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	transform.zero;
 	active = false;
 	belongsTo = nullptr;
 	nameComponent = nullptr;

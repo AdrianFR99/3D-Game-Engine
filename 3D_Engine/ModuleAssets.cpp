@@ -189,10 +189,14 @@ bool ModuleAssets::LoadMesh(const char* path) {
 			
 			aiMaterial* mat = Scene->mMaterials[0];
 			mat->GetTexture(aiTextureType_DIFFUSE,0,&Texture_path);
+		
+			//Todo
+			std::string filename = path;
+			std::size_t found = filename.find_last_of("/\\");
+			filename = filename.substr(0, found+1);
+			filename.append(Texture_path.C_Str());
 
-			Directory.append(Texture_path.C_Str());
-
-			App->Textures->CreateGameobjectTexture(tmp, Directory);
+			App->Textures->CreateGameobjectTexture(tmp, filename);
 			
 		}
 		

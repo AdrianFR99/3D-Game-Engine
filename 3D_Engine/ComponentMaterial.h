@@ -26,8 +26,6 @@ public:
 	void Draw();
 
 	void SetTextureID(uint diffuse);
-	void SerTextureChekeredID(uint chekers);
-	void SetTexturePath(std::string path);
 	void CreateMaterial(std::string&path);
 
 	std::string const GetTexturePath()const;

@@ -41,7 +41,7 @@ void Gameobject::Disable()
 	active = false;
 }
 
-void Gameobject::Cleanup()
+void Gameobject::CleanUp()
 {
 	active = false;
 	nameGameObject = nullptr;
@@ -49,7 +49,7 @@ void Gameobject::Cleanup()
 
 	for (int i = 0; i < ComponentList.size(); ++i) {
 
-		ComponentList[i]->Cleanup();
+		ComponentList[i]->CleanUp();
 		//delete(Meshes_Vec[i]);
 		RELEASE(ComponentList[i]);
 	}
@@ -91,7 +91,7 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 		case MATERIAL:
 		
 
-			temp = new ComponentMesh(this, MATERIAL);
+			temp = new ComponentMaterial(this, MATERIAL);
 			materialPointer = (ComponentMaterial*)temp;
 			temp = materialPointer;
 			counter++;

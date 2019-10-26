@@ -45,7 +45,7 @@ bool ModuleGameobject::CleanUp() {
 
 	for (int i = 0; i < GameobjectList.size(); ++i) {
 
-		GameobjectList[i]->Cleanup();
+		GameobjectList[i]->CleanUp();
 
 		//delete(Meshes_Vec[i]);
 		RELEASE(GameobjectList[i]);
