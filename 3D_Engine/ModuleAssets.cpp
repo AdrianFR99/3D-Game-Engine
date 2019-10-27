@@ -55,6 +55,8 @@ bool ModuleAssets::Start() {
 
 void ModuleAssets::Draw(Gameobject* tmp) {
 
+	
+	
 
 	if (tmp->meshPointer->Primitives_Vec.size() > 0) {
 

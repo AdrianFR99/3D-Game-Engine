@@ -2,9 +2,6 @@
 #include "Application.h"
 #include "imgui_defines.h"
 
-
-
-
 #include "mmgr/mmgr.h"
 
 
@@ -41,7 +38,7 @@ void WindowHierarchy::Hierarchy_Window() {
 			ImGui::PushID((*it)->ID);
 			if ((*it)->nameGameObject.size() != 0)
 			{
-				if (ImGui::Selectable((*it)->nameGameObject.data()))
+				if (ImGui::Selectable((*it)->nameGameObject.data(), activeOBJ==(*it)))
 				{
 
 					

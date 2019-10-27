@@ -25,8 +25,8 @@ bool ModuleScene::Init() {
 bool ModuleScene::Start() {
 
 //primitves must Load AFTER FBX
-//	App->Assets->LoadFiles(App->AssetModel.data());
-	//App->Assets->CreatePrimitive(Primitive_Type::BOTTLE);
+	App->Assets->LoadFiles(App->AssetModel.data());
+	App->Assets->CreatePrimitive(Primitive_Type::BOTTLE);
 	
 	return true;
 }
