@@ -73,6 +73,7 @@ void ComponentMaterial::Enable()
 
 void ComponentMaterial::Disable()
 {
+	active = false;
 }
 
 void ComponentMaterial::CreateMaterial(std::string&path) {

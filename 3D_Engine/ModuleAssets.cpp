@@ -77,9 +77,16 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 					glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 					//texture
-					if (TextNormal)
+					if (tmp->materialPointer->active != false)
 					{
 						glBindTexture(GL_TEXTURE_2D, tmp->materialPointer->GetCurrentTextureID()); // start using texture
+						glActiveTexture(GL_TEXTURE0);
+						glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
+						glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
+					}
+					else
+					{
+						glBindTexture(GL_TEXTURE_2D, -1); // start using texture
 						glActiveTexture(GL_TEXTURE0);
 						glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
 						glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format

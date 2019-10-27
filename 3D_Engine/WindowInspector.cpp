@@ -141,7 +141,7 @@ void WindowInspector::Inspector_Window() {
 			{
 				if (ImGui::Checkbox("Active", &materialActive))
 				{
-					if(materialActive)
+					if(!materialActive)
 						activeobj->materialPointer->Disable();
 					else
 						activeobj->materialPointer->Enable();
