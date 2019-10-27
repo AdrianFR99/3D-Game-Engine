@@ -361,23 +361,6 @@ void Primitives::CalculateDistance() {
 
 }
 
-void Primitives::DeletePrimitive(Gameobject * ToDelete)
-{
-	if (ToDelete->meshPointer->Primitives_Vec.size() > 0) {
-		for (int i = 0; i < ToDelete->meshPointer->Primitives_Vec.size(); ++i) {
-			ToDelete->meshPointer->Primitives_Vec[i]->CleanUp();
-
-
-			if (ToDelete->meshPointer->Primitives_Vec[i] != nullptr) {
-				delete ToDelete->meshPointer->Primitives_Vec[i]; \
-					ToDelete->meshPointer->Primitives_Vec[i] = nullptr;
-			}
-
-		}
-
-	}
-}
-
 
 par_shapes_mesh* Primitives::CreateCube() {
 
