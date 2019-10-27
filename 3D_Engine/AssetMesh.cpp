@@ -5,6 +5,7 @@
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
+#include "ComponentMesh.h"
 
 #include "Assimp/include/cimport.h"
 #include "Assimp/include/scene.h"

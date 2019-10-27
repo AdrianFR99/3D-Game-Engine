@@ -37,6 +37,8 @@ public:
 		void Draw(Gameobject* tmp);
 		void CreatePrimitive(Primitive_Type type);
 
+		void CalculateDistance();
+
 		bool CleanUp();
 public:
 
@@ -64,6 +66,18 @@ public:
 	float*uv_coord = nullptr;
 	uint ID_Texture;
 
+	//camera
+	float maxX = 0.0f;
+	float minX = -1.0f;
+	float medX = 0.0f;
+	float maxY = 0.0f;
+	float minY = -1.0f;
+	float medY = 0.0f;
+	float maxZ = 0.0f;
+	float minZ = -1.0f;
+	float medZ = 0.0f;
+	float basedistance = 0;
+	float faraway = 0.0f;
 
 protected:
 	Primitive_Type type;

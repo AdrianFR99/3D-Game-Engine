@@ -3,6 +3,7 @@
 
 
 #include "ModuleAssets.h"
+#include "Gameobject.h"
 
 #include "MathGeoLib/include/Math/float3.h"
 
@@ -64,6 +65,7 @@ public:
 	float3 CenterTri(float3&vertex1,float3&vertex2,float3&vertex3);
 
 	void CalculateDistance();
+	
 };
 
 #endif // !__ASSETMESH_H__

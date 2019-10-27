@@ -91,6 +91,8 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 			temp = meshPointer;
 			counter++;
 
+		
+
 		break;
 		case MATERIAL:
 

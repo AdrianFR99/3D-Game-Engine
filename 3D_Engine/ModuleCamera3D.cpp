@@ -3,6 +3,8 @@
 #include "ModuleCamera3D.h"
 #include "Maths.h"
 #include "ModuleAssets.h"
+#include"WindowHierarchy.h"
+#include "ModuleGameobject.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -127,8 +129,33 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_UP)
 	{
+		if (App->Gameobjects->GameobjectList.size() != 0)
+		{
+			Gameobject* centerOfView;
+			centerOfView = App->UI_Layer->HierarchyPanel->getActiveGameobject();
+			if (centerOfView != nullptr)
+			{
+				premadeDist = centerOfView->CameraDistance;
+				Reference.x = centerOfView->xPos;
+				Reference.y = centerOfView->yPos;
+				Reference.z = centerOfView->zPos;
+			}
+			else
+			{
+				premadeDist = App->Gameobjects->GameobjectList[0]->CameraDistance;
+				Reference.x = App->Gameobjects->GameobjectList[0]->xPos;
+				Reference.y = App->Gameobjects->GameobjectList[0]->yPos;
+				Reference.z = App->Gameobjects->GameobjectList[0]->zPos;
+			}
+			Position = Reference + Z * premadeDist;
+		}
+		else
+		{
+			Position = Reference + Z * 15.0;
+		}
+
 		//Reference= vec3(0, 0, 0);
-		Position = Reference + Z * premadeDist;
+		//Position = Reference + Z * premadeDist;
 	}
 
 	// Recalculate matrix -------------

@@ -169,10 +169,10 @@ bool ModuleAssets::LoadFiles(const char* path) {
 		//TODO:With inspector
 		int id=App->Textures->CreateTexture(path);
 		Gameobject* activeGameObject = nullptr;
-		
+		activeGameObject = App->UI_Layer->HierarchyPanel->getActiveGameobject();
 		if (App->Gameobjects->GameobjectList.size()>0) {
 
-			if (activeGameObject = App->UI_Layer->HierarchyPanel->getActiveGameobject())
+			if (activeGameObject!=nullptr)
 			{
 				activeGameObject->materialPointer->SetTextureID(id);
 			}
@@ -235,6 +235,21 @@ bool ModuleAssets::LoadMesh(const char* path) {
 			AssetMesh* NewMesh = new AssetMesh;
 			NewMesh->importMesh(Scene->mMeshes[i]);
 			tmp->meshPointer->Meshes_Vec.push_back(NewMesh);
+
+			for (int i = 0; i < tmp->meshPointer->Meshes_Vec.size(); ++i) {
+
+				if (tmp->meshPointer->Meshes_Vec[i]->faraway > tmp->CameraDistance)
+					tmp->CameraDistance = tmp->meshPointer->Meshes_Vec[i]->faraway;
+
+				if (tmp->meshPointer->Meshes_Vec[i]->medX > tmp->xPos)
+					tmp->xPos = tmp->meshPointer->Meshes_Vec[i]->medX;
+
+				if (tmp->meshPointer->Meshes_Vec[i]->medY > tmp->yPos)
+					tmp->yPos = tmp->meshPointer->Meshes_Vec[i]->medY;
+
+				if (tmp->meshPointer->Meshes_Vec[i]->medZ > tmp->zPos)
+					tmp->zPos = tmp->meshPointer->Meshes_Vec[i]->medZ;
+			}
 		}
 	}
 	else
@@ -311,6 +326,13 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 	//TODO
 	//make switch and pass parameter to function for what to create
 	tmp->meshPointer->Primitives_Vec.push_back(aux);
+
+	tmp->CameraDistance = aux->faraway;
+
+	tmp->xPos = aux->medX;
+	tmp->yPos = aux->medY;
+	tmp->zPos = aux->medZ;
+	
 
 }
 
