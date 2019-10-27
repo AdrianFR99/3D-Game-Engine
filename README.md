@@ -178,6 +178,15 @@ To navegate the Scene
 - F in camera
 - code rework
 
+### **v0.08**
+#### Implementations
+- primitive
+- Finish Components
+- Hierarchy
+- Inspector
+- Bug Fixing
+
+
 
 
 ## Disclosure 

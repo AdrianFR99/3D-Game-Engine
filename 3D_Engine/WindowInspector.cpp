@@ -109,6 +109,7 @@ void WindowInspector::Inspector_Window() {
 				ImGui::Text("Size:");
 				ImGui::SameLine();
 
+				bool found = false;
 				int textureIndex = activeobj->materialPointer->GetCurrentTextureID();
 
 				for (int i = 0; i < App->Textures->TextureIDs.size(); ++i)
@@ -116,13 +117,18 @@ void WindowInspector::Inspector_Window() {
 					if (App->Textures->TextureIDs[i]->id == textureIndex)
 					{
 						textureIndex = i;
+						found = true;
 						break;
 					}
 				}
 
-				std::string height = std::to_string(App->Textures->TextureIDs[textureIndex]->Height);
-				std::string width = std::to_string(App->Textures->TextureIDs[textureIndex]->Width);
-				ImGui::TextColored(IMGUI_YELLOW, "%s x %s", height.data(),width.data());
+				if (found)
+				{
+					std::string height = std::to_string(App->Textures->TextureIDs[textureIndex]->Height);
+					std::string width = std::to_string(App->Textures->TextureIDs[textureIndex]->Width);
+					ImGui::TextColored(IMGUI_YELLOW, "%s x %s", height.data(),width.data());
+
+				}
 
 				ImGui::Text("Preview:");
 				ImGui::Image((ImTextureID)activeobj->materialPointer->GetCurrentTextureID(), ImVec2(150, 150));

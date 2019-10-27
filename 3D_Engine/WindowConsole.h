@@ -87,8 +87,8 @@ struct AppConsole
 
 		// TODO: display items starting from the bottom
 
-		if (ImGui::SmallButton("Add Dummy Text")) { AddLog("%d bugs Found !", Items.Size); AddLog("Hello there! General Kenobi!"); AddLog("Is anyone there?"); } ImGui::SameLine();
-		if (ImGui::SmallButton("Add Dummy Error")) { AddLog("[404] something went wrong"); } ImGui::SameLine();
+	//	if (ImGui::SmallButton("Add Dummy Text")) { AddLog("%d bugs Found !", Items.Size); AddLog("Hello there! General Kenobi!"); AddLog("Is anyone there?"); } ImGui::SameLine();
+		//if (ImGui::SmallButton("Add Dummy Error")) { AddLog("[404] something went wrong"); } ImGui::SameLine();
 		if (ImGui::SmallButton("Clear")) { ClearLog(); } ImGui::SameLine();
 		bool copy_to_clipboard = ImGui::SmallButton("Copy");
 		//static float t = 0.0f; if (ImGui::GetTime() - t > 0.02f) { t = ImGui::GetTime(); AddLog("Spam %f", t); }

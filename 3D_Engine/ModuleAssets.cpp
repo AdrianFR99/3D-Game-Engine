@@ -7,6 +7,8 @@
 #include "ModuleGameobject.h"
 #include "ComponentMesh.h"
 #include "ModuleTexture.h"
+#include "ModuleEngineUI.h"
+#include"WindowHierarchy.h"
 
 #include "imgui_defines.h"
 
@@ -165,10 +167,19 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 		//TODO:With inspector
 		int id=App->Textures->CreateTexture(path);
-
+		Gameobject* activeGameObject = nullptr;
+		
 		if (App->Gameobjects->GameobjectList.size()>0) {
 
-			App->Gameobjects->GameobjectList[0]->materialPointer->SetTextureID(id);
+			if (activeGameObject = App->UI_Layer->HierarchyPanel->getActiveGameobject())
+			{
+				activeGameObject->materialPointer->SetTextureID(id);
+			}
+			else
+			{
+				App->Gameobjects->GameobjectList[0]->materialPointer->SetTextureID(id);
+
+			}
 
 		}
 

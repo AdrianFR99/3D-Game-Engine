@@ -770,6 +770,8 @@ void WindowUI_Settings::DrawAbout( bool* openWindowAbout,int* current_tab)
 		{
 			if (ImGui::Button("GitHub Repository"))
 				App->RequestBrowser("https://github.com/AdrianFR99/3D-Game-Engine");
+			if (ImGui::Button("Engine Trello"))
+				App->RequestBrowser("https://trello.com/b/e4Pmq1aK/game-engine-3d");
 
 		}
 

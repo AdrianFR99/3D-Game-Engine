@@ -95,7 +95,7 @@ void ComponentMaterial::CreateMaterial(std::string&path) {
 void ComponentMaterial::CreateMaterial() {
 
 
-	DiffuseID = currentID;
+	//DiffuseID = currentID;
 	CheckeredID = App->Textures->ChekeredID;
 
 	currentID = CheckeredID;

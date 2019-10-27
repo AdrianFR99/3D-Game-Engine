@@ -254,14 +254,14 @@ void ModuleEngineUI::Menu_Bar() {
 				App->Gameobjects->CleanUp();
 			
 			}
-			if (ImGui::MenuItem("Open Scene", "Ctrl+O")) {}
+			if (ImGui::MenuItem("Open Scene", "Ctrl+O",false, false)) {}
 			
 			ImGui::Separator(); 
 			
 			if (ImGui::MenuItem("Save", "Ctrl+S")) {
 				toSave = true;
 			}
-			if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S")) {}
+			if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S", false, false)) {}
 			
 			ImGui::Separator();
 
@@ -273,14 +273,14 @@ void ModuleEngineUI::Menu_Bar() {
 
 			ImGui::Separator();
 
-			if (ImGui::MenuItem("New Project")) {}
-			if (ImGui::MenuItem("Open Project")) {}
-			if (ImGui::MenuItem("Save Project")) {}
+			/*if (ImGui::MenuItem("New Project", false, false)) {}
+			if (ImGui::MenuItem("Open Project", false, false)) {}
+			if (ImGui::MenuItem("Save Project", false, false)) {}*/
 
 			ImGui::Separator();
 
-			if (ImGui::MenuItem("Build Settings...","Ctrl+Shift+B")) {}
-			if (ImGui::MenuItem("Build And Run", "Ctrl+B")) {}
+			if (ImGui::MenuItem("Build Settings...","Ctrl+Shift+B", false, false)) {}
+			if (ImGui::MenuItem("Build And Run", "Ctrl+B", false, false)) {}
 			
 			ImGui::Separator();
 
@@ -301,34 +301,34 @@ void ModuleEngineUI::Menu_Bar() {
 
 			ImGui::Separator();
 
-			if (ImGui::MenuItem("Select All","Ctrl+A")) {}
-			if (ImGui::MenuItem("Deselect All","Shift+D")) {}
-			if (ImGui::MenuItem("Select Children","Shift+C")) {}
-			if (ImGui::MenuItem("Select Prefab Root","Ctrl+Shift+R")) {}
-			if (ImGui::MenuItem("Invert Selection","Ctrl+I")) {}
+			if (ImGui::MenuItem("Select All","Ctrl+A", false, false)) {}
+			if (ImGui::MenuItem("Deselect All","Shift+D", false, false)) {}
+			if (ImGui::MenuItem("Select Children","Shift+C", false, false)) {}
+			if (ImGui::MenuItem("Select Prefab Root","Ctrl+Shift+R", false, false)) {}
+			if (ImGui::MenuItem("Invert Selection","Ctrl+I", false, false)) {}
 			
 			ImGui::Separator();
 
-			if (ImGui::MenuItem("Cut","Ctrl+X")) {}
-			if (ImGui::MenuItem("Copy","Ctrl+C")) {}
-			if (ImGui::MenuItem("Paste","Ctrl+V")) {}
+			if (ImGui::MenuItem("Cut","Ctrl+X", false, false)) {}
+			if (ImGui::MenuItem("Copy","Ctrl+C", false, false)) {}
+			if (ImGui::MenuItem("Paste","Ctrl+V", false, false)) {}
 
 			ImGui::Separator();
 
-			if (ImGui::MenuItem("Duplicate", "Ctrl+D")) {}
-			if (ImGui::MenuItem("Delete")) {}
+			if (ImGui::MenuItem("Duplicate", "Ctrl+D", false, false)) {}
+			//if (ImGui::MenuItem("Delete", false, false)) {}
 			
 			ImGui::Separator();
 
-			if (ImGui::MenuItem("Frame Selected", "F")) {}
-			if (ImGui::MenuItem("Lock View to Selected", "Shift+F")) {}
-			if (ImGui::MenuItem("Find", "Ctrl+F")) {}
+			if (ImGui::MenuItem("Frame Selected", "F", false, false)) {}
+			if (ImGui::MenuItem("Lock View to Selected", "Shift+F", false, false)) {}
+			if (ImGui::MenuItem("Find", "Ctrl+F", false, false)) {}
 
 			ImGui::Separator();
 
-			if (ImGui::MenuItem("Play", "Ctrl+P")) {}
-			if (ImGui::MenuItem("Pause", "Ctrl+Shift+P")) {}
-			if (ImGui::MenuItem("Step", "Ctrl+ALt+P")) {}
+			if (ImGui::MenuItem("Play", "Ctrl+P", false, false)) {}
+			if (ImGui::MenuItem("Pause", "Ctrl+Shift+P", false, false)) {}
+			if (ImGui::MenuItem("Step", "Ctrl+ALt+P", false, false)) {}
 
 			ImGui::Separator();
 
@@ -339,10 +339,10 @@ void ModuleEngineUI::Menu_Bar() {
 
 			if (ImGui::BeginMenu("Selection")) {
 				
-				if (ImGui::MenuItem("Load Selection 1")){}
-				if (ImGui::MenuItem("Load Selection 2")){}
-				if (ImGui::MenuItem("Save Selection 1")){}
-				if (ImGui::MenuItem("Save Selection 2")){}
+				if (ImGui::MenuItem("Load Selection 1", false, false)){}
+				if (ImGui::MenuItem("Load Selection 2", false, false)){}
+				if (ImGui::MenuItem("Save Selection 1", false, false)){}
+				if (ImGui::MenuItem("Save Selection 2", false, false)){}
 		
 				ImGui::EndMenu();
 			}
@@ -350,26 +350,26 @@ void ModuleEngineUI::Menu_Bar() {
 			
 			ImGui::Separator();
 
-			if (ImGui::MenuItem("Project Settings...")) {}
-			if (ImGui::MenuItem("Preferences...")) {}
-			if (ImGui::MenuItem("Shortcuts...")) {}
-			if (ImGui::MenuItem("Modules...")) {}
-			if (ImGui::MenuItem("Clear All PlayersPrefs")) {}
+			/*if (ImGui::MenuItem("Project Settings...", false, false)) {}
+			if (ImGui::MenuItem("Preferences...", false, false)) {}
+			if (ImGui::MenuItem("Shortcuts...", false, false)) {}
+			if (ImGui::MenuItem("Modules...", false, false)) {}
+			if (ImGui::MenuItem("Clear All PlayersPrefs", false, false)) {}*/
 
 			ImGui::Separator();
 
-			if (ImGui::BeginMenu("Graphic Tier")) {
+			/*if (ImGui::BeginMenu("Graphic Tier")) {
 
-				if (ImGui::MenuItem("Shader1")){}
-				if (ImGui::MenuItem("Shader2")) {}
-				if (ImGui::MenuItem("Shader3")) {}
+				if (ImGui::MenuItem("Shader1", false, false)){}
+				if (ImGui::MenuItem("Shader2", false, false)) {}
+				if (ImGui::MenuItem("Shader3", false, false)) {}
 
 				ImGui::EndMenu();
-			}
+			}*/
 
 			ImGui::Separator();
 
-			if (ImGui::MenuItem("Snap Settings...")) {}
+		//	if (ImGui::MenuItem("Snap Settings...", false, false)) {}
 
 
 			ImGui::EndMenu();
