@@ -22,7 +22,7 @@ public:
 
 	void Init();
 	void Update();
-	void Cleanup();
+	void CleanUp();
 	void Draw();
 
 	void SetTextureID(uint diffuse);

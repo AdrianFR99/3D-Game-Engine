@@ -38,7 +38,7 @@ public:
 		void CreatePrimitive(Primitive_Type type);
 
 		void CalculateDistance();
-
+		void DeletePrimitive(Gameobject* ToDelete);
 		bool CleanUp();
 public:
 

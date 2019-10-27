@@ -1,7 +1,8 @@
 
 #include "ModuleGameobject.h"
 #include "Application.h"
-//#include "mmgr/mmgr.h"
+
+#include "mmgr/mmgr.h"
 
 
 ModuleGameobject::ModuleGameobject(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -48,7 +49,12 @@ bool ModuleGameobject::CleanUp() {
 		GameobjectList[i]->CleanUp();
 
 		//delete(Meshes_Vec[i]);
-		RELEASE(GameobjectList[i]);
+		
+
+		if (GameobjectList[i] != nullptr) {
+			delete GameobjectList[i]; \
+				GameobjectList[i] = nullptr;
+		}
 	}
 
 	GameobjectList.clear();

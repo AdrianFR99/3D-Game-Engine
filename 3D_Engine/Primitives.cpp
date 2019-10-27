@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "Primitives.h"
 #include "ParFiles/par_shapes.h"
+#include "ComponentMesh.h"
 
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
@@ -290,6 +291,23 @@ void Primitives::CalculateDistance() {
 
 	App->camera->Reference.z = medZ;
 
+}
+
+void Primitives::DeletePrimitive(Gameobject * ToDelete)
+{
+	if (ToDelete->meshPointer->Primitives_Vec.size() > 0) {
+		for (int i = 0; i < ToDelete->meshPointer->Primitives_Vec.size(); ++i) {
+			ToDelete->meshPointer->Primitives_Vec[i]->CleanUp();
+
+
+			if (ToDelete->meshPointer->Primitives_Vec[i] != nullptr) {
+				delete ToDelete->meshPointer->Primitives_Vec[i]; \
+					ToDelete->meshPointer->Primitives_Vec[i] = nullptr;
+			}
+
+		}
+
+	}
 }
 
 

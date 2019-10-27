@@ -4,6 +4,7 @@
 #include "Primitives.h"
 #include "Globals.h"
 
+#include"mmgr/mmgr.h"
 
 
 ComponentMesh::ComponentMesh(Gameobject * owner, CompType newtype) : Component(newtype, owner)
@@ -40,16 +41,20 @@ void ComponentMesh::Draw()
 }
 
 
-void ComponentMesh::Cleanup()
+void ComponentMesh::CleanUp()
 {
 	App->Assets->CleanUp(belongsTo);
 
-
+	
 	if (Primitives_Vec.size() > 0) {
 		for (int i = 0; i < Primitives_Vec.size(); ++i) {
 			Primitives_Vec[i]->CleanUp();
 			
-			RELEASE(Primitives_Vec[i]);
+			
+			if (Primitives_Vec[i] != nullptr) {
+				delete Primitives_Vec[i]; \
+					Primitives_Vec[i] = nullptr;
+			}
 
 		}
 

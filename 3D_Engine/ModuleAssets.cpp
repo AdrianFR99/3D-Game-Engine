@@ -135,15 +135,57 @@ bool ModuleAssets::CleanUp(Gameobject* tmp) {
 		glDeleteBuffers(1, &tmp->meshPointer->Meshes_Vec[i]->UVC);
 
 
-		RELEASE_ARRAY(tmp->meshPointer->Meshes_Vec[i]->vertices);
-		RELEASE_ARRAY(tmp->meshPointer->Meshes_Vec[i]->indices);
-		RELEASE_ARRAY(tmp->meshPointer->Meshes_Vec[i]->normals);
-		RELEASE_ARRAY(tmp->meshPointer->Meshes_Vec[i]->normals_faces);
-		RELEASE_ARRAY(tmp->meshPointer->Meshes_Vec[i]->normals_faces_pos);
-		RELEASE_ARRAY(tmp->meshPointer->Meshes_Vec[i]->uv_coord);
+		// Manual Release for MMGR
+		if (tmp->meshPointer->Meshes_Vec[i]->vertices != nullptr)
+		{
 
-		//delete(Meshes_Vec[i]);
-		RELEASE(tmp->meshPointer->Meshes_Vec[i]);
+			delete[] tmp->meshPointer->Meshes_Vec[i]->vertices; 
+
+			tmp->meshPointer->Meshes_Vec[i]->vertices = nullptr;
+		}
+		if (tmp->meshPointer->Meshes_Vec[i]->indices != nullptr)
+		{
+			delete[] tmp->meshPointer->Meshes_Vec[i]->indices;
+
+			tmp->meshPointer->Meshes_Vec[i]->indices = nullptr;
+
+		}
+		if (tmp->meshPointer->Meshes_Vec[i]->normals != nullptr)
+		{
+			delete[] tmp->meshPointer->Meshes_Vec[i]->normals;
+
+			tmp->meshPointer->Meshes_Vec[i]->normals = nullptr;
+
+		}
+		if (tmp->meshPointer->Meshes_Vec[i]->normals_faces != nullptr)
+		{
+			delete[] tmp->meshPointer->Meshes_Vec[i]->normals_faces;
+
+			tmp->meshPointer->Meshes_Vec[i]->normals_faces = nullptr;
+		}
+		if (tmp->meshPointer->Meshes_Vec[i]->normals_faces_pos != nullptr)
+		{
+			delete[] tmp->meshPointer->Meshes_Vec[i]->normals_faces_pos;
+
+			tmp->meshPointer->Meshes_Vec[i]->normals_faces_pos = nullptr;
+		}
+		if (tmp->meshPointer->Meshes_Vec[i]->uv_coord != nullptr) 
+		{
+			delete[] tmp->meshPointer->Meshes_Vec[i]->uv_coord;
+
+			tmp->meshPointer->Meshes_Vec[i]->uv_coord = nullptr;
+
+		}
+		if (tmp->meshPointer->Meshes_Vec[i] != nullptr) 
+		{
+			delete tmp->meshPointer->Meshes_Vec[i];
+
+			tmp->meshPointer->Meshes_Vec[i] = nullptr;
+
+		}
+
+			
+		
 	}
 
 	tmp->meshPointer->Meshes_Vec.clear();

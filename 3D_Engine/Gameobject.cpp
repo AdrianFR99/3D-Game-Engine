@@ -54,7 +54,13 @@ void Gameobject::CleanUp()
 
 		ComponentList[i]->CleanUp();
 		//delete(Meshes_Vec[i]);
-		RELEASE(ComponentList[i]);
+	
+		if (ComponentList[i] != nullptr) 
+			delete ComponentList[i]; 
+			ComponentList[i] = nullptr;
+
+
+
 	}
 
 

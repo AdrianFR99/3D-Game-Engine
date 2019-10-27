@@ -16,7 +16,7 @@ public:
 
 	void Init();
 	void Update();
-	void Cleanup();
+	void CleanUp();
 	
 	void Enable();
 	void Disable();

@@ -28,7 +28,7 @@ void ComponentTransform::Update()
 
 }
 
-void ComponentTransform::Cleanup()
+void ComponentTransform::CleanUp()
 {
 	transform.zero;
 	active = false;
