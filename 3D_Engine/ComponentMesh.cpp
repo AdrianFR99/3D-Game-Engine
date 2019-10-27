@@ -73,3 +73,9 @@ void ComponentMesh::Enable()
 void ComponentMesh::Disable()
 {
 }
+
+void ComponentMesh::NormalDisplay(bool faces, bool vertex)
+{
+	normalsDrawFaces = faces;
+	normalsDrawVertex = vertex;
+}

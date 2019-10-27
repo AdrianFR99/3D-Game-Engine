@@ -21,12 +21,15 @@ public:
 	void Draw();
 	void Enable();
 	void Disable();
-
+	void NormalDisplay(bool faces, bool vertex);
 	
 	//list of Meshes
 	std::vector<AssetMesh*> Meshes_Vec;
 	//list of Primitives
 	std::vector<Primitives*> Primitives_Vec;
+
+	bool normalsDrawFaces = false;
+	bool normalsDrawVertex = false;
 
 private:
 	

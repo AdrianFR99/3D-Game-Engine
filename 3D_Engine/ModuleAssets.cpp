@@ -80,13 +80,13 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 				glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
 				glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
 			}
-			else if (TextChecker) //TODO must change this to selec objects and change individually
-			{
-				glBindTexture(GL_TEXTURE_2D,tmp->materialPointer->GetCurrentTextureID()); // start using texture
-				glActiveTexture(GL_TEXTURE0);
-				glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
-				glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
-			}
+			//else if (TextChecker) //TODO must change this to selec objects and change individually
+			//{
+			//	glBindTexture(GL_TEXTURE_2D,tmp->materialPointer->GetCurrentTextureID()); // start using texture
+			//	glActiveTexture(GL_TEXTURE0);
+			//	glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
+			//	glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
+			//}
 
 
 			glEnableClientState(GL_VERTEX_ARRAY);
@@ -111,6 +111,15 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 				tmp->meshPointer->Meshes_Vec[i]->DrawNormals(1.0f,1,float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f),1.0f, DrawFaceNormals, DrawVertexNormals);
 
 			}
+
+			if (tmp->meshPointer->Meshes_Vec[i]->normals != nullptr && (tmp->meshPointer->normalsDrawFaces || tmp->meshPointer->normalsDrawVertex))
+			{
+
+				tmp->meshPointer->Meshes_Vec[i]->DrawNormals(1.0f, 1, float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f), 1.0f, tmp->meshPointer->normalsDrawFaces, tmp->meshPointer->normalsDrawVertex);
+
+			}
+
+			
 
 
 

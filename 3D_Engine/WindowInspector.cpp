@@ -77,17 +77,17 @@ void WindowInspector::Inspector_Window() {
 			}
 			if (ImGui::CollapsingHeader("Normals"))
 			{
-				if (ImGui::Checkbox("Draw Face Normals", &App->Assets->DrawFaceNormals))
+				if (ImGui::Checkbox("Draw Face Normals", &facenormals))
 				{
-
+					activeobj->meshPointer->NormalDisplay(facenormals, vertex_normals);
 
 				}
 
 				ImGui::SameLine();
 
-				if (ImGui::Checkbox("Draw Vertex Normals", &App->Assets->DrawVertexNormals))
+				if (ImGui::Checkbox("Draw Vertex Normals", &vertex_normals))
 				{
-
+					activeobj->meshPointer->NormalDisplay(facenormals, vertex_normals);
 
 				}
 

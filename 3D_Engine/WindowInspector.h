@@ -35,6 +35,9 @@ public:
 	bool diffuse = true;
 	bool chekers = false;
 
+	bool vertex_normals = false;
+	bool facenormals = false;
+
 	int Triangles = 0;
 	int vertex = 0;
 	int normal = 0;
