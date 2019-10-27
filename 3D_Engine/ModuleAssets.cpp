@@ -56,80 +56,85 @@ bool ModuleAssets::Start() {
 void ModuleAssets::Draw(Gameobject* tmp) {
 
 	
-	
+	if (tmp->meshPointer->active != false)
+	{
 
-	if (tmp->meshPointer->Primitives_Vec.size() > 0) {
+		if (tmp->meshPointer->Primitives_Vec.size() > 0) {
 
-		for (int i = 0; i < tmp->meshPointer->Primitives_Vec.size(); ++i)
-			tmp->meshPointer->Primitives_Vec[i]->Draw(tmp);
-	}
+			for (int i = 0; i < tmp->meshPointer->Primitives_Vec.size(); ++i)
+				tmp->meshPointer->Primitives_Vec[i]->Draw(tmp);
+		}
 
-	for (int i = 0; i < tmp->meshPointer->Meshes_Vec.size();++i) {
+		for (int i = 0; i < tmp->meshPointer->Meshes_Vec.size();++i) {
 
-		if (tmp->meshPointer->Meshes_Vec[i] != nullptr) {
-			// Vertex
-
-
-			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-			//texture
-			if (TextNormal)
-			{
-				glBindTexture(GL_TEXTURE_2D, tmp->materialPointer->GetCurrentTextureID()); // start using texture
-				glActiveTexture(GL_TEXTURE0);
-				glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
-				glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
-			}
-			//else if (TextChecker) //TODO must change this to selec objects and change individually
-			//{
-			//	glBindTexture(GL_TEXTURE_2D,tmp->materialPointer->GetCurrentTextureID()); // start using texture
-			//	glActiveTexture(GL_TEXTURE0);
-			//	glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
-			//	glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
-			//}
-
-
-			glEnableClientState(GL_VERTEX_ARRAY);
-
-			glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->VBO);
-			glVertexPointer(3, GL_FLOAT, 0, NULL);
-			// Index
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->IBO);
-			// Draw
-			glDrawElements((GLenum)GL_TRIANGLES, tmp->meshPointer->Meshes_Vec[i]->num_index, GL_UNSIGNED_INT, NULL);
-
-
-
-			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-			glDisableClientState(GL_VERTEX_ARRAY);
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-
-			if (tmp->meshPointer->Meshes_Vec[i]->normals!=nullptr && (DrawFaceNormals || DrawVertexNormals))
-			{
-				tmp->meshPointer->Meshes_Vec[i]->DrawNormals(1.0f,1,float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f),1.0f, DrawFaceNormals, DrawVertexNormals);
-
-			}
-
-			if (tmp->meshPointer->Meshes_Vec[i]->normals != nullptr && (tmp->meshPointer->normalsDrawFaces || tmp->meshPointer->normalsDrawVertex))
+			if (tmp->meshPointer->Meshes_Vec[i]->active != false)
 			{
 
-				tmp->meshPointer->Meshes_Vec[i]->DrawNormals(1.0f, 1, float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f), 1.0f, tmp->meshPointer->normalsDrawFaces, tmp->meshPointer->normalsDrawVertex);
+				if (tmp->meshPointer->Meshes_Vec[i] != nullptr) {
+					// Vertex
 
-			}
+
+					glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+					//texture
+					if (TextNormal)
+					{
+						glBindTexture(GL_TEXTURE_2D, tmp->materialPointer->GetCurrentTextureID()); // start using texture
+						glActiveTexture(GL_TEXTURE0);
+						glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
+						glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
+					}
+					//else if (TextChecker) //TODO must change this to selec objects and change individually
+					//{
+					//	glBindTexture(GL_TEXTURE_2D,tmp->materialPointer->GetCurrentTextureID()); // start using texture
+					//	glActiveTexture(GL_TEXTURE0);
+					//	glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
+					//	glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
+					//}
+
+
+					glEnableClientState(GL_VERTEX_ARRAY);
+
+					glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->VBO);
+					glVertexPointer(3, GL_FLOAT, 0, NULL);
+					// Index
+					glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->IBO);
+					// Draw
+					glDrawElements((GLenum)GL_TRIANGLES, tmp->meshPointer->Meshes_Vec[i]->num_index, GL_UNSIGNED_INT, NULL);
+
+
+
+					glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+					glDisableClientState(GL_VERTEX_ARRAY);
+					glBindBuffer(GL_ARRAY_BUFFER, 0);
+					glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+
+					if (tmp->meshPointer->Meshes_Vec[i]->normals!=nullptr && (DrawFaceNormals || DrawVertexNormals))
+					{
+						tmp->meshPointer->Meshes_Vec[i]->DrawNormals(1.0f,1,float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f),1.0f, DrawFaceNormals, DrawVertexNormals);
+
+					}
+
+					if (tmp->meshPointer->Meshes_Vec[i]->normals != nullptr && (tmp->meshPointer->normalsDrawFaces || tmp->meshPointer->normalsDrawVertex))
+					{
+
+						tmp->meshPointer->Meshes_Vec[i]->DrawNormals(1.0f, 1, float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f), 1.0f, tmp->meshPointer->normalsDrawFaces, tmp->meshPointer->normalsDrawVertex);
+
+					}
 
 			
 
 
 
+				}
+
+			}
+
+
 		}
 
-
-
 	}
-
-
 
 
 }

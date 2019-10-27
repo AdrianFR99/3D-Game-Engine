@@ -68,10 +68,12 @@ void ComponentMesh::CleanUp()
 
 void ComponentMesh::Enable()
 {
+	active = true;
 }
 
 void ComponentMesh::Disable()
 {
+	active = false;
 }
 
 void ComponentMesh::NormalDisplay(bool faces, bool vertex)

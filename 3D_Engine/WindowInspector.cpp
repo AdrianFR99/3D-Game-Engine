@@ -139,6 +139,17 @@ void WindowInspector::Inspector_Window() {
 
 			if (ImGui::CollapsingHeader("Material"))
 			{
+				if (ImGui::Checkbox("Active", &materialActive))
+				{
+					if(materialActive)
+						activeobj->materialPointer->Disable();
+					else
+						activeobj->materialPointer->Enable();
+				} 
+
+				ImGui::Spacing();
+
+				ImGui::Separator();
 
 				if (ImGui::Checkbox("Diffuse Texture", &diffuse))
 				{
@@ -170,8 +181,40 @@ void WindowInspector::Inspector_Window() {
 
 
 			}
-			if (ImGui::CollapsingHeader("Geometry"))
+			if (ImGui::CollapsingHeader("Mesh & Geometry"))
 			{
+
+				if (ImGui::Checkbox("Meshes Active", &meshActive))
+				{
+					if (!meshActive)
+						activeobj->meshPointer->Disable();
+					else
+						activeobj->meshPointer->Enable();
+				}
+				ImGui::Spacing();
+
+				ImGui::Separator();
+
+				std::string display_name;
+				std::string id;
+				for (int i = 0; i < activeobj->meshPointer->Meshes_Vec.size(); ++i) 
+				{
+					display_name = activeobj->nameGameObject;
+					id = std::to_string(i);
+					display_name.append(id);
+
+					if (ImGui::Checkbox(display_name.data(), &activeobj->meshPointer->Meshes_Vec[i]->active))
+					{
+						
+							
+					}
+				}
+
+				ImGui::Spacing();
+
+				ImGui::Separator();
+
+
 				if (activeobj->meshPointer->Meshes_Vec.size() != 0)
 				{
 					for (int i = 0; i < activeobj->meshPointer->Meshes_Vec.size(); ++i) {

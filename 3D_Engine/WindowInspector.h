@@ -32,9 +32,11 @@ public:
 	float3 rotation;
 	float3 scale;
 
+	bool materialActive = true;
 	bool diffuse = true;
 	bool chekers = false;
 
+	bool meshActive = true;
 	bool vertex_normals = false;
 	bool facenormals = false;
 

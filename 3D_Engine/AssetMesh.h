@@ -57,6 +57,8 @@ public:
 	float basedistance = 0;
 	float faraway = 0.0f;
 
+	bool active = true;
+
 	uint num_uv = 0;
 	float*uv_coord = nullptr;
 
