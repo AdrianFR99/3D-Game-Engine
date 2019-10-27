@@ -425,7 +425,7 @@ void ModuleEngineUI::Menu_Bar() {
 			if (ImGui::MenuItem("Create Cone")) {
 				App->Assets->CreatePrimitive(Primitive_Type::CONE);
 			}
-			if (ImGui::MenuItem("Create Dodocaedrum")) {
+			if (ImGui::MenuItem("Create Dodecaedrum")) {
 				App->Assets->CreatePrimitive(Primitive_Type::DODECA);
 			}
 			if (ImGui::MenuItem("Create Tetraedrum")) {

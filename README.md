@@ -43,7 +43,7 @@ or download the desired release here and follow the same steps:
 
 ### Execute
 
-Once inside the Engine, you may refer to the manu tool bar to open windows to edit your prefferences, or drag and drop the meshes provided inside of the Folder "Assets" in the same dirrectory. You may also open the Console to the the Logs of the procceses bemtath the UI of the engine.
+Once inside the Engine, you may refer to the manu tool bar to open windows to edit your prefferences, or drag and drop the meshes provided inside of the Folder "Assets" in the same dirrectory. You may also open the Console to the the Logs of the procceses beneath the UI of the engine.
        
 ## Libraries
 
@@ -77,12 +77,21 @@ The proyect is using a external open libraries. which are listed here:
 #### Main menu tool bar
 - File collapsing menu
 	- New Scene: Delete current meshes on screen
-	- Save: save variables changes to Config
+	- Save Settings: save variables changes to Config
+	- Load: load settings from variables in the config
 	- Exit: exit the application.
+- Gameobject: Create the primitive specified
+	- Cube
+	- Sphere
+	- Cylinder
+	- Cone
+	- Dodecaedrum
+	- Tetraedrum
+	- Octoedrum
+	- Icosaedrum
+	- Bottle
 - Window collapsing menu
 	- Console: open the developer console
-		- Add dummy text: test console log.
-		- Add dummy error: test error in log.
 		- Clear: clear the log History.
 		- Copy: copy conole info into clipboard.
 		- X: close Console
@@ -102,26 +111,33 @@ The proyect is using a external open libraries. which are listed here:
 		- File system:
 			- Display of the local folder where the executable s runnig.
 		- Input:
-			- Display: see mouse position on screen, mouse mouvement, and mouse wheel movement
-			- Sensityvity: change the mouse sensityvity when looking around with the camera
+			- Display: see mouse position on screen, mouse movement, and mouse wheel movement
+			- Sensitivity: change the mouse sensityvity when looking around with the camera
 			- Wheel Speed: change mouse wheel speed to zoom in or out.
 		- Camera:
 			- Camera speed Slider: slide to change the camera speed of movement.
 		- Hardware: Display information od Cpus, Ram, Gpus, and Vram.
 		- Software: Display SDL Version, OpenGl version and DevIL version.
 		- Renderer Buttons: 
-			- Poly configuration: Checkboxes to enable or disable backface cull, light. and checkboxes to anable wireframe view and to perform a dev test
-			- Materials: Checkboxes to enable or disable color os materials and 2D textures. also checkboxe to apply checkers texture to object. 
+			- Poly configuration: Checkboxes to enable or disable backface cull, light. Checkboxes to anable wireframe view and to perform a dev test
+			- Normals: Checkbox to display gameobjects vertex normals and face normals.
+			- Materials: Checkboxes to enable or disable color of materials and 2D textures. display current ID of texture. Path of the texture. And Texture Configurations to change the properties with ambient, diffuse and specular. cliclk to open a color boz and decide the parameters.
 		- X: close Console
 		- Config Menu tab: click and drag to change position inside screen, and dock if wanted.
-
+	- Hierarchy: View the GameObjects in a list. IMPORTANT: Each gameObject may contain multiple meshes. See the inspector to get more information and deactivate each one individually. Click the desired Gameobject to modify, drag and drop the desired texture, and press F to center the camera around it. Go to file>new scene or drag and drop other fbx to clear the scene.
+	- Inspector:
+		- Transform: Displays three coordinates(i,j,k) of the gameObjects position,rotation and scale.
+		- Normals: Shows two checkboxes which enable/disables the debugdraw of the normal vertices and normal faces
+		- Texture: Displays the current texture id, The path where the texture is loaded from, the size of the texture, And a preview for the texture loaded.
+		- Material: Contains three checkboxes which enable/disable the material,the diffuse texture and the checkered texture
+		- Mesh & Geometry: Checkboxes which Enables/disables the mesh/meshes of the gameobject and displays data about the polygon count(vertices,indices,normals...)
 - Help collapsing menu
 	- Gui Demo: enable disable by clicking the Imgui DEmo window to test IMGUI
 	- Github Repo: click to see the proyects github repo
 	- Documentation: click to see the githb wiki about the Engine (empty)
 	- Download the Lastest: click to open the github tab of our releases
 	- Report a Bug: click to open the github tab of our issues and submit it.
-- About: click to open/close a floating windows that contains the information (on different tabs) of the Engine. Creators, Licence, Libraries with versions and Github button.
+- About: click to open/close a floating windows that contains the information (on different tabs) of the Engine. Creators, Licence, Libraries with versions and Github button. Inside github, the proyect trello can be found. Click to open.
 
 
 #### In-ViewPort Controls
@@ -192,7 +208,7 @@ To navegate the Scene
 ## Disclosure 
 
 ```
-We do not own any of the external libraries.
+We do not own any of the external libraries or FBX files.
 
 Everything belongs to the creators of the original content.
 
