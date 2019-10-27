@@ -277,6 +277,7 @@ void ModuleEngineUI::Menu_Bar() {
 			if (ImGui::MenuItem("New Scene","Ctrl+N")) 
 			{
 				App->Gameobjects->CleanUp();
+				App->UI_Layer->HierarchyPanel->CleanActiveGameobject();
 			
 			}
 			if (ImGui::MenuItem("Open Scene", "Ctrl+O",false, false)) {}

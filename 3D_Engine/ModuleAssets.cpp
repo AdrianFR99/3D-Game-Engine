@@ -227,6 +227,7 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 	if (path_Aux.find(".fbx") != std::string::npos || path_Aux.find(".FBX") != std::string::npos) {
 		App->Gameobjects->CleanUp();
+		App->UI_Layer->HierarchyPanel->CleanActiveGameobject();
 		LoadMesh(path);
 	}
 	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos) {
