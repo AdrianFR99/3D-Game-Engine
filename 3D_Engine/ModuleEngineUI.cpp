@@ -258,7 +258,7 @@ void ModuleEngineUI::Menu_Bar() {
 			
 			ImGui::Separator(); 
 			
-			if (ImGui::MenuItem("Save", "Ctrl+S")) {
+			if (ImGui::MenuItem("Save Settings", "Ctrl+S")) {
 				toSave = true;
 			}
 			if (ImGui::MenuItem("Save As...", "Ctrl+Shift+S", false, false)) {}
@@ -387,6 +387,35 @@ void ModuleEngineUI::Menu_Bar() {
 
 		if (ImGui::BeginMenu("GameObject"))
 		{
+			if (ImGui::MenuItem("Create Cube")) {
+				App->Assets->CreatePrimitive(Primitive_Type::CUBE);
+			}
+			if (ImGui::MenuItem("Create Sphere")) {
+				App->Assets->CreatePrimitive(Primitive_Type::SPHERE);
+			}
+			if (ImGui::MenuItem("Create Cylinder")) {
+				App->Assets->CreatePrimitive(Primitive_Type::CYLINDER);
+			}
+			if (ImGui::MenuItem("Create Cone")) {
+				App->Assets->CreatePrimitive(Primitive_Type::CONE);
+			}
+			if (ImGui::MenuItem("Create Dodocaedrum")) {
+				App->Assets->CreatePrimitive(Primitive_Type::DODECA);
+			}
+			if (ImGui::MenuItem("Create Tetraedrum")) {
+				App->Assets->CreatePrimitive(Primitive_Type::TETRA);
+			}
+			if (ImGui::MenuItem("Create Octoedrum")) {
+				App->Assets->CreatePrimitive(Primitive_Type::OCTO);
+			}
+			if (ImGui::MenuItem("Create Icosaedrum")) {
+				App->Assets->CreatePrimitive(Primitive_Type::ICOSA);
+			}
+			if (ImGui::MenuItem("Create Bottle")) {
+				App->Assets->CreatePrimitive(Primitive_Type::BOTTLE);
+			}
+
+
 
 
 			ImGui::EndMenu();

@@ -161,6 +161,7 @@ bool ModuleAssets::LoadFiles(const char* path) {
 	std::string path_Aux = path;
 
 	if (path_Aux.find(".fbx") != std::string::npos || path_Aux.find(".FBX") != std::string::npos) {
+		App->Gameobjects->CleanUp();
 		LoadMesh(path);
 	}
 	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos) {
@@ -319,7 +320,7 @@ void ModuleAssets::CallbackEvent(const Event& event) {
 	{
 	case Event::EventType::file_dropped:
 
-
+		
 		LoadFiles(event.string);
 
 		break;
