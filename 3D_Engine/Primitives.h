@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "Gameobject.h"
 
+
 enum class Primitive_Type
 {
 	CUBE,
@@ -21,6 +22,8 @@ enum class Primitive_Type
 };
 
 typedef unsigned int GLuint;
+struct par_shapes_mesh_s;
+typedef par_shapes_mesh_s par_shapes_mesh;
 
 
 class Primitives
@@ -35,9 +38,15 @@ public:
 
 		void SendToBuff();
 		void Draw(Gameobject* tmp);
-		void CreatePrimitive(Primitive_Type type);
+		void DrawNormals(float width,float lenght);
+		void DefinePrimitive(Primitive_Type type);
+	
 
 		bool CleanUp();
+
+
+		par_shapes_mesh* CreateCube();
+		
 public:
 
 	uint VBO=0;
@@ -64,6 +73,8 @@ public:
 	float*uv_coord = nullptr;
 	uint ID_Texture;
 
+
+	bool platonicSolid = false;
 
 protected:
 	Primitive_Type type;
