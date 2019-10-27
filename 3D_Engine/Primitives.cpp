@@ -1,8 +1,7 @@
 #include "Application.h"
 #include "Primitives.h"
-#include "ParFiles/par_shapes.h"
-#include "ComponentMesh.h"
 
+#include "ParFiles/par_shapes.h"
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include "AssetMesh.h"
@@ -12,11 +11,10 @@
 Primitives::Primitives(Primitive_Type type)
 {
 
-	CreatePrimitive(type);
-
+	DefinePrimitive(type);
 	SendToBuff();
-	
-	
+
+
 }
 
 
@@ -38,9 +36,15 @@ bool Primitives::CleanUp() {
 	delete[] indices;
 	indices = nullptr;
 
-	delete[] uv_coord;
-	uv_coord = nullptr;
+	if (!platonicSolid) {
 
+		delete[] uv_coord;
+		uv_coord = nullptr;
+
+		delete[] normals;
+		normals = nullptr;
+
+	}
 	return true;
 }
 
@@ -96,7 +100,7 @@ void Primitives::Draw(Gameobject* tmp) {
 
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	
+
 
 	glBindTexture(GL_TEXTURE_2D, tmp->materialPointer->GetCurrentTextureID());
 	glActiveTexture(GL_TEXTURE0);
@@ -106,35 +110,66 @@ void Primitives::Draw(Gameobject* tmp) {
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO); 
-	glVertexPointer(3, GL_FLOAT, 0, NULL); 
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,IBO);
-	glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL); 
+	glDrawElements(GL_TRIANGLES, num_index, GL_UNSIGNED_INT, NULL);
 
-	
+
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	
+
+	if (!platonicSolid) {
+		DrawNormals(2.0f, 1.0f);
+	}
 }
 
-void Primitives::CreatePrimitive(Primitive_Type type) {
+void Primitives::DrawNormals(float width, float lenght) {
 
-	par_shapes_mesh*Mesh;
+
+	glBegin(GL_LINES);
+	glLineWidth(width);
+	uint Normal_length = lenght;
+
+	glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
+
+	for (uint j = 0; j < num_vertex; ++j)
+	{
+		glVertex3f(vertices[j].x, vertices[j].y, vertices[j].z);
+		glVertex3f(vertices[j].x + normals[j].x* Normal_length,
+			vertices[j].y + normals[j].y* Normal_length,
+			vertices[j].z + normals[j].z* Normal_length
+		);
+
+	}
+
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+
+
+	glEnd();
+
+}
+
+
+
+void Primitives::DefinePrimitive(Primitive_Type type) {
+
+	par_shapes_mesh*Mesh=nullptr;
+	par_shapes_mesh*Aux=nullptr;//used for those primitves which don't contain normals or UVs(platonic solids)
 
 	switch(type)
 	{
 
 	case Primitive_Type::CUBE:
-
-		Mesh = par_shapes_create_cube();
-		
+		/*platonicSolid = true;*/
+		Mesh = CreateCube();
 
 		break;
 	case Primitive_Type::SPHERE:
 
-		Mesh = par_shapes_create_subdivided_sphere(2);
+		Mesh = par_shapes_create_parametric_sphere(20,20);
 
 		break;
 
@@ -153,26 +188,31 @@ void Primitives::CreatePrimitive(Primitive_Type type) {
 
 	case Primitive_Type::DODECA:
 
+		platonicSolid = true;
 		Mesh = par_shapes_create_dodecahedron();
-		
+
 		break;
 
 	case Primitive_Type::TETRA:
 
+		platonicSolid = true;
 		Mesh = par_shapes_create_tetrahedron();
 
 		break;
 
 	case Primitive_Type::OCTO:
 
+		platonicSolid = true;
 		Mesh = par_shapes_create_octahedron();
-		
+
+
 		break;
 
 	case Primitive_Type::ICOSA:
 
+		platonicSolid = true;
 		Mesh = par_shapes_create_icosahedron();
-		
+
 		break;
 
 	case Primitive_Type::BOTTLE:
@@ -182,18 +222,28 @@ void Primitives::CreatePrimitive(Primitive_Type type) {
 		break;
 
 	}
-	
+
+	//Allocating memory-----------------------------------------------------------------
+
 	num_vertex = Mesh->npoints * 3;
 	vertices = new float3[num_vertex];
 
 	num_index = Mesh->ntriangles * 3;
 	indices = new uint[num_index];
 
-	num_uv = Mesh->npoints*2;
+	num_uv = Mesh->npoints * 2;
 	uv_coord = new float[num_uv];
 
-
 	num_normals = num_vertex;
+	normals = new float3[num_vertex];
+
+	//num_normals_faces = Aux->ntriangles;
+	//normals_faces = new float3[num_normals_faces];
+	//normals_faces_pos = new float3[num_normals_faces];
+
+	//Assigning values
+
+	//vertices-----------------------------------------------------------------
 
 	for (uint i = 0; i < Mesh->npoints; ++i) {
 
@@ -203,10 +253,14 @@ void Primitives::CreatePrimitive(Primitive_Type type) {
 
 	}
 
+	//Indices-----------------------------------------------------------------
+
 	for (uint i = 0; i < num_index; ++i)
 	{
 		indices[i] = Mesh->triangles[i];
 	}
+
+	//UVs-----------------------------------------------------------------
 
 	for (uint i = 0; i < num_uv; ++i) {
 			if (Mesh->tcoords != nullptr)
@@ -215,8 +269,22 @@ void Primitives::CreatePrimitive(Primitive_Type type) {
 				uv_coord[i] = 0.0f;
 	}
 
-	
+
 	CalculateDistance();
+	//Normals-------------------------------------------------------------
+
+	if (Mesh->normals != nullptr && !platonicSolid) {
+
+
+		for (int i = 0; i < num_vertex;++i) {
+
+			normals[i].x = Mesh->normals[i*3];
+			normals[i].y = Mesh->normals[(i*3)+1];
+			normals[i].z = Mesh->normals[(i*3)+2];
+
+		}
+
+	}
 
 	par_shapes_free_mesh(Mesh);
 
@@ -254,11 +322,11 @@ void Primitives::CalculateDistance() {
 			minZ = vertices[i].z;
 		}*/
 	}
-	
+
 	medX = (int)(maxX + minX)*0.5;
 
 	medY = (int)(maxY + minY)*0.5;
-	
+
 	medZ = (int)(maxZ + minZ)*0.5;
 
 	vec3 baseMax;
@@ -311,4 +379,42 @@ void Primitives::DeletePrimitive(Gameobject * ToDelete)
 }
 
 
+par_shapes_mesh* Primitives::CreateCube() {
 
+	//Creating Faces
+	par_shapes_mesh* Face_Front = par_shapes_create_plane(1, 1);
+	par_shapes_mesh* Face_Top = par_shapes_create_plane(1, 1);
+	par_shapes_mesh* Face_Bottom = par_shapes_create_plane(1, 1);
+	par_shapes_mesh* Face_Back = par_shapes_create_plane(1, 1);
+	par_shapes_mesh* Face_Left = par_shapes_create_plane(1, 1);
+	par_shapes_mesh* Face_Right = par_shapes_create_plane(1, 1);
+
+
+	//Positioning Faces
+	par_shapes_translate(Face_Front, -0.5f, -0.5f, 0.5f);
+
+	par_shapes_rotate(Face_Top, -float(PAR_PI*0.5), (float*)&float3(1.0f,0.0f,0.0f));
+	par_shapes_translate(Face_Top, -0.5f, 0.5f, 0.5f);
+
+	par_shapes_rotate(Face_Bottom, float(PAR_PI*0.5), (float*)&float3(1.0f, 0.0f, 0.0f));
+	par_shapes_translate(Face_Bottom, -0.5f, -0.5f, -0.5f);
+
+	par_shapes_rotate(Face_Back, float(PAR_PI), (float*)&float3(1.0f, 0.0f, 0.0f));
+	par_shapes_translate(Face_Back, -0.5f, 0.5f, -0.5f);
+
+	par_shapes_rotate(Face_Left, float(-PAR_PI * 0.5), (float*)&float3(0.0f, 1.0f,0.0f));
+	par_shapes_translate(Face_Left, -0.5f, -0.5f, -0.5f);
+
+	par_shapes_rotate(Face_Right, float(PAR_PI*0.5), (float*)&float3(0.0f, 1.0f,0.0f));
+	par_shapes_translate(Face_Right, 0.5f, -0.5f, 0.5f);
+
+
+	//Merging faces
+	par_shapes_merge_and_free(Face_Front,Face_Top);
+	par_shapes_merge_and_free(Face_Front,Face_Bottom);
+	par_shapes_merge_and_free(Face_Front,Face_Back);
+	par_shapes_merge_and_free(Face_Front,Face_Left);
+	par_shapes_merge_and_free(Face_Front,Face_Right);
+
+	return Face_Front;
+}

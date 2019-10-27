@@ -27,7 +27,7 @@ bool ModuleScene::Start() {
 //primitves must Load AFTER FBX
 	App->Assets->LoadFiles(App->AssetModel.data());
 	App->Assets->CreatePrimitive(Primitive_Type::BOTTLE);
-	
+
 	return true;
 }
 bool ModuleScene::CleanUp() {
@@ -55,4 +55,3 @@ update_status ModuleScene::PostUpdate(float dt) {
 
 	return UPDATE_CONTINUE;
 }
-
