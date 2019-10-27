@@ -200,27 +200,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 
-
-	glBegin(GL_LINES);
-	glColor4f(1.00f, 0.22f, 0.27f, 1.00f);
-
-	for (float x = -500.0; x<500; x ++)
-	{
-		glVertex3f(x, 0.0f,-500.0f);
-		glVertex3f(x, 0.0f, 500.0f);
-	}
-	for (float y = -500.0; y < 500; y++)
-	{
-		glVertex3f(-500.0f, 0.0f, y);
-		glVertex3f(500.0f, 0.0f, y);
-
-	}
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-
-	glEnd();
-
-	glLineWidth(1.0f);
-
+	DrawGrindAndAxis();
 
 	App->Gameobjects->Draw();
 
@@ -307,4 +287,53 @@ const void ModuleRenderer3D::ChangeSpecularSettings(bool & active, const float c
 	}
 	else
 		glDisable(GL_LIGHT2);
+}
+
+void ModuleRenderer3D::DrawGrindAndAxis()
+{
+
+	glBegin(GL_LINES);
+	glColor4f(1.00f, 0.22f, 0.27f, 1.00f);
+	// Draw Grid
+	for (float x = -500.0; x < 500; x++)
+	{
+		glVertex3f(x, 0.0f, -500.0f);
+		glVertex3f(x, 0.0f, 500.0f);
+	}
+	for (float y = -500.0; y < 500; y++)
+	{
+		glVertex3f(-500.0f, 0.0f, y);
+		glVertex3f(500.0f, 0.0f, y);
+
+	}
+
+
+	glLineWidth(2.0f);
+
+
+	//Draw X Y and Z Axis
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+
+	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(1.0f, 0.1f, 0.0f); glVertex3f(1.1f, -0.1f, 0.0f);
+	glVertex3f(1.1f, 0.1f, 0.0f); glVertex3f(1.0f, -0.1f, 0.0f);
+
+	glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+
+	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-0.05f, 1.25f, 0.0f); glVertex3f(0.0f, 1.15f, 0.0f);
+	glVertex3f(0.05f, 1.25f, 0.0f); glVertex3f(0.0f, 1.15f, 0.0f);
+	glVertex3f(0.0f, 1.15f, 0.0f); glVertex3f(0.0f, 1.05f, 0.0f);
+
+	glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
+
+	glVertex3f(0.0f, 0.0f, 0.0f); glVertex3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-0.05f, 0.1f, 1.05f); glVertex3f(0.05f, 0.1f, 1.05f);
+	glVertex3f(0.05f, 0.1f, 1.05f); glVertex3f(-0.05f, -0.1f, 1.05f);
+	glVertex3f(-0.05f, -0.1f, 1.05f); glVertex3f(0.05f, -0.1f, 1.05f);
+
+	glEnd();
+
+	glLineWidth(1.0f);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 }

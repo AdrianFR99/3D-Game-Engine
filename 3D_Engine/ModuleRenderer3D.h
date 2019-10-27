@@ -28,6 +28,7 @@ public:
 	void ReloadFromConfig();
 	void OnResize(int width, int height);
 	void changeLight(bool value);
+	void DrawGrindAndAxis();
 
 	//changers
 	const void ChangeAmbientSettings (bool & active, const float color [4] ) const;
