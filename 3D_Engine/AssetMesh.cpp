@@ -15,12 +15,14 @@
 #include "Application.h"
 //#include "ModuleCamera3D.h"
 
-#include "mmgr/nommgr.h"
+#include "mmgr/mmgr.h"
 
 
 AssetMesh::AssetMesh(){}
 
 AssetMesh::~AssetMesh(){}
+
+//NO DELETE
 
 void AssetMesh::importMesh(aiMesh* Mesh) {
 

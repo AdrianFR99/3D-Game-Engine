@@ -18,6 +18,8 @@
 
 #include "Maths.h"
 
+#include "mmgr/mmgr.h"
+
 
 
 ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
@@ -203,8 +205,29 @@ update_status  ModuleEngineUI::PostUpdate(float dt) {
 	
 	return UPDATE_CONTINUE;
 }
+
 bool  ModuleEngineUI::CleanUp() {
 	
+	
+	if (settingsPanel != nullptr) 
+	{ 
+		delete settingsPanel; 
+		settingsPanel = nullptr; 
+	} 
+
+	if (HierarchyPanel != nullptr)
+	{
+		delete HierarchyPanel;
+		HierarchyPanel = nullptr;
+	}
+
+	if (settingsPanel != nullptr)
+	{
+		delete settingsPanel;
+		settingsPanel = nullptr;
+	}
+
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();
