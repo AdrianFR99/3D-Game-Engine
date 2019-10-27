@@ -26,6 +26,7 @@ public:
 	void Draw();
 
 	void SetTextureID(uint diffuse);
+	void SetDiffuseID(uint diffuse);
 	void CreateMaterial(std::string&path);
 	void CreateMaterial();
 

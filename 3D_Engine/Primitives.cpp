@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "Primitives.h"
+#include "ComponentMesh.h"
 
 #include "ParFiles/par_shapes.h"
 #include "glew/include/glew.h"
@@ -101,12 +102,23 @@ void Primitives::Draw(Gameobject* tmp) {
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
+	if (tmp->materialPointer->active)
+	{
+		glBindTexture(GL_TEXTURE_2D, tmp->materialPointer->GetCurrentTextureID());
+		glActiveTexture(GL_TEXTURE0);
+		glBindBuffer(GL_ARRAY_BUFFER, UVC);
+		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
-	glBindTexture(GL_TEXTURE_2D, tmp->materialPointer->GetCurrentTextureID());
-	glActiveTexture(GL_TEXTURE0);
-	glBindBuffer(GL_ARRAY_BUFFER, UVC);
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+	}
+	else
+	{
+		glBindTexture(GL_TEXTURE_2D, -1);
+		glActiveTexture(GL_TEXTURE0);
+		glBindBuffer(GL_ARRAY_BUFFER, UVC);
+		glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 
+
+	}
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 
@@ -121,7 +133,9 @@ void Primitives::Draw(Gameobject* tmp) {
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
-	if (!platonicSolid) {
+	tmp->meshPointer->normalsDrawFaces = false;
+
+	if (!platonicSolid && tmp->meshPointer->normalsDrawVertex) {
 		DrawNormals(2.0f, 1.0f);
 	}
 }

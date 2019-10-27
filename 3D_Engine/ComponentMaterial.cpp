@@ -41,6 +41,11 @@ void ComponentMaterial::SetTextureID(uint diffuse)
 
 }
 
+void ComponentMaterial::SetDiffuseID(uint diffuse)
+{
+	DiffuseID = diffuse;
+}
+
 std::string const ComponentMaterial::GetTexturePath() const
 {
 	return Comp_Material.path;

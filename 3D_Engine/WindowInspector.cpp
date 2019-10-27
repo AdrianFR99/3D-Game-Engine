@@ -75,6 +75,7 @@ void WindowInspector::Inspector_Window() {
 				ImGui::Separator();
 				
 			}
+			
 			if (ImGui::CollapsingHeader("Normals"))
 			{
 				if (ImGui::Checkbox("Draw Face Normals", &facenormals))

@@ -245,16 +245,18 @@ bool ModuleAssets::LoadFiles(const char* path) {
 		{
 			Gameobject* activeGameObject = nullptr;
 			activeGameObject = App->UI_Layer->HierarchyPanel->getActiveGameobject();
+			
 			if (App->Gameobjects->GameobjectList.size()>0) {
 
 				if (activeGameObject!=nullptr)
 				{
 					activeGameObject->materialPointer->SetTextureID(id);
+					activeGameObject->materialPointer->SetDiffuseID(id);
 				}
 				else
 				{
 					App->Gameobjects->GameobjectList[0]->materialPointer->SetTextureID(id);
-
+					App->Gameobjects->GameobjectList[0]->materialPointer->SetDiffuseID(id);
 				}
 
 			}
