@@ -46,7 +46,9 @@ bool ModuleEngineUI::Init() {
 	Panels.push_back(settingsPanel);
 
 	HierarchyPanel = new WindowHierarchy("Hierarchy");
+	Panels.push_back(HierarchyPanel);
 	InspectorPanel = new WindowInspector("Inspector");
+	Panels.push_back(InspectorPanel);
 
 	App->GearConsole.AddLog(" Init UI subsystem ");
 	return true;
@@ -221,10 +223,10 @@ bool  ModuleEngineUI::CleanUp() {
 		HierarchyPanel = nullptr;
 	}
 
-	if (settingsPanel != nullptr)
+	if (InspectorPanel != nullptr)
 	{
-		delete settingsPanel;
-		settingsPanel = nullptr;
+		delete InspectorPanel;
+		InspectorPanel = nullptr;
 	}
 
 

@@ -4,6 +4,7 @@
 #include "Event.h"
 #include "Primitives.h"
 
+#include"mmgr/mmgr.h"
 
 #define MAX_KEYS 300
 
@@ -18,6 +19,7 @@ ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, sta
 ModuleInput::~ModuleInput()
 {
 	delete[] keyboard;
+	keyboard = nullptr;
 }
 
 // Called before render is available

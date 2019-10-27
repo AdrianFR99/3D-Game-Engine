@@ -2,6 +2,7 @@
 #include "ModuleScene.h"
 #include "ModuleAssets.h"
 
+#include "mmgr/mmgr.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled):Module(app, start_enabled)
 {
