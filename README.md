@@ -202,6 +202,19 @@ To navegate the Scene
 - Inspector
 - Bug Fixing
 
+### **v1.00**
+#### Implementations
+- primitive
+	- normals
+	- textures
+- Components
+	- Gameobjects creates
+- Mem leaks
+- Hierarchy
+	- Selection
+- Inspector
+	- Display options  
+- Bug Fixing
 
 
 
