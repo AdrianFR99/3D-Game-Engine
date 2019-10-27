@@ -75,3 +75,8 @@ Gameobject* WindowHierarchy::getActiveGameobject()
 {
 	return activeOBJ;
 }
+
+void WindowHierarchy::CleanActiveGameobject()
+{
+	activeOBJ = nullptr;
+}

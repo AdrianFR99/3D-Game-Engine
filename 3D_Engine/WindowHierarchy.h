@@ -25,6 +25,8 @@ public:
 	bool Display() override;
 	void Hierarchy_Window();
 	Gameobject* getActiveGameobject();
+
+	void CleanActiveGameobject();
 private:
 
 	Gameobject* activeOBJ = nullptr;
