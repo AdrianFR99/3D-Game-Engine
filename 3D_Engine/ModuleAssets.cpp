@@ -210,23 +210,37 @@ bool ModuleAssets::LoadFiles(const char* path) {
 	}
 	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos) {
 
-		//TODO:With inspector
-		int id=App->Textures->CreateTexture(path);
-		Gameobject* activeGameObject = nullptr;
-		activeGameObject = App->UI_Layer->HierarchyPanel->getActiveGameobject();
-		if (App->Gameobjects->GameobjectList.size()>0) {
+		//TODO: With inspector
+		int id = -1;
+		bool found = false;
+		found = App->Textures->findTextureinList(path, id);
+		if (found == false)
+		{
 
-			if (activeGameObject!=nullptr)
-			{
-				activeGameObject->materialPointer->SetTextureID(id);
-			}
-			else
-			{
-				App->Gameobjects->GameobjectList[0]->materialPointer->SetTextureID(id);
+			id=App->Textures->CreateTexture(path);
+		}
+		if (id != -1 )
+		{
+			Gameobject* activeGameObject = nullptr;
+			activeGameObject = App->UI_Layer->HierarchyPanel->getActiveGameobject();
+			if (App->Gameobjects->GameobjectList.size()>0) {
+
+				if (activeGameObject!=nullptr)
+				{
+					activeGameObject->materialPointer->SetTextureID(id);
+				}
+				else
+				{
+					App->Gameobjects->GameobjectList[0]->materialPointer->SetTextureID(id);
+
+				}
 
 			}
 
 		}
+
+		
+
 
 	}
 

@@ -50,6 +50,8 @@ public:
 	void Save(nlohmann::json& file);
 	void ReloadFromConfig();
 
+	bool findTextureinList(std::string path,int& index);
+
 public:
 
 	Texture* CurrentTex  = nullptr;

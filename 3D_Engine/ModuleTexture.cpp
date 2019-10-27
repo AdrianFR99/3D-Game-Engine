@@ -59,6 +59,26 @@ void ModuleTexture::ReloadFromConfig()
 
 }
 
+bool ModuleTexture::findTextureinList(std::string path, int& index)
+{
+	bool ret = false;
+
+	for (int i = 0; i < TextureIDs.size(); ++i) {
+
+		//if it pinds te texture path in the Vector it does not loads it again
+		if (TextureIDs[i]->path.compare(path) == 0)
+		{
+			ret = true;
+			index = TextureIDs[i]->id;
+			break;
+		}
+
+	}
+
+
+	return ret;
+}
+
 
 bool ModuleTexture::Init() {
 
