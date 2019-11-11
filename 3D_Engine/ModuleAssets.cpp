@@ -6,6 +6,7 @@
 #include "Primitives.h"
 #include "ModuleGameobject.h"
 #include "ComponentMesh.h"
+#include "ComponentTransform.h"
 #include "ModuleTexture.h"
 #include "ModuleEngineUI.h"
 #include"WindowHierarchy.h"
@@ -55,7 +56,10 @@ bool ModuleAssets::Start() {
 
 void ModuleAssets::Draw(Gameobject* tmp) {
 
-	
+	// Push matrix
+	glPushMatrix();
+	glMultMatrixf(tmp->transformPointer->GetGlobalTransform().Transposed().ptr());
+
 	if (tmp->meshPointer->active != false)
 	{
 
@@ -142,6 +146,15 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 		}
 
 	}
+
+	// Reset
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	// Pop matrix
+	glPopMatrix();
+
+	// Pop matrix
+	glPopMatrix();
 
 
 }

@@ -19,7 +19,7 @@ ComponentTransform::~ComponentTransform()
 
 void ComponentTransform::Init()
 {
-	gloabal_transform.SetIdentity();
+	global_transform.SetIdentity();
 	local_transform.SetIdentity();
 
 	local_position = float3(0, 0, 0);
@@ -40,7 +40,7 @@ void ComponentTransform::CleanUp()
 	active = false;
 	belongsTo = nullptr;
 
-	gloabal_transform.SetIdentity();
+	global_transform.SetIdentity();
 	local_transform.SetIdentity();
 
 	local_position = float3(0, 0, 0);
@@ -82,6 +82,11 @@ float3 const ComponentTransform::GetScale() const
 	return local_scale;
 }
 
+float4x4 const ComponentTransform::GetGlobalTransform() const
+{
+	return global_transform;
+}
+
 const void ComponentTransform::SetPosition(const float3 & pos)
 {
 	local_position = pos;
@@ -104,3 +109,5 @@ void ComponentTransform::RecalculateMatrix()
 {
 	local_transform = float4x4::FromTRS(local_position, local_rotation, local_scale);
 }
+
+

@@ -26,6 +26,10 @@ public:
 	float3 const GetRotation() const;
 	float3 const GetScale() const;
 
+	float4x4 const GetGlobalTransform() const;
+
+	
+
 	//set
 	const void SetPosition(const float3 &pos);
 	const void SetRotation(const float3 &pos);
@@ -39,10 +43,10 @@ public:
 	float4x4 transform = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	/*float4x4 zero = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	float4x4 identity = float4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);*/
-
 private:
+
 	float4x4 local_transform;
-	float4x4 gloabal_transform;
+	float4x4 global_transform;
 
 	float3 local_position;
 	Quat local_rotation;
