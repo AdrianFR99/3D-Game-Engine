@@ -19,7 +19,13 @@ ComponentTransform::~ComponentTransform()
 
 void ComponentTransform::Init()
 {
-	transform;
+	gloabal_transform.SetIdentity();
+	local_transform.SetIdentity();
+
+	local_position = float3(0, 0, 0);
+	local_scale = float3(1, 1, 1);
+	local_rotation = Quat::identity;
+
 	Enable();
 }
 
@@ -33,6 +39,13 @@ void ComponentTransform::CleanUp()
 	transform.zero;
 	active = false;
 	belongsTo = nullptr;
+
+	gloabal_transform.SetIdentity();
+	local_transform.SetIdentity();
+
+	local_position = float3(0, 0, 0);
+	local_rotation = Quat::identity;
+	local_scale = float3(1, 1, 1);
 
 }
 
@@ -53,8 +66,9 @@ float4x4 const ComponentTransform::GetTransform() const
 
 float3 const ComponentTransform::GetPosition() const
 {
-	float3 position(transform[3][0], transform[3][1], transform[3][2]);
-	return position;
+	
+	return local_position;
+;
 }
 
 float3 const ComponentTransform::GetRotation() const
@@ -64,9 +78,29 @@ float3 const ComponentTransform::GetRotation() const
 
 float3 const ComponentTransform::GetScale() const
 {
-	float x = Sqrt(Pow(transform[0][0], 2) + Pow(transform[0][1], 2) + Pow(transform[0][2], 2));
-	float y = Sqrt(Pow(transform[1][0], 2) + Pow(transform[1][1], 2) + Pow(transform[1][2], 2));
-	float z = Sqrt(Pow(transform[2][0], 2) + Pow(transform[2][1], 2) + Pow(transform[2][2], 2));
+	
+	return local_scale;
+}
 
-	return float3(x,y,z);
+const void ComponentTransform::SetPosition(const float3 & pos)
+{
+	local_position = pos;
+
+	RecalculateMatrix();
+	
+}
+
+const void ComponentTransform::SetRotation(const float3 & pos)
+{
+	
+}
+
+const void ComponentTransform::SetScale(const float3 & pos)
+{
+	local_scale = float3(1, 1, 1);
+}
+
+void ComponentTransform::RecalculateMatrix()
+{
+	local_transform = float4x4::FromTRS(local_position, local_rotation, local_scale);
 }

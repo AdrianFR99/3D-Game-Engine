@@ -44,32 +44,22 @@ void WindowInspector::Inspector_Window() {
 		{
 			if (ImGui::CollapsingHeader("Transform"))
 			{
-
 				
 				position =  activeobj->transformPointer->GetPosition();
-				float toDisplay[3];
-				toDisplay[0] = position.x;
-				toDisplay[1] = position.y;
-				toDisplay[2] = position.z;
-
-				ImGui::InputFloat3("Position", toDisplay);
+				if (ImGui::DragFloat3("Position", (float*)&position, 0.1f))
+					activeobj->transformPointer->SetPosition(position);
+				
 
 				rotation = activeobj->transformPointer->GetRotation();
+				if (ImGui::DragFloat3("Rotation", (float*)&rotation, 0.1f))
+					activeobj->transformPointer->SetRotation(rotation);
 				
-				toDisplay[0] = rotation.x;
-				toDisplay[1] = rotation.y;
-				toDisplay[2] = rotation.z;
-
-				ImGui::InputFloat3("Rotation", toDisplay);
+				
 				
 				scale = activeobj->transformPointer->GetScale();
-
+				if (ImGui::DragFloat3("Scale", (float*)&scale, 0.1f))
+					activeobj->transformPointer->SetScale(scale);
 			
-				toDisplay[0] = scale.x;
-				toDisplay[1] = scale.y;
-				toDisplay[2] = scale.z;
-
-				ImGui::InputFloat3("Scale", toDisplay);
 
 				ImGui::Spacing();
 				ImGui::Separator();

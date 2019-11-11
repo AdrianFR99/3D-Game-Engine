@@ -26,10 +26,27 @@ public:
 	float3 const GetRotation() const;
 	float3 const GetScale() const;
 
+	//set
+	const void SetPosition(const float3 &pos);
+	const void SetRotation(const float3 &pos);
+	const void SetScale(const float3 &pos);
+
+	//Recaluclate matrix
+	void RecalculateMatrix();
+
+
 public:
 	float4x4 transform = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	/*float4x4 zero = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	float4x4 identity = float4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);*/
+
+private:
+	float4x4 local_transform;
+	float4x4 gloabal_transform;
+
+	float3 local_position;
+	Quat local_rotation;
+	float3 local_scale;
 
 };
 
