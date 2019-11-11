@@ -39,6 +39,7 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 	memcpy(vertices, Mesh->mVertices, sizeof(float3)*num_vertex);
 	CalculateDistance();
 
+
 	App->GearConsole.AddLog(" the Number of Vertices is %i ", num_vertex);
 
 	//Indices
@@ -46,8 +47,10 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 	indices = new uint[num_index];
 
 	App->GearConsole.AddLog(" The number of inices is %i", num_index);
-
 	App->GearConsole.AddLog(" The number of Triangles is %i",Mesh->mNumFaces);
+
+	App->GearConsole.AddLog(" Generating AABB");
+	GenerateAABB();
 
 	if (Mesh->HasFaces()) {
 		//each face is a triangle
@@ -275,4 +278,16 @@ void AssetMesh::CalculateDistance() {
 
 	App->camera->Reference.z = medZ;
 
+}
+
+
+void AssetMesh::GenerateAABB() {
+
+	bbox.SetNegativeInfinity();
+	if(vertices!=nullptr && num_vertex>0)
+	bbox.Enclose((float3*)vertices,num_vertex);
+
+}
+const AABB AssetMesh::GetBBox()const {
+	return bbox;
 }

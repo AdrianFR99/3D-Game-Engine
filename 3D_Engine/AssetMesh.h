@@ -4,6 +4,7 @@
 
 #include "ModuleAssets.h"
 #include "Gameobject.h"
+#include "MathGeoLib/include/Geometry/AABB.h"
 
 #include "MathGeoLib/include/Math/float3.h"
 
@@ -62,10 +63,18 @@ public:
 	uint num_uv = 0;
 	float*uv_coord = nullptr;
 
+
+	//bounding box
+
+	AABB bbox;
+
 public:
-	 void DrawNormals (float width,uint lenght,float3 &colorNV, float3 &colorNF,float alpha, bool &faces, bool &vertex) ;
+	void DrawNormals (float width,uint lenght,float3 &colorNV, float3 &colorNF,float alpha, bool &faces, bool &vertex) ;
 	float3 CenterTri(float3&vertex1,float3&vertex2,float3&vertex3);
 
+
+	void GenerateAABB();
+	const AABB GetBBox()const;
 	void CalculateDistance();
 	
 };
