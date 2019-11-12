@@ -4,6 +4,8 @@
 #include "ComponentTransform.h"
 #include "ComponentMesh.h"
 
+#include "glew/include/glew.h"
+
 #include "mmgr/mmgr.h"
 
 Gameobject::Gameobject(int id)
@@ -31,6 +33,11 @@ void Gameobject::Draw()
 		ComponentList[i]->Draw();
 
 	}
+
+	
+
+
+
 }
 
 void Gameobject::Enable()
@@ -97,9 +104,14 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 			temp = meshPointer;
 			counter++;
 
-		
 
-		break;
+			SetOBBToNegativeInf();
+			meshPointer->GetBBMesh(obbGameObject);
+			SetOBBtoGlobalTrans();
+			
+			
+		
+			break;
 		case MATERIAL:
 
 
@@ -122,3 +134,20 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 	}
 
 }
+
+void Gameobject::SetOBBToNegativeInf() {
+	
+	for (int i = 0; i < meshPointer->num_meshes; ++i) 
+		obbGameObject[i].SetNegativeInfinity();
+
+
+}
+
+void Gameobject::SetOBBtoGlobalTrans() {
+	
+	for (int i = 0; i < meshPointer->num_meshes; ++i) 
+	obbGameObject[i].TransformAsAABB(transformPointer->transform);
+}
+
+
+

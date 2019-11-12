@@ -30,9 +30,9 @@ public:
 
 	bool normalsDrawFaces = false;
 	bool normalsDrawVertex = false;
+	int num_meshes=0; 
 
-private:
-	
+	void GetBBMesh(AABB*BoundingBox);
 
 };
 

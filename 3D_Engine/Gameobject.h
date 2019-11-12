@@ -3,6 +3,8 @@
 
 #include "Globals.h"
 #include "Component.h"
+#include "MathGeoLib/include/Geometry/AABB.h"
+
 #include <string>
 //#include "ComponentTransform.h"
 //#include "ComponentMesh.h"
@@ -33,10 +35,12 @@ public:
 	void CleanUp();
 	void Draw();
 
+
+public:
 	//create component
 	void CreateComponent(Gameobject * object, CompType tocreate, bool active);
-
-	
+	void SetOBBToNegativeInf();
+	void SetOBBtoGlobalTrans();
 	//parent
 	//chield
 
@@ -59,6 +63,13 @@ public:
 	ComponentTransform* transformPointer = nullptr;
 	ComponentMesh* meshPointer = nullptr;
 	ComponentMaterial* materialPointer = nullptr;
+
+	//BoundingBox GameObjext
+
+	AABB*obbGameObject;
+
+
+
 
 };
 
