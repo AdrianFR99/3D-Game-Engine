@@ -295,38 +295,24 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 	if (Scene != nullptr && Scene->HasMeshes())
 	{
-		Gameobject* tmp = App->Gameobjects->CreateGameObject();
-		tmp->CreateComponent(tmp, MESH, true);
-
-		//insert name game obj
-		std::string filename = path;
-		std::size_t size = filename.find_last_of(".");
-		std::size_t found = filename.find_last_of("/\\");
-		size = (int)size - (int)found;
-		filename = filename.substr(found + 1,size-1);
-		tmp->nameGameObject = filename;
-
-		if (Scene->HasMaterials()) {
-
-			aiString Texture_path;
-
-			aiMaterial* mat = Scene->mMaterials[0];
-			mat->GetTexture(aiTextureType_DIFFUSE,0,&Texture_path);
-
-			//Todo
-			std::string filename = path;
-			std::size_t found = filename.find_last_of("/\\");
-			filename = filename.substr(0, found+1);
-			filename.append(Texture_path.C_Str());
-
-
-			tmp->CreateComponent(tmp, MATERIAL, true);
-			tmp->materialPointer->CreateMaterial(filename);
-
-		}
-
+		
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
 		{
+
+			Gameobject* tmp = App->Gameobjects->CreateGameObject();
+			tmp->CreateComponent(tmp, MESH, true);
+
+			//insert name game obj
+			std::string filename = path;
+			std::size_t size = filename.find_last_of(".");
+			std::size_t found = filename.find_last_of("/\\");
+			size = (int)size - (int)found;
+			filename = filename.substr(found + 1,size-1);
+			int numb = (int)i;
+			std::string number = std::to_string(numb);
+			filename.append(number);
+			tmp->nameGameObject = filename;
+
 			AssetMesh* NewMesh = new AssetMesh;
 			NewMesh->importMesh(Scene->mMeshes[i]);
 			tmp->meshPointer->Meshes_Vec.push_back(NewMesh);
@@ -345,7 +331,29 @@ bool ModuleAssets::LoadMesh(const char* path) {
 				if (tmp->meshPointer->Meshes_Vec[i]->medZ > tmp->zPos)
 					tmp->zPos = tmp->meshPointer->Meshes_Vec[i]->medZ;
 			}
+		
+			if (Scene->HasMaterials()) {
+
+				aiString Texture_path;
+
+				aiMaterial* mat = Scene->mMaterials[0];
+				mat->GetTexture(aiTextureType_DIFFUSE,0,&Texture_path);
+
+				//Todo
+				std::string filename = path;
+				std::size_t found = filename.find_last_of("/\\");
+				filename = filename.substr(0, found+1);
+				filename.append(Texture_path.C_Str());
+
+
+				tmp->CreateComponent(tmp, MATERIAL, true);
+				tmp->materialPointer->CreateMaterial(filename);
+
+			}
+		
 		}
+
+
 	}
 	else
 	{
