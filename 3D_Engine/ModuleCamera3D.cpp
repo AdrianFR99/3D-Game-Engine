@@ -82,10 +82,6 @@ update_status ModuleCamera3D::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		cam_speed = camera_speed * 2 * dt;
 
-	/*if(App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) newPos.y += speed;
-	if(App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) newPos.y -= speed;
-*/
-
 	// Mouse motion ----------------
 
 	// while Right click freely look arrpund and be able to move with wasd keys

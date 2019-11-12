@@ -14,6 +14,7 @@ class Component;
 class ComponentTransform;
 class ComponentMesh;
 class ComponentMaterial;
+class ComponentCamera;
 
 #include<vector>
 
@@ -65,6 +66,8 @@ public:
 	ComponentTransform* transformPointer = nullptr;
 	ComponentMesh* meshPointer = nullptr;
 	ComponentMaterial* materialPointer = nullptr;
+	ComponentCamera*CameraPointer = nullptr;
+
 
 	//BoundingBox GameObjext
 	AABB*obbGameObject;

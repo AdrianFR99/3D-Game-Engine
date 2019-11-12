@@ -1,9 +1,28 @@
 #ifndef __MODULECAMERA3D_H__
+#ifndef __CAMERA3D_H__
+
 #define __MODULECAMERA3D_H__
+#define __CAMERA3D_H__
 
 #include "Module.h"
 #include "Globals.h"
 #include "glmath.h"
+
+
+
+class Camera3D {
+
+public:
+
+
+
+
+
+private:
+
+
+};
+
 
 class ModuleCamera3D : public Module
 {
@@ -45,4 +64,5 @@ private:
 	mat4x4 ViewMatrix, ViewMatrixInverse;
 };
 
-#endif
+#endif//CAMERA3D
+#endif//MODULECAMERA3D

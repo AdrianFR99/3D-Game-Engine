@@ -10,7 +10,8 @@ enum CompType
 	TRANSFORM=0,
 	MESH,
 	MATERIAL,
-	LIGHT
+	LIGHT,
+	CAMERA
 };
 
 

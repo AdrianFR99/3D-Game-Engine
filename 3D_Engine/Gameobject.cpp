@@ -3,6 +3,7 @@
 #include "ComponentMaterial.h"
 #include "ComponentTransform.h"
 #include "ComponentMesh.h"
+#include "ComponentCamera.h"
 
 #include "glew/include/glew.h"
 
@@ -120,6 +121,15 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 			temp = materialPointer;
 			counter++;
 
+
+		case CAMERA:
+
+			temp = new ComponentCamera(this,CAMERA);
+			CameraPointer = (ComponentCamera*)temp;
+			temp = CameraPointer;
+			counter++;
+
+			break;
 
 		break;
 
