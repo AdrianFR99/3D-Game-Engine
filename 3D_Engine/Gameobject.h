@@ -52,9 +52,9 @@ public:
 	std::vector<Component*> ComponentList;
 
 	//list of child
-	/*std::vector<Gameobjects*> ChildGameobjects;
+	/*std::vector<Gameobjects*> ChildGameobjects;*/
 
-	Gameobjects* Father;*/
+	Gameobject* Father;
 
 	ComponentTransform* transformPointer = nullptr;
 	ComponentMesh* meshPointer = nullptr;

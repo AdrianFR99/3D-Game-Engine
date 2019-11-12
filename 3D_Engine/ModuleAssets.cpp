@@ -295,10 +295,9 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 	if (Scene != nullptr && Scene->HasMeshes())
 	{
-		
+		Gameobject* father;
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
 		{
-
 			Gameobject* tmp = App->Gameobjects->CreateGameObject();
 			tmp->CreateComponent(tmp, MESH, true);
 
@@ -312,6 +311,15 @@ bool ModuleAssets::LoadMesh(const char* path) {
 			std::string number = std::to_string(numb);
 			filename.append(number);
 			tmp->nameGameObject = filename;
+			
+			if (i == 0)
+			{
+				father = tmp;
+			} 
+			else if (father!=nullptr)
+			{
+				tmp->Father = father;
+			}
 
 			AssetMesh* NewMesh = new AssetMesh;
 			NewMesh->importMesh(Scene->mMeshes[i]);
