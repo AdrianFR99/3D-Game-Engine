@@ -207,9 +207,12 @@
     </ClCompile>
     <ClCompile Include="WindowHierarchy.cpp">
       <Filter>Source\Modules\UI_Elements</Filter>
-        </ClCompile>
+    </ClCompile>
     <ClCompile Include="ModuleScene.cpp">
       <Filter>Source\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentCamera.cpp">
+      <Filter>Source\Tools\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -542,9 +545,12 @@
     </ClInclude>
     <ClInclude Include="WindowHierarchy.h">
       <Filter>Source\Modules\UI_Elements</Filter>
-      </ClInclude>
+    </ClInclude>
     <ClInclude Include="ModuleScene.h">
       <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Source\Tools\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

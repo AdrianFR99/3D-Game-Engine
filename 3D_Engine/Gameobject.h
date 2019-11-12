@@ -39,10 +39,12 @@ public:
 public:
 	//create component
 	void CreateComponent(Gameobject * object, CompType tocreate, bool active);
+	
+	
 	void SetOBBToNegativeInf();
 	void SetOBBtoGlobalTrans();
-	//parent
-	//chield
+
+	void DrawOBB_Box();
 
 	bool active = false;
 	std::string nameGameObject ;
@@ -65,7 +67,6 @@ public:
 	ComponentMaterial* materialPointer = nullptr;
 
 	//BoundingBox GameObjext
-
 	AABB*obbGameObject;
 
 

@@ -147,7 +147,14 @@ void Gameobject::SetOBBtoGlobalTrans() {
 	
 	for (int i = 0; i < meshPointer->num_meshes; ++i) 
 	obbGameObject[i].TransformAsAABB(transformPointer->transform);
+	//TODO:set transform to trasformglobal.
+
 }
 
+void Gameobject::DrawOBB_Box() {
 
+
+
+
+}
 
