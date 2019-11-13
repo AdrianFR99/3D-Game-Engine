@@ -67,6 +67,8 @@ bool ModuleCamera3D::CleanUp()
 {
 	LOG("Cleaning camera");
 
+	DeleteAllCameras();
+
 	return true;
 }
 
@@ -233,7 +235,30 @@ void ModuleCamera3D::Rotate(const const vec3 &ReferencetoRot)
 }
 
 
+ Camera3D*ModuleCamera3D::CreateNewCamera() {
 
+
+	Camera3D*aux;
+	aux = new Camera3D;
+	VecCameras.push_back(aux);
+	
+	return aux;
+}
+ bool ModuleCamera3D::DeleteCamera(Camera3D*target) {
+
+
+	 RELEASE(target);
+
+	 return true;
+ }
+
+ bool ModuleCamera3D::DeleteAllCameras() {
+
+	 for(int i=0;i<VecCameras.size();++i)
+	 RELEASE_ARRAY(VecCameras[i]);
+
+	 return true;
+ }
 //similar to rotate, to orbit
 void ModuleCamera3D::Orbit(const vec3& orbit_center, const float& motion_x, const float& motion_y)
 {

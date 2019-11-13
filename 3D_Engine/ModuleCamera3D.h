@@ -7,7 +7,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "glmath.h"
-
+//#include "MathGeoLib/include/MathGeoLib.h"
 
 
 class Camera3D {
@@ -32,6 +32,7 @@ public:
 
 	bool Start();
 	update_status Update(float dt);
+
 	bool CleanUp();
 	void Load(nlohmann::json& file);
 	void Save(nlohmann::json& file);
@@ -41,6 +42,12 @@ public:
 	void Rotate(const const vec3 &Reference);
 	
 	float* GetViewMatrix();
+
+	//Camera creatiom Handlers
+
+	 Camera3D*CreateNewCamera();
+	 bool DeleteCamera(Camera3D*target);
+	 bool DeleteAllCameras();
 
 	// camera movement
 	void Orbit(const vec3 & rotate_center, const float & motion_x, const float & motion_y);
@@ -61,6 +68,12 @@ public:
 	float camera_speed = 0.0f;
 
 private:
+
+	Camera3D*CurrentCam=nullptr;
+	Camera3D*EditorCam=nullptr;
+
+	std::vector<Camera3D*>VecCameras;
+
 	mat4x4 ViewMatrix, ViewMatrixInverse;
 };
 
