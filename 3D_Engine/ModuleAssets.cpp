@@ -364,7 +364,12 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 			}
 
-			if(i != 0)
+			if (i==0)
+			{
+				Gameobject* scene = App->SceneEngine->GetSceneGameObjcet();
+				scene->GameObject_Child_Vec.push_back(tmp);
+			}
+			else 
 			{
 				father->GameObject_Child_Vec.push_back(tmp);
 			}

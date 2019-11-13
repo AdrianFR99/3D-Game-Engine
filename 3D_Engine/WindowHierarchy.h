@@ -23,7 +23,7 @@ public:
 public:
 
 	bool Display() override;
-	void Hierarchy_Window();
+	void Hierarchy_Window(Gameobject* todisplay, int& node );
 	Gameobject* getActiveGameobject();
 
 	void CleanActiveGameobject();
