@@ -17,6 +17,13 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 
 	Position = vec3(0.0f, 5.0f, 10.0f);
 	Reference = vec3(0.0f, 0.0f, 0.0f);
+
+	
+
+	EditorCam =CreateNewCamera();
+	CurrentCam = EditorCam;
+
+
 }
 
 ModuleCamera3D::~ModuleCamera3D()
@@ -92,12 +99,16 @@ update_status ModuleCamera3D::Update(float dt)
 	{
 
 		// WASP movement
-			if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) newPos -= Z * cam_speed;
-			if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) newPos += Z * cam_speed;
-			if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) newPos -= X * cam_speed;
-			if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) newPos += X * cam_speed;
+		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+			EditorCam->MoveFront(camera_speed);
+		if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+				EditorCam->MoveBack(camera_speed);
+		if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			EditorCam->MoveLeft(camera_speed);
+		if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) 
+			EditorCam->MoveRight(camera_speed);
 
-			Position += newPos;
+			
 			Reference += newPos;
 		// end of wasp move
 
