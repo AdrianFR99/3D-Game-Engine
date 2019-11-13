@@ -60,6 +60,8 @@ public:
 	ComponentMesh* meshPointer = nullptr;
 	ComponentMaterial* materialPointer = nullptr;
 
+	std::vector<Gameobject*> GameObject_Child_Vec;
+
 };
 
 

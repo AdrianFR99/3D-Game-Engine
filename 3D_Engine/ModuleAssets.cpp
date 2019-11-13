@@ -9,7 +9,8 @@
 #include "ComponentTransform.h"
 #include "ModuleTexture.h"
 #include "ModuleEngineUI.h"
-#include"WindowHierarchy.h"
+#include "WindowHierarchy.h"
+#include "ModuleScene.h"
 
 #include "imgui_defines.h"
 
@@ -22,6 +23,8 @@
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
+
+
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
 
@@ -239,10 +242,11 @@ bool ModuleAssets::LoadFiles(const char* path) {
 	std::string path_Aux = path;
 
 	if (path_Aux.find(".fbx") != std::string::npos || path_Aux.find(".FBX") != std::string::npos) {
-		App->Gameobjects->CleanUp();
-		App->UI_Layer->HierarchyPanel->CleanActiveGameobject();
+		/*App->Gameobjects->CleanUp();
+		App->UI_Layer->HierarchyPanel->CleanActiveGameobject();*/
 		LoadMesh(path);
 	}
+
 	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos) {
 
 		//TODO: With inspector
@@ -315,6 +319,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 			if (i == 0)
 			{
 				father = tmp;
+				tmp->Father = App->SceneEngine->GetSceneGameObjcet();
 			} 
 			else if (father!=nullptr)
 			{
@@ -357,6 +362,11 @@ bool ModuleAssets::LoadMesh(const char* path) {
 				tmp->CreateComponent(tmp, MATERIAL, true);
 				tmp->materialPointer->CreateMaterial(filename);
 
+			}
+
+			if(i != 0)
+			{
+				father->GameObject_Child_Vec.push_back(tmp);
 			}
 		
 		}

@@ -25,12 +25,14 @@ public:
 	bool CleanUp();
 	
 	Gameobject* CreateGameObject();
+	Gameobject* CreateFatherGameObject();
 
 	bool LoadFiles(const char* path);
 
 	int id = 0;
 
 	std::vector<Gameobject*> GameobjectList;
+
 
 	
 };

@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ModuleScene.h"
 #include "ModuleAssets.h"
+#include "ModuleGameObject.h"
 
 #include "mmgr/mmgr.h"
 
@@ -17,11 +18,12 @@ ModuleScene::~ModuleScene()
 bool ModuleScene::Init() {
 
 	//CreatePrimitive();
-
+	scene = App->Gameobjects->CreateFatherGameObject();
 
 
 	return true;
 }
+
 bool ModuleScene::Start() {
 
 //primitves must Load AFTER FBX
@@ -54,4 +56,9 @@ update_status ModuleScene::PostUpdate(float dt) {
 
 
 	return UPDATE_CONTINUE;
+}
+
+Gameobject * ModuleScene::GetSceneGameObjcet()
+{
+	return scene;
 }

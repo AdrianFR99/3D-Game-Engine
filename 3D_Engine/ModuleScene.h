@@ -18,8 +18,11 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
+	Gameobject* GetSceneGameObjcet();
 
 
+public:
+	Gameobject* scene;
 
 };
 

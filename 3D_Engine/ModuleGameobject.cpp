@@ -75,6 +75,23 @@ Gameobject * ModuleGameobject::CreateGameObject()
 	return creation;
 }
 
+Gameobject * ModuleGameobject::CreateFatherGameObject()
+{
+	//create the game object
+	Gameobject* creation = new Gameobject(id);
+	std::string name;
+	name = "scene";
+	creation->nameGameObject = name;
+
+	id = id++;
+
+	//get it inside of the list
+	GameobjectList.push_back(creation);
+
+
+	return creation;
+}
+
 bool ModuleGameobject::LoadFiles(const char* path) {
 
 
