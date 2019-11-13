@@ -239,7 +239,7 @@ void ModuleCamera3D::Rotate(const const vec3 &ReferencetoRot)
  Camera3D*ModuleCamera3D::CreateNewCamera() {
 
 
-	Camera3D*aux;
+	Camera3D*aux=nullptr;
 	aux = new Camera3D;
 	VecCameras.push_back(aux);
 	
@@ -325,28 +325,108 @@ void ModuleCamera3D::RotateYourself(const float& motion_x, const float& motion_y
 //camera3D Class----------------
 
 
-void Camera3D::SetCamPos(const float3&newpos) {
+const void Camera3D::SetCamPos(const float3&newpos) {
 
 
 	CamFrustrum.pos = newpos;
-	CamFrustrum.UpdateMatrices();
+	UpdateMatrices();
 
 }
 
-void Camera3D::SetToFront(const float3&frontDir) {
+const void Camera3D::SetToFront(const float3&frontDir) {
 
 
 
 	CamFrustrum.front = frontDir;
-	CamFrustrum.UpdateMatrices();
+	UpdateMatrices();
 
 
 }
 
-void Camera3D::SetToUp(const float3&upDir) {
+const void Camera3D::SetToUp(const float3&upDir) {
 
 	CamFrustrum.up = upDir;
-	CamFrustrum.UpdateMatrices();
+	UpdateMatrices();
 	
+}
+
+const void Camera3D::MoveUp(const float&Displacement){
+
+
+	if (Displacement > 0) {
+	
+		float3 mov = float3::zero;
+		mov += CamFrustrum.up*Displacement;
+		CamFrustrum.Translate(mov);
+
+	}
+}
+
+const void Camera3D::MoveDown(const float&Displacement) {
+
+
+
+	if (Displacement > 0) {
+
+		float3 mov = float3::zero;
+		mov -= CamFrustrum.up*Displacement;
+		CamFrustrum.Translate(mov);
+
+	}
+}
+const void Camera3D::MoveFront(const float&Displacement) {
+
+
+	if (Displacement > 0) {
+
+		float3 mov = float3::zero;
+		mov += CamFrustrum.front*Displacement;
+		CamFrustrum.Translate(mov);
+
+	}
+
+
+}
+const void Camera3D::MoveBack(const float&Displacement) {
+
+
+	if (Displacement > 0) {
+
+		float3 mov = float3::zero;
+		mov -= CamFrustrum.up*Displacement;
+		CamFrustrum.Translate(mov);
+
+	}
+
+
+}
+const void Camera3D::MoveLeft(const float&Displacement) {
+
+
+	if (Displacement > 0) {
+
+		float3 mov = float3::zero;
+		mov -= CamFrustrum.WorldRight().Normalized()*Displacement;
+		CamFrustrum.Translate(mov);
+
+	}
+}
+const void Camera3D::MoveRight(const float&Displacement) {
+
+
+	if (Displacement > 0) {
+
+		float3 mov = float3::zero;
+		mov += CamFrustrum.WorldRight().Normalized()*Displacement;
+		CamFrustrum.Translate(mov);
+
+	}
+}
+
+void Camera3D::UpdateMatrices() {
+
+	World_Matrix = CamFrustrum.WorldMatrix();
+	View_Matrix = CamFrustrum.ViewMatrix();
+	Projection_Matrix = CamFrustrum.ProjectionMatrix();
 
 }

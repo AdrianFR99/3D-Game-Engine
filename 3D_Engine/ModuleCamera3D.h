@@ -12,23 +12,32 @@
 
 class Camera3D {
 
-
-	Camera3D(){}
 public:
-	//setters
 
-	void SetCamPos(const float3&newpos);
-	void SetToFront(const float3&frontDir);
-	void SetToUp(const float3&upDir);
+	Camera3D() {}
+
+	const void SetCamPos(const float3&newpos);
+	const void SetToFront(const float3&frontDir);
+	const void SetToUp(const float3&upDir);
+	   
+	//movement
+	const void MoveUp(const float&Displacement);
+	const void MoveDown(const float&Displacement);
+	const void MoveFront(const float&Displacement);
+	const void MoveBack(const float&Displacement);
+	const void MoveLeft(const float&Displacement);
+	const void MoveRight(const float&Displacement);
 
 
-	//getters
+	void UpdateMatrices();
 
 private:
 
 	Frustum CamFrustrum;
 
-
+	float3x4 World_Matrix;
+	float3x4 View_Matrix;
+	float4x4 Projection_Matrix;
 
 };
 

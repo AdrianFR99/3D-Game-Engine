@@ -119,13 +119,7 @@ void Frustum::SetWorldMatrix(const float3x4 &worldTransform)
 }
 
 
-void Frustum::UpdateMatrices() {
 
-	World_Matrix = WorldMatrix();
-	View_Matrix = ViewMatrix();
-	Projection_Matrix = ProjectionMatrix();
-		
-}
 
 float3x4 Frustum::WorldMatrix() const
 {
