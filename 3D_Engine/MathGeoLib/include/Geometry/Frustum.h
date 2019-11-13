@@ -94,9 +94,9 @@ public:
 		@see type, pos, front, up, nearPlaneDistance, farPlaneDistance, horizontalFov, verticalFov, orthographicWidth, orthographicHeight. */
 	Frustum() {
 	
-		WorldMatrix = float3x4::nan;
-		ViewMatrix = float4x4::nan;
-		ProjectionMatrix= float4x4::nan;
+		World_Matrix = float3x4::nan;
+		View_Matrix = float3x4::nan;
+		Projection_Matrix= float4x4::nan;
 	
 	
 	}
@@ -199,9 +199,9 @@ public:
 		@param outMax [out] Returns the maximum extent of this object along the projection axis. */
 	void ProjectToAxis(const float3 &direction, float &outMin, float &outMax) const;
 
-	float3x4 WorldMatrix;
-	float4x4 ViewMatrix;
-	float4x4 ProjectionMatrix;
+	float3x4 World_Matrix;
+	float3x4 View_Matrix;
+	float4x4 Projection_Matrix;
 
 
 	/// Sets the pos, front and up members of this frustum from the given world transform.
@@ -210,16 +210,9 @@ public:
 		@param worldTransform An orthonormalized matrix with determinant of +1 (no mirroring). */
 	void SetWorldMatrix(const float3x4 &worldTransform);
 
-
-	///Recalculates the world matrix, used when ever there is a change in the postion or orientation of the fustrum and returnd 
-	///its value
-	//MOD
-	float3x4 UpdateWorldMatrix();
-	
 	///Re calculates the three matrices worlds,view and projection
 	//MOD
-	void UpdateMatrices()const;
-
+	void UpdateMatrices();
 
 	/// Computes the matrix that transforms from the view space to the world (global) space of this Frustum.
 	/** @note The returned matrix is the inverse of the matrix returned by ViewMatrix().

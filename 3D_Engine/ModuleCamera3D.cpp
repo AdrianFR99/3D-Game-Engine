@@ -329,7 +329,24 @@ void Camera3D::SetCamPos(const float3&newpos) {
 
 
 	CamFrustrum.pos = newpos;
-	
+	CamFrustrum.UpdateMatrices();
 
+}
+
+void Camera3D::SetToFront(const float3&frontDir) {
+
+
+
+	CamFrustrum.front = frontDir;
+	CamFrustrum.UpdateMatrices();
+
+
+}
+
+void Camera3D::SetToUp(const float3&upDir) {
+
+	CamFrustrum.up = upDir;
+	CamFrustrum.UpdateMatrices();
+	
 
 }
