@@ -6,6 +6,7 @@
 #include"WindowHierarchy.h"
 #include "ModuleGameobject.h"
 
+
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	CalculateViewMatrix();
@@ -318,4 +319,17 @@ void ModuleCamera3D::RotateYourself(const float& motion_x, const float& motion_y
 	}
 
 	Position = Reference + Z * length(Position);
+}
+
+
+//camera3D Class----------------
+
+
+void Camera3D::SetCamPos(const float3&newpos) {
+
+
+	CamFrustrum.pos = newpos;
+	
+
+
 }

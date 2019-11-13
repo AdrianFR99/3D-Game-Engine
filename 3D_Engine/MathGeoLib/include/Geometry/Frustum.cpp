@@ -118,6 +118,34 @@ void Frustum::SetWorldMatrix(const float3x4 &worldTransform)
 	assume(EqualAbs(worldTransform.Determinant(), 1.f)); // The matrix cannot contain mirroring.
 }
 
+float3x4 Frustum::UpdateWorldMatrix() const{
+
+
+	//assume(pos.IsFinite());
+	//assume(up.IsNormalized());
+	//assume(front.IsNormalized());
+	//assume(up.IsPerpendicular(front));
+
+	float3x4 m;
+	m.SetCol(0, front.Cross(up).Normalized());//right-handed//ekse up.Cross(front)
+	m.SetCol(1, up);
+	m.SetCol(2, -front);//right-handed//else front
+	m.SetCol(3, pos);
+	assume(!m.HasNegativeScale());
+	return m;
+
+	
+}
+
+void Frustum::UpdateMatrices() {
+
+	worldMatrix = UpdateWorldMatrix();
+	float3x4 viewMatrix = worldMatrix;
+	viewMatrix.InverseOrthonormal();
+	viewProjMatrix = projectionMatrix * viewMatrix;
+
+}
+
 float3x4 Frustum::WorldMatrix() const
 {
 	assume(up.IsNormalized());

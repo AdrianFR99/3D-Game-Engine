@@ -92,7 +92,14 @@ public:
 		verticalFov/orthographicHeight are all undefined after creating a new Frustum using this
 		default constructor. Remember to assign to them before use. [opaque-qtscript] @todo remove the opaque-qtscript attribute.
 		@see type, pos, front, up, nearPlaneDistance, farPlaneDistance, horizontalFov, verticalFov, orthographicWidth, orthographicHeight. */
-	Frustum() {}
+	Frustum() {
+	
+		WorldMatrix = float3x4::nan;
+		ViewMatrix = float4x4::nan;
+		ProjectionMatrix= float4x4::nan;
+	
+	
+	}
 
 	int NumEdges() const { return 12; }
 
@@ -192,11 +199,27 @@ public:
 		@param outMax [out] Returns the maximum extent of this object along the projection axis. */
 	void ProjectToAxis(const float3 &direction, float &outMin, float &outMax) const;
 
+	float3x4 WorldMatrix;
+	float4x4 ViewMatrix;
+	float4x4 ProjectionMatrix;
+
+
 	/// Sets the pos, front and up members of this frustum from the given world transform.
 	/** This function sets the 'front' parameter of this Frustum to look towards the -Z axis of the given matrix,
 		and the 'up' parameter of this Frustum to point towards the +Y axis of the given matrix.
 		@param worldTransform An orthonormalized matrix with determinant of +1 (no mirroring). */
 	void SetWorldMatrix(const float3x4 &worldTransform);
+
+
+	///Recalculates the world matrix, used when ever there is a change in the postion or orientation of the fustrum and returnd 
+	///its value
+	//MOD
+	float3x4 UpdateWorldMatrix();
+	
+	///Re calculates the three matrices worlds,view and projection
+	//MOD
+	void UpdateMatrices()const;
+
 
 	/// Computes the matrix that transforms from the view space to the world (global) space of this Frustum.
 	/** @note The returned matrix is the inverse of the matrix returned by ViewMatrix().

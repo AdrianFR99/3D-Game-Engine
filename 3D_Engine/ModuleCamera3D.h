@@ -7,18 +7,27 @@
 #include "Module.h"
 #include "Globals.h"
 #include "glmath.h"
-//#include "MathGeoLib/include/MathGeoLib.h"
-
+#include "MathGeoLib/include/MathGeoLib.h"
+#include "MathGeoLib/include/MathBuildConfig.h"
 
 class Camera3D {
 
+
+	Camera3D(){}
 public:
+	//setters
+
+	void SetCamPos(const float3&newpos);
+	void SetToFront(const float3&frontDir);
+	void SetToUp(const float3&upDir);
 
 
-
-
+	//getters
 
 private:
+
+	Frustum CamFrustrum;
+
 
 
 };
