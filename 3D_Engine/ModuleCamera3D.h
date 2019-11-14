@@ -34,7 +34,11 @@ public:
 	void RotateYourself(const float& motion_x, const float& motion_y);
 
 
-	//Frustum planes
+	//Getters
+	const float GetNearPlane()const;
+	const float GetFarPlane()const;
+
+	//Setters Frustum planes
 	void SetNearPlane_Dist(const float&Distance);
 	void SetFarPlane_Dist(const float&Distance);
 

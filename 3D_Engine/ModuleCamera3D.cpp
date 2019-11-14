@@ -436,18 +436,30 @@ const void Camera3D::MoveRight(const float&Displacement) {
 	}
 }
 
+
+const float Camera3D::GetNearPlane()const {
+
+	return CamFrustum.nearPlaneDistance;
+
+}
+const float Camera3D::GetFarPlane()const {
+
+	return CamFrustum.farPlaneDistance;
+
+}
+
+
 void Camera3D::SetFarPlane_Dist(const float&Distance) {
 
-	CamFrustum.NearPlane = CamFrustum.nearPlaneDistance;
-	CamFrustum.FarPlane = Distance;
-	
+	CamFrustum.nearPlaneDistance = CamFrustum.nearPlaneDistance;
+	CamFrustum.farPlaneDistance = Distance;
 	UpdateProjectionMatrices();
 }
 
-void Camera3D::SetFarPlane_Dist(const float&Distance) {
+void Camera3D::SetNearPlane_Dist(const float&Distance) {
 
-	CamFrustum.NearPlane = Distance;
-	CamFrustum.FarPlane =CamFrustum.farPlaneDistance;
+	CamFrustum.nearPlaneDistance = Distance;
+	CamFrustum.farPlaneDistance =CamFrustum.farPlaneDistance;
 	UpdateProjectionMatrices();
 }
 
