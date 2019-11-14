@@ -201,12 +201,7 @@ void ModuleCamera3D::LookAt( const vec3 &Spot)
 
 
 // -----------------------------------------------------------------
-float* ModuleCamera3D::GetViewMatrix()
-{
-	return &ViewMatrix;
-}
 
-// -----------------------------------------------------------------
 void ModuleCamera3D::CalculateViewMatrix()
 {
 	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f,
@@ -436,17 +431,16 @@ const void Camera3D::MoveRight(const float&Displacement) {
 	}
 }
 
+const Frustum Camera3D::GetFrustum()const { return CamFrustum; }
 
-const float Camera3D::GetNearPlane()const {
+const float Camera3D::GetNearPlane()const {return CamFrustum.nearPlaneDistance;}
+const float Camera3D::GetFarPlane()const {return CamFrustum.farPlaneDistance;}
 
-	return CamFrustum.nearPlaneDistance;
+const float3x4 Camera3D::GetWorldMatrix()const { return World_Matrix; }
+const float3x4	Camera3D::GetViewMatrix() const { return View_Matrix; }
+const float4x4	Camera3D::GetProjectionMatrix() const { return Projection_Matrix; }
+const float4x4	Camera3D::GetViewProjectedMatrix() const { return ViewProjected_Matrix; }
 
-}
-const float Camera3D::GetFarPlane()const {
-
-	return CamFrustum.farPlaneDistance;
-
-}
 
 
 void Camera3D::SetFarPlane_Dist(const float&Distance) {

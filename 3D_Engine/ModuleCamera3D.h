@@ -35,6 +35,13 @@ public:
 
 
 	//Getters
+	const Frustum GetFrustum()const;
+
+	const float3x4 GetWorldMatrix()const;
+	const float3x4	GetViewMatrix() const ;
+	const float4x4	GetProjectionMatrix() const ;
+	const float4x4	GetViewProjectedMatrix() const ;
+
 	const float GetNearPlane()const;
 	const float GetFarPlane()const;
 
@@ -72,8 +79,6 @@ public:
 	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = false);
 	void LookAt(const vec3 &Spot);
 	
-	float* GetViewMatrix();
-
 	//Camera creatiom Handlers
 
 	 Camera3D*CreateNewCamera();
