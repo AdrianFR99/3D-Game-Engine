@@ -27,7 +27,7 @@ public:
 	void Hierarchy_Window();
 	void RecursiveDraw(Gameobject* todisplay);
 	Gameobject* getActiveGameobject();
-
+	void DisplayItemWindow();
 	void CleanActiveGameobject();
 private:
 

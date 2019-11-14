@@ -20,7 +20,7 @@ Gameobject::~Gameobject()
 
 void Gameobject::Update()
 {
-	//nothing
+	
 }
 
 

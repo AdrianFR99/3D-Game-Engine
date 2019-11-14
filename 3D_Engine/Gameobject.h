@@ -62,6 +62,8 @@ public:
 
 	std::vector<Gameobject*> GameObject_Child_Vec;
 
+	bool toDelete = false;
+
 };
 
 

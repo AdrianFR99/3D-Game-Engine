@@ -41,14 +41,7 @@ void WindowHierarchy::Hierarchy_Window() {
 		ImGui::End();
 	}
 	 
-	//Delete
 	
-	if (to_destroy)
-	{
-		/*App->scene_manager->DestroyGameObject(to_destroy);
-		to_destroy = nullptr;
-		CleanActiveGameobject();*/
-	}
 }
 
 void WindowHierarchy::RecursiveDraw(Gameobject * ToDisplay)
@@ -68,7 +61,17 @@ void WindowHierarchy::RecursiveDraw(Gameobject * ToDisplay)
 
 		//  If clicked
 		if (ImGui::IsItemClicked())
+		{
 			activeOBJ=ToDisplay;
+
+		}
+		/*else if (ImGui::IsMouseClicked(1))
+		{
+			activeOBJ = ToDisplay;
+			DisplayItemWindow();
+		}*/
+			
+
 
 		
 		// Our buttons are both drag sources and drag targets here!
@@ -91,22 +94,21 @@ void WindowHierarchy::RecursiveDraw(Gameobject * ToDisplay)
 		}
 
 		//  Set Game Object to be destroyed 
-		if (ImGui::IsWindowFocused() && ToDisplay == activeOBJ && App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN)
+		if ( ToDisplay == activeOBJ && App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN)
 		{
-		
-			to_destroy = ToDisplay;
+			ToDisplay->toDelete = true;
 		}
 
 		//  Display children  
 
-			// rcursive call
-			if (ToDisplay->GameObject_Child_Vec.size() > 0)
+		// recursive call
+		if (ToDisplay->GameObject_Child_Vec.size() > 0)
+		{
+			for (std::vector<Gameobject*>::iterator it = ToDisplay->GameObject_Child_Vec.begin(); it != ToDisplay->GameObject_Child_Vec.end(); ++it)
 			{
-				for (std::vector<Gameobject*>::iterator it = ToDisplay->GameObject_Child_Vec.begin(); it != ToDisplay->GameObject_Child_Vec.end(); ++it)
-				{
-						RecursiveDraw(*it);
-				}
+				RecursiveDraw(*it);
 			}
+		}
 
 				ImGui::TreePop();
 	}
@@ -116,6 +118,23 @@ void WindowHierarchy::RecursiveDraw(Gameobject * ToDisplay)
 Gameobject* WindowHierarchy::getActiveGameobject()
 {
 	return activeOBJ;
+}
+
+void WindowHierarchy::DisplayItemWindow()
+{
+	
+	ImGui::OpenPopup("Hierarchy Tools");
+	if (ImGui::BeginPopup("Hierarchy Tools"))
+	{
+		if (ImGui::MenuItem("Delete"))
+		{
+			if (activeOBJ!=nullptr)
+				App->Gameobjects->SetToDestroy(activeOBJ);
+			
+		}
+
+		ImGui::EndPopup();
+	}
 }
 
 void WindowHierarchy::CleanActiveGameobject()

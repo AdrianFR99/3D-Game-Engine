@@ -27,6 +27,17 @@ bool ModuleGameobject::Start() {
 	return true;
 }
 
+update_status ModuleGameobject::Update(float dt) {
+
+	for (int i = 0; i < GameobjectList.size(); ++i) {
+		if (GameobjectList[i]->toDelete)
+			App->Gameobjects->SetToDestroy(GameobjectList[i]);
+	}
+
+
+	return UPDATE_CONTINUE;
+}
+
 
 void ModuleGameobject::Draw() {
 
@@ -87,6 +98,57 @@ void ModuleGameobject::ChangeParenting(Gameobject * to_change, Gameobject * new_
 
 	}
 	
+}
+
+void ModuleGameobject::SetToDestroy(Gameobject * object)
+{
+	//unparent 
+
+	bool ret = false;
+	if (object->Father != nullptr)
+	{
+		Gameobject* tmp = object->Father;
+
+		for (int i = 0; i < tmp->GameObject_Child_Vec.size(); ++i)
+		{
+			if (tmp->GameObject_Child_Vec[i] == object)
+			{
+				tmp->GameObject_Child_Vec.erase(tmp->GameObject_Child_Vec.begin() + i);
+				ret = true;
+				break;
+			}
+		}
+
+	}
+
+
+	//delete childs and information
+	RecursiveDestruction(object);
+
+
+}
+
+void ModuleGameobject::RecursiveDestruction(Gameobject * object)
+{
+	//recursivele call each child to delete all members
+	if (object != nullptr)
+	{
+		Gameobject* tmp = object;
+
+		if (tmp->GameObject_Child_Vec.size() > 0)
+		{
+
+			for (std::vector<Gameobject*>::iterator it = object->GameObject_Child_Vec.begin(); it != object->GameObject_Child_Vec.end(); ++it)
+			{
+				RecursiveDestruction(*it);
+			}
+
+
+		}
+		object->GameObject_Child_Vec.clear();
+	}
+
+	object->CleanUp();
 }
 
 Gameobject * ModuleGameobject::CreateGameObject()

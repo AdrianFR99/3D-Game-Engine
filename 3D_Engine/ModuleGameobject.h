@@ -21,11 +21,13 @@ public:
 	
 	bool Init();
 	bool Start();
+	update_status Update(float dt);
 	void Draw();
 	bool CleanUp();
 	
 	void ChangeParenting(Gameobject* to_change, Gameobject* new_father);
-
+	void SetToDestroy(Gameobject* object);
+	void RecursiveDestruction(Gameobject* object);
 	Gameobject* CreateGameObject();
 	Gameobject* CreateFatherGameObject();
 
