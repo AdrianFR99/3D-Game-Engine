@@ -20,8 +20,8 @@ bool WindowHierarchy::Display() {
 	if (active)
 		Hierarchy_Window();
 
-	
-	
+	//Drop of Drag and drop
+	DragDrop();
 
 
 	return true;
@@ -68,27 +68,30 @@ void WindowHierarchy::RecursiveDraw(Gameobject * ToDisplay)
 	
 			
 
-
-		
 		//drag and drop
 		if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
 		{
-			ImGui::SetDragDropPayload("toDisplay", ToDisplay, sizeof(Gameobject)); 
+			ImGui::SetDragDropPayload("toDisplay", ToDisplay, sizeof(Gameobject));
 			Pulled = ToDisplay;
 			ImGui::EndDragDropSource();
 		}
 
 		if (ImGui::BeginDragDropTarget())
 		{
-			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("toDisplay"))
+			if (Pulled != ToDisplay->Father)
 			{
-				App->Gameobjects->ChangeParenting(Pulled, ToDisplay);
-				Pulled=nullptr;
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("toDisplay"))
+				{
+					Droped = ToDisplay;
+						/*App->Gameobjects->ChangeParenting(Pulled, ToDisplay);*/
+					Drag = true;
+				}
+
+				ImGui::EndDragDropTarget();
+
 			}
 
-			ImGui::EndDragDropTarget();
 		}
-
 
 
 
@@ -109,6 +112,8 @@ void WindowHierarchy::RecursiveDraw(Gameobject * ToDisplay)
 			}
 		}
 
+
+		
 				ImGui::TreePop();
 	}
 
@@ -139,4 +144,18 @@ void WindowHierarchy::DisplayItemWindow()
 void WindowHierarchy::CleanActiveGameobject()
 {
 	activeOBJ = nullptr;
+}
+
+void WindowHierarchy::DragDrop()
+{
+	if (Drag)
+	{
+		
+		App->Gameobjects->ChangeParenting(Pulled, Droped);
+
+		Drag = false;
+		Pulled = nullptr;
+		Droped = nullptr;
+	}
+	
 }
