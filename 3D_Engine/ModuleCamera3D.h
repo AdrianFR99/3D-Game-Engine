@@ -13,12 +13,13 @@
 class Camera3D {
 
 public:
+	ALIGN_CLASS_TO_16
 
-	Camera3D() {}
+	Camera3D();
 
 	const void SetCamPos(const float3&newpos);
-	const void SetToFront(const float3&frontDir);
-	const void SetToUp(const float3&upDir);
+	const void SetToFront(const float3&frontDir);//z
+	const void SetToUp(const float3&upDir);//y
 	   
 	//movement
 	const void MoveUp(const float&Displacement);
@@ -27,18 +28,28 @@ public:
 	const void MoveBack(const float&Displacement);
 	const void MoveLeft(const float&Displacement);
 	const void MoveRight(const float&Displacement);
+	//Rotation
+//	void Rotate(const float&rotationX, const float&rotationY);
+	void Orbit(const vec3 & rotate_center, const float & motion_x, const float & motion_y);
+	void RotateYourself(const float& motion_x, const float& motion_y);
 
 
+	//Frustum planes
+	void SetNearPlane_Dist(const float&Distance);
+	void SetFarPlane_Dist(const float&Distance);
+
+	//Matrices Handlers
 	void UpdateMatrices();
+	void UpdateProjectionMatrices();
 
 private:
 
-	Frustum CamFrustrum;
+	Frustum CamFrustum;
 
 	float3x4 World_Matrix;
 	float3x4 View_Matrix;
 	float4x4 Projection_Matrix;
-
+	float4x4 ViewProjected_Matrix;
 };
 
 
@@ -56,8 +67,6 @@ public:
 	void Save(nlohmann::json& file);
 	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = false);
 	void LookAt(const vec3 &Spot);
-	void Move(const vec3 &Movement);
-	void Rotate(const const vec3 &Reference);
 	
 	float* GetViewMatrix();
 
@@ -68,8 +77,7 @@ public:
 	 bool DeleteAllCameras();
 
 	// camera movement
-	void Orbit(const vec3 & rotate_center, const float & motion_x, const float & motion_y);
-	void RotateYourself(const float& motion_x, const float& motion_y);
+	
 
 private:
 

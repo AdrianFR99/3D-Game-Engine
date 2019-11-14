@@ -9,17 +9,7 @@
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	CalculateViewMatrix();
-
-	X = vec3(1.0f, 0.0f, 0.0f);
-	Y = vec3(0.0f, 1.0f, 0.0f);
-	Z = vec3(0.0f, 0.0f, 1.0f);
-
-	Position = vec3(0.0f, 5.0f, 10.0f);
-	Reference = vec3(0.0f, 0.0f, 0.0f);
-
 	
-
 	EditorCam =CreateNewCamera();
 	CurrentCam = EditorCam;
 
@@ -35,9 +25,7 @@ bool ModuleCamera3D::Start()
 	LOG("Setting up the camera");
 	bool ret = true;
 	
-	Move(vec3(10.0f, 0.0f, 0.0f));
-	LookAt(vec3(0.0f, 0.0f, 0.0f));
-	App->GearConsole.AddLog(" Set 3D camera in position");
+	/*App->GearConsole.AddLog(" Set 3D camera in position");*/
 
 	return ret;
 }
@@ -113,8 +101,7 @@ update_status ModuleCamera3D::Update(float dt)
 		// end of wasp move
 
 		// mouse position and free look
-
-		RotateYourself(App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
+		//RotateYourself(App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
 
 		
 		float Sensitivity = 0.25f;
@@ -126,13 +113,17 @@ update_status ModuleCamera3D::Update(float dt)
 
 	//mouse wheel
 
-	newPos -= Z * App->input->GetMouseZ()*wheel_speed;
-	Position += newPos;
+	if(App->input->GetMouseZ()==1)
+		EditorCam->MoveFront(camera_speed);
+	else if(App->input->GetMouseZ() == -1)
+		EditorCam->MoveBack(camera_speed);
+	
+
 
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
 
 		//rotate around the object
-		Orbit(vec3(0, 0, 0), App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
+		//Orbit(vec3(0, 0, 0), App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
 
 		
 	}
@@ -208,15 +199,6 @@ void ModuleCamera3D::LookAt( const vec3 &Spot)
 }
 
 
-// -----------------------------------------------------------------
-void ModuleCamera3D::Move(const vec3 &Movement)
-{
-
-	Position += Movement;
-	Reference += Movement;
-
-	CalculateViewMatrix();
-}
 
 // -----------------------------------------------------------------
 float* ModuleCamera3D::GetViewMatrix()
@@ -234,17 +216,28 @@ void ModuleCamera3D::CalculateViewMatrix()
 	ViewMatrixInverse = inverse(ViewMatrix);
 }
 
-// Called for rotating in a point
-void ModuleCamera3D::Rotate(const const vec3 &ReferencetoRot)
-{
-	Reference = ReferencetoRot;
-
-	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-	Y = cross(Z, X);
-
-	CalculateViewMatrix();
-
-}
+//// Called for rotating in a point
+//void Camera3D::Rotate(const float&rotationX,const float&rotationY)
+//{
+//	/*Reference = ReferencetoRot;*/
+//
+//	/*X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
+//	Y = cross(Z, X);
+//
+//	CalculateViewMatrix();*/
+//
+//	//Create quaternions with its determinant rotation
+//	Quat RotX=Quat::RotateY(rotationX);//Quat::RotateAxisAngle(Frustum.Up,rotationX);
+//	Quat RotY = Quat::RotateZ(rotationY);//Quat::RotateAxisAngle(frustum.WorldRight(),rotationY);
+//
+//	//Multiply quats w 
+//	//SetToFront(RotX.Mul(CamFrustum.Front()).Normalized());
+//	//SetToFront(RotY.Mul(CamFrustum.Front()).Normalized());//
+//
+//	//SetToUp(RotX.Mul(CamFrustum.Up).Normalized());//
+//	//SetToUp(RotY.Mul(CamFrustum.Up()).Normalized());
+//}
+//
 
 
  Camera3D*ModuleCamera3D::CreateNewCamera() {
@@ -267,79 +260,88 @@ void ModuleCamera3D::Rotate(const const vec3 &ReferencetoRot)
  bool ModuleCamera3D::DeleteAllCameras() {
 
 	 for(int i=0;i<VecCameras.size();++i)
-	 RELEASE_ARRAY(VecCameras[i]);
+	 RELEASE(VecCameras[i]);
 
 	 return true;
  }
-//similar to rotate, to orbit
-void ModuleCamera3D::Orbit(const vec3& orbit_center, const float& motion_x, const float& motion_y)
-{
-	Reference = orbit_center;
-
-	int dx = -motion_x;
-	int dy = -motion_y;
-
-	Position -= Reference;
-
-	if (dx != 0)
-	{
-		float DeltaX = (float)dx;
-
-		// Rotate arround the y axis
-		X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-		Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-		Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-	}
-
-	if (dy != 0)
-	{
-		float DeltaY = (float)dy;
-
-		// Rotate arround the X direction
-		Y = rotate(Y, DeltaY, X);
-		Z = rotate(Z, DeltaY, X);
-	}
-
-	Position = Reference + Z * length(Position);
-}
-
-void ModuleCamera3D::RotateYourself(const float& motion_x, const float& motion_y)
-{
-	Reference = Position;
-
-	int dx = -motion_x;
-	int dy = -motion_y;
-
-	Position -= Reference;
-
-	if (dx != 0)
-	{
-		float DeltaX = (float)dx * mouse_sensitivity;
-
-		X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-		Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-		Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-	}
-
-	if (dy != 0)
-	{
-		float DeltaY = (float)dy * mouse_sensitivity;
-
-		Y = rotate(Y, DeltaY, X);
-		Z = rotate(Z, DeltaY, X);
-	}
-
-	Position = Reference + Z * length(Position);
-}
+////similar to rotate, to orbit
+//void Camera3D::Orbit(const vec3& orbit_center, const float& motion_x, const float& motion_y)
+//{
+//	Reference = orbit_center;
+//
+//	int dx = -motion_x;
+//	int dy = -motion_y;
+//
+//	Position -= Reference;
+//
+//	if (dx != 0)
+//	{
+//		float DeltaX = (float)dx;
+//
+//		// Rotate arround the y axis
+//		X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+//		Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+//		Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+//	}
+//
+//	if (dy != 0)
+//	{
+//		float DeltaY = (float)dy;
+//
+//		// Rotate arround the X direction
+//		Y = rotate(Y, DeltaY, X);
+//		Z = rotate(Z, DeltaY, X);
+//	}
+//
+//	Position = Reference + Z * length(Position);
+//}
+//
+//void Camera3D::RotateYourself(const float& motion_x, const float& motion_y)
+//{
+//	Reference = Position;
+//
+//	int dx = -motion_x;
+//	int dy = -motion_y;
+//
+//	Position -= Reference;
+//
+//	if (dx != 0)
+//	{
+//		float DeltaX = (float)dx * mouse_sensitivity;
+//
+//		X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+//		Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+//		Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
+//	}
+//
+//	if (dy != 0)
+//	{
+//		float DeltaY = (float)dy * mouse_sensitivity;
+//
+//		Y = rotate(Y, DeltaY, X);
+//		Z = rotate(Z, DeltaY, X);
+//	}
+//
+//	Position = Reference + Z * length(Position);
+//}
 
 
 //camera3D Class----------------
 
+Camera3D::Camera3D() {
+
+	SetCamPos(float3(0.f,10.f,-10.f));
+	SetToFront(float3::unitZ);
+	SetToUp(float3::unitY);
+
+
+
+}
 
 const void Camera3D::SetCamPos(const float3&newpos) {
 
 
-	CamFrustrum.pos = newpos;
+	CamFrustum.pos = newpos;
 	UpdateMatrices();
 
 }
@@ -348,7 +350,7 @@ const void Camera3D::SetToFront(const float3&frontDir) {
 
 
 
-	CamFrustrum.front = frontDir;
+	CamFrustum.front = frontDir;
 	UpdateMatrices();
 
 
@@ -356,7 +358,7 @@ const void Camera3D::SetToFront(const float3&frontDir) {
 
 const void Camera3D::SetToUp(const float3&upDir) {
 
-	CamFrustrum.up = upDir;
+	CamFrustum.up = upDir;
 	UpdateMatrices();
 	
 }
@@ -367,8 +369,8 @@ const void Camera3D::MoveUp(const float&Displacement){
 	if (Displacement > 0) {
 	
 		float3 mov = float3::zero;
-		mov += CamFrustrum.up*Displacement;
-		CamFrustrum.Translate(mov);
+		mov += CamFrustum.up*Displacement;
+		CamFrustum.Translate(mov);
 
 	}
 }
@@ -380,8 +382,8 @@ const void Camera3D::MoveDown(const float&Displacement) {
 	if (Displacement > 0) {
 
 		float3 mov = float3::zero;
-		mov -= CamFrustrum.up*Displacement;
-		CamFrustrum.Translate(mov);
+		mov -= CamFrustum.up*Displacement;
+		CamFrustum.Translate(mov);
 
 	}
 }
@@ -391,8 +393,8 @@ const void Camera3D::MoveFront(const float&Displacement) {
 	if (Displacement > 0) {
 
 		float3 mov = float3::zero;
-		mov += CamFrustrum.front*Displacement;
-		CamFrustrum.Translate(mov);
+		mov += CamFrustum.front*Displacement;
+		CamFrustum.Translate(mov);
 
 	}
 
@@ -404,8 +406,8 @@ const void Camera3D::MoveBack(const float&Displacement) {
 	if (Displacement > 0) {
 
 		float3 mov = float3::zero;
-		mov -= CamFrustrum.up*Displacement;
-		CamFrustrum.Translate(mov);
+		mov -= CamFrustum.up*Displacement;
+		CamFrustum.Translate(mov);
 
 	}
 
@@ -417,8 +419,8 @@ const void Camera3D::MoveLeft(const float&Displacement) {
 	if (Displacement > 0) {
 
 		float3 mov = float3::zero;
-		mov -= CamFrustrum.WorldRight().Normalized()*Displacement;
-		CamFrustrum.Translate(mov);
+		mov -= CamFrustum.WorldRight().Normalized()*Displacement;
+		CamFrustum.Translate(mov);
 
 	}
 }
@@ -428,16 +430,39 @@ const void Camera3D::MoveRight(const float&Displacement) {
 	if (Displacement > 0) {
 
 		float3 mov = float3::zero;
-		mov += CamFrustrum.WorldRight().Normalized()*Displacement;
-		CamFrustrum.Translate(mov);
+		mov += CamFrustum.WorldRight().Normalized()*Displacement;
+		CamFrustum.Translate(mov);
 
 	}
 }
 
+void Camera3D::SetFarPlane_Dist(const float&Distance) {
+
+	CamFrustum.NearPlane = CamFrustum.nearPlaneDistance;
+	CamFrustum.FarPlane = Distance;
+	
+	UpdateProjectionMatrices();
+}
+
+void Camera3D::SetFarPlane_Dist(const float&Distance) {
+
+	CamFrustum.NearPlane = Distance;
+	CamFrustum.FarPlane =CamFrustum.farPlaneDistance;
+	UpdateProjectionMatrices();
+}
+
 void Camera3D::UpdateMatrices() {
 
-	World_Matrix = CamFrustrum.WorldMatrix();
-	View_Matrix = CamFrustrum.ViewMatrix();
-	Projection_Matrix = CamFrustrum.ProjectionMatrix();
+	World_Matrix = CamFrustum.WorldMatrix();
+	View_Matrix = CamFrustum.ViewMatrix();
+	Projection_Matrix = CamFrustum.ProjectionMatrix();
+	ViewProjected_Matrix = Projection_Matrix * View_Matrix;
+
+}
+
+void Camera3D::UpdateProjectionMatrices() {
+
+	Projection_Matrix = CamFrustum.ProjectionMatrix();
+	ViewProjected_Matrix= Projection_Matrix * View_Matrix;
 
 }
