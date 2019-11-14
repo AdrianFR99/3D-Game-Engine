@@ -65,16 +65,12 @@ void WindowHierarchy::RecursiveDraw(Gameobject * ToDisplay)
 			activeOBJ=ToDisplay;
 
 		}
-		/*else if (ImGui::IsMouseClicked(1))
-		{
-			activeOBJ = ToDisplay;
-			DisplayItemWindow();
-		}*/
+	
 			
 
 
 		
-		// Our buttons are both drag sources and drag targets here!
+		//drag and drop
 		if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
 		{
 			ImGui::SetDragDropPayload("toDisplay", ToDisplay, sizeof(Gameobject)); 
@@ -84,7 +80,7 @@ void WindowHierarchy::RecursiveDraw(Gameobject * ToDisplay)
 
 		if (ImGui::BeginDragDropTarget())
 		{
-			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("toDispaly"))
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("toDisplay"))
 			{
 				App->Gameobjects->ChangeParenting(Pulled, ToDisplay);
 				Pulled=nullptr;
@@ -93,14 +89,17 @@ void WindowHierarchy::RecursiveDraw(Gameobject * ToDisplay)
 			ImGui::EndDragDropTarget();
 		}
 
+
+
+
+
 		//  Set Game Object to be destroyed 
 		if ( ToDisplay == activeOBJ && App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN)
 		{
 			ToDisplay->toDelete = true;
 		}
 
-		//  Display children  
-
+		// display children  
 		// recursive call
 		if (ToDisplay->GameObject_Child_Vec.size() > 0)
 		{

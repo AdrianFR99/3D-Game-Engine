@@ -75,7 +75,7 @@ bool ModuleGameobject::CleanUp() {
 void ModuleGameobject::ChangeParenting(Gameobject * to_change, Gameobject * new_father)
 {
 
-	//Delete from list of parent and insert in newe parent
+	//Delete from list of parent and insert in new parent
 	bool ret = false;
 	if (to_change->Father != nullptr)
 	{
@@ -95,7 +95,7 @@ void ModuleGameobject::ChangeParenting(Gameobject * to_change, Gameobject * new_
 	if (ret == true && new_father != nullptr)
 	{
 		new_father->GameObject_Child_Vec.push_back(to_change);
-
+		to_change->Father = new_father;
 	}
 	
 }
