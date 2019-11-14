@@ -23,14 +23,23 @@ public:
 public:
 
 	bool Display() override;
-	void Hierarchy_Window(Gameobject* todisplay, int& node );
+	/*void Hierarchy_Window(Gameobject* todisplay, int& node );*/
+	void Hierarchy_Window();
+	void RecursiveDraw(Gameobject* todisplay);
 	Gameobject* getActiveGameobject();
 
 	void CleanActiveGameobject();
 private:
 
 	Gameobject* activeOBJ = nullptr;
-	bool selected = false;
+
+	ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoFocusOnAppearing;
+	ImGuiTreeNodeFlags base_flags = ImGuiTreeNodeFlags_OpenOnArrow;
+
+
+	Gameobject* to_destroy = nullptr;
+
+	Gameobject* Pulled = nullptr;
 };
 
 #endif //__WINDOWHIERARCHY_H__

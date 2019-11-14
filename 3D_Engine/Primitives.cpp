@@ -171,7 +171,7 @@ void Primitives::DrawNormals(float width, float lenght) {
 void Primitives::DefinePrimitive(Primitive_Type type) {
 
 	par_shapes_mesh*Mesh=nullptr;
-	par_shapes_mesh*Aux=nullptr;//used for those primitves which don't contain normals or UVs(platonic solids)
+	par_shapes_mesh*Aux=nullptr;//used for those primitives which don't contain normals or UVs(platonic solids)
 
 	switch(type)
 	{

@@ -24,6 +24,8 @@ public:
 	void Draw();
 	bool CleanUp();
 	
+	void ChangeParenting(Gameobject* to_change, Gameobject* new_father);
+
 	Gameobject* CreateGameObject();
 	Gameobject* CreateFatherGameObject();
 

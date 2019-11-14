@@ -61,12 +61,40 @@ bool ModuleGameobject::CleanUp() {
 	return true;
 }
 
+void ModuleGameobject::ChangeParenting(Gameobject * to_change, Gameobject * new_father)
+{
+
+	//Delete from list of parent and insert in newe parent
+	bool ret = false;
+	if (to_change->Father != nullptr)
+	{
+		Gameobject* tmp = to_change->Father;
+
+		for (int i = 0; i < tmp->GameObject_Child_Vec.size(); ++i)
+		{
+			if (tmp->GameObject_Child_Vec[i] == to_change)
+			{
+				tmp->GameObject_Child_Vec.erase(tmp->GameObject_Child_Vec.begin() + i);
+				ret = true;
+				break;
+			}
+		}
+
+	}
+	if (ret == true && new_father != nullptr)
+	{
+		new_father->GameObject_Child_Vec.push_back(to_change);
+
+	}
+	
+}
+
 Gameobject * ModuleGameobject::CreateGameObject()
 {
 	//create the game object
-	Gameobject* creation = new Gameobject(id);
-	
-	id = id++;
+	uint random = App->GetRandom().Int();
+	Gameobject* creation = new Gameobject(random);
+
 
 	//get it inside of the list
 	GameobjectList.push_back(creation);
@@ -78,12 +106,13 @@ Gameobject * ModuleGameobject::CreateGameObject()
 Gameobject * ModuleGameobject::CreateFatherGameObject()
 {
 	//create the game object
-	Gameobject* creation = new Gameobject(id);
+	uint random = App->GetRandom().Int();
+	Gameobject* creation = new Gameobject(random);
 	std::string name;
 	name = "scene";
 	creation->nameGameObject = name;
 
-	id = id++;
+
 
 	//get it inside of the list
 	GameobjectList.push_back(creation);

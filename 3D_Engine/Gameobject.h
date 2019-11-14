@@ -42,7 +42,7 @@ public:
 
 	bool active = false;
 	std::string nameGameObject ;
-	int ID = 0;
+	uint ID = 0;
 	//camera
 	float CameraDistance = 0.0f;
 	float xPos = 1.0f;

@@ -396,6 +396,9 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 
 	std::string nameid = std::to_string(tmp->ID);
 
+	tmp->Father = App->SceneEngine->GetSceneGameObjcet();
+	Gameobject* scene = App->SceneEngine->GetSceneGameObjcet();
+	scene->GameObject_Child_Vec.push_back(tmp);
 	switch (type)
 	{
 	case Primitive_Type::CUBE:
@@ -452,6 +455,8 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 	//TODO
 	//make switch and pass parameter to function for what to create
 	tmp->meshPointer->Primitives_Vec.push_back(aux);
+
+
 
 	tmp->CameraDistance = aux->faraway;
 
