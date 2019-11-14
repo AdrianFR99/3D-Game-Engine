@@ -36,9 +36,11 @@ public:
 	//create component
 	void CreateComponent(Gameobject * object, CompType tocreate, bool active);
 
-	
+	// Transform operations
+	void UpdateGlobalTransform();
+
 	//parent
-	//chield
+	//children
 
 	bool active = false;
 	std::string nameGameObject ;
@@ -54,7 +56,7 @@ public:
 	//list of child
 	/*std::vector<Gameobjects*> ChildGameobjects;*/
 
-	Gameobject* Father;
+	Gameobject* Father = nullptr;
 
 	ComponentTransform* transformPointer = nullptr;
 	ComponentMesh* meshPointer = nullptr;
@@ -63,7 +65,7 @@ public:
 	std::vector<Gameobject*> GameObject_Child_Vec;
 
 	bool toDelete = false;
-
+	bool UpdateTransform = false;
 };
 
 

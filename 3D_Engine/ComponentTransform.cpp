@@ -19,6 +19,7 @@ ComponentTransform::~ComponentTransform()
 
 void ComponentTransform::Init()
 {
+	
 	global_transform.SetIdentity();
 	local_transform.SetIdentity();
 
@@ -108,6 +109,7 @@ const void ComponentTransform::SetScale(const float3 & pos)
 void ComponentTransform::RecalculateMatrix()
 {
 	local_transform = float4x4::FromTRS(local_position, local_rotation, local_scale);
+	belongsTo->UpdateTransform = true;
 }
 
 

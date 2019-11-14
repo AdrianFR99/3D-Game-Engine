@@ -2,6 +2,7 @@
 #define __COMPONENTTRANSFORM_H__
 
 #include "Component.h"
+#include "Globals.h"
 #include "MathGeoLib\include\MathBuildConfig.h"
 #include "MathGeoLib\include\MathGeoLib.h"
 
@@ -11,6 +12,8 @@ class Gameobject;
 class ComponentTransform : public Component
 {
 public:
+	ALIGN_CLASS_TO_16
+
 	ComponentTransform(Gameobject* owner, CompType newtype);
 	virtual ~ComponentTransform();
 
@@ -40,14 +43,16 @@ public:
 
 
 public:
+	
+
 	float4x4 transform = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	/*float4x4 zero = float4x4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	float4x4 identity = float4x4(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);*/
-private:
 
 	float4x4 local_transform;
 	float4x4 global_transform;
 
+private:
 	float3 local_position;
 	Quat local_rotation;
 	float3 local_scale;

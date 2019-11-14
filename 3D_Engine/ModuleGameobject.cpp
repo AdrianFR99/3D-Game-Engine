@@ -22,9 +22,16 @@ bool ModuleGameobject::Init() {
 
 bool ModuleGameobject::Start() {
 
-	
 
 	return true;
+}
+
+update_status ModuleGameobject::PreUpdate(float dt) {
+
+	//App->SceneEngine->scene->UpdateGlobalTransform();
+
+
+	return UPDATE_CONTINUE;
 }
 
 update_status ModuleGameobject::Update(float dt) {
@@ -32,6 +39,12 @@ update_status ModuleGameobject::Update(float dt) {
 	for (int i = 0; i < GameobjectList.size(); ++i) {
 		if (GameobjectList[i]->toDelete)
 			App->Gameobjects->SetToDestroy(GameobjectList[i]);
+		if (GameobjectList[i]->UpdateTransform)
+		{
+			App->SceneEngine->scene->UpdateGlobalTransform();
+			GameobjectList[i]->UpdateTransform = false;
+		}
+
 	}
 
 
