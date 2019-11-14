@@ -28,6 +28,7 @@ public:
 	float3 const GetPosition() const;
 	float3 const GetRotation() const;
 	float3 const GetScale() const;
+	Quat const GetRotationQuat() const;
 
 	float4x4 const GetGlobalTransform() const;
 
@@ -37,6 +38,7 @@ public:
 	const void SetPosition(const float3 &pos);
 	const void SetRotation(const float3 &pos);
 	const void SetScale(const float3 &pos);
+	const void SetRotationQuat(const Quat & quat);
 
 	//Recaluclate matrix
 	void RecalculateMatrix();
@@ -54,7 +56,8 @@ public:
 
 private:
 	float3 local_position;
-	Quat local_rotation;
+	float3   local_rotation;
+	Quat local_rotation_quat;
 	float3 local_scale;
 
 };
