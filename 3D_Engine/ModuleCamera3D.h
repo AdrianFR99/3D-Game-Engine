@@ -67,6 +67,8 @@ private:
 class ModuleCamera3D : public Module
 {
 public:
+	ALIGN_CLASS_TO_16
+
 	ModuleCamera3D(Application* app, bool start_enabled = true);
 	~ModuleCamera3D();
 
@@ -88,6 +90,9 @@ public:
 	// camera movement
 	
 
+	 const float* GLViewMatrix();
+	 const float* GLProjectionMatrix();
+
 private:
 
 	void CalculateViewMatrix();
@@ -102,13 +107,13 @@ public:
 	float wheel_speed = 0.0f;
 	float camera_speed = 0.0f;
 
+
+	Camera3D*CurrentCam = nullptr;
+	Camera3D*EditorCam = nullptr;
+
 private:
 
-	Camera3D*CurrentCam=nullptr;
-	Camera3D*EditorCam=nullptr;
-
 	std::vector<Camera3D*>VecCameras;
-
 	mat4x4 ViewMatrix, ViewMatrixInverse;
 };
 
