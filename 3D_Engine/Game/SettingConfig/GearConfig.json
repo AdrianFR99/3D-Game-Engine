@@ -6,7 +6,7 @@
       "Uni": "UPC//CITM"
     },
     "Camera": {
-      "Camera_speed": 3.0,
+      "Camera_speed": 20.0,
       "Mouse_sensitivity": 0.25,
       "PremadeDistance": 15.0,
       "Wheel_speed": 5.0

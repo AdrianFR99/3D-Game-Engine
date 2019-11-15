@@ -88,13 +88,13 @@ update_status ModuleCamera3D::Update(float dt)
 
 		// WASP movement
 		if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-			EditorCam->MoveFront(camera_speed);
+			EditorCam->MoveFront(cam_speed);
 		if(App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-				EditorCam->MoveBack(camera_speed);
+				EditorCam->MoveBack(cam_speed);
 		if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-			EditorCam->MoveLeft(camera_speed);
+			EditorCam->MoveLeft(cam_speed);
 		if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) 
-			EditorCam->MoveRight(camera_speed);
+			EditorCam->MoveRight(cam_speed);
 
 			
 			Reference += newPos;
@@ -418,7 +418,7 @@ const void Camera3D::MoveBack(const float&Displacement) {
 	if (Displacement > 0) {
 
 		float3 mov = float3::zero;
-		mov -= CamFrustum.up*Displacement;
+		mov -= CamFrustum.front*Displacement;
 		CamFrustum.Translate(mov);
 
 	}

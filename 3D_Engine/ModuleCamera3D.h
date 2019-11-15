@@ -105,7 +105,7 @@ public:
 
 	float mouse_sensitivity =0.0f;
 	float wheel_speed = 0.0f;
-	float camera_speed = 0.0f;
+	float camera_speed = 10.0f;
 
 
 	Camera3D*CurrentCam = nullptr;
