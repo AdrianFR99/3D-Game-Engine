@@ -24,10 +24,10 @@ void ComponentTransform::Init()
 	global_transform.SetIdentity();
 	local_transform.SetIdentity();
 
-	local_position = float3(0, 0, 0);
-	local_rotation = float3(0, 0, 0);
-	local_rotation_quat = Quat::identity;
-	local_scale = float3(1, 1, 1);
+	ObjectPosition = float3(0, 0, 0);
+	ObjectRotation = float3(0, 0, 0);
+	ObjectQuat = Quat::identity;
+	ObjectScale = float3(1, 1, 1);
 
 	Enable();
 }
@@ -46,10 +46,10 @@ void ComponentTransform::CleanUp()
 	global_transform.SetIdentity();
 	local_transform.SetIdentity();
 
-	local_position = float3(0, 0, 0);
-	local_rotation = float3(0, 0, 0);
-	local_rotation_quat = Quat::identity;
-	local_scale = float3(1, 1, 1);
+	ObjectPosition = float3(0, 0, 0);
+	ObjectRotation = float3(0, 0, 0);
+	ObjectQuat = Quat::identity;
+	ObjectScale = float3(1, 1, 1);
 
 }
 
@@ -70,25 +70,22 @@ float4x4 const ComponentTransform::GetTransform() const
 
 float3 const ComponentTransform::GetPosition() const
 {
-	
-	return local_position;
-;
+	return ObjectPosition;
 }
 
 float3 const ComponentTransform::GetRotation() const
 {
-	return local_rotation;
+	return ObjectRotation;
 }
 
 Quat const ComponentTransform::GetRotationQuat() const
 {
-	return local_rotation_quat;
+	return ObjectQuat;
 }
 
 float3 const ComponentTransform::GetScale() const
 {
-	
-	return local_scale;
+	return ObjectScale;
 }
 
 float4x4 const ComponentTransform::GetGlobalTransform() const
@@ -98,7 +95,7 @@ float4x4 const ComponentTransform::GetGlobalTransform() const
 
 const void ComponentTransform::SetPosition(const float3 & pos)
 {
-	local_position = pos;
+	ObjectPosition = pos;
 
 	RecalculateMatrix();
 	
@@ -106,10 +103,10 @@ const void ComponentTransform::SetPosition(const float3 & pos)
 
 const void ComponentTransform::SetRotation(const float3 & pos)
 {
-	float3 diff = pos - local_rotation;
+	float3 diff = pos - ObjectRotation;
 	Quat quat_diff = Quat::FromEulerXYZ(diff.x*DEGTORAD, diff.y*DEGTORAD, diff.z*DEGTORAD);
-	local_rotation_quat = local_rotation_quat * quat_diff;
-	local_rotation = pos;
+	ObjectQuat = ObjectQuat * quat_diff;
+	ObjectRotation = pos;
 
 	RecalculateMatrix();
 }
@@ -117,8 +114,8 @@ const void ComponentTransform::SetRotation(const float3 & pos)
 
 const void ComponentTransform::SetRotationQuat(const Quat & quat)
 {
-	local_rotation_quat = quat;
-	local_rotation = local_rotation_quat.ToEulerXYZ() * RADTODEG;
+	ObjectQuat = quat;
+	ObjectRotation = ObjectQuat.ToEulerXYZ() * RADTODEG;
 
 	RecalculateMatrix();
 }
@@ -126,12 +123,21 @@ const void ComponentTransform::SetRotationQuat(const Quat & quat)
 
 const void ComponentTransform::SetScale(const float3 & pos)
 {
-	local_scale = float3(1, 1, 1);
+	ObjectScale = pos;
+
+	RecalculateMatrix();
+}
+
+const void ComponentTransform::Scale(const float3 & scale)
+{
+	ObjectScale += scale;
+
+	RecalculateMatrix();
 }
 
 void ComponentTransform::RecalculateMatrix()
 {
-	local_transform = float4x4::FromTRS(local_position, local_rotation_quat, local_scale);
+	local_transform = float4x4::FromTRS(ObjectPosition, ObjectQuat, ObjectScale);
 	belongsTo->UpdateTransform = true;
 }
 

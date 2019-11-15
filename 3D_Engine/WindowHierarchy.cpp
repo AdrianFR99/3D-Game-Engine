@@ -23,7 +23,9 @@ bool WindowHierarchy::Display() {
 	//Drop of Drag and drop
 	DragDrop();
 
-
+	//Set to del
+	Delete();
+	
 	return true;
 }
 
@@ -99,7 +101,8 @@ void WindowHierarchy::RecursiveDraw(Gameobject * ToDisplay)
 		//  Set Game Object to be destroyed 
 		if ( ToDisplay == activeOBJ && App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN)
 		{
-			ToDisplay->toDelete = true;
+			DeleteGameObj = true;
+			toDel = ToDisplay;
 		}
 
 		// display children  
@@ -158,4 +161,15 @@ void WindowHierarchy::DragDrop()
 		Droped = nullptr;
 	}
 	
+}
+
+void WindowHierarchy::Delete()
+{
+	if (DeleteGameObj)
+	{
+		toDel->toDelete = true;
+		DeleteGameObj = false;
+		toDel = nullptr;
+	}
+
 }

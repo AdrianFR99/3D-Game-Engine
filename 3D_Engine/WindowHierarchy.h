@@ -30,6 +30,7 @@ public:
 	void DisplayItemWindow();
 	void CleanActiveGameobject();
 	void DragDrop();
+	void Delete();
 private:
 
 	Gameobject* activeOBJ = nullptr;
@@ -44,6 +45,8 @@ private:
 	Gameobject* Droped = nullptr;
 
 	bool Drag = false;
+	bool DeleteGameObj = false;
+	Gameobject* toDel = nullptr;
 };
 
 #endif //__WINDOWHIERARCHY_H__

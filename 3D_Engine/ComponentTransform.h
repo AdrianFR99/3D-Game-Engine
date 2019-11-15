@@ -24,11 +24,13 @@ public:
 	void Enable();
 	void Disable();
 
+	// Getters
 	float4x4 const GetTransform() const;
 	float3 const GetPosition() const;
 	float3 const GetRotation() const;
 	float3 const GetScale() const;
 	Quat const GetRotationQuat() const;
+	const void Scale(const float3 & scale);
 
 	float4x4 const GetGlobalTransform() const;
 
@@ -55,10 +57,10 @@ public:
 	float4x4 global_transform;
 
 private:
-	float3 local_position;
-	float3   local_rotation;
-	Quat local_rotation_quat;
-	float3 local_scale;
+	float3 ObjectPosition;
+	float3   ObjectRotation;
+	Quat ObjectQuat;
+	float3 ObjectScale;
 
 };
 
