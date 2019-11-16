@@ -19,7 +19,7 @@ public:
 	virtual ~ModuleGameobject();
 	
 	
-	bool Init();
+	bool Init(nlohmann::json config);
 	bool Start();
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);

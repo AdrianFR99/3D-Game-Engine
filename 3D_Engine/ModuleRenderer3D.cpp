@@ -63,7 +63,7 @@ void ModuleRenderer3D::ReloadFromConfig()
 
 
 // Called before render is available
-bool ModuleRenderer3D::Init()
+bool ModuleRenderer3D::Init(nlohmann::json config)
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;

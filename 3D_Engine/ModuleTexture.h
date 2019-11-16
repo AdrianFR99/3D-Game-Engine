@@ -37,7 +37,7 @@ public:
 	~ModuleTexture();
 
 
-	bool Init();
+	bool Init(nlohmann::json config);
 	bool Start();
 	bool CleanUp();
 

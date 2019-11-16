@@ -15,7 +15,7 @@ ModuleScene::~ModuleScene()
 }
 
 
-bool ModuleScene::Init() {
+bool ModuleScene::Init(nlohmann::json config) {
 
 	//CreatePrimitive();
 	scene = App->Gameobjects->CreateFatherGameObject();

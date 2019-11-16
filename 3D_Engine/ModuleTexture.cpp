@@ -80,7 +80,7 @@ bool ModuleTexture::findTextureinList(std::string path, int& index)
 }
 
 
-bool ModuleTexture::Init() {
+bool ModuleTexture::Init(nlohmann::json config) {
 
 	bool ret = true;
 

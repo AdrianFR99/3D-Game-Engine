@@ -39,7 +39,7 @@ ModuleEngineUI::~ModuleEngineUI()
 {
 }
 
-bool ModuleEngineUI::Init() {
+bool ModuleEngineUI::Init(nlohmann::json config) {
 
 
 	settingsPanel = new WindowUI_Settings("Configurations");

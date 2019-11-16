@@ -8,10 +8,11 @@
 
 Application::Application()
 {
-
+	AppName = "Gear Engine";
+	StudyCenter = "CITM";
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
-	//fs = new ModuleFileSystem(ASSETS_FOLDER));
+	fs = new ModuleFileSystem(this, ASSETS_FOLDER);
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	UI_Layer = new ModuleEngineUI(this);
@@ -36,6 +37,7 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(hardware);
+	AddModule(fs);
 	AddModule(Assets);
 	AddModule(Textures);
 	AddModule(Gameobjects);
@@ -71,7 +73,7 @@ bool Application::Init()
 	bool ret = true;
 
 
-	AppName = "Gear Engine";
+	
 	App->GearConsole.AddLog(" Welcome to Gear Engine");
 	
 //	 Call Init() in all modules
@@ -79,7 +81,7 @@ bool Application::Init()
 
 	while(item != list_modules.end() && ret == true)
 	{
-		ret = (*item)->Init();
+		ret = (*item)->Init(settings);
 		item++;
 	}
 
@@ -245,7 +247,7 @@ void Application::SetMaxFrameRate(uint MaxFrameRate) {
 
 const char* Application::GetAppName() const {
 
-	return AppName.c_str();
+	return AppName.data();
 
 }
 
@@ -310,4 +312,9 @@ void Application::RefreshConfig()
 LCG & Application::GetRandom()
 {
 	return *RandomNumbGenerator;
+}
+
+const char* Application::GetOrganizationName() const
+{
+	return StudyCenter.data();
 }

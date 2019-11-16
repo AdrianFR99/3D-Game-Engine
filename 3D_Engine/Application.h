@@ -17,10 +17,12 @@
 #include "WindowConsole.h"
 #include "ModuleScene.h"
 
-//#include "ModuleFileSystem.h"
+#include "ModuleFileSystem.h"
 #include "ModuleGameobject.h"
 
 #include "MathGeoLib/include/Algorithm/Random/LCG.h"
+
+#include <string>
 
 struct Event;
 
@@ -33,7 +35,7 @@ public:
 	ModuleCamera3D* camera = nullptr;
 	ModuleEngineUI* UI_Layer = nullptr;
 	ModuleHardware* hardware = nullptr;
-	//ModuleFileSystem* fs = nullptr;
+	ModuleFileSystem* fs = nullptr;
 	ModuleAssets* Assets = nullptr;
 	ModuleTexture* Textures = nullptr;
 	ModuleGameobject* Gameobjects = nullptr;
@@ -91,6 +93,10 @@ public:
 //Random Generator
 	LCG& GetRandom();
 	LCG* RandomNumbGenerator = nullptr;
+
+//Appname
+	const char* GetOrganizationName() const;
+	
 private:
 
 	void AddModule(Module* mod);

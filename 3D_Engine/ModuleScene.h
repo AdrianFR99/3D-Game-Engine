@@ -10,7 +10,7 @@ public:
 	ModuleScene(Application* app, bool start_enabled = true);
 	~ModuleScene();
 
-	bool Init();
+	bool Init(nlohmann::json config);
 	bool Start();
 	bool CleanUp();
 

@@ -17,7 +17,7 @@ public:
 	ModuleAssets(Application* app, bool start_enabled = true);
 
 	virtual ~ModuleAssets();
-	bool Init();
+	bool Init(nlohmann::json config);
 	bool Start();
 
 

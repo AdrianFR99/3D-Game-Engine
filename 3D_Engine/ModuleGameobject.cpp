@@ -14,7 +14,7 @@ ModuleGameobject::~ModuleGameobject()
 {
 }
 
-bool ModuleGameobject::Init() {
+bool ModuleGameobject::Init(nlohmann::json config) {
 
 	
 	return true;

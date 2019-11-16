@@ -39,7 +39,7 @@ ModuleAssets::ModuleAssets(Application* app, bool start_enabled) : Module(app, s
 ModuleAssets::~ModuleAssets()
 {
 }
-bool ModuleAssets::Init(){
+bool ModuleAssets::Init(nlohmann::json config) {
 
 	// Stream log messages to Debug window
 	struct aiLogStream stream;
