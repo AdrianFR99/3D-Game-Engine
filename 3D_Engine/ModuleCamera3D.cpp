@@ -41,7 +41,7 @@ void ModuleCamera3D::Load(nlohmann::json& file)
 	wheel_speed = file["Modules"]["Camera"]["Wheel_speed"];
 	camera_speed = file["Modules"]["Camera"]["Camera_speed"];
 
-
+		
 }
 
 // Called to save variables
@@ -342,10 +342,13 @@ void ModuleCamera3D::CalculateViewMatrix()
 
 Camera3D::Camera3D() {
 
+
 	SetCamPos(float3(0.f,10.f,-10.f));
 	SetToFront(float3::unitZ);
 	SetToUp(float3::unitY);
-
+	SetFarPlane_Dist(10000.0f);
+	SetNearPlane_Dist(0.1f);
+	SetTypeFrustum(PerspectiveFrustum);
 
 
 }
@@ -471,6 +474,11 @@ void Camera3D::SetNearPlane_Dist(const float&Distance) {
 	CamFrustum.nearPlaneDistance = Distance;
 	CamFrustum.farPlaneDistance =CamFrustum.farPlaneDistance;
 	UpdateProjectionMatrices();
+}
+
+void Camera3D::SetTypeFrustum(FrustumType type) {
+
+	CamFrustum.type = type;
 }
 
 void Camera3D::UpdateMatrices() {

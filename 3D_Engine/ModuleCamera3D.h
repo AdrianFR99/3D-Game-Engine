@@ -49,6 +49,7 @@ public:
 	void SetNearPlane_Dist(const float&Distance);
 	void SetFarPlane_Dist(const float&Distance);
 
+	void SetTypeFrustum(FrustumType type);
 	//Matrices Handlers
 	void UpdateMatrices();
 	void UpdateProjectionMatrices();
