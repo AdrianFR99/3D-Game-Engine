@@ -349,8 +349,10 @@ Camera3D::Camera3D() {
 	SetFarPlane_Dist(10000.0f);
 	SetNearPlane_Dist(0.1f);
 	SetTypeFrustum(PerspectiveFrustum);
-
-	SetAspectRatio(1.3f);
+	
+	SetVeticalFOV(30);
+	SetHorizontalFOV(60);
+	SetAspectRatio((float)SCREEN_WIDTH/ (float)SCREEN_HEIGHT);
 	SetFOV(90);
 
 }
@@ -470,25 +472,27 @@ const void Camera3D::SetHorizontalFOV(const float&HorizFOV) {
 
 	CamFrustum.horizontalFov = HorizFOV;
 	AspectRatio = CamFrustum.AspectRatio();
+	UpdateProjectionMatrices();
 }
 const void Camera3D::SetVeticalFOV(const float&VertFOV) {
 
 	CamFrustum.verticalFov = VertFOV;
 	AspectRatio = CamFrustum.AspectRatio();
+	UpdateProjectionMatrices();
 }
 const void Camera3D::SetAspectRatioAndVFOV(const float&AspectRatio_,const float&VertFOV) {
 
 
 	CamFrustum.horizontalFov =2.0f*Atan((Tan(VertFOV*0.5f) / AspectRatio));
 	AspectRatio = AspectRatio_;
-
+	UpdateProjectionMatrices();
 }
 const void Camera3D::SetAspectRatioAndHFOV(const float&AspectRatio_, const float&HorizFOV) {
 
 
 	CamFrustum.verticalFov = Atan(Tan(HorizFOV*0.5f)*AspectRatio)/0.5f;
 	AspectRatio = AspectRatio_;
-
+	UpdateProjectionMatrices();
 }
 
 const void Camera3D::SetAspectRatio(const float&Ratio) {
@@ -508,15 +512,14 @@ const void Camera3D::SetFOV(const float&VFOV) {
 
 const void Camera3D::SetFarPlane_Dist(const float&Distance) {
 
-	CamFrustum.nearPlaneDistance = CamFrustum.nearPlaneDistance;
 	CamFrustum.farPlaneDistance = Distance;
+	
 	UpdateProjectionMatrices();
 }
 
 const void Camera3D::SetNearPlane_Dist(const float&Distance) {
 
 	CamFrustum.nearPlaneDistance = Distance;
-	CamFrustum.farPlaneDistance =CamFrustum.farPlaneDistance;
 	UpdateProjectionMatrices();
 }
 
