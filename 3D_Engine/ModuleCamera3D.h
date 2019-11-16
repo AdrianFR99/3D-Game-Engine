@@ -16,10 +16,6 @@ public:
 	ALIGN_CLASS_TO_16
 
 	Camera3D();
-
-	const void SetCamPos(const float3&newpos);
-	const void SetToFront(const float3&frontDir);//z
-	const void SetToUp(const float3&upDir);//y
 	   
 	//movement
 	const void MoveUp(const float&Displacement);
@@ -35,24 +31,48 @@ public:
 
 
 	//Getters
-	const Frustum GetFrustum()const;
 
+	//Frustum
+	const Frustum GetFrustum()const;
+	//Matrices
 	const float3x4 GetWorldMatrix()const;
 	const float3x4	GetViewMatrix() const ;
 	const float4x4	GetProjectionMatrix() const ;
 	const float4x4	GetViewProjectedMatrix() const ;
-
+	//planes
 	const float GetNearPlane()const;
 	const float GetFarPlane()const;
 
-	//Setters Frustum planes
-	void SetNearPlane_Dist(const float&Distance);
-	void SetFarPlane_Dist(const float&Distance);
+	//Setters
 
-	void SetTypeFrustum(FrustumType type);
+	//CamPos & orientation
+	const void SetCamPos(const float3&newpos);
+	const void SetToFront(const float3&frontDir);//Z
+	const void SetToUp(const float3&upDir);//Y
+
+	//changes the HFOV independently of the Aspect ratio or the VFOV
+	const void SetHorizontalFOV(const float&HorizFOV);
+	//changes the VFOV independently of the Aspect ratio or the HFOV
+	const void SetVeticalFOV(const float&VertFOV);
+	//changes the HFOV depending on VFOV and the Aspect
+	const void SetAspectRatioAndVFOV(const float&AspectRatio_, const float&VertFOV);
+	//changes the VFOV depending on HFOV and the Aspect
+	const void SetAspectRatioAndHFOV(const float&AspectRatio_, const float&HorizFOV);
+
+
+	//Frustum planes
+	const void SetNearPlane_Dist(const float&Distance);
+	const void SetFarPlane_Dist(const float&Distance);
+	//type
+	const void SetTypeFrustum(FrustumType type);
+	
 	//Matrices Handlers
-	void UpdateMatrices();
-	void UpdateProjectionMatrices();
+	const void UpdateMatrices();
+	const void UpdateProjectionMatrices();
+
+public:
+
+	float AspectRatio;
 
 private:
 

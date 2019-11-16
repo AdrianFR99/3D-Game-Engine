@@ -351,6 +351,8 @@ Camera3D::Camera3D() {
 	SetTypeFrustum(PerspectiveFrustum);
 
 
+	AspectRatio = CamFrustum.AspectRatio();
+
 }
 
 const void Camera3D::SetCamPos(const float3&newpos) {
@@ -462,26 +464,55 @@ const float4x4	Camera3D::GetProjectionMatrix() const { return CamFrustum.Project
 const float4x4	Camera3D::GetViewProjectedMatrix() const { return CamFrustum.ViewProjMatrix(); }
 
 
-void Camera3D::SetFarPlane_Dist(const float&Distance) {
+
+const void Camera3D::SetHorizontalFOV(const float&HorizFOV) {
+
+
+	CamFrustum.horizontalFov = HorizFOV;
+	AspectRatio = CamFrustum.AspectRatio();
+}
+const void Camera3D::SetVeticalFOV(const float&VertFOV) {
+
+	CamFrustum.verticalFov = VertFOV;
+	AspectRatio = CamFrustum.AspectRatio();
+}
+const void Camera3D::SetAspectRatioAndVFOV(const float&AspectRatio_,const float&VertFOV) {
+
+
+	CamFrustum.horizontalFov = Tan(VertFOV*0.5f) / AspectRatio;
+	AspectRatio = AspectRatio_;
+
+}
+const void Camera3D::SetAspectRatioAndHFOV(const float&AspectRatio_, const float&HorizFOV) {
+
+
+	CamFrustum.verticalFov = Tan(HorizFOV*0.5f)*AspectRatio;
+	AspectRatio = AspectRatio_;
+
+}
+
+
+
+const void Camera3D::SetFarPlane_Dist(const float&Distance) {
 
 	CamFrustum.nearPlaneDistance = CamFrustum.nearPlaneDistance;
 	CamFrustum.farPlaneDistance = Distance;
 	UpdateProjectionMatrices();
 }
 
-void Camera3D::SetNearPlane_Dist(const float&Distance) {
+const void Camera3D::SetNearPlane_Dist(const float&Distance) {
 
 	CamFrustum.nearPlaneDistance = Distance;
 	CamFrustum.farPlaneDistance =CamFrustum.farPlaneDistance;
 	UpdateProjectionMatrices();
 }
 
-void Camera3D::SetTypeFrustum(FrustumType type) {
+const void Camera3D::SetTypeFrustum(FrustumType type) {
 
 	CamFrustum.type = type;
 }
 
-void Camera3D::UpdateMatrices() {
+const void Camera3D::UpdateMatrices() {
 
 	World_Matrix = CamFrustum.WorldMatrix();
 	View_Matrix = CamFrustum.ViewMatrix();
@@ -490,7 +521,7 @@ void Camera3D::UpdateMatrices() {
 
 }
 
-void Camera3D::UpdateProjectionMatrices() {
+const void Camera3D::UpdateProjectionMatrices() {
 
 	Projection_Matrix = CamFrustum.ProjectionMatrix();
 	ViewProjected_Matrix= Projection_Matrix * View_Matrix;
