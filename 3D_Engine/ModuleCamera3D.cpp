@@ -101,7 +101,7 @@ update_status ModuleCamera3D::Update(float dt)
 		// end of wasp move
 
 		// mouse position and free look
-		//RotateYourself(App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
+			EditorCam->RotateYourself(App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
 
 		
 		float Sensitivity = 0.25f;
@@ -123,7 +123,7 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
 
 		//rotate around the object
-		//Orbit(vec3(0, 0, 0), App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
+		EditorCam->Orbit(float3(0, 0, 0), App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
 
 		
 	}
@@ -159,8 +159,7 @@ update_status ModuleCamera3D::Update(float dt)
 		//Position = Reference + Z * premadeDist;
 	}
 
-	// Recalculate matrix -------------
-	CalculateViewMatrix();
+
 
 
 
@@ -168,48 +167,33 @@ update_status ModuleCamera3D::Update(float dt)
 }
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference)
+void Camera3D::Look(const float3 &Position)
 {
-	this->Position = Position;
-	this->Reference = Reference;
+	float3 Targetdir = Position - CamFrustum.pos;
 
-	Z = normalize(Position - Reference);
-	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-	Y = cross(Z, X);
+	float3x3 mAux = float3x3::LookAt(CamFrustum.front, Targetdir.Normalized(), CamFrustum.up, float3::unitY);
 
-	if(!RotateAroundReference)
-	{
-		this->Reference = this->Position;
-		this->Position += Z * 0.05f;
-	}
+	CamFrustum.front = mAux.MulDir(CamFrustum.front).Normalized();
+	CamFrustum.up = mAux.MulDir(CamFrustum.up).Normalized();
 
-	CalculateViewMatrix();
+	
 }
 
 // -----------------------------------------------------------------
-void ModuleCamera3D::LookAt( const vec3 &Spot)
-{
-	Reference = Spot;
 
-	Z = normalize(Position - Reference);
-	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-	Y = cross(Z, X);
-
-	CalculateViewMatrix();
-}
 
 
 
 // -----------------------------------------------------------------
 
-void ModuleCamera3D::CalculateViewMatrix()
-{
-	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f,
-		X.y, Y.y, Z.y, 0.0f,
-		X.z, Y.z, Z.z, 0.0f,
-		-dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
-	ViewMatrixInverse = inverse(ViewMatrix);
-}
+//void ModuleCamera3D::CalculateViewMatrix()
+//{
+//	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f,
+//		X.y, Y.y, Z.y, 0.0f,
+//		X.z, Y.z, Z.z, 0.0f,
+//		-dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
+//	ViewMatrixInverse = inverse(ViewMatrix);
+//}
 
 //// Called for rotating in a point
 //void Camera3D::Rotate(const float&rotationX,const float&rotationY)
@@ -277,65 +261,43 @@ void ModuleCamera3D::CalculateViewMatrix()
  }
  
 ////similar to rotate, to orbit
-//void Camera3D::Orbit(const vec3& orbit_center, const float& motion_x, const float& motion_y)
-//{
-//	Reference = orbit_center;
-//
-//	int dx = -motion_x;
-//	int dy = -motion_y;
-//
-//	Position -= Reference;
-//
-//	if (dx != 0)
-//	{
-//		float DeltaX = (float)dx;
-//
-//		// Rotate arround the y axis
-//		X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-//		Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-//		Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-//	}
-//
-//	if (dy != 0)
-//	{
-//		float DeltaY = (float)dy;
-//
-//		// Rotate arround the X direction
-//		Y = rotate(Y, DeltaY, X);
-//		Z = rotate(Z, DeltaY, X);
-//	}
-//
-//	Position = Reference + Z * length(Position);
-//}
-//
-//void Camera3D::RotateYourself(const float& motion_x, const float& motion_y)
-//{
-//	Reference = Position;
-//
-//	int dx = -motion_x;
-//	int dy = -motion_y;
-//
-//	Position -= Reference;
-//
-//	if (dx != 0)
-//	{
-//		float DeltaX = (float)dx * mouse_sensitivity;
-//
-//		X = rotate(X, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-//		Y = rotate(Y, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-//		Z = rotate(Z, DeltaX, vec3(0.0f, 1.0f, 0.0f));
-//	}
-//
-//	if (dy != 0)
-//	{
-//		float DeltaY = (float)dy * mouse_sensitivity;
-//
-//		Y = rotate(Y, DeltaY, X);
-//		Z = rotate(Z, DeltaY, X);
-//	}
-//
-//	Position = Reference + Z * length(Position);
-//}
+void Camera3D::Orbit(const float3& orbit_center, const float& motion_x, const float& motion_y)
+{
+	
+	float3 focus = CamFrustum.pos - orbit_center;
+
+	Quat Rotatey(CamFrustum.up, motion_x*App->camera->mouse_sensitivity);
+	Quat Rotatex(CamFrustum.WorldRight(),motion_y*App->camera->mouse_sensitivity);
+
+	focus = Rotatex.Transform(focus);
+	focus = Rotatey.Transform(focus);
+
+	CamFrustum.pos = focus + orbit_center;
+
+	Look(orbit_center);
+}
+
+void Camera3D::RotateYourself(const float& motion_x, const float& motion_y)
+{
+
+	//Quat Rotatey(CamFrustum.up, motion_x*App->camera->mouse_sensitivity);
+	//Quat Rotatex(CamFrustum.WorldRight(), motion_y*App->camera->mouse_sensitivity);
+
+	//SetToFront(Rotatey.Mul(CamFrustum.front).Normalized());
+	//SetToUp(Rotatex.Mul(CamFrustum.up).Normalized());
+
+
+
+
+	//float3x3 mAux = float3x3::LookAt(CamFrustum.front, Targetdir.Normalized(), CamFrustum.up, float3::unitY);
+
+	//CamFrustum.front = mAux.MulDir(CamFrustum.front).Normalized();
+	//CamFrustum.up = mAux.MulDir(CamFrustum.up).Normalized();
+
+}
+
+	
+
 
 
 //camera3D Class----------------

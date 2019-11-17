@@ -25,8 +25,9 @@ public:
 	const void MoveLeft(const float&Displacement);
 	const void MoveRight(const float&Displacement);
 	//Rotation
+	void Look(const float3 &Position);
 //	void Rotate(const float&rotationX, const float&rotationY);
-	void Orbit(const vec3 & rotate_center, const float & motion_x, const float & motion_y);
+	void Orbit(const float3 & rotate_center, const float & motion_x, const float & motion_y);
 	void RotateYourself(const float& motion_x, const float& motion_y);
 
 
@@ -102,8 +103,7 @@ public:
 	bool CleanUp();
 	void Load(nlohmann::json& file);
 	void Save(nlohmann::json& file);
-	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = false);
-	void LookAt(const vec3 &Spot);
+	
 	
 	//Camera creatiom Handlers
 
@@ -117,9 +117,9 @@ public:
 	 const float* GLViewMatrix();
 	 const float* GLProjectionMatrix();
 
-private:
 
-	void CalculateViewMatrix();
+
+	/*void CalculateViewMatrix();*/
 
 public:
 	
