@@ -22,7 +22,7 @@ public:
 	
 
 	
-	std::string GetNewUID();
+	int GetNewUID();
 
 private:
 	void OnLoadFile(const char* file_path, const char* file_name, const char* file_extension);
