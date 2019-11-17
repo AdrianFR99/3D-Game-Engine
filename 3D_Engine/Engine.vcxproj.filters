@@ -207,9 +207,15 @@
     </ClCompile>
     <ClCompile Include="WindowHierarchy.cpp">
       <Filter>Source\Modules\UI_Elements</Filter>
-        </ClCompile>
+    </ClCompile>
     <ClCompile Include="ModuleScene.cpp">
       <Filter>Source\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source\Resource\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Source\Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -542,9 +548,15 @@
     </ClInclude>
     <ClInclude Include="WindowHierarchy.h">
       <Filter>Source\Modules\UI_Elements</Filter>
-      </ClInclude>
+    </ClInclude>
     <ClInclude Include="ModuleScene.h">
       <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Source\Resource\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Source\Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -636,6 +648,12 @@
     </Filter>
     <Filter Include="Source\Tools\Gameobject">
       <UniqueIdentifier>{60f2a376-b360-4b3f-b6d7-91d8949e8ee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Resource">
+      <UniqueIdentifier>{c038cc38-b3cc-4fe7-8237-591408284b89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Resource\Module">
+      <UniqueIdentifier>{f170d742-8681-4605-9b1d-fca3afe07673}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
