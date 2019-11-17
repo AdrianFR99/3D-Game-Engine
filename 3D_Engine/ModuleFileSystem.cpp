@@ -433,6 +433,126 @@ const char * ModuleFileSystem::GetReadPaths() const
 	return paths;
 }
 
+std::string ModuleFileSystem::GetFileExtension(const char * file_name)
+{
+	string ret;
+
+	bool adding = false;
+	for (int i = 0; file_name[i] != '\0'; i++)
+	{
+		if (file_name[i] == '.')
+		{
+			ret.clear();
+			adding = true;
+			continue;
+		}
+
+		if (adding)
+			ret += file_name[i];
+	}
+
+	return ret;
+}
+
+std::string ModuleFileSystem::GetAssetsPath()
+{
+	return assets_path;
+}
+
+void ModuleFileSystem::FileCopyPaste(const char * filepath, const char * new_path)
+{
+	string path = new_path;
+
+	if (path[path.length() - 1] != '\\')
+	{
+		path += '\\';
+	}
+
+	path += GetFileNameFromFilePath(filepath);
+
+	if (CopyFile(filepath, path.c_str(), false))
+	{
+		LOG("Error moving file:[%s] to [%s]", filepath, path.c_str())
+	}
+
+}
+
+bool ModuleFileSystem::TextCmp(const char * text1, const char * text2)
+{
+	bool ret = false;
+
+	if (text1 == nullptr || text2 == nullptr)
+		return false;
+
+	if (strcmp(text1, text2) == 0)
+		ret = true;
+
+	return ret;
+}
+
+
+string ModuleFileSystem::ToLowerCase(std::string str)
+{
+	for (uint i = 0; i < str.size(); i++)
+	{
+		str[i] = tolower(str[i]);
+	}
+
+	return str;
+}
+
+string ModuleFileSystem::GetLibraryMeshPath()
+{
+	return library_mesh_path;
+}
+
+string ModuleFileSystem::GetLibraryTexturePath()
+{
+	return library_texture_path;
+}
+
+
+std::string ModuleFileSystem::GetFileNameFromFilePath(const char * file_path)
+{
+	string ret;
+
+	for (int i = 0; file_path[i] != '\0'; i++)
+	{
+		if (file_path[i] == '\\' || file_path[i] == '/')
+		{
+			ret.clear();
+			continue;
+		}
+
+		ret += file_path[i];
+	}
+
+	return ret;
+}
+
+std::string ModuleFileSystem::GetPathFromFilePath(const char * file_path)
+{
+	string ret;
+
+	int last = 0;
+	for (int i = 0; file_path[i] != '\0'; i++)
+	{
+		if (file_path[i] == '\\' || file_path[i] == '/')
+		{
+			last = i;
+			last++;
+		}
+	}
+
+	for (int i = 0; i < last && file_path[i] != '\0'; i++)
+	{
+		ret += file_path[i];
+	}
+
+	return ret;
+}
+
+
 // -----------------------------------------------------
 // ASSIMP IO
 // -----------------------------------------------------

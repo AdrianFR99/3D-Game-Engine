@@ -55,6 +55,24 @@ public:
 	const char* GetWritePath() const;
 	const char* GetReadPaths() const;
 
+	std::string GetFileExtension(const char * file_name);
+
+	std::string GetAssetsPath();
+
+	void FileCopyPaste(const char * filepath, const char * new_path);
+
+	bool TextCmp(const char * text1, const char * text2);
+
+	std::string ToLowerCase(std::string str);
+
+	std::string GetLibraryMeshPath();
+
+	std::string GetLibraryTexturePath();
+
+	std::string GetFileNameFromFilePath(const char * file_path);
+
+	std::string GetPathFromFilePath(const char * file_path);
+
 private:
 
 	void CreateAssimpIO();
