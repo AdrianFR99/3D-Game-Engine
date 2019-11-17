@@ -217,6 +217,9 @@
     <ClCompile Include="Resource.cpp">
       <Filter>Source\Resource</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceMesh.cpp">
+      <Filter>Source\Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleCamera3D.h">
@@ -558,6 +561,9 @@
     <ClInclude Include="Resource.h">
       <Filter>Source\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="ResourceMesh.h">
+      <Filter>Source\Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\include\Geometry\KDTree.inl">
@@ -654,6 +660,9 @@
     </Filter>
     <Filter Include="Source\Resource\Module">
       <UniqueIdentifier>{f170d742-8681-4605-9b1d-fca3afe07673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Resource\Loader">
+      <UniqueIdentifier>{53588e7b-3933-4854-9fdc-a73234c399a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

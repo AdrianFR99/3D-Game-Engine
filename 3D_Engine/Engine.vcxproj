@@ -99,6 +99,7 @@
     <ClInclude Include="Primitives.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="ResourceMesh.h" />
     <ClInclude Include="WindowConsole.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -255,6 +256,7 @@
     <ClCompile Include="Primitives.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="ResourceMesh.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WindowConsole.cpp" />
     <ClCompile Include="WindowHierarchy.cpp" />
