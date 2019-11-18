@@ -97,38 +97,38 @@ bool ResourceManager::LoadResource(const char * file_path, std::vector<Resource*
 
 	bool valid_extension = false;
 
-	if (App->fs->TextCmp("fbx", extension.c_str()))
-	{
-		ret = mesh_loader->Load(file_path, resources, true);
-		valid_extension = true;
-	}
-	
+	//if (App->fs->TextCmp("fbx", extension.c_str()))
+	//{
+	//	ret = mesh_loader->Load(file_path, resources, true);
+	//	valid_extension = true;
+	//}
+	//
 
-	if (ret)
-	{
-		App->fs->FileCopyPaste(file_path, App->fs->GetAssetsPath().c_str());
+	//if (ret)
+	//{
+	//	App->fs->FileCopyPaste(file_path, App->fs->GetAssetsPath().c_str());
 
-		// Save meta file ---------------------------
-		std::string uid = GetNewUID();
-		std::string json_name = App->fs->GetAssetsPath() + name + ".meta";
-		//nlohmann::json meta = JsonLoader.Save CreateJSON(json_name.c_str());
-		nlohmann::json meta;
-		JsonLoader.Save(json_name.data(),meta);
+	//	// Save meta file ---------------------------
+	//	std::string uid = GetNewUID();
+	//	std::string json_name = App->fs->GetAssetsPath() + name + ".meta";
+	//	//nlohmann::json meta = JsonLoader.Save CreateJSON(json_name.c_str());
+	//	nlohmann::json meta;
+	//	JsonLoader.Save(json_name.data(),meta);
 
-		if (meta)
-		{
-			meta->SetString("uid", uid.c_str());
+	//	if (meta)
+	//	{
+	//		meta->SetString("uid", uid.c_str());
 
-			meta->SetArray("resources");
-			for (std::vector<Resource*>::iterator res = resources.begin(); res != resources.end(); ++res)
-			{
-				meta->AddStringToArray("resources", (*res)->GetUniqueId().c_str());
-			}
+	//		meta->SetArray("resources");
+	//		for (std::vector<Resource*>::iterator res = resources.begin(); res != resources.end(); ++res)
+	//		{
+	//			meta->AddStringToArray("resources", (*res)->GetUniqueId().c_str());
+	//		}
 
-			meta->Save();
-		}
+	//		meta->Save();
+	//	}
 
-	}
+	//}
 
 	return ret;
 }

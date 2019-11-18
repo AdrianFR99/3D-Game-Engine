@@ -6,13 +6,13 @@
 #include "Assimp/include/material.h"
 
 class Gameobject;
-enum class 	Texture_Type;
-
-struct Material {
-
-	std::string path;
-	Texture_Type type;
-};
+//enum class 	Texture_Type;
+//
+//struct Material {
+//
+//	std::string path;
+//	Texture_Type type;
+//};
 
 class ComponentMaterial : public Component
 {
@@ -29,6 +29,7 @@ public:
 	void SetDiffuseID(uint diffuse);
 	void CreateMaterial(std::string&path);
 	void CreateMaterial();
+	void SetResource(ResourceTexture* resource);
 
 	std::string const GetTexturePath()const;
 	uint const GetCurrentTextureID()const;
@@ -38,12 +39,12 @@ public:
 	void Enable();
 	void Disable();
 
-
-	Material Comp_Material;
+	ResourceTexture* Resource_Material;
+	//Material Comp_Material;
 private:
-	uint DiffuseID;
-	uint currentID;
-	uint CheckeredID;
+	//uint DiffuseID;
+	//uint currentID;
+	//uint CheckeredID;
 
 };
 

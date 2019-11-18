@@ -26,10 +26,10 @@ public:
 
 
 	Material Comp_Material;
-private:
 	uint DiffuseID;
 	uint currentID;
 	uint CheckeredID;
+private:
 
 
 };

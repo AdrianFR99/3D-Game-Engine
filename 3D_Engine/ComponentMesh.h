@@ -3,7 +3,7 @@
 
 #include "Component.h"
 #include "AssetMesh.h"
-
+#include "ResourceMesh.h"
 
 class Gameobject;
 class AssetMesh;
@@ -22,11 +22,11 @@ public:
 	void Enable();
 	void Disable();
 	void NormalDisplay(bool faces, bool vertex);
-	
+	void SetResourceMesh(ResourceMesh* resource);
 	//list of Meshes
-	std::vector<AssetMesh*> Meshes_Vec;
+	ResourceMesh* Meshes_Vec;
 	//list of Primitives
-	std::vector<Primitives*> Primitives_Vec;
+	//std::vector<Primitives*> Primitives_Vec;
 
 	bool normalsDrawFaces = false;
 	bool normalsDrawVertex = false;

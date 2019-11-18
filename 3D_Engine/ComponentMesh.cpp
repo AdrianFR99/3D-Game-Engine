@@ -46,7 +46,7 @@ void ComponentMesh::CleanUp()
 	App->Assets->CleanUp(belongsTo);
 
 	
-	if (Primitives_Vec.size() > 0) {
+	/*if (Primitives_Vec.size() > 0) {
 		for (int i = 0; i < Primitives_Vec.size(); ++i) {
 			Primitives_Vec[i]->CleanUp();
 			
@@ -58,12 +58,8 @@ void ComponentMesh::CleanUp()
 
 		}
 
-	}
+	}*/
 	
-
-
-	//TODO2
-	//must complete cleanup from primitive
 }
 
 void ComponentMesh::Enable()
@@ -80,4 +76,9 @@ void ComponentMesh::NormalDisplay(bool faces, bool vertex)
 {
 	normalsDrawFaces = faces;
 	normalsDrawVertex = vertex;
+}
+
+void ComponentMesh::SetResourceMesh(ResourceMesh * resource)
+{
+	Meshes_Vec = resource;
 }

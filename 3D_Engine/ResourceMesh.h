@@ -6,7 +6,7 @@
 #include "Globals.h"
 #include "Maths.h"
 #include "Gameobject.h"
-//#include "Primitives.h"
+#include "Primitives.h"
 #include "AssetMesh.h"
 
 class AssetMesh;
@@ -29,9 +29,9 @@ public:
 
 	AssetMesh* Meshes_Vec;
 	
-	//Primitives Primitives_Vec;
+	Primitives* Primitives_Vec;
 
-	Material Comp_Material;
+	
 	ResourceTexture* Default_texture = nullptr;
 private:
 	

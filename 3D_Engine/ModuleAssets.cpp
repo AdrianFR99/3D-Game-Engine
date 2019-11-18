@@ -67,18 +67,18 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 	if (tmp->meshPointer->active != false)
 	{
 
-		if (tmp->meshPointer->Primitives_Vec.size() > 0) {
+		if (tmp->meshPointer->Meshes_Vec->Primitives_Vec != nullptr) {
 
-			for (int i = 0; i < tmp->meshPointer->Primitives_Vec.size(); ++i)
-				tmp->meshPointer->Primitives_Vec[i]->Draw(tmp);
+				tmp->meshPointer->Meshes_Vec->Primitives_Vec->Draw(tmp);
 		}
 
-		for (int i = 0; i < tmp->meshPointer->Meshes_Vec.size();++i) {
+		if ( tmp->meshPointer->Meshes_Vec->Meshes_Vec != nullptr) 
+		{
 
-			if (tmp->meshPointer->Meshes_Vec[i]->active != false)
+			if (tmp->meshPointer->Meshes_Vec->Meshes_Vec->active != false)
 			{
 
-				if (tmp->meshPointer->Meshes_Vec[i] != nullptr) {
+				if (tmp->meshPointer->Meshes_Vec->Meshes_Vec != nullptr) {
 					// Vertex
 
 
@@ -89,14 +89,14 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 					{
 						glBindTexture(GL_TEXTURE_2D, tmp->materialPointer->GetCurrentTextureID()); // start using texture
 						glActiveTexture(GL_TEXTURE0);
-						glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
+						glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec->Meshes_Vec->UVC); // start using created buffer (tex coords)
 						glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
 					}
 					else
 					{
 						glBindTexture(GL_TEXTURE_2D, -1); // start using texture
 						glActiveTexture(GL_TEXTURE0);
-						glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
+						glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec->Meshes_Vec->UVC); // start using created buffer (tex coords)
 						glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
 					}
 					//else if (TextChecker) //TODO must change this to selec objects and change individually
@@ -110,12 +110,12 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 
 					glEnableClientState(GL_VERTEX_ARRAY);
 
-					glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->VBO);
+					glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec->Meshes_Vec->VBO);
 					glVertexPointer(3, GL_FLOAT, 0, NULL);
 					// Index
-					glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->IBO);
+					glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec->Meshes_Vec->IBO);
 					// Draw
-					glDrawElements((GLenum)GL_TRIANGLES, tmp->meshPointer->Meshes_Vec[i]->num_index, GL_UNSIGNED_INT, NULL);
+					glDrawElements((GLenum)GL_TRIANGLES, tmp->meshPointer->Meshes_Vec->Meshes_Vec->num_index, GL_UNSIGNED_INT, NULL);
 
 
 
@@ -125,16 +125,16 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 					glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
-					if (tmp->meshPointer->Meshes_Vec[i]->normals!=nullptr && (DrawFaceNormals || DrawVertexNormals))
+					if (tmp->meshPointer->Meshes_Vec->Meshes_Vec->normals!=nullptr && (DrawFaceNormals || DrawVertexNormals))
 					{
-						tmp->meshPointer->Meshes_Vec[i]->DrawNormals(1.0f,1,float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f),1.0f, DrawFaceNormals, DrawVertexNormals);
+						tmp->meshPointer->Meshes_Vec->Meshes_Vec->DrawNormals(1.0f,1,float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f),1.0f, DrawFaceNormals, DrawVertexNormals);
 
 					}
 
-					if (tmp->meshPointer->Meshes_Vec[i]->normals != nullptr && (tmp->meshPointer->normalsDrawFaces || tmp->meshPointer->normalsDrawVertex))
+					if (tmp->meshPointer->Meshes_Vec->Meshes_Vec->normals != nullptr && (tmp->meshPointer->normalsDrawFaces || tmp->meshPointer->normalsDrawVertex))
 					{
 
-						tmp->meshPointer->Meshes_Vec[i]->DrawNormals(1.0f, 1, float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f), 1.0f, tmp->meshPointer->normalsDrawFaces, tmp->meshPointer->normalsDrawVertex);
+						tmp->meshPointer->Meshes_Vec->Meshes_Vec->DrawNormals(1.0f, 1, float3(0.0f, 0.5f, 0.5f), float3(0.0f, 1.0f, 0.0f), 1.0f, tmp->meshPointer->normalsDrawFaces, tmp->meshPointer->normalsDrawVertex);
 
 					}
 
@@ -168,59 +168,59 @@ bool ModuleAssets::CleanUp(Gameobject* tmp) {
 	aiDetachAllLogStreams();
 
 
-	for (int i = 0; i < tmp->meshPointer->Meshes_Vec.size();++i) {
+	if  ( tmp->meshPointer->Meshes_Vec->Meshes_Vec != nullptr) {
 
-		glDeleteBuffers(1, &tmp->meshPointer->Meshes_Vec[i]->VBO);
-		glDeleteBuffers(1, &tmp->meshPointer->Meshes_Vec[i]->IBO);
-		glDeleteBuffers(1, &tmp->meshPointer->Meshes_Vec[i]->UVC);
+		glDeleteBuffers(1, &tmp->meshPointer->Meshes_Vec->Meshes_Vec->VBO);
+		glDeleteBuffers(1, &tmp->meshPointer->Meshes_Vec->Meshes_Vec->IBO);
+		glDeleteBuffers(1, &tmp->meshPointer->Meshes_Vec->Meshes_Vec->UVC);
 
 
 		// Manual Release for MMGR
-		if (tmp->meshPointer->Meshes_Vec[i]->vertices != nullptr)
+		if (tmp->meshPointer->Meshes_Vec->Meshes_Vec->vertices != nullptr)
 		{
 
-			delete[] tmp->meshPointer->Meshes_Vec[i]->vertices; 
+			delete[] tmp->meshPointer->Meshes_Vec->Meshes_Vec->vertices;
 
-			tmp->meshPointer->Meshes_Vec[i]->vertices = nullptr;
+			tmp->meshPointer->Meshes_Vec->Meshes_Vec->vertices = nullptr;
 		}
-		if (tmp->meshPointer->Meshes_Vec[i]->indices != nullptr)
+		if (tmp->meshPointer->Meshes_Vec->Meshes_Vec->indices != nullptr)
 		{
-			delete[] tmp->meshPointer->Meshes_Vec[i]->indices;
+			delete[] tmp->meshPointer->Meshes_Vec->Meshes_Vec->indices;
 
-			tmp->meshPointer->Meshes_Vec[i]->indices = nullptr;
-
-		}
-		if (tmp->meshPointer->Meshes_Vec[i]->normals != nullptr)
-		{
-			delete[] tmp->meshPointer->Meshes_Vec[i]->normals;
-
-			tmp->meshPointer->Meshes_Vec[i]->normals = nullptr;
+			tmp->meshPointer->Meshes_Vec->Meshes_Vec->indices = nullptr;
 
 		}
-		if (tmp->meshPointer->Meshes_Vec[i]->normals_faces != nullptr)
+		if (tmp->meshPointer->Meshes_Vec->Meshes_Vec->normals != nullptr)
 		{
-			delete[] tmp->meshPointer->Meshes_Vec[i]->normals_faces;
+			delete[] tmp->meshPointer->Meshes_Vec->Meshes_Vec->normals;
 
-			tmp->meshPointer->Meshes_Vec[i]->normals_faces = nullptr;
-		}
-		if (tmp->meshPointer->Meshes_Vec[i]->normals_faces_pos != nullptr)
-		{
-			delete[] tmp->meshPointer->Meshes_Vec[i]->normals_faces_pos;
-
-			tmp->meshPointer->Meshes_Vec[i]->normals_faces_pos = nullptr;
-		}
-		if (tmp->meshPointer->Meshes_Vec[i]->uv_coord != nullptr) 
-		{
-			delete[] tmp->meshPointer->Meshes_Vec[i]->uv_coord;
-
-			tmp->meshPointer->Meshes_Vec[i]->uv_coord = nullptr;
+			tmp->meshPointer->Meshes_Vec->Meshes_Vec->normals = nullptr;
 
 		}
-		if (tmp->meshPointer->Meshes_Vec[i] != nullptr) 
+		if (tmp->meshPointer->Meshes_Vec->Meshes_Vec->normals_faces != nullptr)
 		{
-			delete tmp->meshPointer->Meshes_Vec[i];
+			delete[] tmp->meshPointer->Meshes_Vec->Meshes_Vec->normals_faces;
 
-			tmp->meshPointer->Meshes_Vec[i] = nullptr;
+			tmp->meshPointer->Meshes_Vec->Meshes_Vec->normals_faces = nullptr;
+		}
+		if (tmp->meshPointer->Meshes_Vec->Meshes_Vec->normals_faces_pos != nullptr)
+		{
+			delete[] tmp->meshPointer->Meshes_Vec->Meshes_Vec->normals_faces_pos;
+
+			tmp->meshPointer->Meshes_Vec->Meshes_Vec->normals_faces_pos = nullptr;
+		}
+		if (tmp->meshPointer->Meshes_Vec->Meshes_Vec->uv_coord != nullptr)
+		{
+			delete[] tmp->meshPointer->Meshes_Vec->Meshes_Vec->uv_coord;
+
+			tmp->meshPointer->Meshes_Vec->Meshes_Vec->uv_coord = nullptr;
+
+		}
+		if (tmp->meshPointer->Meshes_Vec->Meshes_Vec != nullptr)
+		{
+			delete tmp->meshPointer->Meshes_Vec->Meshes_Vec;
+
+			tmp->meshPointer->Meshes_Vec->Meshes_Vec = nullptr;
 
 		}
 
@@ -228,7 +228,7 @@ bool ModuleAssets::CleanUp(Gameobject* tmp) {
 		
 	}
 
-	tmp->meshPointer->Meshes_Vec.clear();
+	//tmp->meshPointer->Meshes_Vec->Meshes_Vec.clear();
 
 		App->camera->premadeDist = -1.0f;
 		App->camera->Reference = vec3(0, 0, 0);
@@ -250,7 +250,7 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos) {
 
-		//TODO: With inspector
+	
 		int id = -1;
 		bool found = false;
 		found = App->Textures->findTextureinList(path, id);
@@ -259,7 +259,7 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 			id=App->Textures->CreateTexture(path);
 		}
-		if (id != -1 )
+		/*if (id != -1 )
 		{
 			Gameobject* activeGameObject = nullptr;
 			activeGameObject = App->UI_Layer->HierarchyPanel->getActiveGameobject();
@@ -279,7 +279,7 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 			}
 
-		}
+		}*/
 
 		
 
@@ -459,7 +459,7 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 	/*tmp->materialPointer->UseCheckered(true);*/
 	//TODO
 	//make switch and pass parameter to function for what to create
-	tmp->meshPointer->Primitives_Vec.push_back(aux);
+	tmp->meshPointer->Meshes_Vec->Primitives_Vec = aux;
 
 
 

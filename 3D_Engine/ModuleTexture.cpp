@@ -65,7 +65,7 @@ bool ModuleTexture::findTextureinList(std::string path, int& index)
 
 	for (int i = 0; i < TextureIDs.size(); ++i) {
 
-		//if it pinds te texture path in the Vector it does not loads it again
+		//if it pins the texture path in the Vector it does not loads it again
 		if (TextureIDs[i]->path.compare(path) == 0)
 		{
 			ret = true;
@@ -191,11 +191,14 @@ void ModuleTexture::SetTextureOptions(int ClampOptions, int FilterMag, int Filte
 uint ModuleTexture::CreateTexture(const char*path) {
 
 	uint texID = 0;
+
+
 	if (path == nullptr)
 	{
 		LOG("Error loading texture from path. ERROR: Path %s was nullptr", path);
 		return texID;
 	}
+
 
 	uint ImageID = 0;
 	ilGenImages(1, (ILuint*)&ImageID);
@@ -204,7 +207,10 @@ uint ModuleTexture::CreateTexture(const char*path) {
 	//Loading image
 	if (ilLoadImage(path))
 	{
-		App->GearConsole.AddLog(" Laoding texture from %s ", path);
+		ResourceTexture* tmp2 = (ResourceTexture*)App->RS->CreateNewResource(RT_TEXTURE, "");
+
+
+		App->GearConsole.AddLog(" Loading texture from %s ", path);
 
 		ILinfo imageInfo;
 		iluGetImageInfo(&imageInfo);
@@ -225,6 +231,13 @@ uint ModuleTexture::CreateTexture(const char*path) {
 		CurrentTex->Height = imageInfo.Height;
 		CurrentTex->Width = imageInfo.Width;
 		TextureIDs.push_back(CurrentTex);
+
+		std::string filename = path;
+		std::size_t found = filename.find_last_of("/\\");
+		filename = filename.substr(0, found + 1);
+		
+		//may have prible duplicating textures
+		tmp2->CreateMaterial(filename);
 
 	}
 
