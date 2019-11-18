@@ -5,6 +5,7 @@
 #include <vector>
 #include "JSONLoader.h"
 #include "Resource.h"
+#include "ResourceMesh.h"
 
 
 class ResourceManager : public Module
@@ -18,6 +19,8 @@ public:
 
 	
 	bool LoadResource(const char* file_path);
+	Resource * Get(std::string _unique_id);
+	Resource * CreateNewResource(ResourceType type, std::string _unique_id);
 	bool LoadResource(const char* file_path, std::vector<Resource*>& resources);
 	
 

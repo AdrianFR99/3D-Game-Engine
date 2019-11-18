@@ -31,6 +31,7 @@ public:
 
 private:
 	
+	std::string nameMesh;
 
 	void LoadToMemory();
 	void UnloadFromMemory();

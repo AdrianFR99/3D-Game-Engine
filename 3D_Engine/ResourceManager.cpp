@@ -40,6 +40,49 @@ bool ResourceManager::LoadResource(const char * file_path)
 	return LoadResource(file_path, resources);
 }
 
+Resource * ResourceManager::Get(std::string _unique_id)
+{
+	std::map<std::string, Resource*>::iterator it = resources.find(_unique_id);
+
+	if (it != resources.end())
+		return it->second;
+
+	return nullptr;
+}
+
+Resource * ResourceManager::CreateNewResource(ResourceType type, std::string _unique_id)
+{
+	int random = 0;
+	std::string new_id;
+
+	if (_unique_id == "")
+	{
+		random = GetNewUID();
+		new_id = std::to_string(random);
+	}
+	else
+		new_id = _unique_id;
+
+	Resource* res = Get(_unique_id);
+
+	if (res == nullptr)
+	{
+		switch (type)
+		{
+		case ResourceType::RT_MESH:
+			res = new ResourceMesh(new_id);
+			break;
+		
+		if (res != nullptr)
+		{
+			resources[new_id] = res;
+		}
+	}
+
+	return res;
+}
+
+
 bool ResourceManager::LoadResource(const char * file_path, std::vector<Resource*>& resources)
 {
 	bool ret = false;

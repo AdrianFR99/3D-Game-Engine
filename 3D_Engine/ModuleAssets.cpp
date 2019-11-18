@@ -6,6 +6,7 @@
 #include "Primitives.h"
 #include "ModuleGameobject.h"
 #include "ComponentMesh.h"
+#include "ResourceManager.h"
 #include "ComponentTransform.h"
 #include "ModuleTexture.h"
 #include "ModuleEngineUI.h"
@@ -299,11 +300,11 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 	if (Scene != nullptr && Scene->HasMeshes())
 	{
-		Gameobject* father;
+		//Gameobject* father;
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
 		{
-			Gameobject* tmp = App->Gameobjects->CreateGameObject();
-			tmp->CreateComponent(tmp, MESH, true);
+			//Gameobject* tmp = App->Gameobjects->CreateGameObject();
+			//tmp->CreateComponent(tmp, MESH, true);
 
 			//insert name game obj
 			std::string filename = path;
