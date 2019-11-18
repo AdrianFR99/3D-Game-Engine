@@ -32,6 +32,7 @@ public:
 	//Primitives Primitives_Vec;
 
 	Material Comp_Material;
+	ResourceTexture* Default_texture = nullptr;
 private:
 	
 	std::string nameMesh;

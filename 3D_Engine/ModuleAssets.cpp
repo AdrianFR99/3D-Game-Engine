@@ -352,6 +352,8 @@ bool ModuleAssets::LoadMesh(const char* path) {
 		
 			if (Scene->HasMaterials()) {
 
+				ResourceTexture* tmp2 = (ResourceTexture*)App->RS->CreateNewResource(RT_TEXTURE, "");
+
 				aiString Texture_path;
 
 				aiMaterial* mat = Scene->mMaterials[0];
@@ -363,11 +365,11 @@ bool ModuleAssets::LoadMesh(const char* path) {
 				filename.append(Texture_path.C_Str());
 
 			
-				tmp->CreateMaterial(filename);
-
+				tmp2->CreateMaterial(filename);
+				tmp->Default_texture = tmp2;
 			}
 
-			if (i==0)
+			/*if (i==0)
 			{
 				Gameobject* scene = App->SceneEngine->GetSceneGameObjcet();
 				scene->GameObject_Child_Vec.push_back(tmp);
@@ -375,7 +377,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 			else 
 			{
 				father->GameObject_Child_Vec.push_back(tmp);
-			}
+			}*/
 		
 		}
 
