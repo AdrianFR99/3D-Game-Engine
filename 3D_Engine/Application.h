@@ -16,6 +16,7 @@
 #include "JSONLoader.h"
 #include "WindowConsole.h"
 #include "ModuleScene.h"
+#include "ResourceManager.h"
 
 #include "ModuleFileSystem.h"
 #include "ModuleGameobject.h"
@@ -39,8 +40,8 @@ public:
 	ModuleAssets* Assets = nullptr;
 	ModuleTexture* Textures = nullptr;
 	ModuleGameobject* Gameobjects = nullptr;
-	ModuleScene*SceneEngine = nullptr;
-
+	ModuleScene* SceneEngine = nullptr;
+	ResourceManager* RS = nullptr;
 private:
 
 	Timer	ms_timer;

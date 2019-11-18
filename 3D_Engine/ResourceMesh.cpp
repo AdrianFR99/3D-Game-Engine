@@ -4,6 +4,8 @@
 
 ResourceMesh::ResourceMesh(std::string unique_id) : Resource(unique_id, RT_MESH)
 {
+
+
 }
 
 ResourceMesh::~ResourceMesh()

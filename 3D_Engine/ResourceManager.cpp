@@ -50,7 +50,7 @@ Resource * ResourceManager::Get(std::string _unique_id)
 	return nullptr;
 }
 
-Resource * ResourceManager::CreateNewResource(ResourceType type, std::string _unique_id)
+Resource * ResourceManager::CreateNewResource(ResourceType type, std::string _unique_id )
 {
 	int random = 0;
 	std::string new_id;

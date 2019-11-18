@@ -305,8 +305,9 @@ bool ModuleAssets::LoadMesh(const char* path) {
 		{
 			//Gameobject* tmp = App->Gameobjects->CreateGameObject();
 			//tmp->CreateComponent(tmp, MESH, true);
-
 			//insert name game obj
+
+			ResourceMesh* tmp = (ResourceMesh*)App->RS->CreateNewResource(RT_MESH,"");
 			std::string filename = path;
 			std::size_t size = filename.find_last_of(".");
 			std::size_t found = filename.find_last_of("/\\");
@@ -315,9 +316,9 @@ bool ModuleAssets::LoadMesh(const char* path) {
 			int numb = (int)i;
 			std::string number = std::to_string(numb);
 			filename.append(number);
-			tmp->nameGameObject = filename;
+			tmp->SetFileName = filename;
 			
-			if (i == 0)
+			/*if (i == 0)
 			{
 				father = tmp;
 				tmp->Father = App->SceneEngine->GetSceneGameObjcet();
@@ -325,13 +326,16 @@ bool ModuleAssets::LoadMesh(const char* path) {
 			else if (father!=nullptr)
 			{
 				tmp->Father = father;
-			}
+			}*/
 
 			AssetMesh* NewMesh = new AssetMesh;
-			NewMesh->importMesh(Scene->mMeshes[i]);
-			tmp->meshPointer->Meshes_Vec.push_back(NewMesh);
 
-			for (int i = 0; i < tmp->meshPointer->Meshes_Vec.size(); ++i) {
+			NewMesh->importMesh(Scene->mMeshes[i]);
+			
+			tmp->Meshes_Vec = NewMesh;
+
+
+			/*for (int i = 0; i < tmp->meshPointer->Meshes_Vec.size(); ++i) {
 
 				if (tmp->meshPointer->Meshes_Vec[i]->faraway > tmp->CameraDistance)
 					tmp->CameraDistance = tmp->meshPointer->Meshes_Vec[i]->faraway;
@@ -344,7 +348,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 				if (tmp->meshPointer->Meshes_Vec[i]->medZ > tmp->zPos)
 					tmp->zPos = tmp->meshPointer->Meshes_Vec[i]->medZ;
-			}
+			}*/
 		
 			if (Scene->HasMaterials()) {
 

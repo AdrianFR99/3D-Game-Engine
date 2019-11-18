@@ -6,14 +6,10 @@
 #include "Globals.h"
 #include "Maths.h"
 #include "Gameobject.h"
-#include "Primitives.h"
+//#include "Primitives.h"
 #include "AssetMesh.h"
 
-
-class Gameobject;
 class AssetMesh;
-class Primitives;
-
 
 class ResourceMesh : public Resource
 {
@@ -25,9 +21,9 @@ public:
 
 	void Render();
 
-	AssetMesh Meshes_Vec;
+	AssetMesh* Meshes_Vec;
 	
-	Primitives Primitives_Vec;
+	//Primitives Primitives_Vec;
 
 private:
 	

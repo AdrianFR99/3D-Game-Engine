@@ -21,6 +21,7 @@ Application::Application()
 	Textures = new ModuleTexture(this);
 	Gameobjects = new ModuleGameobject(this);
 	SceneEngine = new ModuleScene(this);
+	RS = new ResourceManager(this,true);
 
 	Current_frames = 0; //current frame the program is
 	FPS_counter = 0;   //Frame per cicle
