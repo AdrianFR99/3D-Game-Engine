@@ -11,7 +11,7 @@ Resource::~Resource()
 {
 }
 
-void Resource::SetFileName(const char * _file_name)
+void Resource::SetFileName(std::string _file_name)
 {
 	file_name = _file_name;
 }

@@ -454,10 +454,10 @@ std::string ModuleFileSystem::GetFileExtension(const char * file_name)
 	return ret;
 }
 
-std::string ModuleFileSystem::GetAssetsPath()
-{
-	return assets_path;
-}
+//std::string ModuleFileSystem::GetAssetsPath()
+//{
+//	return assets_path;
+//}
 
 void ModuleFileSystem::FileCopyPaste(const char * filepath, const char * new_path)
 {
@@ -500,17 +500,17 @@ string ModuleFileSystem::ToLowerCase(std::string str)
 
 	return str;
 }
-
-string ModuleFileSystem::GetLibraryMeshPath()
-{
-	return library_mesh_path;
-}
-
-string ModuleFileSystem::GetLibraryTexturePath()
-{
-	return library_texture_path;
-}
-
+//
+//string ModuleFileSystem::GetLibraryMeshPath()
+//{
+//	return library_mesh_path;
+//}
+//
+//string ModuleFileSystem::GetLibraryTexturePath()
+//{
+//	return library_texture_path;
+//}
+//
 
 std::string ModuleFileSystem::GetFileNameFromFilePath(const char * file_path)
 {

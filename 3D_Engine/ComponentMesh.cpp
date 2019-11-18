@@ -1,5 +1,4 @@
 #include "ComponentMesh.h"
-#include "Component.h"
 #include "Application.h"
 #include "Primitives.h"
 #include "Globals.h"

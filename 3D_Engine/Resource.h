@@ -20,7 +20,7 @@ public:
 	virtual void CleanUp() {};
 
 	//setter
-	void SetFileName(const char* file_name);
+	void SetFileName(std::string file_name);
 
 	//getter
 	ResourceType GetType();

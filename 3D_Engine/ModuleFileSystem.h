@@ -57,7 +57,6 @@ public:
 
 	std::string GetFileExtension(const char * file_name);
 
-	std::string GetAssetsPath();
 
 	void FileCopyPaste(const char * filepath, const char * new_path);
 
@@ -65,9 +64,9 @@ public:
 
 	std::string ToLowerCase(std::string str);
 
-	std::string GetLibraryMeshPath();
-
-	std::string GetLibraryTexturePath();
+	//std::string GetLibraryMeshPath();
+	//std::string GetAssetsPath();
+	//std::string GetLibraryTexturePath();
 
 	std::string GetFileNameFromFilePath(const char * file_path);
 

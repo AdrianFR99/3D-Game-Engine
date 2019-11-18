@@ -23,6 +23,7 @@ public:
 	void Disable();
 	void NormalDisplay(bool faces, bool vertex);
 	void SetResourceMesh(ResourceMesh* resource);
+
 	//list of Meshes
 	ResourceMesh* Meshes_Vec;
 	//list of Primitives

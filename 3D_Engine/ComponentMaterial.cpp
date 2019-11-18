@@ -1,6 +1,5 @@
 #include "Application.h"
 #include "ComponentMaterial.h"
-#include "Component.h"
 #include "ModuleTexture.h"
 
 

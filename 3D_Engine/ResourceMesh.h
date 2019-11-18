@@ -2,6 +2,7 @@
 #define __RESOURCE_MESH_H__
 
 #include "Resource.h"
+#include "ResourceTexture.h"
 #include "ModuleAssets.h"
 #include "Globals.h"
 #include "Maths.h"
@@ -11,11 +12,6 @@
 
 class AssetMesh;
 
-struct Material {
-
-	std::string path;
-	Texture_Type type;
-};
 
 class ResourceMesh : public Resource
 {

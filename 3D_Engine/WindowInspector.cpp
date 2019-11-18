@@ -93,7 +93,7 @@ void WindowInspector::Inspector_Window() {
 
 				ImGui::Text("Base File Location:");
 				ImGui::SameLine();
-				ImGui::TextColored(IMGUI_YELLOW, "%s", activeobj->materialPointer->Comp_Material.path.data());
+				ImGui::TextColored(IMGUI_YELLOW, "%s", activeobj->materialPointer->Resource_Material->Comp_Material.path.data());
 				
 				ImGui::Spacing();
 
@@ -188,17 +188,17 @@ void WindowInspector::Inspector_Window() {
 
 				std::string display_name;
 				std::string id;
-				for (int i = 0; i < activeobj->meshPointer->Meshes_Vec.size(); ++i) 
+				if ( activeobj->meshPointer->Meshes_Vec->Meshes_Vec!=nullptr) 
 				{
-					display_name = activeobj->nameGameObject;
-					id = std::to_string(i);
+					/*display_name = activeobj->nameGameObject;
+					id = std::to_string(1);
 					display_name.append(id);
 
 					if (ImGui::Checkbox(display_name.data(), &activeobj->meshPointer->Meshes_Vec[i]->active))
 					{
 						
 							
-					}
+					}*/
 				}
 
 				ImGui::Spacing();
@@ -206,19 +206,19 @@ void WindowInspector::Inspector_Window() {
 				ImGui::Separator();
 
 
-				if (activeobj->meshPointer->Meshes_Vec.size() != 0)
+				if (activeobj->meshPointer->Meshes_Vec->Meshes_Vec != nullptr)
 				{
-					for (int i = 0; i < activeobj->meshPointer->Meshes_Vec.size(); ++i) {
+					
 
-						vertex += activeobj->meshPointer->Meshes_Vec[i]->num_vertex;
-						index += activeobj->meshPointer->Meshes_Vec[i]->num_index;
-						normal += activeobj->meshPointer->Meshes_Vec[i]->num_normals;
-						normal_faces += activeobj->meshPointer->Meshes_Vec[i]->num_normals_faces;
-						uvs += activeobj->meshPointer->Meshes_Vec[i]->num_uv;
-						Triangles += activeobj->meshPointer->Meshes_Vec[i]->num_normals_faces;
+						vertex += activeobj->meshPointer->Meshes_Vec->Meshes_Vec->num_vertex;
+						index += activeobj->meshPointer->Meshes_Vec->Meshes_Vec->num_index;
+						normal += activeobj->meshPointer->Meshes_Vec->Meshes_Vec->num_normals;
+						normal_faces += activeobj->meshPointer->Meshes_Vec->Meshes_Vec->num_normals_faces;
+						uvs += activeobj->meshPointer->Meshes_Vec->Meshes_Vec->num_uv;
+						Triangles += activeobj->meshPointer->Meshes_Vec->Meshes_Vec->num_normals_faces;
 
 
-					}
+					
 
 					ImGui::Text("Vertex Count:");
 					ImGui::SameLine();
@@ -252,12 +252,12 @@ void WindowInspector::Inspector_Window() {
 					 uvs = 0;
 
 				}
-				if (activeobj->meshPointer->Primitives_Vec.size() != 0)
+				if (activeobj->meshPointer->Meshes_Vec->Primitives_Vec != nullptr)
 				{
-					for (int i = 0; i < activeobj->meshPointer->Primitives_Vec.size(); ++i) {
+					if (activeobj->meshPointer->Meshes_Vec->Primitives_Vec != nullptr) {
 
-						vertex += activeobj->meshPointer->Primitives_Vec[i]->num_vertex;
-						index += activeobj->meshPointer->Primitives_Vec[i]->num_index;
+						vertex += activeobj->meshPointer->Meshes_Vec->Primitives_Vec->num_vertex;
+						index += activeobj->meshPointer->Meshes_Vec->Primitives_Vec->num_index;
 						//normal += activeobj->meshPointer->Primitives_Vec[i]->num_normals;
 						//normal_faces += activeobj->meshPointer->Primitives_Vec[i]->num_normals_faces;
 						//uvs += activeobj->meshPointer->Primitives_Vec[i]->num_uv;

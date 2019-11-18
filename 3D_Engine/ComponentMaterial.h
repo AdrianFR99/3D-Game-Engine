@@ -4,6 +4,7 @@
 
 #include "Component.h"
 #include "Assimp/include/material.h"
+#include "ResourceTexture.h"
 
 class Gameobject;
 //enum class 	Texture_Type;
@@ -40,6 +41,7 @@ public:
 	void Disable();
 
 	ResourceTexture* Resource_Material;
+
 	//Material Comp_Material;
 private:
 	//uint DiffuseID;

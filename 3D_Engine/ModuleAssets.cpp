@@ -300,14 +300,16 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 	if (Scene != nullptr && Scene->HasMeshes())
 	{
-		//Gameobject* father;
+		Gameobject* father;
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
 		{
-			//Gameobject* tmp = App->Gameobjects->CreateGameObject();
-			//tmp->CreateComponent(tmp, MESH, true);
-			//insert name game obj
+			Gameobject* tmpGO = App->Gameobjects->CreateGameObject();
+			tmpGO->CreateComponent(tmpGO, MESH, true);
 
 			ResourceMesh* tmp = (ResourceMesh*)App->RS->CreateNewResource(RT_MESH,"");
+			tmpGO->meshPointer->Meshes_Vec = tmp;
+			
+			//insert name game obj
 			std::string filename = path;
 			std::size_t size = filename.find_last_of(".");
 			std::size_t found = filename.find_last_of("/\\");
@@ -316,17 +318,17 @@ bool ModuleAssets::LoadMesh(const char* path) {
 			int numb = (int)i;
 			std::string number = std::to_string(numb);
 			filename.append(number);
-			tmp->SetFileName = filename;
+			tmp->SetFileName(filename);
 			
-			/*if (i == 0)
+			if (i == 0)
 			{
-				father = tmp;
-				tmp->Father = App->SceneEngine->GetSceneGameObjcet();
+				father = tmpGO;
+				tmpGO->Father = App->SceneEngine->GetSceneGameObjcet();
 			} 
 			else if (father!=nullptr)
 			{
-				tmp->Father = father;
-			}*/
+				tmpGO->Father = father;
+			}
 
 			AssetMesh* NewMesh = new AssetMesh;
 
@@ -335,25 +337,26 @@ bool ModuleAssets::LoadMesh(const char* path) {
 			tmp->Meshes_Vec = NewMesh;
 
 
-			/*for (int i = 0; i < tmp->meshPointer->Meshes_Vec.size(); ++i) {
+			/*for ( tmpGO->meshPointer->Meshes_Vec->Meshes_Vec != nullptr) {
 
-				if (tmp->meshPointer->Meshes_Vec[i]->faraway > tmp->CameraDistance)
-					tmp->CameraDistance = tmp->meshPointer->Meshes_Vec[i]->faraway;
+				if (tmpGO->meshPointer->Meshes_Vec->Meshes_Vec->faraway > tmpGO->CameraDistance)
+					tmpGO->CameraDistance = tmp->meshPointer->Meshes_Vec->faraway;
 
-				if (tmp->meshPointer->Meshes_Vec[i]->medX > tmp->xPos)
-					tmp->xPos = tmp->meshPointer->Meshes_Vec[i]->medX;
+				if (tmpGO->meshPointer->Meshes_Vec->Meshes_Vec->medX > tmpGO->xPos)
+					tmpGO->xPos = tmp->meshPointer->Meshes_Vec->Meshes_Vec->medX;
 
-				if (tmp->meshPointer->Meshes_Vec[i]->medY > tmp->yPos)
-					tmp->yPos = tmp->meshPointer->Meshes_Vec[i]->medY;
+				if (tmpGO->meshPointer->Meshes_Vec->Meshes_Vec->medY > tmpGO->yPos)
+					tmpGO->yPos = tmp->meshPointer->Meshes_Vec->Meshes_Vec->medY;
 
-				if (tmp->meshPointer->Meshes_Vec[i]->medZ > tmp->zPos)
-					tmp->zPos = tmp->meshPointer->Meshes_Vec[i]->medZ;
+				if (tmpGO->meshPointer->Meshes_Vec->Meshes_Vec->medZ > tmpGO->zPos)
+					tmpGO->zPos = tmp->meshPointer->Meshes_Vec->Meshes_Vec->medZ;
 			}*/
 		
 			if (Scene->HasMaterials()) {
 
+				tmpGO->CreateComponent(tmpGO, MATERIAL, true);
 				ResourceTexture* tmp2 = (ResourceTexture*)App->RS->CreateNewResource(RT_TEXTURE, "");
-
+				tmpGO->materialPointer->Resource_Material = tmp2;
 				aiString Texture_path;
 
 				aiMaterial* mat = Scene->mMaterials[0];
@@ -369,15 +372,15 @@ bool ModuleAssets::LoadMesh(const char* path) {
 				tmp->Default_texture = tmp2;
 			}
 
-			/*if (i==0)
+			if (i==0)
 			{
 				Gameobject* scene = App->SceneEngine->GetSceneGameObjcet();
-				scene->GameObject_Child_Vec.push_back(tmp);
+				scene->GameObject_Child_Vec.push_back(tmpGO);
 			}
 			else 
 			{
-				father->GameObject_Child_Vec.push_back(tmp);
-			}*/
+				father->GameObject_Child_Vec.push_back(tmpGO);
+			}
 		
 		}
 
