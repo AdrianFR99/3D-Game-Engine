@@ -4,10 +4,17 @@
 #include "Resource.h"
 #include <string>
 #include "Globals.h"
-#include "Maths.h"
 //#include "ModuleTexture.h"
 
-enum class 	Texture_Type;
+enum class Texture_Type {
+
+	NONE,
+	DIFFUSE,
+	SPECULAR,
+	UNKNOWN
+
+};
+
 
 struct Material {
 
@@ -25,11 +32,11 @@ public:
 
 	void CreateMaterial(std::string & path);
 
+	uint DiffuseID = 0;
+	uint currentID = 0;
+	uint CheckeredID = 0;
 
 	Material Comp_Material;
-	uint DiffuseID;
-	uint currentID;
-	uint CheckeredID;
 private:
 
 

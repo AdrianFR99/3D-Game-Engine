@@ -2,16 +2,13 @@
 #define __RESOURCE_MESH_H__
 
 #include "Resource.h"
-#include "ResourceTexture.h"
-#include "ModuleAssets.h"
+//#include "ResourceTexture.h"
 #include "Globals.h"
-#include "Maths.h"
-#include "Gameobject.h"
 #include "Primitives.h"
 #include "AssetMesh.h"
 
 class AssetMesh;
-
+class ResourceTexture;
 
 class ResourceMesh : public Resource
 {
@@ -25,7 +22,7 @@ public:
 
 	AssetMesh* Meshes_Vec;
 	
-	Primitives* Primitives_Vec;
+	Primitives* Primitives_Vec = nullptr;
 
 	
 	ResourceTexture* Default_texture = nullptr;

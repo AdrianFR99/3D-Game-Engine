@@ -25,7 +25,7 @@ public:
 	void SetResourceMesh(ResourceMesh* resource);
 
 	//list of Meshes
-	ResourceMesh* Meshes_Vec;
+	ResourceMesh* Meshes_Vec =nullptr;
 	//list of Primitives
 	//std::vector<Primitives*> Primitives_Vec;
 

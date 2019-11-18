@@ -12,14 +12,6 @@
 
 struct aiMaterial;
 
-enum class Texture_Type {
-
-	NONE,
-	DIFFUSE,
-	SPECULAR,
-	UNKNOWN
-	
-};
 
 struct Texture {
 

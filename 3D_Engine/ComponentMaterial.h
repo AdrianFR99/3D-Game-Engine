@@ -40,7 +40,7 @@ public:
 	void Enable();
 	void Disable();
 
-	ResourceTexture* Resource_Material;
+	ResourceTexture* Resource_Material = nullptr;
 
 	//Material Comp_Material;
 private:

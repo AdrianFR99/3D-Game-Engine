@@ -1,9 +1,12 @@
 #include "ResourceTexture.h"
 #include "Application.h"
-#include "ModuleRenderer3D.h"
+
 
 ResourceTexture::ResourceTexture(std::string unique_id) : Resource(unique_id, RT_TEXTURE)
 {
+	/*unique_id = _unique_id;
+	type = _type;
+	count_ref = 0;*/
 }
 
 ResourceTexture::~ResourceTexture()

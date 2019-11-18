@@ -51,6 +51,7 @@ void ComponentMaterial::SetDiffuseID(uint diffuse)
 
 std::string const ComponentMaterial::GetTexturePath() const
 {
+	
 	//get texture path from resource
 	return Resource_Material->Comp_Material.path.data();
 }
