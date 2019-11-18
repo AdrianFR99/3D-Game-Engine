@@ -39,7 +39,7 @@ private:
 	void LoadToMemory();
 	void UnloadFromMemory();
 
-	void CreateMaterial(std::string & path);
+	
 
 private:
 	uint DiffuseID;

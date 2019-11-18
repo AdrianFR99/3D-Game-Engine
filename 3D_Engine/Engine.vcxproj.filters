@@ -220,6 +220,9 @@
     <ClCompile Include="ResourceMesh.cpp">
       <Filter>Source\Resource</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceTexture.cpp">
+      <Filter>Source\Resource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleCamera3D.h">
@@ -562,6 +565,9 @@
       <Filter>Source\Resource</Filter>
     </ClInclude>
     <ClInclude Include="ResourceMesh.h">
+      <Filter>Source\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceTexture.h">
       <Filter>Source\Resource</Filter>
     </ClInclude>
   </ItemGroup>

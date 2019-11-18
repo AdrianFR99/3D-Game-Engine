@@ -6,6 +6,7 @@
 #include "JSONLoader.h"
 #include "Resource.h"
 #include "ResourceMesh.h"
+#include "ResourceTexture.h"
 
 
 class ResourceManager : public Module

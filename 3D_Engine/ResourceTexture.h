@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "Maths.h"
 
+enum class 	Texture_Type;
 
 struct Material {
 

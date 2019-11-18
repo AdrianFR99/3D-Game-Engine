@@ -72,14 +72,17 @@ Resource * ResourceManager::CreateNewResource(ResourceType type, std::string _un
 		case ResourceType::RT_MESH:
 			res = new ResourceMesh(new_id);
 			break;
-		
+		case ResourceType::RT_TEXTURE:
+			res = new ResourceTexture(new_id);
+			break;
+		}
 		if (res != nullptr)
 		{
-			resources[new_id] = res;
+				resources[new_id] = res;
 		}
-	}
 
-	return res;
+		return res;
+	}
 }
 
 
