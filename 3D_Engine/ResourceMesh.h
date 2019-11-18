@@ -11,6 +11,12 @@
 
 class AssetMesh;
 
+struct Material {
+
+	std::string path;
+	Texture_Type type;
+};
+
 class ResourceMesh : public Resource
 {
 public:
@@ -25,6 +31,7 @@ public:
 	
 	//Primitives Primitives_Vec;
 
+	Material Comp_Material;
 private:
 	
 	std::string nameMesh;
@@ -32,7 +39,12 @@ private:
 	void LoadToMemory();
 	void UnloadFromMemory();
 
+	void CreateMaterial(std::string & path);
+
 private:
+	uint DiffuseID;
+	uint currentID;
+	uint CheckeredID;
 
 
 

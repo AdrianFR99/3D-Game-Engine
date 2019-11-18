@@ -362,8 +362,8 @@ bool ModuleAssets::LoadMesh(const char* path) {
 				filename = filename.substr(0, found+1);
 				filename.append(Texture_path.C_Str());
 
-				tmp->CreateComponent(tmp, MATERIAL, true);
-				tmp->materialPointer->CreateMaterial(filename);
+			
+				tmp->CreateMaterial(filename);
 
 			}
 

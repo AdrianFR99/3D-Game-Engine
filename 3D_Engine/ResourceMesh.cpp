@@ -34,3 +34,19 @@ void ResourceMesh::UnloadFromMemory()
 	
 }
 
+void ResourceMesh::CreateMaterial(std::string&path) {
+
+
+	currentID = App->Textures->CreateTexture(path.data());
+	DiffuseID = currentID;
+	CheckeredID = App->Textures->ChekeredID;
+
+	if (currentID == NULL) {
+		currentID = CheckeredID;
+	}
+
+	Comp_Material.path = path;
+	Comp_Material.type = Texture_Type::DIFFUSE;
+
+
+}
