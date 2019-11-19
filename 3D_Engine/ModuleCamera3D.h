@@ -26,10 +26,9 @@ public:
 	const void MoveRight(const float&Displacement);
 	//Rotation
 	void Look(const float3 &Position);
-//	void Rotate(const float&rotationX, const float&rotationY);
 	void Orbit(const float3 & rotate_center, const float & motion_x, const float & motion_y);
 	void RotateYourself(const float& motion_x, const float& motion_y);
-
+	void CenterCam(const float3&focus,const float&distance);
 
 	//Getters
 

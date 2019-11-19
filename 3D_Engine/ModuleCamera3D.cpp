@@ -96,9 +96,6 @@ update_status ModuleCamera3D::Update(float dt)
 		if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) 
 			EditorCam->MoveRight(cam_speed);
 
-			
-			Reference += newPos;
-		// end of wasp move
 
 		// mouse position and free look
 			EditorCam->RotateYourself(App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
@@ -106,9 +103,6 @@ update_status ModuleCamera3D::Update(float dt)
 		
 		float Sensitivity = 0.25f;
 
-		Position -= Reference;
-
-		Position = Reference + Z * length(Position);
 	}
 
 	//mouse wheel
@@ -130,7 +124,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_UP)
 	{
-		if (App->Gameobjects->GameobjectList.size() != 0)
+		/*if (App->Gameobjects->GameobjectList.size() != 0)
 		{
 			Gameobject* centerOfView;
 			centerOfView = App->UI_Layer->HierarchyPanel->getActiveGameobject();
@@ -154,9 +148,10 @@ update_status ModuleCamera3D::Update(float dt)
 		{
 			Position = Reference + Z * 15.0;
 		}
+*/
+		EditorCam->CenterCam(float3(0,0,0),20.0f);
 
-		//Reference= vec3(0, 0, 0);
-		//Position = Reference + Z * premadeDist;
+
 	}
 
 
@@ -185,38 +180,6 @@ void Camera3D::Look(const float3 &Position)
 
 
 // -----------------------------------------------------------------
-
-//void ModuleCamera3D::CalculateViewMatrix()
-//{
-//	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f,
-//		X.y, Y.y, Z.y, 0.0f,
-//		X.z, Y.z, Z.z, 0.0f,
-//		-dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
-//	ViewMatrixInverse = inverse(ViewMatrix);
-//}
-
-//// Called for rotating in a point
-//void Camera3D::Rotate(const float&rotationX,const float&rotationY)
-//{
-//	/*Reference = ReferencetoRot;*/
-//
-//	/*X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-//	Y = cross(Z, X);
-//
-//	CalculateViewMatrix();*/
-//
-//	//Create quaternions with its determinant rotation
-//	Quat RotX=Quat::RotateY(rotationX);//Quat::RotateAxisAngle(Frustum.Up,rotationX);
-//	Quat RotY = Quat::RotateZ(rotationY);//Quat::RotateAxisAngle(frustum.WorldRight(),rotationY);
-//
-//	//Multiply quats w 
-//	//SetToFront(RotX.Mul(CamFrustum.Front()).Normalized());
-//	//SetToFront(RotY.Mul(CamFrustum.Front()).Normalized());//
-//
-//	//SetToUp(RotX.Mul(CamFrustum.Up).Normalized());//
-//	//SetToUp(RotY.Mul(CamFrustum.Up()).Normalized());
-//}
-//
 
 
  Camera3D*ModuleCamera3D::CreateNewCamera() {
@@ -290,7 +253,12 @@ void Camera3D::RotateYourself(const float& motion_x, const float& motion_y)
 
 }
 
-	
+void  Camera3D::CenterCam(const float3&focus, const float&distance) {
+
+	float3 direction = CamFrustum.pos - focus;
+	SetCamPos(direction.Normalized() * distance);
+	Look(focus);
+}
 
 
 
