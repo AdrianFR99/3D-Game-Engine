@@ -44,6 +44,10 @@ void ComponentMesh::CleanUp()
 {
 	App->Assets->CleanUp(belongsTo);
 
+	Meshes_Vec->CleanUp();
+
+	Meshes_Vec = nullptr;
+
 	
 	/*if (Primitives_Vec.size() > 0) {
 		for (int i = 0; i < Primitives_Vec.size(); ++i) {

@@ -30,6 +30,7 @@ public:
 	//std::vector<Primitives*> Primitives_Vec;
 
 	bool normalsDrawFaces = false;
+
 	bool normalsDrawVertex = false;
 
 private:

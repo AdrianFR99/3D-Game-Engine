@@ -70,7 +70,9 @@ std::string const ComponentMaterial::GetTexturePath() const
 
 void ComponentMaterial::CleanUp()
 {
+	Resource_Material->CleanUp();
 
+	Resource_Material = nullptr;
 
 
 }
