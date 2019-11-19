@@ -4,6 +4,7 @@
 #include "ModuleAssets.h"
 #include "ModuleGameobject.h"
 
+
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include "imgui/imgui.h"
@@ -200,7 +201,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 
-	DrawGrindAndAxis();
+	DrawGrindAndAxis();//TODEBUGDRAW
 
 	App->Gameobjects->Draw();
 

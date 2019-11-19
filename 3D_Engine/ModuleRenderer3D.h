@@ -4,6 +4,7 @@
 #include "glmath.h"
 #include "Light.h"
 
+#include "DebugDraw.h"
 
 #define MAX_LIGHTS 8
 
@@ -43,6 +44,8 @@ public:
 	mat4x4 ModelMatrix, ViewMatrix, ProjectionMatrix;
 
 	bool Vsync = false;
+
+	DebugDraw debug;
 
 private:
 	uint Light_num = 0;

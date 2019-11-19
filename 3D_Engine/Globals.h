@@ -60,4 +60,12 @@ enum update_status
 #define ASSETS_FOLDER "/Assets/"
 
 //define Colors
-
+#define RED Color(1.0f, 0.0f, 0.0f)
+#define GREEN Color(0.0f, 1.0f, 0.0f)
+#define BLUE Color(0.0f, 0.0f, 1.0f)
+#define BLACK  Color(0.0f, 0.0f, 0.0f)
+#define WHITE  Color(1.0f, 1.0f, 1.0f)
+#define ORANGE Color(0.75f, 0.25f, 0.0f)
+#define GREY Color(0.84f, 0.84f, 0.84f)
+#define BROWN Color(0.45f, 0.29f, 0.7f)
+#define PINK Color(0.8f, 0.59f, 0.8f)

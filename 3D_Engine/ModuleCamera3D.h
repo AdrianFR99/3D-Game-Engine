@@ -77,6 +77,7 @@ public:
 
 	float AspectRatio;
 
+
 private:
 
 	Frustum CamFrustum;
