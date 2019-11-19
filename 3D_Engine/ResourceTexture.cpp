@@ -19,9 +19,9 @@ void ResourceTexture::CleanUp()
 }
 
 void ResourceTexture::CreateMaterial(std::string&path) {
+	
 
-
-	currentID = App->Textures->CreateTexture(path.data());
+	currentID = App->Textures->CreateTexture(path.data(), *this);
 	DiffuseID = currentID;
 	CheckeredID = App->Textures->ChekeredID;
 

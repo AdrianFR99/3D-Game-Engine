@@ -59,7 +59,7 @@ void ModuleTexture::ReloadFromConfig()
 
 }
 
-bool ModuleTexture::findTextureinList(std::string path, int& index)
+bool ModuleTexture::findTextureinList(std::string path, int& index, std::string& reference_name)
 {
 	bool ret = false;
 
@@ -70,6 +70,7 @@ bool ModuleTexture::findTextureinList(std::string path, int& index)
 		{
 			ret = true;
 			index = TextureIDs[i]->id;
+			reference_name = TextureIDs[i]->ResourceID;
 			break;
 		}
 
@@ -188,7 +189,7 @@ void ModuleTexture::SetTextureOptions(int ClampOptions, int FilterMag, int Filte
 
 }
 
-uint ModuleTexture::CreateTexture(const char*path) {
+uint ModuleTexture::CreateTexture(const char*path, ResourceTexture& tmp2) {
 
 	uint texID = 0;
 
@@ -207,8 +208,6 @@ uint ModuleTexture::CreateTexture(const char*path) {
 	//Loading image
 	if (ilLoadImage(path))
 	{
-		ResourceTexture* tmp2 = (ResourceTexture*)App->RS->CreateNewResource(RT_TEXTURE, "");
-
 
 		App->GearConsole.AddLog(" Loading texture from %s ", path);
 
@@ -230,14 +229,18 @@ uint ModuleTexture::CreateTexture(const char*path) {
 		CurrentTex->path = path;
 		CurrentTex->Height = imageInfo.Height;
 		CurrentTex->Width = imageInfo.Width;
+		CurrentTex->ResourceID = tmp2.GetUniqueId();
 		TextureIDs.push_back(CurrentTex);
 
 		std::string filename = path;
 		std::size_t found = filename.find_last_of("/\\");
 		filename = filename.substr(0, found + 1);
 		
-		//may have prible duplicating textures
-		tmp2->CreateMaterial(filename);
+		tmp2.Comp_Material.path = filename;
+		tmp2.DiffuseID = texID;
+		tmp2.currentID = texID;
+		tmp2.CheckeredID = ChekeredID;
+
 
 	}
 

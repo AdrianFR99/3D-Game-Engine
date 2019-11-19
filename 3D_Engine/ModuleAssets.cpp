@@ -253,28 +253,61 @@ bool ModuleAssets::LoadFiles(const char* path) {
 	
 		int id = -1;
 		bool found = false;
-		found = App->Textures->findTextureinList(path, id);
+		std::string referenceID = "none";
+		found = App->Textures->findTextureinList(path, id, referenceID);
+		ResourceTexture* re = nullptr;
+
 		if (found == false)
 		{
-
-			id=App->Textures->CreateTexture(path);
+			re = (ResourceTexture*)App->RS->CreateNewResource(RT_TEXTURE, "");
+			id = App->Textures->CreateTexture(path,*re);
 		}
 		if (id != -1 )
 		{
+			if (found && referenceID != "none")
+			{
+				re = (ResourceTexture*)App->RS->Get(referenceID);
+			}
 			Gameobject* activeGameObject = nullptr;
 			activeGameObject = App->UI_Layer->HierarchyPanel->getActiveGameobject();
 			
 			if (App->Gameobjects->GameobjectList.size()>0) {
 
-				if (activeGameObject!=nullptr)
+				if (activeGameObject!=nullptr )
 				{
-					activeGameObject->materialPointer->SetTextureID(id);
-					activeGameObject->materialPointer->SetDiffuseID(id);
+
+					if (activeGameObject->materialPointer != nullptr)
+					{
+						activeGameObject->materialPointer->Resource_Material = re;
+						activeGameObject->materialPointer->SetTextureID(id);
+						activeGameObject->materialPointer->SetDiffuseID(id);
+
+					}
+					else if (activeGameObject->materialPointer == nullptr)
+					{
+						activeGameObject->CreateComponent(activeGameObject, MATERIAL, true);
+						activeGameObject->materialPointer->Resource_Material = re;
+						activeGameObject->materialPointer->SetTextureID(id);
+						activeGameObject->materialPointer->SetDiffuseID(id);
+					}
 				}
 				else
 				{
-					App->Gameobjects->GameobjectList[0]->materialPointer->SetTextureID(id);
-					App->Gameobjects->GameobjectList[0]->materialPointer->SetDiffuseID(id);
+					if (App->Gameobjects->GameobjectList[1]->materialPointer != nullptr)
+					{
+						App->Gameobjects->GameobjectList[1]->materialPointer->Resource_Material = re;
+						App->Gameobjects->GameobjectList[1]->materialPointer->SetTextureID(id);
+						App->Gameobjects->GameobjectList[1]->materialPointer->SetDiffuseID(id);
+					}
+					else if (activeGameObject->materialPointer == nullptr)
+					{
+						App->Gameobjects->GameobjectList[1]->CreateComponent(App->Gameobjects->GameobjectList[1], MATERIAL, true);
+						App->Gameobjects->GameobjectList[1]->materialPointer->Resource_Material = re;
+						App->Gameobjects->GameobjectList[1]->materialPointer->SetTextureID(id);
+						App->Gameobjects->GameobjectList[1]->materialPointer->SetDiffuseID(id);
+					}
+					
+					
 				}
 
 			}
@@ -369,7 +402,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 			
 				tmp2->CreateMaterial(filename);
-				tmp->Default_texture = tmp2;
+				//tmp->Default_texture = tmp2;
 			}
 
 			if (i==0)

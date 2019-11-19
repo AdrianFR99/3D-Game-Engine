@@ -38,7 +38,11 @@ void ComponentMaterial::Draw()
 void ComponentMaterial::SetTextureID(uint diffuse)
 {
 	//change current resource using
-	
+	if (Resource_Material != nullptr)
+	{
+	Resource_Material->currentID = diffuse;
+
+	}
 	//currentID = diffuse;
 
 }
@@ -46,6 +50,11 @@ void ComponentMaterial::SetTextureID(uint diffuse)
 void ComponentMaterial::SetDiffuseID(uint diffuse)
 {
 	// set resource for diffuse
+	if (Resource_Material != nullptr)
+	{
+	Resource_Material->DiffuseID = diffuse;
+
+	}
 	//DiffuseID = diffuse;
 }
 
@@ -53,6 +62,9 @@ std::string const ComponentMaterial::GetTexturePath() const
 {
 	
 	//get texture path from resource
+	if (Resource_Material == nullptr)
+		int a = 0;
+
 	return Resource_Material->Comp_Material.path.data();
 }
 
@@ -66,6 +78,10 @@ void ComponentMaterial::CleanUp()
 uint const ComponentMaterial::GetCurrentTextureID() const
 {
 	//get active resource text id
+
+	if (Resource_Material == nullptr)
+		int a = 0;
+
 	return Resource_Material->currentID;
 }
 

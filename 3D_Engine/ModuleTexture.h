@@ -19,6 +19,7 @@ struct Texture {
 	uint id;
 	int Height = 0;
 	int Width = 0;
+	std::string ResourceID ;
 };
 
 class ModuleTexture :
@@ -34,7 +35,7 @@ public:
 	bool CleanUp();
 
 	uint CreateCheckeredTex();
-	uint CreateTexture(const char*path);
+	uint CreateTexture(const char*path, ResourceTexture& resource);
 	void SetTextureOptions(int ClampOptions,int FilterMag,int FilterMin);
 	uint ToTexBuffer(uint size, int format, int width, int height,const void* Texture);
 
@@ -42,7 +43,7 @@ public:
 	void Save(nlohmann::json& file);
 	void ReloadFromConfig();
 
-	bool findTextureinList(std::string path,int& index);
+	bool findTextureinList(std::string path,int& index,std::string& reference_name);
 
 public:
 
