@@ -191,6 +191,16 @@ void Camera3D::Look(const float3 &Position)
 	
 	return aux;
 }
+
+ Camera3D*ModuleCamera3D::CreateNewCamera(float3&pos, float&FarPlane, float&NearPlane) {
+
+
+	 Camera3D*aux = nullptr;
+	 aux = new Camera3D(pos,FarPlane,NearPlane);
+	 VecCameras.push_back(aux);
+
+	 return aux;
+ }
  bool ModuleCamera3D::DeleteCamera(Camera3D*target) {
 
 
@@ -223,42 +233,6 @@ void Camera3D::Look(const float3 &Position)
 
  }
  
-////similar to rotate, to orbit
-void Camera3D::Orbit(const float3& orbit_center, const float& motion_x, const float& motion_y)
-{
-	
-	float3 focus = CamFrustum.pos - orbit_center;
-
-	Quat Rotatey(CamFrustum.up, motion_x*App->camera->mouse_sensitivity);
-	Quat Rotatex(CamFrustum.WorldRight(),motion_y*App->camera->mouse_sensitivity);
-
-	focus = Rotatex.Transform(focus);
-	focus = Rotatey.Transform(focus);
-
-	SetCamPos(focus + orbit_center);
-
-	Look(orbit_center);
-}
-
-void Camera3D::RotateYourself(const float& motion_x, const float& motion_y)
-{
-
-	Quat rotation_x = Quat::RotateY(motion_x*App->camera->mouse_sensitivity);
-	SetToFront(rotation_x.Mul(CamFrustum.front).Normalized());
-	SetToUp(rotation_x.Mul(CamFrustum.up).Normalized());
-
-	Quat rotation_y = Quat::RotateAxisAngle(CamFrustum.WorldRight(), motion_y*App->camera->mouse_sensitivity);
-	SetToFront(rotation_y.Mul(CamFrustum.front).Normalized());
-	SetToUp(rotation_y.Mul(CamFrustum.up).Normalized());
-
-}
-
-void  Camera3D::CenterCam(const float3&focus, const float&distance) {
-
-	float3 direction = CamFrustum.pos - focus;
-	SetCamPos(direction.Normalized() * distance);
-	Look(focus);
-}
 
 
 
@@ -281,6 +255,23 @@ Camera3D::Camera3D() {
 
 }
 
+Camera3D::Camera3D(float3&pos, float& FarPlane, float& NearPlane) {
+
+	SetCamPos(pos);
+	SetToFront(float3::unitZ);
+	SetToUp(float3::unitY);
+	SetFarPlane_Dist(FarPlane);
+	SetNearPlane_Dist(NearPlane);
+	SetTypeFrustum(PerspectiveFrustum);
+
+	SetVeticalFOV(30);
+	SetHorizontalFOV(60);
+	SetAspectRatio((float)SCREEN_WIDTH / (float)SCREEN_HEIGHT);
+	SetFOV(90);
+
+
+
+}
 const void Camera3D::SetCamPos(const float3&newpos) {
 
 
@@ -305,6 +296,57 @@ const void Camera3D::SetToUp(const float3&upDir) {
 	UpdateMatrices();
 	
 }
+
+////similar to rotate, to orbit
+void Camera3D::Orbit(const float3& orbit_center, const float& motion_x, const float& motion_y)
+{
+
+	float3 focus = CamFrustum.pos - orbit_center;
+
+	Quat Rotatey(CamFrustum.up, motion_x*App->camera->mouse_sensitivity);
+	Quat Rotatex(CamFrustum.WorldRight(), motion_y*App->camera->mouse_sensitivity);
+
+	focus = Rotatex.Transform(focus);
+	focus = Rotatey.Transform(focus);
+
+	SetCamPos(focus + orbit_center);
+
+	Look(orbit_center);
+}
+
+void Camera3D::RotateYourself(const float& motion_x, const float& motion_y)
+{
+	float motionx;
+	float motiony;
+	
+	if (inverseCameraControls == false) {
+		 motionx = -motion_x;
+		 motiony = -motion_y;
+	}
+	else {
+
+		motionx =motion_x;
+		motiony =motion_y;
+	}
+
+
+	Quat rotation_x = Quat::RotateY(motionx*App->camera->mouse_sensitivity);
+	SetToFront(rotation_x.Mul(CamFrustum.front).Normalized());
+	SetToUp(rotation_x.Mul(CamFrustum.up).Normalized());
+
+	Quat rotation_y = Quat::RotateAxisAngle(CamFrustum.WorldRight(), motiony*App->camera->mouse_sensitivity);
+	SetToFront(rotation_y.Mul(CamFrustum.front).Normalized());
+	SetToUp(rotation_y.Mul(CamFrustum.up).Normalized());
+
+}
+
+void  Camera3D::CenterCam(const float3&focus, const float&distance) {
+
+	float3 direction = CamFrustum.pos - focus;
+	SetCamPos(direction.Normalized() * distance);
+	Look(focus);
+}
+
 
 const void Camera3D::MoveUp(const float&Displacement){
 

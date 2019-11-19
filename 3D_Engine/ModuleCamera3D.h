@@ -16,7 +16,7 @@ public:
 	ALIGN_CLASS_TO_16
 
 	Camera3D();
-	   
+	Camera3D(float3&pos,float& FarPlane, float& NearPlane);
 	//movement
 	const void MoveUp(const float&Displacement);
 	const void MoveDown(const float&Displacement);
@@ -77,6 +77,10 @@ public:
 
 	float AspectRatio;
 
+public:
+
+	bool inverseCameraControls=false;
+
 
 private:
 
@@ -108,6 +112,7 @@ public:
 	//Camera creatiom Handlers
 
 	 Camera3D*CreateNewCamera();
+	 Camera3D*CreateNewCamera(float3&pos,float&FarPlane,float&NearPlane);
 	 bool DeleteCamera(Camera3D*target);
 	 bool DeleteAllCameras();
 

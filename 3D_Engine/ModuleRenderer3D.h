@@ -13,6 +13,7 @@
 typedef unsigned int GLuint;
 typedef struct par_shapes_mesh_s;
 
+
 class ModuleRenderer3D : public Module
 {
 public:
@@ -46,6 +47,8 @@ public:
 	bool Vsync = false;
 
 	DebugDraw debug;
+
+
 
 private:
 	uint Light_num = 0;

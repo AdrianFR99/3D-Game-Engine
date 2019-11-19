@@ -3,6 +3,9 @@
 
 #include "Module.h"
 
+class Camera3D;
+
+
 class ModuleScene :
 	public Module
 {
@@ -18,7 +21,7 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
-
+	Camera3D*test=nullptr;
 
 
 };

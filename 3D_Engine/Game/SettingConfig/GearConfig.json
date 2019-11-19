@@ -7,7 +7,7 @@
     },
     "Camera": {
       "Camera_speed": 20.0,
-      "Mouse_sensitivity": 0.25,
+      "Mouse_sensitivity": 0.05,
       "PremadeDistance": 15.0,
       "Wheel_speed": 5.0
     },

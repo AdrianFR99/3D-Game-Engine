@@ -35,9 +35,6 @@ void Gameobject::Draw()
 
 	}
 
-	
-
-
 
 }
 

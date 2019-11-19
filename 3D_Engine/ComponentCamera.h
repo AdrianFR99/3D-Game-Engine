@@ -14,6 +14,11 @@ public:
 
 	Camera3D*CameraComponent;
 
+
+public:
+
+	void Draw()override;
+
 };
 
 #endif

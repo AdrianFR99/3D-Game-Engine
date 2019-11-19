@@ -14,3 +14,9 @@ ComponentCamera::ComponentCamera(Gameobject * owner, CompType newtype):Component
 ComponentCamera::~ComponentCamera()
 {
 }
+
+void ComponentCamera::Draw() {
+
+	App->renderer3D->debug.DebugDrawFrustum(&CameraComponent->GetFrustum(),WHITE,true,2.5f);
+
+}

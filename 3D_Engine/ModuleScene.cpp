@@ -1,6 +1,7 @@
 #include "Application.h"
 #include "ModuleScene.h"
 #include "ModuleAssets.h"
+#include "ModuleCamera3D.h"
 
 #include "mmgr/mmgr.h"
 
@@ -16,7 +17,8 @@ ModuleScene::~ModuleScene()
 
 bool ModuleScene::Init() {
 
-	//CreatePrimitive();
+	test=App->camera->CreateNewCamera();
+	//test = App->camera->CreateNewCamera(float3(10.0f, 0.0f, 0.0f), 2.0f, 30.0f);
 
 
 
@@ -51,6 +53,8 @@ update_status ModuleScene::Update(float dt) {
 }
 update_status ModuleScene::PostUpdate(float dt) {
 
+
+	App->renderer3D->debug.DebugDrawFrustum(&test->GetFrustum(),WHITE,true,2.5f);
 
 
 	return UPDATE_CONTINUE;
