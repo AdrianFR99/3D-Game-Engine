@@ -34,3 +34,16 @@ void ResourceTexture::CreateMaterial(std::string&path) {
 
 
 }
+
+void ResourceTexture::CreateMaterial() {
+
+
+	//DiffuseID = currentID;
+	CheckeredID = App->Textures->ChekeredID;
+
+	currentID = CheckeredID;
+
+	Comp_Material.path = "---";
+	//Comp_Material.type = Texture_Type::NONE;
+
+}

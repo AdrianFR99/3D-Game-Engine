@@ -32,6 +32,8 @@ public:
 
 	void CreateMaterial(std::string & path);
 
+	void CreateMaterial();
+
 	uint DiffuseID = 0;
 	uint currentID = 0;
 	uint CheckeredID = 0;

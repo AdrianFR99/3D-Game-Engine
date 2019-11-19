@@ -4,6 +4,8 @@
 #include "Globals.h"
 
 
+#include "mmgr/mmgr.h"
+
 ResourceManager::ResourceManager(Application* app, bool start_enabled):Module( app,start_enabled)
 {
 	

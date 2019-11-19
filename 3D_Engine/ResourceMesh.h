@@ -20,7 +20,7 @@ public:
 
 	void Render();
 
-	AssetMesh* Meshes_Vec;
+	AssetMesh* Meshes_Vec = nullptr;;
 	
 	Primitives* Primitives_Vec = nullptr;
 

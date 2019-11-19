@@ -435,6 +435,9 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 	Gameobject* tmp = App->Gameobjects->CreateGameObject();
 	tmp->CreateComponent(tmp, MESH, true);
 
+	ResourceMesh* tmpRes = (ResourceMesh*)App->RS->CreateNewResource(RT_MESH, "");
+	tmp->meshPointer->Meshes_Vec = tmpRes;
+
 	std::string nameid = std::to_string(tmp->ID);
 
 	tmp->Father = App->SceneEngine->GetSceneGameObjcet();
@@ -484,11 +487,19 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 		break;
 	}
 
+	tmpRes->SetFileName(tmp->nameGameObject);
+
 	Primitives*aux = nullptr;
 	aux = new Primitives(type);
 
+	tmpRes->Primitives_Vec = aux;
+
 	tmp->CreateComponent(tmp, MATERIAL, true);
-	tmp->materialPointer->CreateMaterial();
+	ResourceTexture* tmp2 = (ResourceTexture*)App->RS->CreateNewResource(RT_TEXTURE, "");
+	tmp->materialPointer->Resource_Material = tmp2;
+
+	
+	tmp2->CreateMaterial();
 
 	tmp->materialPointer->UseCheckered(true);
 
@@ -499,13 +510,13 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 
 
 
-	tmp->CameraDistance = aux->faraway;
+	/*tmp->CameraDistance = aux->faraway;
 
 	tmp->xPos = aux->medX;
 	tmp->yPos = aux->medY;
 	tmp->zPos = aux->medZ;
 	
-
+*/
 }
 
 void ModuleAssets::CallbackEvent(const Event& event) {
