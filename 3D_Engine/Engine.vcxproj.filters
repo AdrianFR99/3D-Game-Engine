@@ -214,6 +214,9 @@
     <ClCompile Include="ComponentCamera.cpp">
       <Filter>Source\Tools\Component</Filter>
     </ClCompile>
+    <ClCompile Include="DebugDraw.cpp">
+      <Filter>Source\Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleCamera3D.h">
@@ -551,6 +554,9 @@
     </ClInclude>
     <ClInclude Include="ComponentCamera.h">
       <Filter>Source\Tools\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugDraw.h">
+      <Filter>Source\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
