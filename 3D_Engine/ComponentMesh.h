@@ -32,7 +32,7 @@ public:
 	bool normalsDrawVertex = false;
 	int num_meshes=0; 
 
-	void GetBBMesh(AABB*BoundingBox);
+	
 
 };
 

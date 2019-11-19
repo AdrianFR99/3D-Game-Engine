@@ -4,6 +4,7 @@
 #include "ComponentTransform.h"
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
+#include "DebugDraw.h"
 
 #include "glew/include/glew.h"
 
@@ -35,6 +36,8 @@ void Gameobject::Draw()
 		ComponentList[i]->Draw();
 
 	}
+
+	DrawOBB_Box();
 
 
 }
@@ -103,16 +106,15 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 			temp = meshPointer;
 			counter++;
 
+			obb = meshPointer->Meshes_Vec[0]->GetBBox();
+			obb.Transform(transformPointer->GetGlobalTransform());
 
-			SetOBBToNegativeInf();
-			meshPointer->GetBBMesh(obbGameObject);
-			SetOBBtoGlobalTrans();
-
+			aabb.SetNegativeInfinity();
+			aabb.Enclose(obb);
 
 
 			break;
 		case MATERIAL:
-
 
 			temp = new ComponentMaterial(this, MATERIAL);
 			materialPointer = (ComponentMaterial*)temp;
@@ -143,26 +145,16 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 
 }
 
-void Gameobject::SetOBBToNegativeInf() {
-
-	for (int i = 0; i < meshPointer->num_meshes; ++i)
-		obbGameObject[i].SetNegativeInfinity();
-
-
-}
-
-void Gameobject::SetOBBtoGlobalTrans() {
-
-	for (int i = 0; i < meshPointer->num_meshes; ++i)
-	obbGameObject[i].TransformAsAABB(transformPointer->transform);
-	//TODO:set transform to trasformglobal.
-
-}
-
 void Gameobject::DrawOBB_Box() {
 
+	DebugDraw Aux;
+	float3 Corners[8];
+	
+	obb.GetCornerPoints(Corners);
 
 
+	Aux.DebugDrawBox(Corners,WHITE,true,2.5f);
+	
 
 }
 

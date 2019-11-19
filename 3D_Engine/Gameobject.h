@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include "Component.h"
 #include "MathGeoLib/include/Geometry/AABB.h"
+#include "MathGeoLib/include/Geometry/OBB.h"
 
 #include <string>
 //#include "ComponentTransform.h"
@@ -42,8 +43,8 @@ public:
 	void CreateComponent(Gameobject * object, CompType tocreate, bool active);
 
 
-	void SetOBBToNegativeInf();
-	void SetOBBtoGlobalTrans();
+	void SetBBOs();
+	
 
 	void DrawOBB_Box();
 
@@ -76,9 +77,10 @@ public:
 
 
 	//BoundingBox GameObjext
-	AABB*obbGameObject;
-
-
+	OBB obb;
+	AABB aabb;
+	
+	
 
 
 	std::vector<Gameobject*> GameObject_Child_Vec;

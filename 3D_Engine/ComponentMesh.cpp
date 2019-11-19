@@ -83,17 +83,3 @@ void ComponentMesh::NormalDisplay(bool faces, bool vertex)
 	normalsDrawFaces = faces;
 	normalsDrawVertex = vertex;
 }
-void ComponentMesh::GetBBMesh(AABB*BoundingBox) {
-	
-
-	if (Meshes_Vec.size() > 0) {
-
-		for (int i = 0; i < Meshes_Vec.size(); ++i) {
-
-			if (Meshes_Vec[i] != nullptr) {
-				BoundingBox[i].Enclose(Meshes_Vec[i]->bbox);
-
-			}
-		}
-	}
-}

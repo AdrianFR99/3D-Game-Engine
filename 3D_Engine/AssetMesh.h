@@ -65,7 +65,6 @@ public:
 
 
 	//bounding box
-
 	AABB bbox;
 
 public:
