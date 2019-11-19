@@ -77,6 +77,8 @@ public:
 
 	float AspectRatio;
 
+	
+
 public:
 
 	bool inverseCameraControls=false;
@@ -140,6 +142,7 @@ public:
 	Camera3D*CurrentCam = nullptr;
 	Camera3D*EditorCam = nullptr;
 
+	float3 PointOfFocus;
 private:
 
 	std::vector<Camera3D*>VecCameras;

@@ -5,7 +5,7 @@
 #include "ModuleAssets.h"
 #include"WindowHierarchy.h"
 #include "ModuleGameobject.h"
-
+#include "ComponentTransform.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -24,7 +24,7 @@ bool ModuleCamera3D::Start()
 {
 	LOG("Setting up the camera");
 	bool ret = true;
-	
+	PointOfFocus = float3(0.0f, 0.0f, 0.0f);
 	/*App->GearConsole.AddLog(" Set 3D camera in position");*/
 
 	return ret;
@@ -74,8 +74,10 @@ update_status ModuleCamera3D::Update(float dt)
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
 
-	vec3 newPos(0,0,0);
-	float cam_speed = camera_speed * dt;
+	 float cam_speed = camera_speed * dt;
+
+	 if(App->UI_Layer->HierarchyPanel->getActiveGameobject()!=nullptr)
+	 PointOfFocus = App->UI_Layer->HierarchyPanel->getActiveGameobject()->transformPointer->GetPosition();
 
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		cam_speed = camera_speed * 2 * dt;
@@ -113,45 +115,21 @@ update_status ModuleCamera3D::Update(float dt)
 		EditorCam->MoveBack(camera_speed);
 	
 
+	
 
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
 
 		//rotate around the object
-		EditorCam->Orbit(float3(0, 0, 0), App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
+		EditorCam->Orbit(PointOfFocus, App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
 
 		
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_UP)
 	{
-		/*if (App->Gameobjects->GameobjectList.size() != 0)
-		{
-			Gameobject* centerOfView;
-			centerOfView = App->UI_Layer->HierarchyPanel->getActiveGameobject();
-			if (centerOfView != nullptr)
-			{
-				premadeDist = centerOfView->CameraDistance;
-				Reference.x = centerOfView->xPos;
-				Reference.y = centerOfView->yPos;
-				Reference.z = centerOfView->zPos;
-			}
-			else
-			{
-				premadeDist = App->Gameobjects->GameobjectList[0]->CameraDistance;
-				Reference.x = App->Gameobjects->GameobjectList[0]->xPos;
-				Reference.y = App->Gameobjects->GameobjectList[0]->yPos;
-				Reference.z = App->Gameobjects->GameobjectList[0]->zPos;
-			}
-			Position = Reference + Z * premadeDist;
-		}
-		else
-		{
-			Position = Reference + Z * 15.0;
-		}
-*/
-		EditorCam->CenterCam(float3(0,0,0),20.0f);
-
-
+		
+		EditorCam->CenterCam(PointOfFocus,20.0f);
+		
 	}
 
 
