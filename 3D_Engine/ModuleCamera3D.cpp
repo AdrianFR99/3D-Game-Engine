@@ -272,7 +272,7 @@ void Camera3D::Orbit(const float3& orbit_center, const float& motion_x, const fl
 	focus = Rotatex.Transform(focus);
 	focus = Rotatey.Transform(focus);
 
-	CamFrustum.pos = focus + orbit_center;
+	SetCamPos(focus + orbit_center);
 
 	Look(orbit_center);
 }
@@ -280,19 +280,13 @@ void Camera3D::Orbit(const float3& orbit_center, const float& motion_x, const fl
 void Camera3D::RotateYourself(const float& motion_x, const float& motion_y)
 {
 
-	//Quat Rotatey(CamFrustum.up, motion_x*App->camera->mouse_sensitivity);
-	//Quat Rotatex(CamFrustum.WorldRight(), motion_y*App->camera->mouse_sensitivity);
+	Quat rotation_x = Quat::RotateY(motion_x*App->camera->mouse_sensitivity);
+	SetToFront(rotation_x.Mul(CamFrustum.front).Normalized());
+	SetToUp(rotation_x.Mul(CamFrustum.up).Normalized());
 
-	//SetToFront(Rotatey.Mul(CamFrustum.front).Normalized());
-	//SetToUp(Rotatex.Mul(CamFrustum.up).Normalized());
-
-
-
-
-	//float3x3 mAux = float3x3::LookAt(CamFrustum.front, Targetdir.Normalized(), CamFrustum.up, float3::unitY);
-
-	//CamFrustum.front = mAux.MulDir(CamFrustum.front).Normalized();
-	//CamFrustum.up = mAux.MulDir(CamFrustum.up).Normalized();
+	Quat rotation_y = Quat::RotateAxisAngle(CamFrustum.WorldRight(), motion_y*App->camera->mouse_sensitivity);
+	SetToFront(rotation_y.Mul(CamFrustum.front).Normalized());
+	SetToUp(rotation_y.Mul(CamFrustum.up).Normalized());
 
 }
 
