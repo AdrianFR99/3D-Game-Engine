@@ -6,9 +6,11 @@
 #include "Primitives.h"
 #include "ModuleGameobject.h"
 #include "ComponentMesh.h"
+#include "ComponentTransform.h"
 #include "ModuleTexture.h"
 #include "ModuleEngineUI.h"
-#include"WindowHierarchy.h"
+#include "WindowHierarchy.h"
+#include "ModuleScene.h"
 
 #include "imgui_defines.h"
 
@@ -21,6 +23,8 @@
 #include "Assimp/include/scene.h"
 #include "Assimp/include/postprocess.h"
 #include "Assimp/include/cfileio.h"
+
+
 #pragma comment (lib, "Assimp/libx86/assimp.lib")
 
 
@@ -55,7 +59,10 @@ bool ModuleAssets::Start() {
 
 void ModuleAssets::Draw(Gameobject* tmp) {
 
-	
+	// Push matrix
+	glPushMatrix();
+	glMultMatrixf(tmp->transformPointer->GetGlobalTransform().Transposed().ptr());
+
 	if (tmp->meshPointer->active != false)
 	{
 
@@ -143,6 +150,15 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 
 	}
 
+	// Reset
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	// Pop matrix
+	glPopMatrix();
+
+	// Pop matrix
+	glPopMatrix();
+
 
 }
 
@@ -226,10 +242,11 @@ bool ModuleAssets::LoadFiles(const char* path) {
 	std::string path_Aux = path;
 
 	if (path_Aux.find(".fbx") != std::string::npos || path_Aux.find(".FBX") != std::string::npos) {
-		App->Gameobjects->CleanUp();
-		App->UI_Layer->HierarchyPanel->CleanActiveGameobject();
+		/*App->Gameobjects->CleanUp();
+		App->UI_Layer->HierarchyPanel->CleanActiveGameobject();*/
 		LoadMesh(path);
 	}
+
 	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos) {
 
 		//TODO: With inspector
@@ -282,38 +299,33 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 	if (Scene != nullptr && Scene->HasMeshes())
 	{
-		Gameobject* tmp = App->Gameobjects->CreateGameObject();
-		tmp->CreateComponent(tmp, MESH, true);
-
-		//insert name game obj
-		std::string filename = path;
-		std::size_t size = filename.find_last_of(".");
-		std::size_t found = filename.find_last_of("/\\");
-		size = (int)size - (int)found;
-		filename = filename.substr(found + 1,size-1);
-		tmp->nameGameObject = filename;
-
-		if (Scene->HasMaterials()) {
-
-			aiString Texture_path;
-
-			aiMaterial* mat = Scene->mMaterials[0];
-			mat->GetTexture(aiTextureType_DIFFUSE,0,&Texture_path);
-
-			//Todo
-			std::string filename = path;
-			std::size_t found = filename.find_last_of("/\\");
-			filename = filename.substr(0, found+1);
-			filename.append(Texture_path.C_Str());
-
-
-			tmp->CreateComponent(tmp, MATERIAL, true);
-			tmp->materialPointer->CreateMaterial(filename);
-
-		}
-
+		Gameobject* father;
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
 		{
+			Gameobject* tmp = App->Gameobjects->CreateGameObject();
+			tmp->CreateComponent(tmp, MESH, true);
+
+			//insert name game obj
+			std::string filename = path;
+			std::size_t size = filename.find_last_of(".");
+			std::size_t found = filename.find_last_of("/\\");
+			size = (int)size - (int)found;
+			filename = filename.substr(found + 1,size-1);
+			int numb = (int)i;
+			std::string number = std::to_string(numb);
+			filename.append(number);
+			tmp->nameGameObject = filename;
+			
+			if (i == 0)
+			{
+				father = tmp;
+				tmp->Father = App->SceneEngine->GetSceneGameObjcet();
+			} 
+			else if (father!=nullptr)
+			{
+				tmp->Father = father;
+			}
+
 			AssetMesh* NewMesh = new AssetMesh;
 			NewMesh->importMesh(Scene->mMeshes[i]);
 			tmp->meshPointer->Meshes_Vec.push_back(NewMesh);
@@ -332,7 +344,39 @@ bool ModuleAssets::LoadMesh(const char* path) {
 				if (tmp->meshPointer->Meshes_Vec[i]->medZ > tmp->zPos)
 					tmp->zPos = tmp->meshPointer->Meshes_Vec[i]->medZ;
 			}
+		
+			if (Scene->HasMaterials()) {
+
+				aiString Texture_path;
+
+				aiMaterial* mat = Scene->mMaterials[0];
+				mat->GetTexture(aiTextureType_DIFFUSE,0,&Texture_path);
+
+				//Todo
+				std::string filename = path;
+				std::size_t found = filename.find_last_of("/\\");
+				filename = filename.substr(0, found+1);
+				filename.append(Texture_path.C_Str());
+
+
+				tmp->CreateComponent(tmp, MATERIAL, true);
+				tmp->materialPointer->CreateMaterial(filename);
+
+			}
+
+			if (i==0)
+			{
+				Gameobject* scene = App->SceneEngine->GetSceneGameObjcet();
+				scene->GameObject_Child_Vec.push_back(tmp);
+			}
+			else 
+			{
+				father->GameObject_Child_Vec.push_back(tmp);
+			}
+		
 		}
+
+
 	}
 	else
 	{
@@ -352,6 +396,9 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 
 	std::string nameid = std::to_string(tmp->ID);
 
+	tmp->Father = App->SceneEngine->GetSceneGameObjcet();
+	Gameobject* scene = App->SceneEngine->GetSceneGameObjcet();
+	scene->GameObject_Child_Vec.push_back(tmp);
 	switch (type)
 	{
 	case Primitive_Type::CUBE:
@@ -408,6 +455,8 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 	//TODO
 	//make switch and pass parameter to function for what to create
 	tmp->meshPointer->Primitives_Vec.push_back(aux);
+
+
 
 	tmp->CameraDistance = aux->faraway;
 

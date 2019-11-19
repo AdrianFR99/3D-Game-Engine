@@ -21,7 +21,7 @@ void log(const char file[], int line, const char* format, ...);
 
 #define ALIGN_CLASS_TO_16 \
     void* operator new(size_t i) { return _aligned_malloc(i,16); }\
-    void operator delete(void* p) { _aligned_free(p); }
+    void operator delete(void* p) { _aligned_free(p);}
 
 #define RELEASE(x) \
     { \

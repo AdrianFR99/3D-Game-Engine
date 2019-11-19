@@ -40,16 +40,22 @@ public:
 public:
 	//create component
 	void CreateComponent(Gameobject * object, CompType tocreate, bool active);
-	
-	
+
+
 	void SetOBBToNegativeInf();
 	void SetOBBtoGlobalTrans();
 
 	void DrawOBB_Box();
 
+	// Transform operations
+	void UpdateGlobalTransform();
+
+	//parent
+	//children
+
 	bool active = false;
 	std::string nameGameObject ;
-	int ID = 0;
+	uint ID = 0;
 	//camera
 	float CameraDistance = 0.0f;
 	float xPos = 1.0f;
@@ -59,9 +65,9 @@ public:
 	std::vector<Component*> ComponentList;
 
 	//list of child
-	/*std::vector<Gameobjects*> ChildGameobjects;
+	/*std::vector<Gameobjects*> ChildGameobjects;*/
 
-	Gameobjects* Father;*/
+	Gameobject* Father = nullptr;
 
 	ComponentTransform* transformPointer = nullptr;
 	ComponentMesh* meshPointer = nullptr;
@@ -75,6 +81,10 @@ public:
 
 
 
+	std::vector<Gameobject*> GameObject_Child_Vec;
+
+	bool toDelete = false;
+	bool UpdateTransform = false;
 };
 
 

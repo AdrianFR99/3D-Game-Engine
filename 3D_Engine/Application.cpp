@@ -26,7 +26,7 @@ Application::Application()
 	last_FPS = -1;		
 	last_frame_time = -1;
 	
-
+	RandomNumbGenerator = new math::LCG();
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
 	// They will CleanUp() in reverse order
@@ -57,6 +57,12 @@ Application::~Application()
 	{
 		delete *item;
 		item++;
+	}
+
+	if (RandomNumbGenerator)
+	{
+		delete RandomNumbGenerator;
+		RandomNumbGenerator = nullptr;
 	}
 }
 
@@ -298,4 +304,10 @@ void Application::RefreshConfig()
 {
 	for (std::list<Module*>::iterator it = list_modules.begin(); it != list_modules.end(); ++it)
 		(*it)->ReloadFromConfig();
+}
+
+
+LCG & Application::GetRandom()
+{
+	return *RandomNumbGenerator;
 }

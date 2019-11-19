@@ -20,6 +20,7 @@
 //#include "ModuleFileSystem.h"
 #include "ModuleGameobject.h"
 
+#include "MathGeoLib/include/Algorithm/Random/LCG.h"
 
 struct Event;
 
@@ -87,6 +88,9 @@ public:
 //Info
 	const char* GetAppName()const;
 
+//Random Generator
+	LCG& GetRandom();
+	LCG* RandomNumbGenerator = nullptr;
 private:
 
 	void AddModule(Module* mod);

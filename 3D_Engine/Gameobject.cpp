@@ -14,6 +14,7 @@ Gameobject::Gameobject(int id)
 	ID = id;
 	CreateComponent(this, TRANSFORM, true);
 	Enable();
+	Father = nullptr;
 }
 
 Gameobject::~Gameobject()
@@ -23,7 +24,7 @@ Gameobject::~Gameobject()
 
 void Gameobject::Update()
 {
-	//nothing
+
 }
 
 
@@ -59,9 +60,9 @@ void Gameobject::CleanUp()
 
 		ComponentList[i]->CleanUp();
 		//delete(Meshes_Vec[i]);
-	
-		if (ComponentList[i] != nullptr) 
-			delete ComponentList[i]; 
+
+		if (ComponentList[i] != nullptr)
+			delete ComponentList[i];
 			ComponentList[i] = nullptr;
 
 
@@ -106,9 +107,9 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 			SetOBBToNegativeInf();
 			meshPointer->GetBBMesh(obbGameObject);
 			SetOBBtoGlobalTrans();
-			
-			
-		
+
+
+
 			break;
 		case MATERIAL:
 
@@ -143,16 +144,16 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 }
 
 void Gameobject::SetOBBToNegativeInf() {
-	
-	for (int i = 0; i < meshPointer->num_meshes; ++i) 
+
+	for (int i = 0; i < meshPointer->num_meshes; ++i)
 		obbGameObject[i].SetNegativeInfinity();
 
 
 }
 
 void Gameobject::SetOBBtoGlobalTrans() {
-	
-	for (int i = 0; i < meshPointer->num_meshes; ++i) 
+
+	for (int i = 0; i < meshPointer->num_meshes; ++i)
 	obbGameObject[i].TransformAsAABB(transformPointer->transform);
 	//TODO:set transform to trasformglobal.
 
@@ -165,3 +166,19 @@ void Gameobject::DrawOBB_Box() {
 
 }
 
+void Gameobject::UpdateGlobalTransform()
+{
+	this;
+	if (Father != nullptr)
+	{
+		transformPointer->global_transform = Father->transformPointer->global_transform * transformPointer->local_transform;
+	}
+	if (!GameObject_Child_Vec.empty())
+	{
+		for (std::vector<Gameobject*>::iterator it = GameObject_Child_Vec.begin(); it != GameObject_Child_Vec.end(); it++)
+		{
+			(*it)->UpdateGlobalTransform();
+		}
+	}
+
+}
