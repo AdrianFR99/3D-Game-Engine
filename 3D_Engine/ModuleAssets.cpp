@@ -259,7 +259,7 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 			id=App->Textures->CreateTexture(path);
 		}
-		/*if (id != -1 )
+		if (id != -1 )
 		{
 			Gameobject* activeGameObject = nullptr;
 			activeGameObject = App->UI_Layer->HierarchyPanel->getActiveGameobject();
@@ -279,7 +279,7 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 			}
 
-		}*/
+		}
 
 		
 
@@ -319,7 +319,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 			std::string number = std::to_string(numb);
 			filename.append(number);
 			tmp->SetFileName(filename);
-			
+			tmpGO->nameGameObject=filename;
 			if (i == 0)
 			{
 				father = tmpGO;

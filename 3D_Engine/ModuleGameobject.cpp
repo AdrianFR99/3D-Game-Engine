@@ -1,7 +1,7 @@
 
 #include "ModuleGameobject.h"
 #include "Application.h"
-
+#include "ModuleScene.h"
 #include "mmgr/mmgr.h"
 
 
@@ -187,7 +187,7 @@ Gameobject * ModuleGameobject::CreateFatherGameObject()
 	name = "scene";
 	creation->nameGameObject = name;
 
-
+	App->SceneEngine->scene = creation;
 
 	//get it inside of the list
 	GameobjectList.push_back(creation);
