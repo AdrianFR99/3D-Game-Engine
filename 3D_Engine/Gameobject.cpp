@@ -106,11 +106,7 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 			temp = meshPointer;
 			counter++;
 
-			obb = meshPointer->Meshes_Vec[0]->GetBBox();
-			obb.Transform(transformPointer->GetGlobalTransform());
-
-			aabb.SetNegativeInfinity();
-			aabb.Enclose(obb);
+			
 
 
 			break;
@@ -153,7 +149,7 @@ void Gameobject::DrawOBB_Box() {
 	obb.GetCornerPoints(Corners);
 
 
-	Aux.DebugDrawBox(Corners,WHITE,true,2.5f);
+	Aux.DebugDrawBox(Corners,WHITE,2.5f);
 	
 
 }
@@ -173,4 +169,13 @@ void Gameobject::UpdateGlobalTransform()
 		}
 	}
 
+}
+
+void Gameobject::SetBBOs() {
+
+	obb = meshPointer->Meshes_Vec[0]->bbox;
+	obb.Transform(transformPointer->GetGlobalTransform());
+
+	aabb.SetNegativeInfinity();
+	aabb.Enclose(obb);
 }

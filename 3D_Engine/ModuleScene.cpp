@@ -59,7 +59,7 @@ update_status ModuleScene::Update(float dt) {
 update_status ModuleScene::PostUpdate(float dt) {
 
 
-	App->renderer3D->debug.DebugDrawFrustum(&test->GetFrustum(),WHITE,true,2.5f);
+	App->renderer3D->debug.DebugDrawFrustum(&test->GetFrustum(),WHITE,2.5f);
 
 
 	return UPDATE_CONTINUE;

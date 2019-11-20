@@ -21,8 +21,8 @@ public:
 public:
 
 	//draw
-	void DebugDrawBox(const float3* corners, Color color, bool lines, const float& linesWidth);
-	void DebugDrawFrustum(const Frustum*frustum,Color color, bool lines, const float& linesWidth);
+	void DebugDrawBox(const float3* corners, Color color, const float& linesWidth);
+	void DebugDrawFrustum(const Frustum*frustum,Color color, const float& linesWidth);
 
 
 	//aux
