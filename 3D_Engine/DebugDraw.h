@@ -11,22 +11,12 @@
 
 
 
-class DebugDraw
-{
-public:
-	DebugDraw();
-	~DebugDraw();
-
-
-public:
-
 	//draw
 	void DebugDrawBox(const float3* corners, Color color, const float& linesWidth);
 	void DebugDrawFrustum(const Frustum*frustum,Color color, const float& linesWidth);
 
-
 	//aux
 	void AssignCornersCube(const float3*corners);
-};
+
 
 #endif //__DEBUGDRAW_H__

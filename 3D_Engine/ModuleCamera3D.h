@@ -112,9 +112,10 @@ public:
 	
 	
 	//Camera creatiom Handlers
-
+	
 	 Camera3D*CreateNewCamera();
 	 Camera3D*CreateNewCamera(float3&pos,float&FarPlane,float&NearPlane);
+	
 	 bool DeleteCamera(Camera3D*target);
 	 bool DeleteAllCameras();
 

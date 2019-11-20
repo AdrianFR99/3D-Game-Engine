@@ -266,7 +266,8 @@ void Primitives::DefinePrimitive(Primitive_Type type) {
 		vertices[i].z = Mesh->points[(i * 3) + 2];
 
 	}
-
+		
+	GenerateAABB();
 	//Indices-----------------------------------------------------------------
 
 	for (uint i = 0; i < num_index; ++i)
@@ -299,6 +300,10 @@ void Primitives::DefinePrimitive(Primitive_Type type) {
 		}
 
 	}
+
+
+
+	
 
 	par_shapes_free_mesh(Mesh);
 
@@ -414,4 +419,16 @@ par_shapes_mesh* Primitives::CreateCube() {
 	par_shapes_merge_and_free(Face_Front,Face_Right);
 
 	return Face_Front;
+}
+
+void Primitives::GenerateAABB() {
+
+	
+	bbox.SetNegativeInfinity();
+	if (vertices != nullptr && num_vertex > 0)
+		bbox.Enclose(vertices, num_vertex);
+	
+}
+const AABB Primitives::GetBBox()const {
+	return bbox;
 }

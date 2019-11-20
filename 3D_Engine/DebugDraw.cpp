@@ -1,17 +1,10 @@
 #include "DebugDraw.h"
 
 
-DebugDraw::DebugDraw()
-{
-}
 
-
-DebugDraw::~DebugDraw()
-{
-}
 
   
-void DebugDraw::DebugDrawBox(const float3* corners, Color color, const float& linesWidth)
+void DebugDrawBox(const float3* corners, Color color, const float& linesWidth)
 {
 	GLint mode[2];
 
@@ -33,7 +26,7 @@ void DebugDraw::DebugDrawBox(const float3* corners, Color color, const float& li
 	glColor3f(255, 255, 255);
 }
 
-void DebugDraw::DebugDrawFrustum(const Frustum*frustum, Color color, const float& linesWidth) {
+void DebugDrawFrustum(const Frustum*frustum, Color color, const float& linesWidth) {
 
 	float3 Corners[8];
 	frustum->GetCornerPoints(Corners);
@@ -44,7 +37,7 @@ void DebugDraw::DebugDrawFrustum(const Frustum*frustum, Color color, const float
 }
 
 
-void DebugDraw::AssignCornersCube(const float3*corners) {
+void AssignCornersCube(const float3*corners) {
 
 	glVertex3fv((GLfloat*)&corners[1]); //VertexPos(-sx, -sy, sz);
 	glVertex3fv((GLfloat*)&corners[5]); //VertexPos( sx, -sy, sz);

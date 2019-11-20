@@ -18,6 +18,7 @@ Gameobject::Gameobject(int id)
 	Father = nullptr;
 
     //default OBB && AABB if there is no mesh
+	
 	Sphere aux;
 	def.SetNegativeInfinity();
 	def.Enclose(aux);
@@ -45,7 +46,7 @@ void Gameobject::Draw()
 
 	}
 
-	
+	if(DrawBBOs==true)
 	DrawOBB_Box();
 
 }
@@ -76,8 +77,6 @@ void Gameobject::CleanUp()
 			delete ComponentList[i];
 			ComponentList[i] = nullptr;
 
-
-
 	}
 
 
@@ -105,6 +104,8 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 			temp = transformPointer;
 			counter++;
 
+			hasTransform = true;
+
 		break;
 		case MESH:
 
@@ -125,6 +126,9 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 			temp = materialPointer;
 			counter++;
 
+			hasMaterial = true;
+
+			break;
 
 		case CAMERA:
 
@@ -132,6 +136,8 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 			CameraPointer = (ComponentCamera*)temp;
 			temp = CameraPointer;
 			counter++;
+
+			hasCamera = true;
 
 			break;
 
@@ -151,15 +157,22 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 
 void Gameobject::DrawOBB_Box() {
 
-	DebugDraw Aux;
-	float3 Corners[8];
-	float3 CornersAABB[8];
+	
+	
+	if (DrawOBB == true) {
 
-	obb.GetCornerPoints(Corners);
-	aabb.GetCornerPoints(CornersAABB);
+		float3 Corners[8];
+		obb.GetCornerPoints(Corners);
+		DebugDrawBox(Corners, WHITE, 2.5f);
 
-	Aux.DebugDrawBox(Corners,WHITE,2.5f);
-	Aux.DebugDrawBox(CornersAABB,GREEN,2.5f);
+	}
+
+	if (DrawAABB==true) {
+
+		float3 CornersAABB[8];
+		aabb.GetCornerPoints(CornersAABB);
+		DebugDrawBox(CornersAABB, GREEN, 2.5f);
+	}
 }
 
 void Gameobject::UpdateGlobalTransform()
@@ -194,9 +207,15 @@ void Gameobject::SetBBOs() {
 void Gameobject::UpdateBBOs(){
 
 
-	if (meshPointer != nullptr && hasMesh==true) {
 
-		obb.SetFrom(meshPointer->Meshes_Vec[0]->GetBBox());
+
+	if (meshPointer != nullptr && hasMesh==true) {
+	
+		if (meshPointer->Meshes_Vec.size()>0)
+			obb.SetFrom(meshPointer->Meshes_Vec[0]->GetBBox());
+		else if(meshPointer->Primitives_Vec.size()>0)
+			obb.SetFrom(meshPointer->Primitives_Vec[0]->GetBBox());
+	
 		obb.Transform(transformPointer->GetGlobalTransform());
 		aabb.SetFrom(obb);
 	}

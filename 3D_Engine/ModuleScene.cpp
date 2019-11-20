@@ -18,12 +18,16 @@ ModuleScene::~ModuleScene()
 
 bool ModuleScene::Init() {
 
-	test=App->camera->CreateNewCamera();
-	//test = App->camera->CreateNewCamera(float3(10.0f, 0.0f, 0.0f), 2.0f, 30.0f);
+	
 
-	//CreatePrimitive();
 	scene = App->Gameobjects->CreateFatherGameObject();
 
+
+	Test = App->Gameobjects->CreateGameObject();
+	Test->CreateComponent(Test,CompType::CAMERA,true);
+	Test->nameGameObject = "camera";
+	Test->Father = scene;
+	scene->GameObject_Child_Vec.push_back(Test);
 
 	return true;
 }
@@ -32,7 +36,7 @@ bool ModuleScene::Start() {
 
 //primitves must Load AFTER FBX
 	App->Assets->LoadFiles(App->AssetModel.data());
-	//App->Assets->CreatePrimitive(Primitive_Type::BOTTLE);
+	
 
 	return true;
 }
@@ -59,7 +63,7 @@ update_status ModuleScene::Update(float dt) {
 update_status ModuleScene::PostUpdate(float dt) {
 
 
-	App->renderer3D->debug.DebugDrawFrustum(&test->GetFrustum(),WHITE,2.5f);
+
 
 
 	return UPDATE_CONTINUE;

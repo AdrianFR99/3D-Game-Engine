@@ -21,12 +21,13 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
-	Camera3D*test=nullptr;
+	
 	Gameobject* GetSceneGameObjcet();
 
 
 public:
-	Gameobject* scene;
+	Gameobject* scene=nullptr;
+	Gameobject* Test=nullptr;
 
 };
 

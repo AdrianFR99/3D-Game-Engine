@@ -46,7 +46,7 @@ public:
 
 	bool Vsync = false;
 
-	DebugDraw debug;
+	
 
 
 

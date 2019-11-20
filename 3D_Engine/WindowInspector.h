@@ -32,6 +32,9 @@ public:
 	float3 rotation;
 	float3 scale;
 
+
+	float NearPlane=0.1f;
+
 	bool materialActive = true;
 	bool diffuse = true;
 	bool chekers = false;

@@ -46,6 +46,13 @@ public:
 		bool CleanUp();
 
 
+		void GenerateAABB();
+		const AABB GetBBox() const;
+
+
+		AABB bbox;
+
+
 		par_shapes_mesh* CreateCube();
 		
 public:

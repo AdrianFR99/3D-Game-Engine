@@ -56,9 +56,19 @@ public:
 	//children
 public:
 	
+	//Components booleans
+	bool hasTransform = false;
+	bool hasCamera = false;
+	bool hasMaterial = false;
 	bool hasMesh=false;
-	bool active = false;
 
+
+	bool active = false;
+	
+	//AABBs&OBB booleans
+	bool DrawBBOs = true;
+	bool DrawAABB = false;
+	bool DrawOBB = true;
 
 	std::string nameGameObject ;
 
