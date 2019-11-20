@@ -6,7 +6,11 @@
 ComponentCamera::ComponentCamera(Gameobject * owner, CompType newtype):Component(newtype, owner)
 {
 
-	CameraComponent = App->camera->CreateNewCamera();
+	float3 pos = { 10.0f,0.0f,0.0f };
+	float Near = 5.0f;
+	float Far = 20.0f;
+
+	CameraComponent = App->camera->CreateNewCamera(pos,Near,Far);
 
 }
 

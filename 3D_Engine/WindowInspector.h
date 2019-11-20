@@ -34,6 +34,7 @@ public:
 
 
 	float NearPlane=0.1f;
+	float FarPlane = 1000.0f;
 
 	bool materialActive = true;
 	bool diffuse = true;

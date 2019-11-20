@@ -312,10 +312,17 @@ void WindowInspector::Inspector_Window() {
 				if (ImGui::CollapsingHeader("Camera"))
 				{
 
-				/*	NearPlane = activeobj->CameraPointer->CameraComponent->SetNearPlane_Dist;
-					if (ImGui::DragFloat("Position", (float*)&NearPlane, 0.1f))
-						activeobj->transformPointer->SetPosition(position);*/
 
+					NearPlane = activeobj->CameraPointer->CameraComponent->GetNearPlane();
+					if (ImGui::DragFloat("NearPlane", (float*)&NearPlane, 0.1f))
+					activeobj->CameraPointer->CameraComponent->SetNearPlane_Dist(NearPlane);
+
+					FarPlane = activeobj->CameraPointer->CameraComponent->GetFarPlane();
+					if (ImGui::DragFloat("FarPlane", (float*)&FarPlane, 0.1f))
+						activeobj->CameraPointer->CameraComponent->SetFarPlane_Dist(FarPlane);
+
+
+					
 
 
 				}
