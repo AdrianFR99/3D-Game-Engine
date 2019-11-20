@@ -16,31 +16,35 @@ public:
 	ResourceMesh(std::string unique_id);
 	virtual ~ResourceMesh();
 
+
 	void CleanUp();
-
 	void Render();
-
-	AssetMesh* Meshes_Vec = nullptr;;
-	
-	Primitives* Primitives_Vec = nullptr;
-
-	
-	ResourceTexture* Default_texture = nullptr;
-private:
-	
-	std::string nameMesh;
 
 	void LoadToMemory();
 	void UnloadFromMemory();
 
-	
+	uint GetIdVertices();
+	uint GetIdIndices();
 
+	uint GetNumVertices();
+	uint GetNumIndices();
+
+	uint* GetIndices();
+	float3* GetVertices();
+	
+	
 private:
+	
+	std::string nameMesh;
+	AssetMesh* Meshes_Vec = nullptr;;
+	Primitives* Primitives_Vec = nullptr;
+	ResourceTexture* Default_texture = nullptr;
+	
+private:
+
 	uint DiffuseID;
 	uint currentID;
 	uint CheckeredID;
-
-
 
 };
 

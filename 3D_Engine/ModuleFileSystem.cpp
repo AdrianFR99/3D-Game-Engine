@@ -656,3 +656,31 @@ aiFileIO * ModuleFileSystem::GetAssimpIO()
 {
 	return AssimpIO;
 }
+
+bool ModuleFileSystem::FileSave(const char * path, const char* file_content, const char* name, const char* extension, int size)
+{
+	bool ret = false;
+
+	string file = path;
+	file += name;
+	file += ".";
+	file += extension;
+
+	std::ofstream;
+	FILE* new_file = fopen(file.c_str(), "wb");
+
+	if (new_file)
+	{
+		fwrite(file_content, sizeof(char), size, new_file);
+		ret = true;
+	}
+	else
+	{
+		LOG("Error saving file %s: ", name);
+	}
+
+	if (new_file)
+		fclose(new_file);
+
+	return ret;
+}

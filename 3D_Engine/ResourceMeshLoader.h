@@ -1,0 +1,69 @@
+#ifndef __RESOURCE_MESH_LOADER_H__
+#define __RESOURCE_MESH_LOADER_H__
+
+#include "Assimp\include\DefaultLogger.hpp"
+#include "Assimp\include\scene.h"
+#include "Maths.h"
+#include <string>
+#include "Globals.h"
+#include "Resource.h"
+
+class ResourceMesh;
+class GameObject;
+
+class AssimpLogger : public Assimp::LogStream
+{
+public:
+	AssimpLogger()
+	{
+
+	}
+	~AssimpLogger()
+	{}
+	void write(const char* message)
+	{
+		LOG(message);
+	}
+};
+
+class UsedResource
+{
+public:
+	UsedResource(Resource* _res, int _index, ResourceType _type)
+	{
+		res = _res;
+		index = _index;
+		type = _type;
+	}
+
+	Resource* GetResource() { return res; }
+	int GetIndex() { return index; }
+	ResourceType GetType() { return type; }
+
+private:
+	Resource* res = nullptr;
+	int index = 0;
+	ResourceType type = ResourceType::RT_NULL;
+};
+
+class ResourceMeshLoader
+{
+public:
+	ResourceMeshLoader();
+	virtual ~ResourceMeshLoader();
+
+	bool Export(const char* path, ResourceMesh* mesh);
+
+	void Unload(const char* filepath);
+
+private:
+	bool ResourceIsUsed(int index, ResourceType type, Resource*& res);
+
+	void AddResource(int index, ResourceType type, Resource* res);
+
+
+private:
+	std::vector<UsedResource> used_resources;
+};
+
+#endif

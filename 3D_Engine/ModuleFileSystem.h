@@ -46,8 +46,11 @@ public:
 
 	// IO interfaces for other libs to handle files via PHYSfs
 	aiFileIO* GetAssimpIO();
+
+	bool FileSave(const char * path, const char * file_content, const char * name, const char * extension, int size);
 	
 	unsigned int Save(const char* file, const void* buffer, unsigned int size, bool append = false) const;
+
 	//bool SaveUnique(std::string& output, const void* buffer, uint size, const char* path, const char* prefix, const char* extension);
 	bool Remove(const char* file);
 

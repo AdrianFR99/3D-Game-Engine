@@ -100,6 +100,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ResourceMesh.h" />
+    <ClInclude Include="ResourceMeshLoader.h" />
     <ClInclude Include="ResourceTexture.h" />
     <ClInclude Include="WindowConsole.h" />
     <ClInclude Include="imgui\imconfig.h" />
@@ -258,6 +259,7 @@
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ResourceMesh.cpp" />
+    <ClCompile Include="ResourceMeshLoader.cpp" />
     <ClCompile Include="ResourceTexture.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="WindowConsole.cpp" />

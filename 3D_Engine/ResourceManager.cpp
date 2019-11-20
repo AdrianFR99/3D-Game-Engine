@@ -159,3 +159,19 @@ void ResourceManager::DeleteAllResources()
 		it = resources.erase(it);
 	}
 }
+
+void ResourceManager::SaveResourceIntoFile(Resource * res)
+{
+	if (res != nullptr)
+	{
+	
+		if (res->GetType() == RT_MESH)
+		{
+			//mesh_loader->Export(App->fs->GetLibraryMeshPath().c_str(), (ResourceMesh*)res);
+
+		}
+			
+		
+	}
+	
+}

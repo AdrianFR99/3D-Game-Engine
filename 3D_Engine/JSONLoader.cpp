@@ -61,3 +61,24 @@ nlohmann::json JSONLoader::getFile()
 {
 	return file;
 }
+
+JSON_Doc::JSON_Doc(nlohmann::json* Doc2, const char* _path)
+{
+	Doc = Doc2;
+	path = _path;
+}
+
+JSON_Doc::JSON_Doc(JSON_Doc & doc2)
+{
+	Doc = doc2.Doc;
+	path = doc2.path;
+}
+
+JSON_Doc::~JSON_Doc()
+{
+}
+
+std::string JSON_Doc::GetPath()
+{
+	return path.data();
+}

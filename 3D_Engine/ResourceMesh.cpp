@@ -36,3 +36,86 @@ void ResourceMesh::UnloadFromMemory()
 	
 }
 
+
+uint ResourceMesh::GetIdVertices()
+{
+	uint ret;
+	if (Meshes_Vec != nullptr)
+	{
+		ret = Meshes_Vec->VBO;
+	}
+	else 
+	{
+		ret=Primitives_Vec->VBO;
+	}
+	return ret;
+}
+
+uint ResourceMesh::GetNumVertices()
+{
+	uint ret;
+	if (Meshes_Vec != nullptr)
+	{
+		ret = Meshes_Vec->num_vertex;
+	}
+	else {
+		ret = Primitives_Vec->num_vertex;
+	}
+	return ret;
+	
+}
+
+uint ResourceMesh::GetIdIndices()
+{
+	uint ret;
+	if (Meshes_Vec != nullptr)
+	{
+		ret = Meshes_Vec->IBO;
+	}
+	else {
+		ret = Primitives_Vec->IBO;
+	}
+	return ret;
+	
+}
+
+uint ResourceMesh::GetNumIndices()
+{
+	uint ret;
+	if (Meshes_Vec != nullptr)
+	{
+		ret = Meshes_Vec->num_index;
+	}
+	else {
+		ret = Primitives_Vec->num_index;
+	}
+	return ret;
+	
+}
+
+float3 * ResourceMesh::GetVertices()
+{
+	float3* ret;
+	if (Meshes_Vec != nullptr)
+	{
+		ret = Meshes_Vec->vertices;
+	}
+	else {
+		ret = Primitives_Vec->vertices;
+	}
+	return ret;
+}
+
+uint * ResourceMesh::GetIndices()
+{
+	uint* ret;
+	if (Meshes_Vec != nullptr)
+	{
+		ret = Meshes_Vec->indices;
+	}
+	else {
+		ret = Primitives_Vec->indices;
+	}
+	return ret;
+}
+

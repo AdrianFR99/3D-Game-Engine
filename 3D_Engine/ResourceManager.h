@@ -20,9 +20,11 @@ public:
 
 	
 	bool LoadResource(const char* file_path);
+	bool LoadResource(const char* file_path, std::vector<Resource*>& resources);
+	
+	void SaveResourceIntoFile(Resource* res);
 	Resource * Get(std::string _unique_id);
 	Resource * CreateNewResource(ResourceType type, std::string _unique_id);
-	bool LoadResource(const char* file_path, std::vector<Resource*>& resources);
 	
 
 	

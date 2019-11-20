@@ -24,9 +24,9 @@ public:
 public:
 
 	//buffer
-	uint VBO;
-	uint IBO;
-	uint UVC;//uv coord
+	uint VBO=0;
+	uint IBO=0;
+	uint UVC=0;//uv coord
 
 	//indices
 	uint num_index = 0;
