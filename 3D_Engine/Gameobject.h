@@ -48,17 +48,22 @@ public:
 	//AABBs&OBB
 	void SetBBOs();
 	void UpdateBBOs();
-	
 
 	void DrawOBB_Box();
 
 
 	//parent
 	//children
-
+public:
+	
+	bool hasMesh=false;
 	bool active = false;
+
+
 	std::string nameGameObject ;
+
 	uint ID = 0;
+
 	//camera
 	float CameraDistance = 0.0f;
 	float xPos = 1.0f;
@@ -80,6 +85,7 @@ public:
 
 	//BoundingBox GameObjext
 	OBB obb;
+	AABB def;
 	AABB aabb;
 	
 	

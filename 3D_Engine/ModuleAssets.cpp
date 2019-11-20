@@ -326,10 +326,13 @@ bool ModuleAssets::LoadMesh(const char* path) {
 				tmp->Father = father;
 			}
 
+			
+
 			AssetMesh* NewMesh = new AssetMesh;
 			NewMesh->importMesh(Scene->mMeshes[i]);
 			tmp->meshPointer->Meshes_Vec.push_back(NewMesh);
 			//Assign AABB&OBB
+
 			tmp->SetBBOs();
 
 			for (int i = 0; i < tmp->meshPointer->Meshes_Vec.size(); ++i) {

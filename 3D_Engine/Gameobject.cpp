@@ -16,6 +16,12 @@ Gameobject::Gameobject(int id)
 	CreateComponent(this, TRANSFORM, true);
 	Enable();
 	Father = nullptr;
+
+    //default OBB && AABB if there is no mesh
+	Sphere aux;
+	def.SetNegativeInfinity();
+	def.Enclose(aux);
+	
 }
 
 Gameobject::~Gameobject()
@@ -40,13 +46,7 @@ void Gameobject::Draw()
 	}
 
 	
-	
-	
 	DrawOBB_Box();
-
-
-
-
 
 }
 
@@ -114,7 +114,7 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 			temp = meshPointer;
 			counter++;
 
-			
+			hasMesh = true;
 
 
 			break;
@@ -194,7 +194,7 @@ void Gameobject::SetBBOs() {
 void Gameobject::UpdateBBOs(){
 
 
-	if (meshPointer != nullptr) {
+	if (meshPointer != nullptr && hasMesh==true) {
 
 		obb.SetFrom(meshPointer->Meshes_Vec[0]->GetBBox());
 		obb.Transform(transformPointer->GetGlobalTransform());
@@ -202,8 +202,10 @@ void Gameobject::UpdateBBOs(){
 	}
 	else {
 
+		obb.SetFrom(def);
+		obb.Transform(transformPointer->GetGlobalTransform());
+		aabb.SetFrom(obb);
 
 	}
-
 
 }
