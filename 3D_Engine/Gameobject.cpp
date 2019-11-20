@@ -25,6 +25,8 @@ Gameobject::~Gameobject()
 
 void Gameobject::Update()
 {
+	
+
 
 }
 
@@ -37,7 +39,13 @@ void Gameobject::Draw()
 
 	}
 
+	
+	
+	
 	DrawOBB_Box();
+
+
+
 
 
 }
@@ -145,17 +153,18 @@ void Gameobject::DrawOBB_Box() {
 
 	DebugDraw Aux;
 	float3 Corners[8];
-	
-	obb.GetCornerPoints(Corners);
+	float3 CornersAABB[8];
 
+	obb.GetCornerPoints(Corners);
+	aabb.GetCornerPoints(CornersAABB);
 
 	Aux.DebugDrawBox(Corners,WHITE,2.5f);
-	
-
+	Aux.DebugDrawBox(CornersAABB,GREEN,2.5f);
 }
 
 void Gameobject::UpdateGlobalTransform()
 {
+
 	this;
 	if (Father != nullptr)
 	{
@@ -169,6 +178,8 @@ void Gameobject::UpdateGlobalTransform()
 		}
 	}
 
+	UpdateBBOs();
+
 }
 
 void Gameobject::SetBBOs() {
@@ -178,4 +189,21 @@ void Gameobject::SetBBOs() {
 
 	aabb.SetNegativeInfinity();
 	aabb.Enclose(obb);
+}
+
+void Gameobject::UpdateBBOs(){
+
+
+	if (meshPointer != nullptr) {
+
+		obb.SetFrom(meshPointer->Meshes_Vec[0]->GetBBox());
+		obb.Transform(transformPointer->GetGlobalTransform());
+		aabb.SetFrom(obb);
+	}
+	else {
+
+
+	}
+
+
 }

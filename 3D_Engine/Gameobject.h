@@ -42,14 +42,16 @@ public:
 	//create component
 	void CreateComponent(Gameobject * object, CompType tocreate, bool active);
 
+	// Transform operations
+	void UpdateGlobalTransform();
 
+	//AABBs&OBB
 	void SetBBOs();
+	void UpdateBBOs();
 	
 
 	void DrawOBB_Box();
 
-	// Transform operations
-	void UpdateGlobalTransform();
 
 	//parent
 	//children

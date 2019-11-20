@@ -54,6 +54,8 @@ update_status ModuleGameobject::Update(float dt) {
 
 void ModuleGameobject::Draw() {
 
+
+
 	for (int i = 0; i < GameobjectList.size(); ++i) {
 
 		GameobjectList[i]->Draw();

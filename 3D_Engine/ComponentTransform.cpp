@@ -95,8 +95,10 @@ float4x4 const ComponentTransform::GetGlobalTransform() const
 
 const void ComponentTransform::SetPosition(const float3 & pos)
 {
-	ObjectPosition = pos;
+	
+	float3 offset = pos - ObjectPosition;
 
+	ObjectPosition = pos;
 	RecalculateMatrix();
 	
 }
@@ -109,6 +111,9 @@ const void ComponentTransform::SetRotation(const float3 & pos)
 	ObjectRotation = pos;
 
 	RecalculateMatrix();
+	
+
+
 }
 
 
@@ -123,10 +128,14 @@ const void ComponentTransform::SetRotationQuat(const Quat & quat)
 
 const void ComponentTransform::SetScale(const float3 & pos)
 {
+
+	float3 offset = pos - ObjectScale;
 	ObjectScale = pos;
 
 	RecalculateMatrix();
-}
+
+}		
+
 
 const void ComponentTransform::Scale(const float3 & scale)
 {
