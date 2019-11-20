@@ -150,7 +150,12 @@ void ResourceManager::DeleteAllResources()
 	for (std::map<std::string, Resource*>::iterator it = resources.begin(); it != resources.end();)
 	{
 		(*it).second->CleanUp();
-		RELEASE(it->second);
+		
+		if (it->second != nullptr) 
+		  delete it->second;
+		it->second = nullptr;
+	
+		
 		it = resources.erase(it);
 	}
 }
