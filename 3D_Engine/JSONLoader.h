@@ -40,6 +40,8 @@ public:
 
 	nlohmann::json getFile();
 
+	JSON_Doc * CreateJSON(std::string path);
+
 	nlohmann::json file;
 
 private:
