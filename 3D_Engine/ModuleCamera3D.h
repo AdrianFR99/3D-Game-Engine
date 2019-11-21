@@ -76,7 +76,7 @@ public:
 public:
 
 	float AspectRatio;
-
+	float FOV;
 	
 
 public:
