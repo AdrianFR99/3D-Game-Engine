@@ -5,6 +5,8 @@
 #include "Globals.h"
 #include "Timer.h"
 #include "Module.h"
+
+#include "JSONLoader.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
@@ -23,6 +25,20 @@
 #include "MathGeoLib/include/Algorithm/Random/LCG.h"
 
 struct Event;
+
+
+//class ModuleWindow;
+//class ModuleInput;
+//class ModuleRenderer3D;
+//class ModuleCamera3D;
+//class ModuleEngineUI;
+//class ModuleHardware;
+// //ModuleFileSystem
+//class ModuleAssets;
+//class ModuleTexture;
+//class ModuleGameobject;
+//class ModuleScene;
+//
 
 class Application
 {

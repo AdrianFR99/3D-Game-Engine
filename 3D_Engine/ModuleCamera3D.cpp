@@ -197,7 +197,7 @@ void Camera3D::Look(const float3 &Position)
 
  const float* ModuleCamera3D::GLViewMatrix() {
 
-	 float4x4 viewGL=CurrentCam->GetViewMatrix();
+	 float4x4 viewGL=CurrentCam->GetFrustum().ViewMatrix();
 	 return  viewGL.Transposed().ptr();
 
  }
@@ -205,7 +205,7 @@ void Camera3D::Look(const float3 &Position)
  const float* ModuleCamera3D::GLProjectionMatrix() {
 
 
-	 float4x4 projGL = CurrentCam->GetProjectionMatrix();
+	 float4x4 projGL =CurrentCam->GetFrustum().ProjectionMatrix();
 	 return  projGL.Transposed().ptr();
 
 
@@ -404,10 +404,10 @@ const Frustum Camera3D::GetFrustum()const { return CamFrustum; }
 const float Camera3D::GetNearPlane()const {return CamFrustum.nearPlaneDistance;}
 const float Camera3D::GetFarPlane()const {return CamFrustum.farPlaneDistance;}
 
-const float3x4 Camera3D::GetWorldMatrix()const { return CamFrustum.WorldMatrix(); }
-const float3x4	Camera3D::GetViewMatrix() const { return CamFrustum.ViewMatrix(); }
-const float4x4	Camera3D::GetProjectionMatrix() const { return CamFrustum.ProjectionMatrix(); }
-const float4x4	Camera3D::GetViewProjectedMatrix() const { return CamFrustum.ViewProjMatrix(); }
+const float3x4 Camera3D::GetWorldMatrix()const { return World_Matrix; }
+const float3x4	Camera3D::GetViewMatrix() const { return View_Matrix; }
+const float4x4	Camera3D::GetProjectionMatrix() const { return Projection_Matrix; }
+const float4x4	Camera3D::GetViewProjectedMatrix() const { return ViewProjected_Matrix; }
 
 
 

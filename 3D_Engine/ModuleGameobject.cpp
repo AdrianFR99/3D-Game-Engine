@@ -45,6 +45,9 @@ update_status ModuleGameobject::Update(float dt) {
 			GameobjectList[i]->UpdateTransform = false;
 		}
 
+		GameobjectList[i]->Update();
+
+
 	}
 
 

@@ -1,12 +1,13 @@
 #include "ComponentCamera.h"
 #include "Application.h"
 #include "ModuleCamera3D.h"
+#include "ComponentTransform.h"
 
 
 ComponentCamera::ComponentCamera(Gameobject * owner, CompType newtype):Component(newtype, owner)
 {
 
-	float3 pos = { 10.0f,0.0f,0.0f };
+	float3 pos = belongsTo->transformPointer->GetPosition();
 	float Near = 5.0f;
 	float Far = 20.0f;
 
@@ -22,5 +23,24 @@ ComponentCamera::~ComponentCamera()
 void ComponentCamera::Draw() {
 
 	DebugDrawFrustum(&CameraComponent->GetFrustum(),WHITE,2.5f);
+
+}
+
+void ComponentCamera::Update() {
+
+
+	
+
+
+}
+
+void ComponentCamera::UpdateCamera() {
+
+	float3 pos = belongsTo->transformPointer->GetPosition();
+
+	CameraComponent->SetCamPos(pos);
+
+	
+
 
 }

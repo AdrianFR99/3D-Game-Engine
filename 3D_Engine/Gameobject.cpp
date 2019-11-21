@@ -32,7 +32,11 @@ Gameobject::~Gameobject()
 void Gameobject::Update()
 {
 	
+	for (int i = 0; i < ComponentList.size();++i) {
+		
+		ComponentList[i]->Update();
 
+	}
 
 }
 
@@ -191,6 +195,9 @@ void Gameobject::UpdateGlobalTransform()
 	}
 
 	UpdateBBOs();
+
+	if (CameraPointer != nullptr)
+		CameraPointer->UpdateCamera();
 
 }
 
