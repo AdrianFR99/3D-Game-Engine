@@ -19,9 +19,8 @@ Gameobject::Gameobject(int id)
 
     //default OBB && AABB if there is no mesh
 	
-	Sphere aux;
-	def.SetNegativeInfinity();
-	def.Enclose(aux);
+	
+	def.SetFrom(AABB(transformPointer->GetPosition()-float3::one, transformPointer->GetPosition()+float3::one));
 	
 }
 
@@ -209,7 +208,7 @@ void Gameobject::UpdateBBOs(){
 
 
 
-	if (meshPointer != nullptr && hasMesh==true) {
+	if (hasMesh==true) {
 	
 		if (meshPointer->Meshes_Vec.size()>0)
 			obb.SetFrom(meshPointer->Meshes_Vec[0]->GetBBox());
@@ -219,7 +218,7 @@ void Gameobject::UpdateBBOs(){
 		obb.Transform(transformPointer->GetGlobalTransform());
 		aabb.SetFrom(obb);
 	}
-	else {
+	else{
 
 		obb.SetFrom(def);
 		obb.Transform(transformPointer->GetGlobalTransform());
