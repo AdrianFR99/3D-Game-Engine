@@ -37,10 +37,14 @@ void ComponentCamera::Update() {
 void ComponentCamera::UpdateCamera() {
 
 	float3 pos = belongsTo->transformPointer->GetPosition();
-
-	CameraComponent->SetCamPos(pos);
-
+	float3 Z = belongsTo->transformPointer->GetGlobalTransform().WorldZ();
+	float3 Y = belongsTo->transformPointer->GetGlobalTransform().WorldY();
 	
+	CameraComponent->SetCamPos(pos);
+	CameraComponent->SetToFront(Z);
+	CameraComponent->SetToUp(Y);
+
+//	CameraComponent->GetFrustum().up = belongsTo->transformPointer->GetGlobalTransform();
 
 
 }
