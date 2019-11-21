@@ -41,7 +41,7 @@ bool ResourceTextureLoader::Load(const char * filepath, std::vector<Resource*>& 
 		std::string file_name = App->fs->GetFileNameFromFilePath(filepath);
 
 		// Create texture
-		ResourceTexture* rtex = (ResourceTexture*)App->resource_manager->CreateNewResource(RT_TEXTURE);
+		ResourceTexture* rtex = (ResourceTexture*)App->RS->CreateNewResource(RT_TEXTURE);
 
 		// Get texture info
 		ILinfo ImageInfo;
@@ -51,21 +51,21 @@ bool ResourceTextureLoader::Load(const char * filepath, std::vector<Resource*>& 
 		if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
 		{
 			iluFlipImage();
-			rtex->SetFlipped(true);
+			//rtex->SetFlipped(true);
 		}
 
 		// Convert image to rgb and a byte chain
 		ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE);
 
 		// Save data
-		rtex->SetData(ilGetData(), ilGetInteger(IL_IMAGE_SIZE_OF_DATA), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), ilGetInteger(IL_IMAGE_FORMAT),
+		//rtex->SetData(ilGetData(), ilGetInteger(IL_IMAGE_SIZE_OF_DATA), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), ilGetInteger(IL_IMAGE_FORMAT),
 			GL_REPEAT, GL_REPEAT, GL_NEAREST, GL_NEAREST);
 
 		// Set name
 		rtex->SetFileName(file_name.c_str());
 
 		// Export it to Library
-		App->resource_manager->SaveResourceIntoFile(rtex);
+		//App->resource_manager->SaveResourceIntoFile(rtex);
 
 		ilDeleteImages(1, &ImageInfo.Id);
 
