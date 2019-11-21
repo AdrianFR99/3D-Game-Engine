@@ -239,13 +239,13 @@ void Primitives::DefinePrimitive(Primitive_Type type) {
 
 	//Allocating memory-----------------------------------------------------------------
 
-	num_vertex = Mesh->npoints * 3;
+	num_vertex = Mesh->npoints;
 	vertices = new float3[num_vertex];
 
 	num_index = Mesh->ntriangles * 3;
 	indices = new uint[num_index];
 
-	num_uv = Mesh->npoints * 2;
+	num_uv = Mesh->npoints*2;
 	uv_coord = new float[num_uv];
 
 	num_normals = num_vertex;

@@ -67,7 +67,7 @@ public:
 	
 	//AABBs&OBB booleans
 	bool DrawBBOs = true;
-	bool DrawAABB = false;
+	bool DrawAABB = true;
 	bool DrawOBB = true;
 
 	std::string nameGameObject ;
