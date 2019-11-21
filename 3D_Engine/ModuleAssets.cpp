@@ -370,7 +370,10 @@ bool ModuleAssets::LoadMesh(const char* path) {
 			
 			tmp->Meshes_Vec = NewMesh;
 
-			App->RS->meshLoader->Export("SettingConfig /", tmp);
+			std::string component_path = "Library/Meshes/ ";
+			component_path.append(std::to_string(App->GetRandom().Int()));
+			component_path.append(".mesh");
+			App->RS->meshLoader->Save(tmp, component_path.data());
 
 			/*for ( tmpGO->meshPointer->Meshes_Vec->Meshes_Vec != nullptr) {
 

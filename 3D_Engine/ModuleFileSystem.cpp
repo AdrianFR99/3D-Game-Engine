@@ -679,7 +679,7 @@ bool ModuleFileSystem::FileSave(const char * path, const char* file_content, con
 		LOG("Error saving file %s: ", name);
 	}
 
-x	if (new_file)
+	if (new_file)
 		fclose(new_file);
 
 	return ret;

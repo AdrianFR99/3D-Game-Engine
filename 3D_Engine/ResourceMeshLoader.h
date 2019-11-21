@@ -52,9 +52,9 @@ public:
 	ResourceMeshLoader();
 	virtual ~ResourceMeshLoader();
 
-	bool Export(const char* path, ResourceMesh* mesh);
-
 	void Unload(const char* filepath);
+
+	void Save(ResourceMesh * mesh, const char * path) const;
 
 private:
 	bool ResourceIsUsed(int index, ResourceType type, Resource*& res);

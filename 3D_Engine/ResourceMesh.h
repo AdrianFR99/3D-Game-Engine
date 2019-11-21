@@ -32,6 +32,8 @@ public:
 	uint* GetIndices();
 	float3* GetVertices();
 	
+	uint GetNumNormal();
+	uint GetNumNormalFaces();
 	
 	std::string nameMesh;
 	AssetMesh* Meshes_Vec = nullptr;;

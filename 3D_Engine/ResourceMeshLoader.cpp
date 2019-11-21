@@ -51,74 +51,6 @@ void ResourceMeshLoader::AddResource(int index, ResourceType type, Resource * re
 }
 
 
-bool ResourceMeshLoader::Export(const char * path, ResourceMesh* mesh)
-{
-	bool ret = true;
-
-	std::string name = mesh->GetUniqueId();
-
-	// -------------------------------------
-	// FILE --------------------------------
-	// -------------------------------------
-	uint ranges[3] = { mesh->GetNumVertices(), mesh->GetNumIndices()};
-	uint size = sizeof(ranges) +
-		sizeof(uint) * mesh->GetNumIndices() +
-		sizeof(float) * mesh->GetNumVertices() * 3;
-		
-
-	// Allocate data
-	char* data = new char[size];
-	char* cursor = data;
-
-	// Store ranges
-	uint bytes = sizeof(ranges);
-	memcpy(cursor, ranges, bytes);
-	cursor += bytes;
-
-	// Store indices
-	bytes = sizeof(uint) * mesh->GetNumIndices();
-	memcpy(cursor, mesh->GetIndices(), bytes);
-	cursor += bytes;
-
-	// Store vertices
-	bytes = sizeof(float) * mesh->GetNumVertices() * 3;
-	memcpy(cursor, mesh->GetVertices(), bytes);
-	cursor += bytes;
-
-
-	//fopen
-	if (App->fs->FileSave(path, data, name.c_str(), "GearMesh", size) == false)
-	{
-		return false;
-	}
-
-	RELEASE_ARRAY(data);
-
-	// -------------------------------------
-	// META --------------------------------
-	// -------------------------------------
-	std::string meta_name = path + name + ".meta";
-
-	/*nlohmann::json* doc = App.->LoadJSON(meta_name.c_str());
-	if (doc == nullptr)
-		doc = App->json->CreateJSON(meta_name.c_str());
-
-	if (doc != nullptr)
-	{
-		doc->Clear();
-
-		doc->SetString("uid", mesh->GetUniqueId().c_str());
-		doc->SetString("name", mesh->GetFileName().c_str());
-
-		doc->Save();
-	}
-
-	App->json->UnloadJSON(doc);*/
-
-	return ret;
-}
-
-
 void ResourceMeshLoader::Unload(const char * filepath)
 {
 	/*string path = App->fs->GetPathFromFilePath(filepath);
@@ -152,4 +84,52 @@ void ResourceMeshLoader::Unload(const char * filepath)
 	App->fs->FileDelete(meta_path.c_str());
 	App->fs->FileDelete(prefab_path.c_str());
 	App->fs->FileDelete(filepath);*/
+}
+
+void ResourceMeshLoader::Save(ResourceMesh * mesh, const char* path) const
+{
+	//
+
+	//
+
+	// amount of indices / vertices / normals / texture_coords / AABB
+	uint ranges[4] = { mesh->GetNumIndices(), mesh->GetNumVertices(), mesh->GetNumNormal(), mesh->GetNumNormalFaces()  };
+
+	uint size = sizeof(ranges) + sizeof(uint) * mesh->GetNumIndices() + sizeof(float3) * mesh->GetNumVertices() + sizeof(float3)*mesh->GetNumNormal() + sizeof(float)* mesh->GetNumNormalFaces();
+
+	char* data = new char[size]; // Allocate
+	char* cursor = data;
+
+	uint bytes = sizeof(ranges); // First store ranges
+	memcpy(cursor, ranges, bytes);
+
+	// --- Store Indices ---
+	cursor += bytes;
+	bytes = sizeof(uint) * mesh->GetNumIndices();
+	memcpy(cursor, mesh->Meshes_Vec->indices, bytes);
+
+	// --- Store Vertices ---
+	cursor += bytes;
+	bytes = sizeof(float3) * mesh->GetNumVertices();
+	memcpy(cursor, mesh->Meshes_Vec->vertices, bytes);
+
+	// --- Store Normals ---
+	cursor += bytes;
+	bytes = sizeof(float3) * mesh->GetNumNormal();
+	memcpy(cursor, mesh->Meshes_Vec->normals, bytes);
+
+	// --- Store Normal Faces ---
+	cursor += bytes;
+	bytes = sizeof(uint) * mesh->GetNumNormalFaces();
+	memcpy(cursor, mesh->Meshes_Vec->normals_faces, bytes);
+
+	App->fs->Save(path, data, size);
+
+	// --- Delete buffer data ---
+	if (data)
+	{
+		delete[] data;
+		data = nullptr;
+		cursor = nullptr;
+	}
 }

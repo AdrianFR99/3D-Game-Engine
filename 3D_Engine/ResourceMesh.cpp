@@ -106,6 +106,33 @@ float3 * ResourceMesh::GetVertices()
 	return ret;
 }
 
+uint ResourceMesh::GetNumNormal()
+{
+	uint ret;
+	if (Meshes_Vec != nullptr)
+	{
+		ret = Meshes_Vec->num_normals;
+	}
+	else {
+		ret = Primitives_Vec->num_normals;
+	}
+	return ret;
+}
+
+uint ResourceMesh::GetNumNormalFaces()
+{
+	uint ret;
+	if (Meshes_Vec != nullptr)
+	{
+		ret = Meshes_Vec->num_normals_faces;
+	}
+	else {
+		ret = Primitives_Vec->num_normals_faces;
+	}
+	return ret;
+	
+}
+
 uint * ResourceMesh::GetIndices()
 {
 	uint* ret;
