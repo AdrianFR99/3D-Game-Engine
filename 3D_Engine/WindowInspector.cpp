@@ -188,18 +188,18 @@ void WindowInspector::Inspector_Window() {
 
 				std::string display_name;
 				std::string id;
-				if ( activeobj->meshPointer->Meshes_Vec->Meshes_Vec!=nullptr) 
-				{
-					/*display_name = activeobj->nameGameObject;
-					id = std::to_string(1);
-					display_name.append(id);
+				//if ( activeobj->meshPointer->Meshes_Vec->Meshes_Vec!=nullptr) 
+				//{
+				//	/*display_name = activeobj->nameGameObject;
+				//	id = std::to_string(1);
+				//	display_name.append(id);
 
-					if (ImGui::Checkbox(display_name.data(), &activeobj->meshPointer->Meshes_Vec[i]->active))
-					{
-						
-							
-					}*/
-				}
+				//	if (ImGui::Checkbox(display_name.data(), &activeobj->meshPointer->Meshes_Vec[i]->active))
+				//	{
+				//		
+				//			
+				//	}*/
+				//}
 
 				ImGui::Spacing();
 

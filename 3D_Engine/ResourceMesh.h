@@ -33,12 +33,11 @@ public:
 	float3* GetVertices();
 	
 	
-private:
-	
 	std::string nameMesh;
 	AssetMesh* Meshes_Vec = nullptr;;
 	Primitives* Primitives_Vec = nullptr;
 	ResourceTexture* Default_texture = nullptr;
+	
 	
 private:
 

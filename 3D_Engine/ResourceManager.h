@@ -7,6 +7,7 @@
 #include "Resource.h"
 #include "ResourceMesh.h"
 #include "ResourceTexture.h"
+#include "ResourceMeshLoader.h"
 
 
 class ResourceManager : public Module
@@ -36,9 +37,11 @@ private:
 
 public:
 	
+	ResourceMeshLoader* meshLoader;
 
 private:
 	std::map<std::string, Resource*> resources;
+
 
 	
 };

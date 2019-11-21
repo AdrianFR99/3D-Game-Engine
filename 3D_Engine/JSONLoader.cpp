@@ -104,11 +104,11 @@ JSON_Doc* JSONLoader::CreateJSON(std::string path)
 	}
 	else
 	{
-		JSON_Value* root_value = json_value_init_object();
+		/*nlohmann::json* root_value = nlohmann::json_value_init_object();
 
 		if (root_value == nullptr)
 		{
-			LOG_OUTPUT("Error creating %s. Wrong path?", path);
+			LOG("Error creating %s. Wrong path?", path);
 		}
 		else
 		{
@@ -120,7 +120,7 @@ JSON_Doc* JSONLoader::CreateJSON(std::string path)
 			new_doc->Save();
 
 			ret = new_doc;
-		}
+		}*/
 	}
 
 	return ret;

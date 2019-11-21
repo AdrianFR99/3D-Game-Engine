@@ -12,6 +12,7 @@
 #include "ModuleEngineUI.h"
 #include "WindowHierarchy.h"
 #include "ModuleScene.h"
+#include "ResourceManager.h"
 
 #include "imgui_defines.h"
 
@@ -369,6 +370,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 			
 			tmp->Meshes_Vec = NewMesh;
 
+			App->RS->meshLoader->Export("SettingConfig /", tmp);
 
 			/*for ( tmpGO->meshPointer->Meshes_Vec->Meshes_Vec != nullptr) {
 

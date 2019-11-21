@@ -19,6 +19,7 @@ bool ResourceManager::Start()
 {
 	bool ret = true;
 
+	meshLoader = new ResourceMeshLoader;
 	std::string new_n;
 	
 

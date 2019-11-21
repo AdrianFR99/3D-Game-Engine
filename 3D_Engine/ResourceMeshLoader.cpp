@@ -87,7 +87,7 @@ bool ResourceMeshLoader::Export(const char * path, ResourceMesh* mesh)
 
 
 	//fopen
-	if (App->fs->FileSave(path, data, name.c_str(), "sustomesh", size) == false)
+	if (App->fs->FileSave(path, data, name.c_str(), "GearMesh", size) == false)
 	{
 		return false;
 	}
@@ -99,7 +99,7 @@ bool ResourceMeshLoader::Export(const char * path, ResourceMesh* mesh)
 	// -------------------------------------
 	std::string meta_name = path + name + ".meta";
 
-	nlohmann::json* doc = App.->LoadJSON(meta_name.c_str());
+	/*nlohmann::json* doc = App.->LoadJSON(meta_name.c_str());
 	if (doc == nullptr)
 		doc = App->json->CreateJSON(meta_name.c_str());
 
@@ -113,7 +113,7 @@ bool ResourceMeshLoader::Export(const char * path, ResourceMesh* mesh)
 		doc->Save();
 	}
 
-	App->json->UnloadJSON(doc);
+	App->json->UnloadJSON(doc);*/
 
 	return ret;
 }
@@ -121,7 +121,7 @@ bool ResourceMeshLoader::Export(const char * path, ResourceMesh* mesh)
 
 void ResourceMeshLoader::Unload(const char * filepath)
 {
-	string path = App->fs->GetPathFromFilePath(filepath);
+	/*string path = App->fs->GetPathFromFilePath(filepath);
 	string filename = App->fs->GetFileNameFromFilePath(filepath);
 	string extension = App->fs->GetFileExtension(filename.c_str());
 	string name = App->fs->GetFilenameWithoutExtension(filename.c_str(), false);
@@ -151,5 +151,5 @@ void ResourceMeshLoader::Unload(const char * filepath)
 
 	App->fs->FileDelete(meta_path.c_str());
 	App->fs->FileDelete(prefab_path.c_str());
-	App->fs->FileDelete(filepath);
+	App->fs->FileDelete(filepath);*/
 }
