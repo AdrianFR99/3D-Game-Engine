@@ -244,8 +244,8 @@ Camera3D::Camera3D(float3&pos, float& FarPlane, float& NearPlane) {
 
 	SetVeticalFOV(30);
 	SetHorizontalFOV(60);
-	SetAspectRatio((float)SCREEN_WIDTH / (float)SCREEN_HEIGHT);
 	SetFOV(90);
+	SetAspectRatio((float)SCREEN_WIDTH / (float)SCREEN_HEIGHT);
 
 
 
@@ -427,14 +427,14 @@ const void Camera3D::SetVeticalFOV(const float&VertFOV) {
 const void Camera3D::SetAspectRatioAndVFOV(const float&AspectRatio_,const float&VertFOV) {
 
 
-	CamFrustum.horizontalFov =2.0f*Atan((Tan(VertFOV*0.5f) / AspectRatio_));
+	CamFrustum.horizontalFov =2.0f*Atan(Tan(VertFOV*0.5f) * AspectRatio_);
 	AspectRatio = AspectRatio_;
 	UpdateProjectionMatrices();
 }
 const void Camera3D::SetAspectRatioAndHFOV(const float&AspectRatio_, const float&HorizFOV) {
 
 
-	CamFrustum.verticalFov = Atan(Tan(HorizFOV*0.5f)*AspectRatio_)/0.5f;
+	//CamFrustum.verticalFov = atanf(tanf(HorizFOV*0.5f)*AspectRatio_)/0.5f;
 	AspectRatio = AspectRatio_;
 	UpdateProjectionMatrices();
 }
@@ -449,8 +449,8 @@ const void Camera3D::SetAspectRatio(const float&Ratio) {
 const void Camera3D::SetFOV(const float&VFOV) {
 
 
-	SetAspectRatioAndVFOV(AspectRatio, DEGTORAD*VFOV);
-
+	SetVeticalFOV(DEGTORAD*VFOV);
+	SetAspectRatio(AspectRatio = CamFrustum.AspectRatio());
 
 
 

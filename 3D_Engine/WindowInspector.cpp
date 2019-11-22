@@ -312,20 +312,8 @@ void WindowInspector::Inspector_Window() {
 				if (ImGui::CollapsingHeader("Camera"))
 				{
 
-
-					AspectRatio = activeobj->CameraPointer->CameraComponent->AspectRatio;
-					if (ImGui::DragFloat("AspectRatio", (float*)&AspectRatio, 0.1f, 0.1f, 1000.0f));
-					activeobj->CameraPointer->CameraComponent->SetAspectRatio(AspectRatio);
-
-					FOV = activeobj->CameraPointer->CameraComponent->FOV;
-					if (ImGui::DragFloat("FOV ", (float*)&FOV, 0.1f, 0.1f, 1000.0f));
-					activeobj->CameraPointer->CameraComponent->SetFOV(FOV);
-
-
-					ImGui::Text("Frustum Planes");
 					
-					ImGui::Spacing();
-
+				
 					NearPlane = activeobj->CameraPointer->CameraComponent->GetNearPlane();
 					if (ImGui::DragFloat("NearPlane", (float*)&NearPlane, 0.1f,0.1f,1000.0f))
 					activeobj->CameraPointer->CameraComponent->SetNearPlane_Dist(NearPlane);
@@ -333,9 +321,15 @@ void WindowInspector::Inspector_Window() {
 					FarPlane = activeobj->CameraPointer->CameraComponent->GetFarPlane();
 					if (ImGui::DragFloat("FarPlane", (float*)&FarPlane, 0.1f,0.1f,1000.0f))
 						activeobj->CameraPointer->CameraComponent->SetFarPlane_Dist(FarPlane);
-
-
 					
+					AspectRatio = activeobj->CameraPointer->CameraComponent->AspectRatio;
+					if (ImGui::DragFloat("AspectRatio", (float*)&AspectRatio, 0.1f, 0.1f, 100.0f))
+					activeobj->CameraPointer->CameraComponent->SetAspectRatio(AspectRatio);
+
+					FOV = activeobj->CameraPointer->CameraComponent->FOV;
+					if (ImGui::DragFloat("FOV ", (float*)&FOV, 0.1f, 0.1f, 1000.0f))
+					activeobj->CameraPointer->CameraComponent->SetFOV(FOV);
+
 
 
 				}
