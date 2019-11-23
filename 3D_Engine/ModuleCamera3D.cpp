@@ -431,13 +431,7 @@ const void Camera3D::SetAspectRatioAndVFOV(const float&AspectRatio_,const float&
 	AspectRatio = AspectRatio_;
 	UpdateProjectionMatrices();
 }
-const void Camera3D::SetAspectRatioAndHFOV(const float&AspectRatio_, const float&HorizFOV) {
 
-
-	//CamFrustum.verticalFov = atanf(tanf(HorizFOV*0.5f)*AspectRatio_)/0.5f;
-	AspectRatio = AspectRatio_;
-	UpdateProjectionMatrices();
-}
 
 const void Camera3D::SetAspectRatio(const float&Ratio) {
 
@@ -489,5 +483,58 @@ const void Camera3D::UpdateProjectionMatrices() {
 
 	Projection_Matrix = CamFrustum.ProjectionMatrix();
 	ViewProjected_Matrix= Projection_Matrix * View_Matrix;
+
+}
+
+
+bool Camera3D::InsideFrustum(const AABB&Element) {
+
+
+	float3 Corners[8];
+	Element.GetCornerPoints(Corners);
+
+
+	for (int i = 0; i < 6; ++i) {
+
+		
+		uint counter=8;
+
+		for (int j = 0; j < 8;++j) {
+
+
+			if (CamFrustum.GetPlane(i).IsOnPositiveSide(Corners[j]))
+				--counter;
+
+ 		}
+		if (counter == 0) {
+			return false;
+			
+		}
+		
+	}
+
+
+	return true;
+
+}
+
+void Camera3D::DrawIfInside() {
+
+
+	std::vector<Gameobject*>Aux = App->Gameobjects->GameobjectList;
+
+	for(std::vector<Gameobject*>::iterator it = Aux.begin(); it != Aux.end();++it)
+	{ 
+
+		if (InsideFrustum((*it)->GetAABB())) {
+
+			(*it)->DrawGO=true;
+     	}
+		else 
+			(*it)->DrawGO = false;
+	
+	}
+
+
 
 }

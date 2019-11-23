@@ -43,14 +43,22 @@ void Gameobject::Update()
 
 void Gameobject::Draw()
 {
-	for (int i = 0; i < ComponentList.size(); ++i) {
 
-		ComponentList[i]->Draw();
 
+	if (DrawGO == true) {
+
+		for (int i = 0; i < ComponentList.size(); ++i) {
+
+
+			ComponentList[i]->Draw();
+
+		}
+
+		
 	}
 
-	if(DrawBBOs==true)
-	DrawOBB_Box();
+	if (DrawBBOs == true)
+		DrawOBB_Box();
 
 }
 
@@ -205,9 +213,7 @@ void Gameobject::SetBBOs() {
 
 	obb = meshPointer->Meshes_Vec[0]->bbox;
 	obb.Transform(transformPointer->GetGlobalTransform());
-
-	aabb.SetNegativeInfinity();
-	aabb.Enclose(obb);
+	aabb.SetFrom(obb);
 }
 
 void Gameobject::UpdateBBOs(){
@@ -232,5 +238,10 @@ void Gameobject::UpdateBBOs(){
 		aabb.SetFrom(obb);
 
 	}
+
+}
+const AABB Gameobject::GetAABB()const {
+
+	return aabb;
 
 }

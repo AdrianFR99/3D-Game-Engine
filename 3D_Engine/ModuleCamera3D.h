@@ -56,8 +56,6 @@ public:
 	const void SetVeticalFOV(const float&VertFOV);
 	//changes the HFOV depending on VFOV and the Aspect
 	const void SetAspectRatioAndVFOV(const float&AspectRatio_, const float&VertFOV);
-	//changes the VFOV depending on HFOV and the Aspect
-	const void SetAspectRatioAndHFOV(const float&AspectRatio_, const float&HorizFOV);
 	//We use SetAspectRatioAndVFOV and set VFOV as the current one, changing AspectRatio and HFOV and mantainig the VFOV
 	const void SetAspectRatio(const float&Ratio);
 	//We use SetAspectRatioAndVFOV and set AspectRatio as the current one, changing VFOV and HFOV and mantainig the Ratio
@@ -72,6 +70,10 @@ public:
 	//Matrices Handlers
 	const void UpdateMatrices();
 	const void UpdateProjectionMatrices();
+	
+	//Frustum culling
+	bool InsideFrustum(const AABB&Element);
+	void DrawIfInside();
 
 public:
 

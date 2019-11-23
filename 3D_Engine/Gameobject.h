@@ -52,6 +52,8 @@ public:
 	void DrawOBB_Box();
 
 
+	const AABB GetAABB()const;
+
 	//parent
 	//children
 public:
@@ -65,6 +67,8 @@ public:
 
 	bool active = false;
 	
+
+	bool DrawGO=true;
 	//AABBs&OBB booleans
 	bool DrawBBOs = true;
 	bool DrawAABB = true;

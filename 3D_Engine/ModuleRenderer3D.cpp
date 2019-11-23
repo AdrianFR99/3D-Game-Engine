@@ -205,6 +205,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	App->Gameobjects->Draw();
 
+
+
 	App->UI_Layer->Draw();
 	SDL_GL_SwapWindow(App->window->window);
 

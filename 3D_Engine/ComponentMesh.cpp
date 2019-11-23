@@ -39,6 +39,7 @@ void ComponentMesh::Update()
 
 void ComponentMesh::Draw()
 {
+	
 	App->Assets->Draw(belongsTo);
 }
 

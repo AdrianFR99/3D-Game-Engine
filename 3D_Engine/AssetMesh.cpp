@@ -287,6 +287,7 @@ void AssetMesh::GenerateAABB() {
 	if(vertices!=nullptr && num_vertex>0)
 	bbox.Enclose((float3*)vertices,num_vertex);
 
+
 }
 const AABB AssetMesh::GetBBox()const {
 	return bbox;
