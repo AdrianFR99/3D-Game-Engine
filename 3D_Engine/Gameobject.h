@@ -48,10 +48,7 @@ public:
 	//AABBs&OBB
 	void SetBBOs();
 	void UpdateBBOs();
-
 	void DrawOBB_Box();
-
-
 	const AABB GetAABB()const;
 
 	//parent
@@ -66,7 +63,7 @@ public:
 
 
 	bool active = false;
-	
+	bool Static = false;
 
 	bool DrawGO=true;
 	//AABBs&OBB booleans

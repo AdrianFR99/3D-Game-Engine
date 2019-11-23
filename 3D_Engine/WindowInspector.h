@@ -32,6 +32,11 @@ public:
 	float3 rotation;
 	float3 scale;
 
+
+
+	//GO
+	bool Static = false;
+
 	//camera
 	
 	float FOV;

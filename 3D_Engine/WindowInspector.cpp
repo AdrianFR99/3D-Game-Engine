@@ -44,32 +44,55 @@ void WindowInspector::Inspector_Window() {
 		activeobj = App->UI_Layer->HierarchyPanel->getActiveGameobject();
 
 		
+		
+		
+		
 		if (activeobj != nullptr)
 		{
+
+			ImGui::Checkbox("Static", &Static);
+			activeobj->Static=Static;
+
 
 			if(activeobj->hasTransform==true)
 			if (ImGui::CollapsingHeader("Transform"))
 			{
 				
-				position =  activeobj->transformPointer->GetPosition();
-				if (ImGui::DragFloat3("Position", (float*)&position, 0.1f))
-					activeobj->transformPointer->SetPosition(position);
-				
+				if (Static == false) {
+					position = activeobj->transformPointer->GetPosition();
+					if (ImGui::DragFloat3("Position", (float*)&position, 0.1f))
+						activeobj->transformPointer->SetPosition(position);
 
-				rotation = activeobj->transformPointer->GetRotation();
-				if (ImGui::DragFloat3("Rotation", (float*)&rotation, 0.1f))
-					activeobj->transformPointer->SetRotation(rotation);
-				
-				
-				
-				scale = activeobj->transformPointer->GetScale();
-				if (ImGui::DragFloat3("Scale", (float*)&scale, 0.1f))
-					activeobj->transformPointer->SetScale(scale);
-			
 
-				ImGui::Spacing();
-				ImGui::Separator();
-				
+					rotation = activeobj->transformPointer->GetRotation();
+					if (ImGui::DragFloat3("Rotation", (float*)&rotation, 0.1f))
+						activeobj->transformPointer->SetRotation(rotation);
+
+
+
+					scale = activeobj->transformPointer->GetScale();
+					if (ImGui::DragFloat3("Scale", (float*)&scale, 0.1f))
+						activeobj->transformPointer->SetScale(scale);
+
+
+					ImGui::Spacing();
+					ImGui::Separator();
+
+				}
+				else {
+
+					ImGui::TextColored(IMGUI_AQUAMARINE,"Transforms Freeze");
+					ImGui::Spacing();
+					ImGui::InputFloat3("Position", (float*)&position);
+					ImGui::InputFloat3("Rotation", (float*)&rotation);
+					ImGui::InputFloat3("Scale", (float*)&scale);
+
+					ImGui::Spacing();
+					ImGui::Separator();
+
+				}
+
+
 			}
 			if (activeobj->hasMesh == true) {
 
