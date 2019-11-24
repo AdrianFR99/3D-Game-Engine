@@ -790,7 +790,7 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 			go->CreateComponent(go, MESH, true);
 			ComponentMesh* cmesh = go->meshPointer;
 			cmesh->Meshes_Vec=(mesh);
-
+			
 			resources.push_back(go);
 
 			//text
