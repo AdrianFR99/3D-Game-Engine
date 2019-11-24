@@ -934,7 +934,10 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 		pare = parent;
 
 
-	mesh->Meshes_Vec->ToBuffer();
+	if (mesh != nullptr) {
+	
+		mesh->Meshes_Vec->ToBuffer();
+	}
 	// RECURSE
 	for (int i = 0; i < node->mNumChildren; i++)
 	{
