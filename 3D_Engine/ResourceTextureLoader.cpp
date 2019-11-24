@@ -158,6 +158,7 @@ void ResourceTextureLoader::import2(const char * file_path)
 				lib_Tex.append(std::to_string(mat->Resource_Material->DiffuseID));
 				lib_Tex.append(".dds");
 
+				mat->Resource_Material->original_file = file_path;
 				mat->Resource_Material->resource_file = lib_Tex.data();
 				mat->Resource_Material->file_name = (lib_Tex.data());
 			}

@@ -177,6 +177,7 @@ bool SceneLoader::Load(const char * exported_file) const
 					texture = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");
 					new_go->materialPointer->Resource_Material = texture;
 					texture->CreateMaterial();
+					texture->original_file = component_path;
 					App->UI_Layer->HierarchyPanel->SetActiveGameobject(new_go);
 					ImporterMaterial->Load(component_path.data(), *texture);
 					
@@ -310,7 +311,7 @@ std::string SceneLoader::SaveSceneToFile(std::vector<Gameobject*>& scene_gos, st
 				component_path.append(scene_gos[i]->materialPointer->Resource_Material->GetUniqueId());
 				component_path.append(".dds");
 				
-				file[scene_gos[i]->nameGameObject]["Components"][std::to_string((uint)CompType::MATERIAL)] = component_path;
+				file[scene_gos[i]->nameGameObject]["Components"][std::to_string((uint)CompType::MATERIAL)] = scene_gos[i]->materialPointer->Resource_Material->original_file;
 				
 
 
