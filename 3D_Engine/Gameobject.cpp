@@ -127,10 +127,11 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 void Gameobject::UpdateGlobalTransform()
 {
 	this;
-	int a = 0;
+	
 	if (Father != nullptr)
 	{
-		transformPointer->global_transform = Father->transformPointer->global_transform * transformPointer->local_transform;
+		transformPointer->global_transform = Father->transformPointer->global_transform * transformPointer->GetTransform();;
+		int a = 0;
 	}
 	if (GameObject_Child_Vec.empty()==false)
 	{

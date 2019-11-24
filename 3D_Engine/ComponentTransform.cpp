@@ -39,7 +39,7 @@ void ComponentTransform::Update()
 
 void ComponentTransform::CleanUp()
 {
-	transform.zero;
+	//transform.zero;
 	active = false;
 	belongsTo = nullptr;
 
@@ -65,7 +65,7 @@ void ComponentTransform::Disable()
 
 float4x4 const ComponentTransform::GetTransform() const
 {
-	return transform;
+	return local_transform;
 }
 
 float3 const ComponentTransform::GetPosition() const
@@ -96,6 +96,7 @@ float4x4 const ComponentTransform::GetGlobalTransform() const
 const void ComponentTransform::SetPosition(const float3 & pos)
 {
 	ObjectPosition = pos;
+	
 
 	RecalculateMatrix();
 	

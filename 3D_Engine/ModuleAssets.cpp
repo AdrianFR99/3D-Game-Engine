@@ -503,13 +503,7 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 
 
 
-	/*tmp->CameraDistance = aux->faraway;
-
-	tmp->xPos = aux->medX;
-	tmp->yPos = aux->medY;
-	tmp->zPos = aux->medZ;
 	
-*/
 }
 
 void ModuleAssets::CloneToAsset(std::string filepath, std::string destination)
@@ -538,118 +532,6 @@ void ModuleAssets::SceneLoader( const aiScene * scene, std::string path, std::st
 }
 
 
-void ModuleAssets::NodeLoader(aiNode* node, const aiScene* scene, const char* File_path, std::vector<Gameobject*>& scene_gos, Gameobject* father) const
-{
-	// Load nodes from assimp scene
-	// Create a hierarchy for the nodes in gameobject structure
-
-	Gameobject* FirstGameobject = nullptr;
-	Gameobject* fathertmp = father;
-	FirstGameobject = App->Gameobject->CreateEmptyFatherLess();
-	FirstGameobject->nameGameObject = node->mName.C_Str();
-	scene_gos.push_back(FirstGameobject);
-
-
-	if (fathertmp == nullptr)
-	{
-		fathertmp = FirstGameobject;
-		Gameobject* scene = App->SceneEngine->GetSceneGameObjcet();
-		scene->GameObject_Child_Vec.push_back(FirstGameobject);
-		FirstGameobject->Father = scene;
-	}
-	else
-	{
-		fathertmp->GameObject_Child_Vec.push_back(FirstGameobject);
-		FirstGameobject->Father = father;
-	}
-	for (int i = 0; i < node->mNumChildren; ++i)
-	{
-		NodeLoader(node->mChildren[i], scene, File_path, scene_gos,FirstGameobject);
-		
-		
-	}
-
-	// Load meshes
-	for (int j = 0; j < node->mNumMeshes; ++j)
-	{
-		// Create Game Object per mesh
-		
-		FirstGameobject->nameGameObject = node->mName.C_Str();
-
-		// get the mesh associated with the node
-		uint mesh_index = node->mMeshes[j];
-		aiMesh* mesh = scene->mMeshes[mesh_index];
-
-		if (mesh)
-		{
-
-			// Create new Component Mesh to store current scene mesh data 
-			FirstGameobject->CreateComponent(FirstGameobject, MESH, true);
-			ResourceMesh* tmp = (ResourceMesh*)App->RS->CreateNewResource(Resource::ResourceType::RT_MESH, "");
-			FirstGameobject->meshPointer->Meshes_Vec = tmp;
-
-
-			// Create Default components
-			if (FirstGameobject->meshPointer != nullptr)
-			{
-				
-				//import asset mesh function the assign directly to the game object assemesh
-				AssetMesh* NewMesh = new AssetMesh;
-
-				NewMesh->importMesh(mesh);
-				tmp->Meshes_Vec = NewMesh;
-				
-				
-
-				ComponentTransform* transform = FirstGameobject->transformPointer;
-
-				if (transform)
-				{
-					aiVector3D aiscale;
-					aiVector3D aiposition;
-					aiQuaternion airotation;
-					node->mTransformation.Decompose(aiscale, airotation, aiposition);
-					math::Quat quat;
-					quat.x = airotation.x;
-					quat.y = airotation.y;
-					quat.z = airotation.z;
-					quat.w = airotation.w;
-					float3 eulerangles = quat.ToEulerXYZ();
-					transform->SetPosition(float3(aiposition.x, aiposition.y, aiposition.z));
-					transform->SetRotation(float3(eulerangles));
-					transform->SetScale(float3(aiscale.x, aiscale.y, aiscale.z));
-				}
-				std::string file = File_path;
-
-				if (scene->HasMaterials()) {
-
-					FirstGameobject->CreateComponent(FirstGameobject, MATERIAL, true);
-					ResourceTexture* tmp2 = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");
-					FirstGameobject->materialPointer->Resource_Material = tmp2;
-					aiString Texture_path;
-
-					aiMaterial* mat;
-					mat = scene->mMaterials[j];
-					mat->GetTexture(aiTextureType_DIFFUSE, j, &Texture_path);
-
-					std::string filename = file;
-					std::size_t found = filename.find_last_of("/\\");
-					filename = filename.substr(0, found + 1);
-					filename.append(Texture_path.C_Str());
-
-
-					tmp2->CreateMaterial(filename);
-					//tmp->Default_texture = tmp2;
-					
-				}
-
-			}
-
-			
-
-		}
-	}
-}
 
 bool ModuleAssets::FirstLoad(const char * filepath, bool as_new_gameobject, const aiScene* scene)
 {
@@ -707,7 +589,7 @@ bool ModuleAssets::FirstLoad(const char * filepath, bool as_new_gameobject, cons
 		App->fs->GetExtensionAndFilename(filepath2.c_str(), name, ext);
 		parent->nameGameObject=name;
 
-
+		parent->UpdateTransform = true;
 		//// Total mesh bbox
 		//AABB total_abb;
 		//total_abb.SetNegativeInfinity();
@@ -720,8 +602,9 @@ bool ModuleAssets::FirstLoad(const char * filepath, bool as_new_gameobject, cons
 		{
 			RecursiveLoadMesh( root->mChildren[i], scene, filepath, resources, parent);
 		}
-
-
+		
+		App->SceneEngine->scene->GameObject_Child_Vec;
+		int a = 0;
 		// Set camera focus
 		
 	}
@@ -896,6 +779,7 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 			go->nameGameObject=(name);
 
 			parent->GameObject_Child_Vec.push_back(go);
+			go->Father = parent;
 
 			go->transformPointer->SetPosition(posi);
 			go->transformPointer->SetRotationQuat(roti);
@@ -937,6 +821,7 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 	if (mesh != nullptr) {
 	
 		mesh->Meshes_Vec->ToBuffer();
+		go->UpdateTransform = true;
 	}
 	// RECURSE
 	for (int i = 0; i < node->mNumChildren; i++)
