@@ -136,7 +136,7 @@ void ResourceMeshLoader::Save(ResourceMesh * mesh, const char* path) const
 
 	// Store UVs
 	cursor += bytes;
-	bytes = sizeof(float) * mesh->mesh_asset->num_uv;
+	bytes = sizeof(float) *3*mesh->mesh_asset->num_uv;
 	memcpy(cursor, mesh->mesh_asset->uv_coord, bytes);
 
 

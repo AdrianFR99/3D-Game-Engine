@@ -258,12 +258,12 @@ void WindowInspector::Inspector_Window() {
 					if (activeobj->meshPointer->Meshes_Vec->mesh_asset != nullptr)
 					{
 
-						vertex += activeobj->meshPointer->Meshes_Vec->mesh_asset->num_vertex;
-						index += activeobj->meshPointer->Meshes_Vec->mesh_asset->num_index;
-						normal += activeobj->meshPointer->Meshes_Vec->mesh_asset->num_normals;
-						normal_faces += activeobj->meshPointer->Meshes_Vec->mesh_asset->num_normals_faces;
-						uvs += activeobj->meshPointer->Meshes_Vec->mesh_asset->num_uv;
-						Triangles += activeobj->meshPointer->Meshes_Vec->mesh_asset->num_normals_faces;
+						vertex = activeobj->meshPointer->Meshes_Vec->mesh_asset->num_vertex;
+						index = activeobj->meshPointer->Meshes_Vec->mesh_asset->num_index;
+						normal = activeobj->meshPointer->Meshes_Vec->mesh_asset->num_normals;
+						normal_faces = activeobj->meshPointer->Meshes_Vec->mesh_asset->num_normals_faces;
+						uvs = activeobj->meshPointer->Meshes_Vec->mesh_asset->num_uv;
+						Triangles = activeobj->meshPointer->Meshes_Vec->mesh_asset->num_normals_faces;
 
 						ImGui::Text("Vertex Count:");
 						ImGui::SameLine();
@@ -311,8 +311,8 @@ void WindowInspector::Inspector_Window() {
 						if (activeobj->meshPointer->Meshes_Vec->Primitives_Vec != nullptr)
 						{
 
-							vertex += activeobj->meshPointer->Meshes_Vec->Primitives_Vec->num_vertex;
-							index += activeobj->meshPointer->Meshes_Vec->Primitives_Vec->num_index;
+							vertex = activeobj->meshPointer->Meshes_Vec->Primitives_Vec->num_vertex;
+							index = activeobj->meshPointer->Meshes_Vec->Primitives_Vec->num_index;
 
 
 

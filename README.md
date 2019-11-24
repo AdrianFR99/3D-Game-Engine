@@ -216,6 +216,19 @@ To navegate the Scene
 	- Display options  
 - Bug Fixing
 
+(MEMBERS WORK)
+### v2.00
+#### Implementations
+ADRIAN FONT
+- Camera as a component
+- Camera Culling
+- Bounding Boxes (BBo, AABB)
+- quatrees
+ANDRES SALADRIGAS
+- resource manager
+- save own format
+- load own format 
+- hierarchy
 
 
 ## Disclosure 
