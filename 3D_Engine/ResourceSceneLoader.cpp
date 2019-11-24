@@ -39,7 +39,7 @@ bool SceneLoader::Import(const char * File_path) const
 	// Get File Name
 	std::string extension;
 	std::string Filename;
-	App->fs->GetExtensionAndFilename(File_path,Filename, extension);
+	App->FileSystem->GetExtensionAndFilename(File_path,Filename, extension);
 
 	// Get apth to file in assets folder ---
 	std::string relative_path = ASSETS_FOLDER;
@@ -70,7 +70,7 @@ bool SceneLoader::Import(const char * File_path) const
 
 		// Load buffer with asset folder file
 		char* buffer;
-		uint size = App->fs->Load(relative_path.data(), &buffer);
+		uint size = App->FileSystem->Load(relative_path.data(), &buffer);
 
 		//  Import assimp scene
 		const aiScene* scene = aiImportFileFromMemory(buffer, size, aiProcessPreset_TargetRealtime_MaxQuality, nullptr);
@@ -171,7 +171,7 @@ bool SceneLoader::Load(const char * exported_file) const
 
 			case CompType::MATERIAL:
 				// --- Check if Library file exists ---
-				if (App->fs->Exists(component_path.data()))
+				if (App->FileSystem->Exists(component_path.data()))
 				{
 					new_go->CreateComponent(new_go, MATERIAL, true);
 					texture = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");
@@ -183,7 +183,7 @@ bool SceneLoader::Load(const char * exported_file) const
 					
 
 					/*diffuse_uid = component_path;
-					App->fs->SplitFilePath(component_path.data(), nullptr, &diffuse_uid);
+					App->FileSystem->SplitFilePath(component_path.data(), nullptr, &diffuse_uid);
 					count = diffuse_uid.find_last_of(".");
 					diffuse_uid = diffuse_uid.substr(0, count);
 					mat->resource_material->resource_diffuse->SetUID(std::stoi(diffuse_uid));
@@ -199,7 +199,7 @@ bool SceneLoader::Load(const char * exported_file) const
 			case CompType::MESH:
 
 				// --- Check if Library file exists ---
-				if (App->fs->Exists(component_path.data()))
+				if (App->FileSystem->Exists(component_path.data()))
 				{
 					
 					new_go->CreateComponent(new_go, MESH, true);
@@ -356,7 +356,7 @@ std::string SceneLoader::SaveSceneToFile(std::vector<Gameobject*>& scene_gos, st
 	char* buffer = (char*)data.data();
 	uint size = data.length();
 
-	App->fs->Save(path.data(), buffer, size);
+	App->FileSystem->Save(path.data(), buffer, size);
 
 	return path;
 }

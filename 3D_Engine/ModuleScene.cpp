@@ -22,10 +22,10 @@ bool ModuleScene::Init(nlohmann::json config) {
 
 
 
-	scene = App->Gameobjects->CreateFatherGameObject();
+	scene = App->Gameobject->CreateFatherGameObject();
 
 
-	Test = App->Gameobjects->CreateGameObject();
+	Test = App->Gameobject->CreateGameObject();
 	Test->CreateComponent(Test,CompType::CAMERA,true);
 	Test->nameGameObject = "camera";
 	Test->aabb.SetFrom(AABB(Test->transformPointer->GetPosition() - float3::one, Test->transformPointer->GetPosition() + float3::one));
@@ -45,9 +45,9 @@ bool ModuleScene::Start() {
 
 
 
-	for (int i = 0; i < App->Gameobjects->GameobjectList.size(); ++i) {
-		if (App->Gameobjects->GameobjectList[i]->Static == true)
-			SceneTree->Insert(App->Gameobjects->GameobjectList[i]);
+	for (int i = 0; i < App->Gameobject->GameobjectList.size(); ++i) {
+		if (App->Gameobject->GameobjectList[i]->Static == true)
+			SceneTree->Insert(App->Gameobject->GameobjectList[i]);
 
 	}
 

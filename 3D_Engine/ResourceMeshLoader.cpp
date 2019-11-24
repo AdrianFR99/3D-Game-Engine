@@ -33,7 +33,7 @@ void ResourceMeshLoader::Load(const char * filename, ResourceMesh & mesh) const
 
 	// --- Load mesh data ---
 	char* buffer;
-	App->fs->Load(filename, &buffer);
+	App->FileSystem->Load(filename, &buffer);
 	char* cursor = buffer;
 
 	// amount of indices / vertices / normals / texture_coords
@@ -140,7 +140,7 @@ void ResourceMeshLoader::Save(ResourceMesh * mesh, const char* path) const
 	memcpy(cursor, mesh->Meshes_Vec->uv_coord, bytes);
 
 
-	App->fs->Save(path, data, size);
+	App->FileSystem->Save(path, data, size);
 
 	// --- Delete buffer data ---
 	if (data)

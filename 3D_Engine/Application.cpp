@@ -14,7 +14,7 @@ Application::Application()
 	StudyCenter = "CITM";
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
-	fs = new ModuleFileSystem(this, ASSETS_FOLDER);
+	FileSystem = new ModuleFileSystem(this, ASSETS_FOLDER);
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	UI_Layer = new ModuleEngineUI(this);
@@ -43,7 +43,7 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(hardware);
-	AddModule(fs);
+	AddModule(FileSystem);
 	AddModule(Assets);
 	AddModule(Textures);
 	AddModule(Gameobject);

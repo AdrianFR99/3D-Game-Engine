@@ -373,7 +373,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 			AssetMesh* NewMesh = new AssetMesh;
 			NewMesh->importMesh(Scene->mMeshes[i]);
-			tmp->meshPointer->Meshes_Vec.push_back(NewMesh);
+			//tmp->meshPointer->Meshes_Vec->Meshes_Vec.push_back(NewMesh);
 			//Assign AABB&OBB
 
 			tmp->SetBBOs();
@@ -520,8 +520,8 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 void ModuleAssets::CloneToAsset(std::string filepath, std::string destination)
 {
 	// Make Copy in Asset Folder
-	if (!App->fs->Exists(destination.data()))
-		App->fs->CopyFromOutsideFS(filepath.data(), destination.data());
+	if (!App->FileSystem->Exists(destination.data()))
+		App->FileSystem->CopyFromOutsideFS(filepath.data(), destination.data());
 }
 
 void ModuleAssets::SceneLoader( const aiScene * scene, std::string path, std::string Filename)
@@ -545,11 +545,11 @@ bool ModuleAssets::FirstLoad(const char * filepath, bool as_new_gameobject, cons
 {
 	bool ret = true;
 
-	std::string path = App->fs->GetPathFromFilePath(filepath);
-	std::string filename = App->fs->GetFileNameFromFilePath(filepath);
+	std::string path = App->FileSystem->GetPathFromFilePath(filepath);
+	std::string filename = App->FileSystem->GetFileNameFromFilePath(filepath);
 	std::string name;
 	std::string ext;
-	App->fs->GetExtensionAndFilename(filename.c_str(),name,ext);
+	App->FileSystem->GetExtensionAndFilename(filename.c_str(),name,ext);
 	LOG("\nStarting mesh scene Loading -------------------- \n\n");
 	//scene = aiImportFile(filepath, aiProcessPreset_TargetRealtime_MaxQuality);
 	LOG("Finishing mesh scene Loading ---------------------");
@@ -592,9 +592,9 @@ bool ModuleAssets::FirstLoad(const char * filepath, bool as_new_gameobject, cons
 		parent->transformPointer->SetRotationQuat(Quat(rotation.x, rotation.y, rotation.w, rotation.z));
 		parent->transformPointer->SetScale(float3(1, 1, 1));
 
-		std::string filepath2 = App->fs->GetFileNameFromFilePath(filepath);
+		std::string filepath2 = App->FileSystem->GetFileNameFromFilePath(filepath);
 		std::string name;
-		App->fs->GetExtensionAndFilename(filepath2.c_str(), name, ext);
+		App->FileSystem->GetExtensionAndFilename(filepath2.c_str(), name, ext);
 		parent->nameGameObject=name;
 
 		parent->UpdateTransform = true;
@@ -761,12 +761,12 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 			{
 				aiMaterial* material = scene->mMaterials[aimesh->mMaterialIndex];
 
-				pathtext = App->fs->GetPathFromFilePath(full_path);
+				pathtext = App->FileSystem->GetPathFromFilePath(full_path);
 
 				// Difuse -------------------
 				aiString file;
 				material->GetTexture(aiTextureType_DIFFUSE, 0, &file);
-				pathtext += App->fs->GetFileNameFromFilePath(file.C_Str());
+				pathtext += App->FileSystem->GetFileNameFromFilePath(file.C_Str());
 
 
 				/*if (!tex.empty())

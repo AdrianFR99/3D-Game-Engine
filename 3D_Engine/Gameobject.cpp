@@ -212,7 +212,7 @@ void Gameobject::UpdateGlobalTransform()
 
 void Gameobject::SetBBOs() {
 
-	obb = meshPointer->Meshes_Vec[0]->bbox;
+	obb = meshPointer->Meshes_Vec->Meshes_Vec->bbox;
 	obb.Transform(transformPointer->GetGlobalTransform());
 	aabb.SetFrom(obb);
 	
@@ -226,10 +226,10 @@ void Gameobject::UpdateBBOs(){
 
 	if (hasMesh==true) {
 	
-		if (meshPointer->Meshes_Vec.size()>0)
-			obb.SetFrom(meshPointer->Meshes_Vec[0]->GetBBox());
-		else if(meshPointer->Primitives_Vec.size()>0)
-			obb.SetFrom(meshPointer->Primitives_Vec[0]->GetBBox());
+		if (meshPointer->Meshes_Vec->Meshes_Vec != nullptr)
+			obb.SetFrom(meshPointer->Meshes_Vec->Meshes_Vec->GetBBox());
+		else if(meshPointer->Meshes_Vec->Primitives_Vec != nullptr)
+			obb.SetFrom(meshPointer->Meshes_Vec->Primitives_Vec->GetBBox());
 	
 		obb.Transform(transformPointer->GetGlobalTransform());
 		aabb.SetFrom(obb);

@@ -198,7 +198,7 @@ bool ModuleTexture::LoadID(const char * filepath, std::vector<Resource*>& resour
 	if (ilLoad(IL_TYPE_UNKNOWN, filepath))
 	{
 		// Get file name
-		std::string file_name = App->fs->GetFileNameFromFilePath(filepath);
+		std::string file_name = App->FileSystem->GetFileNameFromFilePath(filepath);
 
 		// Create texture
 		/*rtex = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");*/
@@ -397,7 +397,7 @@ inline void ModuleTexture::CreateTextureFromImage(uint &TextureID, uint &width, 
 				data = new ILubyte[size]; // allocate data buffer
 
 				if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
-					App->fs->Save(path, data, size);
+					App->FileSystem->Save(path, data, size);
 
 				delete[] data;
 			}

@@ -78,7 +78,7 @@ void ModuleImporter::CallbackEvent(const Event& event) {
 
 
 		std::string DroppedFile_path = event.string;
-		App->fs->NormalizePath(DroppedFile_path);
+		App->FileSystem->NormalizePath(DroppedFile_path);
 
 		// 3D model case
 		if (DroppedFile_path.find(".fbx") != std::string::npos || DroppedFile_path.find(".FBX") != std::string::npos)
@@ -114,7 +114,7 @@ bool ModuleImporter::LoadFromPath(const char* path) const
 	//if (path)
 	//{
 	//	std::string DroppedFile_path = path;
-	//	App->fs->NormalizePath(DroppedFile_path);
+	//	App->FileSystem->NormalizePath(DroppedFile_path);
 
 	//	// If it is a 3D Model ...
 	//	if (DroppedFile_path.find(".fbx") != std::string::npos || DroppedFile_path.find(".FBX") != std::string::npos)
@@ -149,11 +149,11 @@ bool ModuleImporter::LoadFromPath(const char* path) const
 
 	//				std::string destination = ASSETS_FOLDER;
 	//				std::string filename;
-	//				App->fs->SplitFilePath(path, nullptr, &filename, nullptr);
+	//				App->FileSystem->SplitFilePath(path, nullptr, &filename, nullptr);
 	//				destination.append(filename);
 
-	//				if (!App->fs->Exists(destination.data()))
-	//					App->fs->CopyFromOutsideFS(path, destination.data());
+	//				if (!App->FileSystem->Exists(destination.data()))
+	//					App->FileSystem->CopyFromOutsideFS(path, destination.data());
 
 	//				ResourceTexture* tex = nullptr;
 

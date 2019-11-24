@@ -27,7 +27,7 @@ bool ResourceTextureLoader::Import(const char * File_path, const ImportData & ID
 
 	// --- Get Directory from filename ---
 	std::string directory = File_path;
-	directory = App->fs->GetPathFromFilePath(directory.data());
+	directory = App->FileSystem->GetPathFromFilePath(directory.data());
 
 	if (MData.scene->HasMaterials())
 	{
@@ -115,11 +115,11 @@ void ResourceTextureLoader::import2(const char * file_path)
 			std::string filename;
 			std::string path;
 			std::string ext;
-			App->fs->SplitFilePath(file_path, &path, &filename, &ext);
+			App->FileSystem->SplitFilePath(file_path, &path, &filename, &ext);
 			destination.append(filename);
 
-			if (!App->fs->Exists(destination.data()))
-				App->fs->CopyFromOutsideFS(file_path, destination.data());
+			if (!App->FileSystem->Exists(destination.data()))
+				App->FileSystem->CopyFromOutsideFS(file_path, destination.data());
 
 			ResourceTexture* tex = nullptr;
 

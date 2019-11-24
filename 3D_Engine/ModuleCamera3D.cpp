@@ -526,7 +526,7 @@ bool ModuleCamera3D::InsideFrustum(const AABB&Element,Frustum&fr) {
 void ModuleCamera3D::DrawIfInside(Frustum&fr) {
 
 
-	std::vector<Gameobject*>Aux = App->Gameobjects->GameobjectList;
+	std::vector<Gameobject*>Aux = App->Gameobject->GameobjectList;
 
 	for(std::vector<Gameobject*>::iterator it = Aux.begin(); it != Aux.end();++it)
 	{

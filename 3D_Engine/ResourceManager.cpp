@@ -99,16 +99,16 @@ bool ResourceManager::LoadResource(const char * file_path, std::vector<Resource*
 
 	resources.clear();
 
-	std::string name = App->fs->GetFileNameFromFilePath(file_path);
-	std::string extension = App->fs->ToLowerCase(App->fs->GetFileExtension(name.c_str()));
+	std::string name = App->FileSystem->GetFileNameFromFilePath(file_path);
+	std::string extension = App->FileSystem->ToLowerCase(App->FileSystem->GetFileExtension(name.c_str()));
 
 	bool valid_extension = false;
 
-	if (App->fs->TextCmp("fbx", extension.c_str()))
+	if (App->FileSystem->TextCmp("fbx", extension.c_str()))
 	{
 		App->importer->GetImporterScene()->Import(file_path);
 	}
-	else if (App->fs->TextCmp("png", extension.c_str()) || App->fs->TextCmp("dds", extension.c_str()) || App->fs->TextCmp("tga", extension.c_str()))
+	else if (App->FileSystem->TextCmp("png", extension.c_str()) || App->FileSystem->TextCmp("dds", extension.c_str()) || App->FileSystem->TextCmp("tga", extension.c_str()))
 	{
 		App->importer->GetImporterScene()->ImporterMaterial->import2(file_path);
 
@@ -152,7 +152,7 @@ void ResourceManager::DeleteAllResources()
 //	
 //		if (res->GetType() == RT_MESH)
 //		{
-//			//mesh_loader->Export(App->fs->GetLibraryMeshPath().c_str(), (ResourceMesh*)res);
+//			//mesh_loader->Export(App->FileSystem->GetLibraryMeshPath().c_str(), (ResourceMesh*)res);
 //
 //		}
 //			
@@ -179,7 +179,7 @@ void ResourceManager::CreateMetaFromUID(std::string UID, const char* filename)
 	meta_path.append(".meta");
 
 	libraryResources[UID] = meta;
-	App->fs->Save(meta_path.data(), meta_buffer, jsondata.length());
+	App->FileSystem->Save(meta_path.data(), meta_buffer, jsondata.length());
 }
 
 bool ResourceManager::IsFileImported(const char * file)
@@ -190,7 +190,7 @@ bool ResourceManager::IsFileImported(const char * file)
 
 	path.append(".meta");
 
-	ret = App->fs->Exists(path.data());
+	ret = App->FileSystem->Exists(path.data());
 
 	return ret;
 }
@@ -201,7 +201,7 @@ std::string ResourceManager::GetUIDFromMeta(const char * file)
 	path.append(".meta");
 	std::string UID;
 
-	if (App->fs->Exists(path.data()))
+	if (App->FileSystem->Exists(path.data()))
 	{
 		App->GetJsonLoader()->Load(path.data());
 		nlohmann::json file = App->GetJsonLoader()->getFile();

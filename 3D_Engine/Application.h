@@ -54,7 +54,7 @@ public:
 	ModuleCamera3D* camera = nullptr;
 	ModuleEngineUI* UI_Layer = nullptr;
 	ModuleHardware* hardware = nullptr;
-	ModuleFileSystem* fs = nullptr;
+	ModuleFileSystem* FileSystem = nullptr;
 	ModuleAssets* Assets = nullptr;
 	ModuleTexture* Textures = nullptr;
 	ModuleGameobject* Gameobject = nullptr;
