@@ -27,64 +27,9 @@ ResourceMeshLoader::~ResourceMeshLoader()
 }
 
 
-bool ResourceMeshLoader::ResourceIsUsed(int index, ResourceType type, Resource*& res)
-{
-	bool ret = false;
-
-	for (std::vector<UsedResource>::iterator it = used_resources.begin(); it != used_resources.end(); it++)
-	{
-		if ((*it).GetIndex() == index && (*it).GetType() == type)
-		{
-			res = (*it).GetResource();
-			ret = true;
-			break;
-		}
-	}
-
-	return ret;
-}
-
-void ResourceMeshLoader::AddResource(int index, ResourceType type, Resource * res)
-{
-	UsedResource used(res, index, type);
-	used_resources.push_back(used);
-}
 
 
-void ResourceMeshLoader::Unload(const char * filepath)
-{
-	/*string path = App->fs->GetPathFromFilePath(filepath);
-	string filename = App->fs->GetFileNameFromFilePath(filepath);
-	string extension = App->fs->GetFileExtension(filename.c_str());
-	string name = App->fs->GetFilenameWithoutExtension(filename.c_str(), false);
 
-	string meta_path = path + filename + ".meta";
-	string prefab_path = path + filename + ".prefab";
-
-	JSON_Doc* meta = App->json->LoadJSON(meta_path.c_str());
-
-	if (meta != nullptr)
-	{
-		int resources_count = meta->GetArrayCount("resources");
-
-		for (int i = 0; i < resources_count; i++)
-		{
-			string res_uid = meta->GetStringFromArray("resources", i);
-
-			string resource_path = App->fs->GetLibraryTexturePath() + res_uid + ".sustomesh";
-			string resource_meta_path = App->fs->GetLibraryTexturePath() + res_uid + ".meta";
-
-			App->gameobj->DeleteGameObjectsUsingResource(App->RS->Get(res_uid));
-
-			App->fs->FileDelete(resource_path.c_str());
-			App->fs->FileDelete(resource_meta_path.c_str());
-		}
-	}
-
-	App->fs->FileDelete(meta_path.c_str());
-	App->fs->FileDelete(prefab_path.c_str());
-	App->fs->FileDelete(filepath);*/
-}
 
 void ResourceMeshLoader::Save(ResourceMesh * mesh, const char* path) const
 {
@@ -133,3 +78,13 @@ void ResourceMeshLoader::Save(ResourceMesh * mesh, const char* path) const
 		cursor = nullptr;
 	}
 }
+
+ImporterMesh::ImporterMesh()
+{
+}
+
+ImporterMesh::~ImporterMesh()
+{
+}
+
+

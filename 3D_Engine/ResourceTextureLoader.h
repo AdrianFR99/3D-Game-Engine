@@ -1,31 +1,29 @@
-//#ifndef __RESOURCE_TEXTURE_LOADER_H__
-//#define __RESOURCE_TEXTURE_LOADER_H__
-//
-//#include "Resource.h"
-//#include <vector>
-//
-//class ResourceTexture;
-//
-//class ResourceTextureLoader
-//{
-//public:
-//	ResourceTextureLoader();
-//	virtual ~ResourceTextureLoader();
-//
-//	bool Load(const char* filepath, std::vector<Resource*>& resources);
-//	void Import(const char* filepath);
-//	bool Export(const char* filepath, ResourceTexture* resource);
-//	void ImportAllTextures();
-//
-//	void Unload(const char* filepath);
-//
-//	unsigned int LoadTexture(const char * filename);
-//	void UnloadTexture(unsigned int id);
-//
-//
-//private:
-//
-//
-//};
-//
-//#endif
+#ifndef __IMPORTER_MATERIAL_H__
+#define __IMPORTER_MATERIAL_H__
+
+
+#include "Globals.h"
+
+struct aiScene;
+class ResourceTexture;
+
+
+
+struct ImportMaterialData : public ImportData
+{
+	const aiScene* scene = nullptr;
+	ResourceTexture* new_material = nullptr;
+};
+
+class ResourceTextureLoader 
+{
+
+public:
+	ResourceTextureLoader();
+	virtual ~ResourceTextureLoader();
+
+	bool Import(const char* File_path, const ImportData& IData) const;
+	void Load(const char* filename, ResourceTexture& mat);
+};
+
+#endif

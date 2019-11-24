@@ -1,4 +1,4 @@
-#ifndef __RESOURCE_MESH_LOADER_H__
+ #ifndef __RESOURCE_MESH_LOADER_H__
 #define __RESOURCE_MESH_LOADER_H__
 
 #include "Assimp\include\DefaultLogger.hpp"
@@ -9,61 +9,45 @@
 #include "Resource.h"
 
 class ResourceMesh;
-class GameObject;
+class Gameobject;
 
-class AssimpLogger : public Assimp::LogStream
-{
-public:
-	AssimpLogger()
-	{
-
-	}
-	~AssimpLogger()
-	{}
-	void write(const char* message)
-	{
-		LOG(message);
-	}
-};
-
-class UsedResource
-{
-public:
-	UsedResource(Resource* _res, int _index, ResourceType _type)
-	{
-		res = _res;
-		index = _index;
-		type = _type;
-	}
-
-	Resource* GetResource() { return res; }
-	int GetIndex() { return index; }
-	ResourceType GetType() { return type; }
-
-private:
-	Resource* res = nullptr;
-	int index = 0;
-	ResourceType type = ResourceType::RT_NULL;
-};
-
+//used
 class ResourceMeshLoader
 {
 public:
 	ResourceMeshLoader();
 	virtual ~ResourceMeshLoader();
 
-	void Unload(const char* filepath);
+	//void Unload(const char* filepath);
+	//bool Import(const ImportData& IData) const ;
 
 	void Save(ResourceMesh * mesh, const char * path) const;
 
 private:
-	bool ResourceIsUsed(int index, ResourceType type, Resource*& res);
+	//bool ResourceIsUsed(int index, Resource::ResourceType type, Resource*& res);
 
-	void AddResource(int index, ResourceType type, Resource* res);
+	//void AddResource(int index, Resource::ResourceType type, Resource* res);
 
 
 private:
-	std::vector<UsedResource> used_resources;
+	
 };
 
+//used
+struct ImportMeshData : public ImportData
+{
+	aiMesh* mesh = nullptr;
+	ResourceMesh* new_mesh = nullptr;
+};
+
+class ImporterMesh 
+{
+
+public:
+	ImporterMesh();
+	virtual ~ImporterMesh();
+
+
+	
+};
 #endif
