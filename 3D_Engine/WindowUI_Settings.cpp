@@ -667,6 +667,26 @@ void WindowUI_Settings::Config_Window_Buttons() {
 			ImGui::TreePop();
 		}
 
+		ImGui::Spacing();
+		ImGui::Spacing();
+		if (ImGui::TreeNode("QuadTree")) {
+		
+
+			DrawQuadTree = App->renderer3D->DrawTree;
+			if (ImGui::Checkbox("DrawTree", &DrawQuadTree))
+				App->renderer3D->DrawTree = DrawQuadTree;
+		
+		
+		
+			ImGui::TreePop();
+		}
+
+
+
+
+
+
+
 		
 
 	}

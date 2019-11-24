@@ -207,6 +207,9 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 
 
+
+	
+	if(DrawTree==true)
 	App->SceneEngine->SceneTree->Draw();
 
 	App->UI_Layer->Draw();
