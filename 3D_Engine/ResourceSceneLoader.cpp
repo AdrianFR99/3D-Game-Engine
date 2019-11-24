@@ -111,7 +111,8 @@ bool SceneLoader::Load(const char * exported_file) const
 	for (nlohmann::json::iterator it = file.begin(); it != file.end(); ++it)
 	{
 		// --- Create a Game Object for each node ---
-		Gameobject* new_go = App->Gameobject->CreateEmpty();//must be fatherles
+		Gameobject* new_go = App->Gameobject->CreateEmptyFatherLess();//must be fatherles
+		objects.push_back(new_go);
 
 		// --- Retrieve GO's UID and name ---
 		new_go->nameGameObject = it.key().data();
@@ -218,27 +219,40 @@ bool SceneLoader::Load(const char * exported_file) const
 			}
 		}
 
+		
 		//transform->update_transform = true;
-		objects.push_back(new_go);
+		/*objects.push_back(new_go);*/
 	}
 
-	// --- Parent GO's ---
-	/*for (uint i = 0; i < objects.size(); ++i)
+
+	for (uint i = 0; i < objects.size(); ++i)
 	{
-		std::string parent_uid = file[objects[i]->GetName()]["Parent"];
+		std::string parent_uid = file[objects[i]->nameGameObject]["Parent"];
 		uint p_uid = std::stoi(parent_uid);
 
 		for (uint j = 0; j < objects.size(); ++j)
 		{
-			if (p_uid == objects[j]->GetUID())
+			if (p_uid == objects[j]->ID)
 			{
-				objects[j]->AddChildGO(objects[i]);
+				objects[j]->GameObject_Child_Vec.push_back(objects[i]);
+				objects[i]->Father = objects[j];
 				continue;
 			}
 		}
-	}
 
-	App->scene_manager->GetRootGO()->OnUpdateTransform();*/
+	}
+	// --- Parent GO's ---
+	for (uint j = 0; j < objects.size(); ++j)
+	{
+		if (objects[j]->Father == nullptr)
+		{
+			objects[j]->Father = App->SceneEngine->scene;
+			App->SceneEngine->scene->GameObject_Child_Vec.push_back(objects[j]);
+		}
+	}
+	
+
+	//App->scene_manager->GetRootGO()->OnUpdateTransform();
 
 	return true;
 }
