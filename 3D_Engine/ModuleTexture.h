@@ -38,6 +38,12 @@ public:
 	uint CreateTexture(const char*path, ResourceTexture& resource);
 	void SetTextureOptions(int ClampOptions,int FilterMag,int FilterMin);
 	uint ToTexBuffer(uint size, int format, int width, int height,const void* Texture);
+	uint CreateTextureFromFile(const char* path, uint &width, uint &height, uint LibUID) const;
+
+	void CreateTextureFromImage(uint & TextureID, uint & width, uint & height, const char * path, bool load_existing) const;
+
+	uint CreateTextureFromPixels(int internalFormat, uint width, uint height, uint format, const void * pixels, bool CheckersTexture) const;
+
 
 	void Load(nlohmann::json& file);
 	void Save(nlohmann::json& file);

@@ -129,7 +129,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_UP)
 	{
-		if (App->Gameobjects->GameobjectList.size() != 0)
+		if (App->Gameobject->GameobjectList.size() != 0)
 		{
 			Gameobject* centerOfView;
 			centerOfView = App->UI_Layer->HierarchyPanel->getActiveGameobject();
@@ -142,10 +142,10 @@ update_status ModuleCamera3D::Update(float dt)
 			}
 			else
 			{
-				premadeDist = App->Gameobjects->GameobjectList[0]->CameraDistance;
-				Reference.x = App->Gameobjects->GameobjectList[0]->xPos;
-				Reference.y = App->Gameobjects->GameobjectList[0]->yPos;
-				Reference.z = App->Gameobjects->GameobjectList[0]->zPos;
+				premadeDist = App->Gameobject->GameobjectList[0]->CameraDistance;
+				Reference.x = App->Gameobject->GameobjectList[0]->xPos;
+				Reference.y = App->Gameobject->GameobjectList[0]->yPos;
+				Reference.z = App->Gameobject->GameobjectList[0]->zPos;
 			}
 			Position = Reference + Z * premadeDist;
 		}

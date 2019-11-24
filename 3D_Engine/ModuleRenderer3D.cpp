@@ -202,7 +202,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	DrawGrindAndAxis();
 
-	App->Gameobjects->Draw();
+	App->Gameobject->Draw();
 
 	App->UI_Layer->Draw();
 	SDL_GL_SwapWindow(App->window->window);

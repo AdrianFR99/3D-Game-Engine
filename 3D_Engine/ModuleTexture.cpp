@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleTexture.h"
+#include "ResourceManager.h"
 
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
@@ -252,3 +253,135 @@ uint ModuleTexture::CreateTexture(const char*path, ResourceTexture& tmp2) {
 
 }
 
+uint ModuleTexture::CreateTextureFromFile(const char* path, uint &width, uint &height, uint LibUID) const
+{
+	// --- In this function we use devil to load an image using the path given, extract pixel data and then create texture using CreateTextureFromImage ---
+
+	uint TextureID = 0;
+
+	if (path == nullptr)
+	{
+		LOG("|[error]: Error at loading texture from path. ERROR: Path %s was nullptr", path);
+		return TextureID;
+	}
+
+	std::string final_path = path;
+
+	// --- Generate the image name (ID for buffer) ---
+	uint ImageName = 0;
+	ilGenImages(1, (ILuint*)&ImageName);
+
+	// --- Bind the image ---
+	ilBindImage(ImageName);
+
+	bool load_existing = false;
+	std::string name = TEXTURES_FOLDER;
+	name.append(std::to_string(LibUID));
+	name.append(".dds");
+
+	// --- Look for meta, if found load image from library ---
+	if (App->RS->IsFileImported(path))
+	{
+		std::string uid = App->RS->GetUIDFromMeta(path);
+
+		std::string lib_Tex = TEXTURES_FOLDER;
+		lib_Tex.append(uid);
+		lib_Tex.append(".dds");
+		final_path = lib_Tex;
+
+		load_existing = true;
+	}
+	else if (final_path.find("Library") != std::string::npos)
+		load_existing = true;
+	else
+	{
+		std::string libuid = std::to_string(LibUID);
+		App->RS->CreateMetaFromUID(libuid, path);
+	}
+
+	// --- Load the image into binded buffer and create texture from its pixel data ---
+	if (ilLoadImage(final_path.data()))
+		CreateTextureFromImage(TextureID, width, height, name.data(), load_existing);
+	else
+		LOG("|[error]: DevIL could not load the image. ERROR: %s", iluErrorString(ilGetError()));
+
+	// --- Release Image data (we have already extracted the necessary information) ---
+	ilDeleteImages(1, (const ILuint*)&ImageName);
+
+	// --- Returning the Texture ID so a mesh can use it, note that this variable is filled by CreateTextureFromPixels ---
+
+	return TextureID;
+}
+
+inline void ModuleTexture::CreateTextureFromImage(uint &TextureID, uint &width, uint &height, const char* path, bool load_existing) const
+{
+	// --- Attention!! If the image is flipped, we flip it back --- 
+	ILinfo imageInfo;
+	iluGetImageInfo(&imageInfo);
+
+	width = imageInfo.Width;
+	height = imageInfo.Height;
+
+	if (imageInfo.Origin == IL_ORIGIN_UPPER_LEFT && !load_existing)
+		iluFlipImage();
+
+	// --- Convert the image into a suitable format to work with ---
+	if (ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE))
+	{
+		// --- Create the texture ---
+		//
+
+		//
+		//TextureID = CreateTextureFromPixels(ilGetInteger(IL_IMAGE_FORMAT), ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), ilGetInteger(IL_IMAGE_FORMAT), ilGetData());
+
+		if (!load_existing)
+		{
+			// --- Save to Lib ---
+			ILuint size;
+			ILubyte *data;
+			ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);// To pick a specific DXT compression use
+			size = ilSaveL(IL_DDS, NULL, 0); // Get the size of the data buffer
+
+			if (size > 0) {
+				data = new ILubyte[size]; // allocate data buffer
+
+				if (ilSaveL(IL_DDS, data, size) > 0) // Save to buffer with the ilSaveIL function
+					App->fs->Save(path, data, size);
+
+				delete[] data;
+			}
+
+		}
+	}
+	else
+		LOG("|[error]: Image conversion failed. ERROR: %s", iluErrorString(ilGetError()));
+}
+
+uint ModuleTexture::CreateTextureFromPixels(int internalFormat, uint width, uint height, uint format, const void* pixels, bool CheckersTexture) const
+{
+	uint TextureID = 0;
+
+	// --- Generate the texture ID ---
+	glGenTextures(1, (GLuint*)&TextureID);
+	// --- Bind the texture so we can work with it---
+	glBindTexture(GL_TEXTURE_2D, TextureID);
+
+	/*SetTextureParameters(CheckersTexture);*/
+
+	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, format, GL_UNSIGNED_BYTE, pixels);
+
+	if (!CheckersTexture)
+	{
+		// --- Generate Mipmap of the recently created texture (Note that we are using it in texture size reduction only)---
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+
+	// --- Unbind texture ---
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	LOG("Loaded Texture: ID: %i , Width: %i , Height: %i ", TextureID, width, height);
+
+	// --- Returning id so a mesh can use it (and destroy buffer when done) ---
+
+	return TextureID;
+}

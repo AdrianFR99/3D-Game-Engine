@@ -31,8 +31,11 @@ public:
 	void RecursiveDestruction(Gameobject* object);
 	Gameobject* CreateGameObject();
 	Gameobject* CreateFatherGameObject();
+	Gameobject* CreateEmpty();
 
 	bool LoadFiles(const char* path);
+
+	Gameobject * CreateEmptyFatherLess();
 
 	int id = 0;
 

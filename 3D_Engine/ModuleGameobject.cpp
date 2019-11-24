@@ -38,7 +38,7 @@ update_status ModuleGameobject::Update(float dt) {
 
 	for (int i = 0; i < GameobjectList.size(); ++i) {
 		if (GameobjectList[i]->toDelete)
-			App->Gameobjects->SetToDestroy(GameobjectList[i]);
+			App->Gameobject->SetToDestroy(GameobjectList[i]);
 		if (GameobjectList[i]->UpdateTransform)
 		{
 			App->SceneEngine->scene->UpdateGlobalTransform();
@@ -196,6 +196,17 @@ Gameobject * ModuleGameobject::CreateFatherGameObject()
 	return creation;
 }
 
+Gameobject * ModuleGameobject::CreateEmpty()
+{
+	//create the game object
+	Gameobject* gm = CreateGameObject();
+	gm->Father = App->SceneEngine->GetSceneGameObjcet();
+	Gameobject* scene = App->SceneEngine->GetSceneGameObjcet();
+	scene->GameObject_Child_Vec.push_back(gm);
+
+	return gm;
+}
+
 bool ModuleGameobject::LoadFiles(const char* path) {
 
 
@@ -206,4 +217,12 @@ bool ModuleGameobject::LoadFiles(const char* path) {
 	return true;
 }
 
+
+Gameobject * ModuleGameobject::CreateEmptyFatherLess()
+{
+	//create the game object
+	Gameobject* gm = CreateGameObject();
+
+	return gm;
+}
 
