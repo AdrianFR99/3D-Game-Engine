@@ -57,7 +57,7 @@ void ResourceMeshLoader::Load(const char * filename, ResourceMesh & mesh) const
 
 	// --- Load Vertices ---
 	cursor += bytes;
-	bytes = sizeof(float3) /** 3*/ * mesh.Meshes_Vec->num_vertex;
+	bytes = sizeof(float) * 3 * mesh.Meshes_Vec->num_vertex;
 	mesh.Meshes_Vec->vertices = new float3[mesh.Meshes_Vec->num_vertex];
 	memcpy(mesh.Meshes_Vec->vertices, cursor, bytes);
 
@@ -65,13 +65,13 @@ void ResourceMeshLoader::Load(const char * filename, ResourceMesh & mesh) const
 
 	// --- Load Normals ---
 	cursor += bytes;
-	bytes = sizeof(float3) /** 3*/ * mesh.Meshes_Vec->num_normals;
+	bytes = sizeof(float) * 3 * mesh.Meshes_Vec->num_normals;
 	mesh.Meshes_Vec->normals = new float3[mesh.Meshes_Vec->num_normals];
 	memcpy(mesh.Meshes_Vec->normals, cursor, bytes);
 
 	// --- Load Normals Faces ---
 	cursor += bytes;
-	bytes = sizeof(float3) /** 3*/ * mesh.Meshes_Vec->num_normals_faces;
+	bytes = sizeof(float) * 3 * mesh.Meshes_Vec->num_normals_faces;
 	mesh.Meshes_Vec->normals_faces = new float3[mesh.Meshes_Vec->num_normals_faces];
 	memcpy(mesh.Meshes_Vec->normals_faces, cursor, bytes);
 

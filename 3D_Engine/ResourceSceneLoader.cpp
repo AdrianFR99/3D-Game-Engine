@@ -212,7 +212,8 @@ bool SceneLoader::Load(const char * exported_file) const
 					ResourceMesh* tmp = mesh->Meshes_Vec = (ResourceMesh*)App->RS->CreateNewResource(Resource::ResourceType::RT_MESH, "");
 					new_go->meshPointer->Meshes_Vec = tmp;
 						//create component mesh for obj. then asign resourese mesh and load the mesh into the resource
-
+					AssetMesh* newasset = new AssetMesh;
+					new_go->meshPointer->Meshes_Vec->Meshes_Vec = newasset;
 						ImporterMesh->Load(component_path.data(), *mesh->Meshes_Vec);
 					//}
 				}
