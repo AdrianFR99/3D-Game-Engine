@@ -58,7 +58,7 @@ public:
 
 private:
 	float3 ObjectPosition;
-	float3   ObjectRotation;
+	float3  ObjectRotation;
 	Quat ObjectQuat;
 	float3 ObjectScale;
 

@@ -166,7 +166,7 @@ bool SceneLoader::Load(const char * exported_file) const
 			{
 			case CompType::TRANSFORM:
 				transform->SetPosition(float3(std::stof(posx), std::stof(posy), std::stof(posz)));
-				transform->SetRotation(float3{ RADTODEG*std::stof(rotx), RADTODEG*std::stof(roty), RADTODEG*std::stof(rotz) });
+				transform->SetRotation(float3{ std::stof(rotx), std::stof(roty), std::stof(rotz) });
 				transform->Scale(float3(std::stof(scalex), std::stof(scaley), std::stof(scalez)));
 				break;
 
