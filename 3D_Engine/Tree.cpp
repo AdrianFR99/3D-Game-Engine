@@ -1,5 +1,5 @@
 #include "Tree.h"
-
+#include "Gameobject.h"
 
 
 Tree::Tree(AABB aabb, TreeType type, uint sizeNode):treeType(type),NodesSize(sizeNode)
@@ -35,11 +35,7 @@ bool Tree::Remove(const Gameobject* object) {
 
 	return true;
 }
-bool Tree::Insert(const Gameobject*object) {
 
-
-	return true;
-}
 
 void Tree::Intersects(std::vector<const Gameobject*>& collector, const AABB& area) {
 
@@ -67,10 +63,72 @@ Node::~Node()
 
 bool Node::Insert(const Gameobject* obj) {
 
+
+	bool ret = false;
+//Check if the node has the GO
+	if (aabbNode.Contains(obj->aabb))
+	{
+		//check node type
+		if (ImBranch)
+		{
+			//if branch get to leaf recursive 
+			for (int i = 0; i < BranchesNum; ++i) {
+
+				if (BranchesFromNode[i].Insert(obj))
+				{
+					ret = true;
+					break;
+				}
+
+
+			}
+		}
+		//if leaf
+		else
+		{
+			//Push the GO
+			ret = true;
+			GOinside.push_back(obj);
+			
 	
+			//Chech for size, if aabb full split
+			if (GOinside.size() > OwnerTree->NodesSize) {
+				SplitQuat();
 
 
-	return true;
+				bool placed = false;
+				//if when splitting GO are not assigned to a child of the current node then store them
+				std::vector<const Gameobject*> LeftGO;	
+
+				for (int i = 0; i < GOinside.size(); ++i) {
+
+					for (int j = 0; j < BranchesNum; ++j) {
+
+						if (BranchesFromNode[j].Insert(GOinside[i])) {
+
+							placed = true;
+							break;
+
+						}
+
+					}
+					
+					if (placed)
+						placed = false;
+					else
+						LeftGO.push_back(GOinside[i]);
+
+
+				}
+
+				if (LeftGO.size() != GOinside.size)
+					GOinside = LeftGO;//check
+
+			}
+		}
+
+	}
+	return ret;
 }
 bool Node::Remove(const Gameobject* obj) {
 
@@ -127,7 +185,8 @@ void Node::SplitQuat() {
 	BranchesFromNode[i] = Node(auxAABBs[i],NodeType::LEAF_NODE,OwnerTree);
 	}
 
-
+	BranchesNum = 4;
+	ImBranch = true;
 };
 
 

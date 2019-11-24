@@ -48,8 +48,6 @@ public:
 
 	void Create(const AABB& limits);
 	bool Remove(const Gameobject* object);
-	bool Insert(const Gameobject*object);
-
 	void Intersects(std::vector<const Gameobject*>& collector, const AABB& area);
 
 
@@ -80,15 +78,16 @@ public:
 	void Intersects(std::vector<const Gameobject*>& collector, const AABB& area);
 
 	void SplitQuat();
-	void Splitoct();
-
+	
 public:
 
 	AABB aabbNode;
 	NodeType nodeType;
 	Node*BranchesFromNode = nullptr;
+	uint BranchesNum = 0;
 	const Tree* OwnerTree = nullptr;
-
+	bool ImBranch = false;
+	std::vector<const Gameobject*>GOinside;
 };
 
 
