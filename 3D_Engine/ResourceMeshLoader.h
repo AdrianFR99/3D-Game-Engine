@@ -18,6 +18,8 @@ public:
 	ResourceMeshLoader();
 	virtual ~ResourceMeshLoader();
 
+	void Load(const char * filename, ResourceMesh & mesh) const;
+
 	//void Unload(const char* filepath);
 	//bool Import(const ImportData& IData) const ;
 

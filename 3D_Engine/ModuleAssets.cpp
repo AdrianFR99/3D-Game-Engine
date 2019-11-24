@@ -521,8 +521,8 @@ void ModuleAssets::SceneLoader( const aiScene * scene, std::string path, std::st
 {
 	std::vector<Gameobject*> scene_gos;
 
-	// Load Scene by nodes 
-	FirstLoad(path.data(),true,scene);
+	// Load Scene by nodes ,scene_pos
+	FirstLoad(path.data(),true,scene,scene_gos);
 	
 
 	// Export to OwnFormat
@@ -534,7 +534,7 @@ void ModuleAssets::SceneLoader( const aiScene * scene, std::string path, std::st
 
 
 
-bool ModuleAssets::FirstLoad(const char * filepath, bool as_new_gameobject, const aiScene* scene)
+bool ModuleAssets::FirstLoad(const char * filepath, bool as_new_gameobject, const aiScene* scene, std::vector<Gameobject*>& vector)
 {
 	bool ret = true;
 
@@ -596,12 +596,12 @@ bool ModuleAssets::FirstLoad(const char * filepath, bool as_new_gameobject, cons
 		//total_abb.SetNegativeInfinity();
 
 		// Keep track of resources loaded (avoid repeating)
-
+		vector.push_back(parent);
 		// Iterate
-		std::vector<Gameobject*> resources;
+		
 		for (int i = 0; i < root->mNumChildren; i++)
 		{
-			RecursiveLoadMesh( root->mChildren[i], scene, filepath, resources, parent);
+			RecursiveLoadMesh( root->mChildren[i], scene, filepath, vector, parent);
 		}
 		
 		App->SceneEngine->scene->GameObject_Child_Vec;
@@ -829,6 +829,7 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 		go->UpdateTransform = true;
 	}
 	// RECURSE
+	resources.push_back(go);
 	for (int i = 0; i < node->mNumChildren; i++)
 	{
 		RecursiveLoadMesh( node->mChildren[i], scene, full_path, resources, pare);

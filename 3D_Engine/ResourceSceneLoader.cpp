@@ -110,7 +110,7 @@ bool SceneLoader::Load(const char * exported_file) const
 	for (nlohmann::json::iterator it = file.begin(); it != file.end(); ++it)
 	{
 		// --- Create a Game Object for each node ---
-		Gameobject* new_go = App->Gameobject->CreateEmpty();
+		Gameobject* new_go = App->Gameobject->CreateEmpty();//must be fatherles
 
 		// --- Retrieve GO's UID and name ---
 		new_go->nameGameObject = it.key().data();
@@ -159,7 +159,7 @@ bool SceneLoader::Load(const char * exported_file) const
 
 			std::string diffuse_uid;
 			uint count;
-
+			//aqui
 			switch (type)
 			{
 			case CompType::TRANSFORM:
@@ -170,50 +170,55 @@ bool SceneLoader::Load(const char * exported_file) const
 
 			case CompType::MATERIAL:
 				// --- Check if Library file exists ---
-				//if (App->fs->Exists(component_path.data()))
-				//{
-				//	new_go->CreateComponent(new_go, MATERIAL, true);
-				//	//texture = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");
-				//	new_go->materialPointer->Resource_Material = texture;
-				//	texture->CreateMaterial();
-				//	
-				//	IMaterial->Load(component_path.data(), *mat->resource_material);
+				if (App->fs->Exists(component_path.data()))
+				{
+					new_go->CreateComponent(new_go, MATERIAL, true);
+					texture = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");
+					new_go->materialPointer->Resource_Material = texture;
+					texture->CreateMaterial();
+					
+					/*IMaterial->Load(component_path.data(), *mat->resource_material);
 
-				//	diffuse_uid = component_path;
-				//	App->fs->SplitFilePath(component_path.data(), nullptr, &diffuse_uid);
-				//	count = diffuse_uid.find_last_of(".");
-				//	diffuse_uid = diffuse_uid.substr(0, count);
-				//	mat->resource_material->resource_diffuse->SetUID(std::stoi(diffuse_uid));
-				//	
+					diffuse_uid = component_path;
+					App->fs->SplitFilePath(component_path.data(), nullptr, &diffuse_uid);
+					count = diffuse_uid.find_last_of(".");
+					diffuse_uid = diffuse_uid.substr(0, count);
+					mat->resource_material->resource_diffuse->SetUID(std::stoi(diffuse_uid));
+					
 
-				//	new_go->SetMaterial(mat);
-				//}
-				//else
-				//	LOG("|[error]: Could not find %s", component_path.data());
+					new_go->SetMaterial(mat);*/
+				}
+				else
+					LOG("|[error]: Could not find %s", component_path.data());
 
 				break;
 
-			//case Component::ComponentType::Mesh:
+			case CompType::MESH:
 
-			//	// --- Check if Library file exists ---
-			//	if (App->fs->Exists(component_path.data()))
-			//	{
-			//		rmesh = (ResourceMesh*)App->resources->GetResource(component_path.data());
-			//		mesh = (ComponentMesh*)new_go->AddComponent(type);
-			//		if (rmesh)
-			//		{
-			//			mesh->resource_mesh = rmesh;
-			//			rmesh->instances++;
-			//		}
-			//		else
-			//		{
-			//			mesh->resource_mesh = (ResourceMesh*)App->resources->CreateResource(Resource::ResourceType::MESH);
-			//			IMesh->Load(component_path.data(), *mesh->resource_mesh);
-			//		}
-			//	}
-			//	else
-			//		LOG("|[error]: Could not find %s", component_path.data());
-			//	break;
+				// --- Check if Library file exists ---
+				if (App->fs->Exists(component_path.data()))
+				{
+					/*rmesh = (ResourceMesh*)App->RS->GetResource(component_path.data());
+					mesh = (ComponentMesh*)new_go->AddComponent(type);*/
+					/*if (rmesh)
+					{
+						mesh->resource_mesh = rmesh;
+						rmesh->instances++;
+					}
+					else
+					{*/
+					new_go->CreateComponent(new_go, MESH, true);
+					mesh = new_go->meshPointer;
+					ResourceMesh* tmp = mesh->Meshes_Vec = (ResourceMesh*)App->RS->CreateNewResource(Resource::ResourceType::RT_MESH, "");
+					new_go->meshPointer->Meshes_Vec = tmp;
+						//create component mesh for obj. then asign resourese mesh and load the mesh into the resource
+
+						ImporterMesh->Load(component_path.data(), *mesh->Meshes_Vec);
+					//}
+				}
+				else
+					LOG("|[error]: Could not find %s", component_path.data());
+				break;
 
 			}
 		}
@@ -250,7 +255,7 @@ std::string SceneLoader::SaveSceneToFile(std::vector<Gameobject*>& scene_gos, st
 	nlohmann::json file;
 
 	
-	for (int i = 1; i < scene_gos.size(); ++i)
+	for (int i = 0; i < scene_gos.size(); ++i)
 	{
 		
 		// --- Create GO Structure ---
@@ -294,6 +299,7 @@ std::string SceneLoader::SaveSceneToFile(std::vector<Gameobject*>& scene_gos, st
 			}
 			if (scene_gos[i]->meshPointer != nullptr)
 			{
+				//aqui
 				component_path = MESHES_FOLDER;
 				component_path.append(std::to_string(App->GetRandom().Int()));
 				component_path.append(".mesh");
@@ -309,11 +315,11 @@ std::string SceneLoader::SaveSceneToFile(std::vector<Gameobject*>& scene_gos, st
 				component_path = TEXTURES_FOLDER;
 				component_path.append(scene_gos[i]->materialPointer->Resource_Material->GetUniqueId());
 				component_path.append(".dds");
-
+				//aqui
 				// --- Store path to component file ---
-				/*if (scene_gos[i]->materialPointer->Resource_Material->GetUniqueId())*/
+				/*if (scene_gos[i]->materialPointer->Resource_Material->GetUniqueId())
 					file[scene_gos[i]->nameGameObject]["Components"][std::to_string((uint)CompType::MATERIAL)] = component_path;
-				
+				*/
 
 
 			}

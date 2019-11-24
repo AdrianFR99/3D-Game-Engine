@@ -39,7 +39,7 @@ public:
 	void CloneToAsset(std::string filepath, std::string destination);
 
 	void NodeLoader(aiNode * node, const aiScene * scene, const char * File_path, std::vector<Gameobject*>& scene_gos, Gameobject* father = nullptr ) const;
-	bool FirstLoad(const char * filepath, bool as_new_gameobject, const aiScene * scene);
+	bool FirstLoad(const char * filepath, bool as_new_gameobject, const aiScene * scene, std::vector<Gameobject*>& vector);
 	void RecursiveLoadMesh( aiNode* node, const aiScene* scene, const char* full_path, std::vector<Gameobject*>& resources, Gameobject* parent = nullptr);
 
 	void SetFaces(float * _vertices, uint _num_vertices, uint * _indices, uint _num_indices);
