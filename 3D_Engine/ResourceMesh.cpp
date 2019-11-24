@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 
-ResourceMesh::ResourceMesh(std::string _unique_id) : Resource(_unique_id, RT_MESH)
+ResourceMesh::ResourceMesh(std::string _unique_id) : Resource(_unique_id, Resource::ResourceType::RT_MESH)
 {
 	/*unique_id = _unique_id;
 	type = _type;

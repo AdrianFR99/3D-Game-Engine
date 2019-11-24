@@ -3,17 +3,18 @@
 
 #include <string>
 
-enum ResourceType
-{
-	RT_NULL,
-	RT_TEXTURE,
-	RT_MESH,
-	
-};
 
 class Resource
 {
 public:
+	enum class ResourceType
+	{
+		RT_NULL,
+		RT_TEXTURE,
+		RT_MESH,
+
+	};
+
 	// structure
 	Resource(std::string unique_id, ResourceType type);
 	virtual ~Resource();
@@ -35,6 +36,8 @@ public:
 	std::string GetFileName();
 	std::string GetUniqueId();
 
+
+
 private:
 
 	virtual void LoadToMemory() {};
@@ -42,7 +45,7 @@ private:
 
 private:
 
-	ResourceType type = RT_NULL;
+	ResourceType type = ResourceType::RT_NULL;
 	std::string  unique_id;
 	int			 count_ref = 0;
 

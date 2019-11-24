@@ -2,7 +2,7 @@
 #include "Application.h"
 
 
-ResourceTexture::ResourceTexture(std::string unique_id) : Resource(unique_id, RT_TEXTURE)
+ResourceTexture::ResourceTexture(std::string unique_id) : Resource(unique_id, Resource::ResourceType::RT_TEXTURE)
 {
 	/*unique_id = _unique_id;
 	type = _type;

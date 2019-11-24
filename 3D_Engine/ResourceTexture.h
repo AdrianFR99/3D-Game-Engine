@@ -20,6 +20,7 @@ struct Material {
 
 	std::string path;
 	Texture_Type type;
+	
 };
 
 class ResourceTexture : public Resource

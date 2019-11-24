@@ -21,7 +21,7 @@ std::string Resource::GetFileName()
 	return file_name;
 }
 
-ResourceType Resource::GetType()
+Resource::ResourceType Resource::GetType()
 {
 	return type;
 }
