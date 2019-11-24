@@ -1,10 +1,15 @@
 #include "Gameobject.h"
 #include "Component.h"
+#include "Application.h"
 #include "ComponentMaterial.h"
 #include "ComponentTransform.h"
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
 #include "DebugDraw.h"
+#include "ModuleScene.h"
+#include "Tree.h"
+
+
 
 #include "glew/include/glew.h"
 
@@ -243,5 +248,24 @@ void Gameobject::UpdateBBOs(){
 const AABB Gameobject::GetAABB()const {
 
 	return aabb;
+
+}
+
+void Gameobject::UpdateStatic(bool Static_) {
+
+	Static = Static_;
+
+	if (Static_ == true) {
+
+		App->SceneEngine->SceneTree->Insert(this);
+			   
+	}
+	else {
+
+
+		App->SceneEngine->SceneTree->Remove(this);
+
+
+	}
 
 }

@@ -4,7 +4,7 @@
 #include "Module.h"
 
 class Camera3D;
-
+class Tree;
 
 class ModuleScene :
 	public Module
@@ -24,8 +24,10 @@ public:
 	
 	Gameobject* GetSceneGameObjcet();
 
-
 public:
+
+	Tree*SceneTree = nullptr;
+
 	Gameobject* scene=nullptr;
 	Gameobject* Test=nullptr;
 

@@ -6,7 +6,6 @@
 #include <vector>
 
 
-class Gameobject;
 
 
 
@@ -31,6 +30,8 @@ enum class NodeType {
 
 };
 
+class Gameobject;
+class Node;
 
 
 class Tree
@@ -41,15 +42,14 @@ public:
 
 public:
 	
-
-	void Draw();
 	void Clear();
 
+	void Draw();
 
-	void Create(const AABB& limits);
+	void Create(const AABB& RootSpace);
 	bool Remove(const Gameobject* object);
 	void Intersects(std::vector<const Gameobject*>& collector, const AABB& area);
-
+	bool Insert(const Gameobject*object);
 
 
 public:
@@ -74,6 +74,8 @@ public:
 	bool Insert(const Gameobject* obj);
 	bool Remove(const Gameobject* obj);
 	void Clear();
+
+	void Draw();
 
 	void Intersects(std::vector<const Gameobject*>& collector, const AABB& area);
 

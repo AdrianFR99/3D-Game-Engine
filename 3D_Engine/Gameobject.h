@@ -51,6 +51,8 @@ public:
 	void DrawOBB_Box();
 	const AABB GetAABB()const;
 
+
+	void UpdateStatic(bool Static_);
 	//parent
 	//children
 public:

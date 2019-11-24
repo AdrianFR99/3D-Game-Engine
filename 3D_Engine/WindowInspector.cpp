@@ -50,9 +50,10 @@ void WindowInspector::Inspector_Window() {
 		if (activeobj != nullptr)
 		{
 
+			Static = activeobj->Static;
 			ImGui::Checkbox("Static", &Static);
 			activeobj->Static=Static;
-
+			activeobj->UpdateStatic(Static);
 
 			if(activeobj->hasTransform==true)
 			if (ImGui::CollapsingHeader("Transform"))

@@ -1,5 +1,6 @@
 #include "Tree.h"
 #include "Gameobject.h"
+#include "SDL/include/SDL_opengl.h"
 
 
 Tree::Tree(AABB aabb, TreeType type, uint sizeNode):treeType(type),NodesSize(sizeNode)
@@ -15,25 +16,126 @@ Tree::~Tree()
 {
 
 }
-void Tree::Draw(){
+
+
+void Tree::Draw() {
+
+
+	RootNode->Draw();
+}
+
+
+
+
+void Node::Draw(){
+
+	glLineWidth(2.0f);
+	glBegin(GL_LINES);
+	glColor3f(0, 1, 0);
+
+	glVertex3f(aabbNode.MaxX(), aabbNode.MaxY(), aabbNode.MaxZ());
+	glVertex3f(aabbNode.MinX(), aabbNode.MaxY(), aabbNode.MaxZ());
+							
+	glVertex3f(aabbNode.MaxX(), aabbNode.MaxY(), aabbNode.MaxZ());
+	glVertex3f(aabbNode.MaxX(), aabbNode.MinY(), aabbNode.MaxZ());
+			 					
+	glVertex3f(aabbNode.MaxX(), aabbNode.MaxY(), aabbNode.MaxZ());
+	glVertex3f(aabbNode.MaxX(), aabbNode.MaxY(), aabbNode.MinZ());
+			 					
+	glVertex3f(aabbNode.MinX(), aabbNode.MinY(), aabbNode.MinZ());
+	glVertex3f(aabbNode.MaxX(), aabbNode.MinY(), aabbNode.MinZ());
+			   					
+	glVertex3f(aabbNode.MinX(), aabbNode.MinY(), aabbNode.MinZ());
+	glVertex3f(aabbNode.MinX(), aabbNode.MaxY(), aabbNode.MinZ());
+			   				
+	glVertex3f(aabbNode.MinX(), aabbNode.MinY(), aabbNode.MinZ());
+	glVertex3f(aabbNode.MinX(), aabbNode.MinY(), aabbNode.MaxZ());
+			  					
+	glVertex3f(aabbNode.MinX(), aabbNode.MaxY(), aabbNode.MaxZ());
+	glVertex3f(aabbNode.MinX(), aabbNode.MinY(), aabbNode.MaxZ());
+			   					
+	glVertex3f(aabbNode.MinX(), aabbNode.MaxY(), aabbNode.MaxZ());
+	glVertex3f(aabbNode.MinX(), aabbNode.MaxY(), aabbNode.MinZ());
+			 					
+	glVertex3f(aabbNode.MaxX(), aabbNode.MinY(), aabbNode.MinZ());
+	glVertex3f(aabbNode.MaxX(), aabbNode.MaxY(), aabbNode.MinZ());
+			 					
+	glVertex3f(aabbNode.MaxX(), aabbNode.MaxY(), aabbNode.MinZ());
+	glVertex3f(aabbNode.MinX(), aabbNode.MaxY(), aabbNode.MinZ());
+			  					
+	glVertex3f(aabbNode.MaxX(), aabbNode.MinY(), aabbNode.MinZ());
+	glVertex3f(aabbNode.MaxX(), aabbNode.MinY(), aabbNode.MaxZ());
+			  					
+	glVertex3f(aabbNode.MaxX(), aabbNode.MinY(), aabbNode.MaxZ());
+	glVertex3f(aabbNode.MinX(), aabbNode.MinY(), aabbNode.MaxZ());
+
+	glColor3f(1, 1, 1);
+	glEnd();
+
+	// Draw Branches/Leafs
+	if (BranchesNum > 0)
+		for (int i = 0; i < BranchesNum; ++i)
+			BranchesFromNode[i].Draw();
+
 
 }
 void Tree::Clear() {
 
+	RootNode->Clear();
+	Trees_Obj.clear();
 
+}
+
+
+void Tree::Create(const AABB& RootSpace) {
+
+	if(RootNode->BranchesNum>0)
+	Clear();
+	RootNode->aabbNode = RootSpace;
 
 }
 
+bool Tree::Insert(const Gameobject* object) {
 
-void Tree::Create(const AABB& limits) {
+	bool ret = false;
 
+	//check if in tree
+	for (int i = 0; i < Trees_Obj.size(); i++) {
+		if (Trees_Obj[i] == object) {
+			ret = true;
+			break;
+		}
+	}
+
+	if (ret==false) {
+		// Inserting
+		RootNode->Insert(object);	
+		Trees_Obj.push_back(object);
+
+	}
+
+	return ret;
 
 }
+
 bool Tree::Remove(const Gameobject* object) {
 
+	bool ret = false;
 
+	for (int i = 0; i < Trees_Obj.size(); i++) {
+		if (Trees_Obj[i] == object) {
+			ret = true;	
+			Trees_Obj.erase(Trees_Obj.begin() + i);
+			break;
+		}
+	}
 
-	return true;
+	if (ret) {
+		ret = RootNode->Remove(object);
+		
+	}
+
+	return ret;
 }
 
 
@@ -41,7 +143,7 @@ void Tree::Intersects(std::vector<const Gameobject*>& collector, const AABB& are
 
 
 
-
+	RootNode->Intersects(collector,area);
 
 
 }
@@ -50,10 +152,13 @@ void Tree::Intersects(std::vector<const Gameobject*>& collector, const AABB& are
 Node::Node(AABB aabbNode,NodeType type, const Tree*Owner):aabbNode(aabbNode),nodeType(type), OwnerTree(Owner)
 {
 
+}
+
+Node::Node() {
+
 
 
 }
-
 
 Node::~Node()
 {
@@ -121,7 +226,7 @@ bool Node::Insert(const Gameobject* obj) {
 
 				}
 
-				if (LeftGO.size() != GOinside.size)
+				if (LeftGO.size() != GOinside.size())
 					GOinside = LeftGO;//check
 
 			}
@@ -219,14 +324,30 @@ bool Node::Remove(const Gameobject* obj) {
 }
 void Node::Clear(){
 
+	if (BranchesNum > 0) {
+		for (int i = 0; i < BranchesNum; i++)
+			BranchesFromNode[i].Clear();
+
+		RELEASE_ARRAY(BranchesFromNode);
+		BranchesNum = 0;
+	}
 
 
+	if (GOinside.size() > 0)
+		GOinside.clear();
 }
 
 void Node::Intersects(std::vector<const Gameobject*>& collector, const AABB& area) {
 
 
+	if (aabbNode.Intersects(area)) {
+		for (int i = 0; i < GOinside.size(); i++)
+			collector.push_back(GOinside[i]);
 
+		if (BranchesNum > 0)
+			for (int i = 0; i < BranchesNum; i++)
+				BranchesFromNode[i].Intersects(collector, area);
+	}
 
 
 }
