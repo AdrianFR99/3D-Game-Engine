@@ -8,11 +8,19 @@
 
 bool JSONLoader::Load(const char * FiletoLoad)
 {
+	bool ret = false;
+
 
 	//open a incoming stream of data
 	std::ifstream incomingStream;
 	incomingStream.open(FiletoLoad);
-	assert(incomingStream.is_open());
+	if (!incomingStream.is_open())
+	{
+		assert(incomingStream.is_open());
+
+	}
+	
+	
 
 
 	//using a json doc name file in .h
@@ -25,7 +33,7 @@ bool JSONLoader::Load(const char * FiletoLoad)
 	{
 		LOG("Json File load error");
 	
-		return false;
+		ret = false;
 	}
 	
 
@@ -34,7 +42,7 @@ bool JSONLoader::Load(const char * FiletoLoad)
 	incomingStream.close();
 
 
-	return true;
+	return ret;
 }
 
 bool JSONLoader::Save(const char * data, nlohmann::json doc)
@@ -62,66 +70,10 @@ nlohmann::json JSONLoader::getFile()
 	return file;
 }
 
-JSON_Doc::JSON_Doc(nlohmann::json* Doc2, const char* _path)
+std::string JSONLoader::Serialize(nlohmann::json jsonfile)
 {
-	Doc = Doc2;
-	path = _path;
-}
+	std::string data;
+	data = jsonfile.dump(4);
 
-JSON_Doc::JSON_Doc(JSON_Doc & doc2)
-{
-	Doc = doc2.Doc;
-	path = doc2.path;
-}
-
-JSON_Doc::~JSON_Doc()
-{
-}
-
-std::string JSON_Doc::GetPath()
-{
-	return path.data();
-}
-
-
-JSON_Doc* JSONLoader::CreateJSON(std::string path)
-{
-	JSON_Doc* ret = nullptr;
-
-	bool exists = false;
-	for (std::list<JSON_Doc*>::iterator it = jsons_list.begin(); it != jsons_list.end(); it++)
-	{
-		if ((*it)->GetPath()==path)
-		{
-			exists = true;
-			break;
-		}
-	}
-
-	if (exists)
-	{
-		LOG("Error creating %s. There is already a file with this path/name", path);
-	}
-	else
-	{
-		/*nlohmann::json* root_value = nlohmann::json_value_init_object();
-
-		if (root_value == nullptr)
-		{
-			LOG("Error creating %s. Wrong path?", path);
-		}
-		else
-		{
-			JSON_Object* root_object = json_value_get_object(root_value);
-
-			JSON_Doc* new_doc = new JSON_Doc(root_value, root_object, path);
-			jsons.push_back(new_doc);
-
-			new_doc->Save();
-
-			ret = new_doc;
-		}*/
-	}
-
-	return ret;
+	return data;
 }
