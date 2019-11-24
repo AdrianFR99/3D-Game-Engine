@@ -229,6 +229,12 @@
     <ClCompile Include="ResourceTextureLoader.cpp">
       <Filter>Source\Resource\Loader</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceSceneLoader.cpp">
+      <Filter>Source\Resource\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleLoaderControl.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleCamera3D.h">
@@ -581,6 +587,12 @@
     </ClInclude>
     <ClInclude Include="ResourceTextureLoader.h">
       <Filter>Source\Resource\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceSceneLoader.h">
+      <Filter>Source\Resource\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleLoaderControl.h">
+      <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,20 @@
 #include "ResourceMeshLoader.h"
 
 
+struct RMetaData
+{
+	Resource::ResourceType type = Resource::ResourceType::RT_NULL;
+	std::string fatherPath = "";
+	std::string Name = "";
+	std::string UID = "";
+
+	bool Compare(const char* file, const char* name, Resource::ResourceType type)
+	{
+		return (fatherPath == file && Name == name && this->type == type);
+	}
+
+};
+
 class ResourceManager : public Module
 {
 public:
@@ -23,9 +37,12 @@ public:
 	bool LoadResource(const char* file_path);
 	bool LoadResource(const char* file_path, std::vector<Resource*>& resources);
 	
-	void SaveResourceIntoFile(Resource* res);
+	//void SaveResourceIntoFile(Resource* res);
+	void CreateMetaFromUID(std::string UID, const char * filename);
+	bool IsFileImported(const char * file);
+	std::string GetUIDFromMeta(const char * file);
 	Resource * Get(std::string _unique_id);
-	Resource * CreateNewResource(ResourceType type, std::string _unique_id);
+	Resource * CreateNewResource(Resource::ResourceType type, std::string _unique_id);
 	
 
 	
@@ -41,6 +58,8 @@ public:
 
 private:
 	std::map<std::string, Resource*> resources;
+
+	std::map<std::string, RMetaData> libraryResources;
 
 
 	

@@ -17,6 +17,7 @@
 #include "WindowConsole.h"
 #include "ModuleScene.h"
 #include "ResourceManager.h"
+#include "ModuleLoaderControl.h"
 
 #include "ModuleFileSystem.h"
 #include "ModuleGameobject.h"
@@ -30,6 +31,7 @@ struct Event;
 class Application
 {
 public:
+	ModuleImporter* importer = nullptr;
 	ModuleWindow* window=nullptr;
 	ModuleInput* input = nullptr;
 	ModuleRenderer3D* renderer3D = nullptr;
@@ -39,7 +41,7 @@ public:
 	ModuleFileSystem* fs = nullptr;
 	ModuleAssets* Assets = nullptr;
 	ModuleTexture* Textures = nullptr;
-	ModuleGameobject* Gameobjects = nullptr;
+	ModuleGameobject* Gameobject = nullptr;
 	ModuleScene* SceneEngine = nullptr;
 	ResourceManager* RS = nullptr;
 private:
@@ -97,6 +99,9 @@ public:
 
 //Appname
 	const char* GetOrganizationName() const;
+
+// JSON
+	JSONLoader* GetJsonLoader();
 	
 private:
 

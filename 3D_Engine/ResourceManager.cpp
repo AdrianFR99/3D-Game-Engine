@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleFileSystem.h"
 #include "Globals.h"
-
+#include "JSONLoader.h"
 
 #include "mmgr/mmgr.h"
 
@@ -53,7 +53,7 @@ Resource * ResourceManager::Get(std::string _unique_id)
 	return nullptr;
 }
 
-Resource * ResourceManager::CreateNewResource(ResourceType type, std::string _unique_id )
+Resource * ResourceManager::CreateNewResource(Resource::ResourceType type, std::string _unique_id )
 {
 	int random = 0;
 	std::string new_id;
@@ -72,10 +72,10 @@ Resource * ResourceManager::CreateNewResource(ResourceType type, std::string _un
 	{
 		switch (type)
 		{
-		case ResourceType::RT_MESH:
+		case Resource::ResourceType::RT_MESH:
 			res = new ResourceMesh(new_id);
 			break;
-		case ResourceType::RT_TEXTURE:
+		case Resource::ResourceType::RT_TEXTURE:
 			res = new ResourceTexture(new_id);
 			break;
 		}
@@ -161,18 +161,69 @@ void ResourceManager::DeleteAllResources()
 	}
 }
 
-void ResourceManager::SaveResourceIntoFile(Resource * res)
-{
-	if (res != nullptr)
-	{
-	
-		if (res->GetType() == RT_MESH)
-		{
-			//mesh_loader->Export(App->fs->GetLibraryMeshPath().c_str(), (ResourceMesh*)res);
+//void ResourceManager::SaveResourceIntoFile(Resource * res)
+//{
+//	if (res != nullptr)
+//	{
+//	
+//		if (res->GetType() == RT_MESH)
+//		{
+//			//mesh_loader->Export(App->fs->GetLibraryMeshPath().c_str(), (ResourceMesh*)res);
+//
+//		}
+//			
+//		
+//	}
+//	
+//}
 
-		}
-			
-		
+void ResourceManager::CreateMetaFromUID(std::string UID, const char* filename)
+{
+	RMetaData meta;
+
+	std::string jsondata;
+	std::string meta_path;
+	nlohmann::json jsonmeta;
+	char* meta_buffer = nullptr;
+
+	// --- Create Meta ---
+	jsonmeta["UID"] = UID;
+	jsondata = App->GetJsonLoader()->Serialize(jsonmeta);
+	meta_buffer = (char*)jsondata.data();
+
+	meta_path = filename;
+	meta_path.append(".meta");
+
+	libraryResources[UID] = meta;
+	App->fs->Save(meta_path.data(), meta_buffer, jsondata.length());
+}
+
+bool ResourceManager::IsFileImported(const char * file)
+{
+	bool ret = false;
+
+	std::string path = file;
+
+	path.append(".meta");
+
+	ret = App->fs->Exists(path.data());
+
+	return ret;
+}
+
+std::string ResourceManager::GetUIDFromMeta(const char * file)
+{
+	std::string path = file;
+	path.append(".meta");
+	std::string UID;
+
+	if (App->fs->Exists(path.data()))
+	{
+		App->GetJsonLoader()->Load(path.data());
+		nlohmann::json file = App->GetJsonLoader()->getFile();
+		std::string id = file["UID"];
+		UID = id;
 	}
-	
+
+	return UID.data();
 }

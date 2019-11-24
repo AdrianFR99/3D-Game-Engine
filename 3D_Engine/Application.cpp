@@ -19,9 +19,10 @@ Application::Application()
 	hardware = new ModuleHardware(this);
 	Assets = new ModuleAssets(this);
 	Textures = new ModuleTexture(this);
-	Gameobjects = new ModuleGameobject(this);
+	Gameobject = new ModuleGameobject(this);
 	SceneEngine = new ModuleScene(this);
 	RS = new ResourceManager(this,true);
+	importer = new ModuleImporter(this, true);
 
 	Current_frames = 0; //current frame the program is
 	FPS_counter = 0;   //Frame per cicle
@@ -35,6 +36,7 @@ Application::Application()
 
 	// Main Modules
 	AddModule(RS);
+	AddModule(importer);
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
@@ -42,7 +44,7 @@ Application::Application()
 	AddModule(fs);
 	AddModule(Assets);
 	AddModule(Textures);
-	AddModule(Gameobjects);
+	AddModule(Gameobject);
 	AddModule(SceneEngine);
 	AddModule(UI_Layer);
 	
@@ -319,4 +321,9 @@ LCG & Application::GetRandom()
 const char* Application::GetOrganizationName() const
 {
 	return StudyCenter.data();
+}
+
+JSONLoader * Application::GetJsonLoader()
+{
+	return &JSONLoad;
 }
