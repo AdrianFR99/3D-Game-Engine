@@ -141,12 +141,12 @@ void AssetMesh::ToBuffer() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
 
-	assert(uv_coord!=nullptr);
+	/*assert(uv_coord!=nullptr);
 
 	glGenBuffers(1,&UVC);
 	glBindBuffer(GL_ARRAY_BUFFER,UVC);
 	glBufferData(GL_ARRAY_BUFFER,sizeof(float)*num_uv,uv_coord,GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);*/
 
 }
 
