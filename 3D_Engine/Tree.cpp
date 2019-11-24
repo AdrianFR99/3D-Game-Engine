@@ -132,7 +132,90 @@ bool Node::Insert(const Gameobject* obj) {
 }
 bool Node::Remove(const Gameobject* obj) {
 
-	return true;
+
+	bool ret = false;
+
+	if (aabbNode.Contains(obj->aabb)) {
+		//if Branch
+		if (ImBranch) {
+			for (int i = 0; i < BranchesNum; i++) {
+			//Remove childen nodes
+				if (BranchesFromNode[i].Remove(obj)) {
+
+					std::vector<const Gameobject*> Collector;
+
+					for (i = 0; i < BranchesNum; i++) {
+
+						if (BranchesFromNode[i].BranchesNum > 0) {	
+						
+							break;
+						}
+						else {	
+
+							int nodeSize = BranchesFromNode[i].GOinside.size();
+
+							if (nodeSize > 0) {
+							
+								for (int j = 0; j < nodeSize; j++) {
+								
+									Collector.push_back(BranchesFromNode[i].GOinside[j]);
+
+								}
+
+								/*if (GOinside.size() + Collector.size() > OwnerTree->NodesSize) {
+								
+									break;
+
+
+								}*/
+							}
+						}
+					}
+
+					if (i == BranchesNum) {	 
+
+
+						if (!Collector.empty()) {
+							for (int k = 0; k < Collector.size(); k++) {
+
+								GOinside.push_back(Collector[k]);
+							}
+						
+						}
+						
+					}
+
+					break;
+									
+				}
+								
+			}
+					   
+		}
+		//if leaf
+		else {
+
+			for (int i = 0; i < GOinside.size(); i++) {
+			
+				if (GOinside[i] == obj) {
+				
+					GOinside.erase(GOinside.begin() + i);
+					
+					ret = true;
+					break;
+				
+				}
+			}
+
+		}
+
+	}
+	
+
+
+
+
+	return ret;
 }
 void Node::Clear(){
 
