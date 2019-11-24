@@ -88,82 +88,9 @@ void ModuleImporter::CallbackEvent(const Event& event) {
 		}
 		else if (DroppedFile_path.find(".png") != std::string::npos || DroppedFile_path.find(".PNG") != std::string::npos || DroppedFile_path.find(".dds") != std::string::npos || DroppedFile_path.find(".DDS") != std::string::npos)
 		{
-			//SceneImporter->ImporterMaterial->Import();
+			SceneImporter->ImporterMaterial->import2(DroppedFile_path.data());
 
-			// --- Get Selected Game Object's Material ---
-			Gameobject* Selected = App->UI_Layer->HierarchyPanel->getActiveGameobject();
-			ComponentMaterial* mat = nullptr;
-
-			if (Selected)
-			{
-				mat = Selected->materialPointer;
-				if (mat == nullptr)
-				{
-
-					Selected->CreateComponent(Selected, MATERIAL, true);
-					mat = Selected->materialPointer;
-					if (mat->Resource_Material == nullptr)
-					{
-						ResourceTexture* tmp2 = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");
-						Selected->materialPointer->Resource_Material = tmp2;
-
-					}
-				}
-				if (mat)
-				{
-
-					std::string destination = ASSETS_FOLDER;
-					std::string filename;
-					std::string path;
-					std::string ext;
-					App->fs->SplitFilePath(DroppedFile_path.data(), &path, &filename, &ext);
-					destination.append(filename);
-
-					if (!App->fs->Exists(destination.data()))
-						App->fs->CopyFromOutsideFS(DroppedFile_path.data(), destination.data());
-
-					ResourceTexture* tex = nullptr;
-
-					// searh for img in assets 
-					if (App->RS->IsFileImported(destination.data()))
-					{
-						std::string uid = App->RS->GetUIDFromMeta(destination.data());
-
-						std::string lib_Tex = TEXTURES_FOLDER;
-						lib_Tex.append(uid);
-						lib_Tex.append(".dds");
-
-						tex = (ResourceTexture*)App->RS->GetResource(lib_Tex.data());
-
-					}
-
-					//
-
-
-					//
-					if (tex != nullptr)
-					{
-
-						mat->Resource_Material = tex;
-
-					}
-					else
-					{
-						uint id = App->Textures->CreateTexture(DroppedFile_path.data(), *(mat->Resource_Material));
-						App->Gameobject->SetTextureToActiveGameobject(id);
-
-						std::string lib_Tex = TEXTURES_FOLDER;
-						lib_Tex.append(std::to_string(mat->Resource_Material->DiffuseID));
-						lib_Tex.append(".dds");
-
-						mat->Resource_Material->resource_file = lib_Tex.data();
-						mat->Resource_Material->file_name = (lib_Tex.data());
-					}
-
-					//App->scene_manager->GetSelectedGameObject()->SetMaterial(mat);
-
-				}
-			}
+		
 
 		}
 	}

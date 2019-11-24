@@ -1,8 +1,12 @@
 #include "ResourceManager.h"
 #include "Application.h"
 #include "ModuleFileSystem.h"
+#include "ModuleLoaderControl.h"
 #include "Globals.h"
 #include "JSONLoader.h"
+
+#include "ResourceSceneLoader.h"
+#include "ResourceTextureLoader.h"
 
 #include "mmgr/mmgr.h"
 
@@ -100,38 +104,18 @@ bool ResourceManager::LoadResource(const char * file_path, std::vector<Resource*
 
 	bool valid_extension = false;
 
-	//if (App->fs->TextCmp("fbx", extension.c_str()))
-	//{
-	//	ret = mesh_loader->Load(file_path, resources, true);
-	//	valid_extension = true;
-	//}
-	//
+	if (App->fs->TextCmp("fbx", extension.c_str()))
+	{
+		App->importer->GetImporterScene()->Import(file_path);
+	}
+	else if (App->fs->TextCmp("png", extension.c_str()) || App->fs->TextCmp("dds", extension.c_str()) || App->fs->TextCmp("tga", extension.c_str()))
+	{
+		App->importer->GetImporterScene()->ImporterMaterial->import2(file_path);
 
-	//if (ret)
-	//{
-	//	App->fs->FileCopyPaste(file_path, App->fs->GetAssetsPath().c_str());
 
-	//	// Save meta file ---------------------------
-	//	std::string uid = GetNewUID();
-	//	std::string json_name = App->fs->GetAssetsPath() + name + ".meta";
-	//	//nlohmann::json meta = JsonLoader.Save CreateJSON(json_name.c_str());
-	//	nlohmann::json meta;
-	//	JsonLoader.Save(json_name.data(),meta);
+	}
 
-	//	if (meta)
-	//	{
-	//		meta->SetString("uid", uid.c_str());
-
-	//		meta->SetArray("resources");
-	//		for (std::vector<Resource*>::iterator res = resources.begin(); res != resources.end(); ++res)
-	//		{
-	//			meta->AddStringToArray("resources", (*res)->GetUniqueId().c_str());
-	//		}
-
-	//		meta->Save();
-	//	}
-
-	//}
+	
 
 	return ret;
 }

@@ -173,3 +173,8 @@ void WindowHierarchy::Delete()
 	}
 
 }
+
+void WindowHierarchy::SetActiveGameobject(Gameobject* go)
+{
+	 activeOBJ=go;
+}

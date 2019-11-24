@@ -582,7 +582,7 @@ bool ModuleAssets::FirstLoad(const char * filepath, bool as_new_gameobject, cons
 		parent = App->Gameobject->CreateEmpty();
 		parent->transformPointer->SetPosition(float3(position.x, position.y, position.z));
 		parent->transformPointer->SetRotationQuat(Quat(rotation.x, rotation.y, rotation.w, rotation.z));
-		parent->transformPointer->SetScale(float3(scale.x, scale.y, scale.z));
+		parent->transformPointer->SetScale(float3(1, 1, 1));
 
 		std::string filepath2 = App->fs->GetFileNameFromFilePath(filepath);
 		std::string name;
@@ -734,39 +734,40 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 		//	total_abb.Enclose(mesh_with_scale);
 		//}
 
-		//// MATERIALS
-		//ResourceTexture* texture = nullptr;
-		//if (mesh_valid && node_valid)
-		//{
-		//	// Check if its already loaded
-		//	Resource* res_tex = nullptr;
-		//	bool texture_already_loaded = false;
-		//	if (ResourceIsUsed(aimesh->mMaterialIndex, RT_TEXTURE, res_tex))
-		//	{
-		//		texture = (ResourceTexture*)res_tex;
-		//		texture_already_loaded = true;
-		//	}
+		// MATERIALS
+		ResourceTexture* texture = nullptr;
+		std::string pathtext;
+		std::vector<Resource*> tex;
+		if (mesh_valid && node_valid)
+		{
+			// Check if its already loaded
+			Resource* res_tex = nullptr;
+			bool texture_already_loaded = false;
+			/*if (ResourceIsUsed(aimesh->mMaterialIndex, RT_TEXTURE, res_tex))
+			{
+				texture = (ResourceTexture*)res_tex;
+				texture_already_loaded = true;
+			}*/
 
-		//	if (!texture_already_loaded)
-		//	{
-		//		aiMaterial* material = scene->mMaterials[aimesh->mMaterialIndex];
+			if (!texture_already_loaded)
+			{
+				aiMaterial* material = scene->mMaterials[aimesh->mMaterialIndex];
 
-		//		string path = App->file_system->GetPathFromFilePath(full_path);
+				pathtext = App->fs->GetPathFromFilePath(full_path);
 
-		//		// Difuse -------------------
-		//		aiString file;
-		//		material->GetTexture(aiTextureType_DIFFUSE, 0, &file);
-		//		path += App->file_system->GetFileNameFromFilePath(file.C_Str());
+				// Difuse -------------------
+				aiString file;
+				material->GetTexture(aiTextureType_DIFFUSE, 0, &file);
+				pathtext += App->fs->GetFileNameFromFilePath(file.C_Str());
 
-		//		vector<Resource*> tex;
-		//		App->resource_manager->LoadResource(path.c_str(), tex);
-		//		if (!tex.empty())
-		//		{
-		//			texture = (ResourceTexture*)*tex.begin();
-		//			AddResource(aimesh->mMaterialIndex, RT_TEXTURE, texture);
-		//		}
-		//	}
-		//}
+				
+				/*if (!tex.empty())
+				{
+					texture = (ResourceTexture*)*tex.begin();
+					AddResource(aimesh->mMaterialIndex, RT_TEXTURE, texture);
+				}*/
+			}
+		}
 
 		// CREATE GAME OBJECT
 		if (mesh_valid && node_valid && parent != nullptr)
@@ -783,12 +784,15 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 
 			go->transformPointer->SetPosition(posi);
 			go->transformPointer->SetRotationQuat(roti);
-			go->transformPointer->SetScale(scali);
+			go->transformPointer->SetScale(float3(1,1,1));
 
 			go->CreateComponent(go, MESH, true);
 			ComponentMesh* cmesh = go->meshPointer;
 			cmesh->Meshes_Vec=(mesh);
 
+			//text
+			App->UI_Layer->HierarchyPanel->SetActiveGameobject(go);
+			App->RS->LoadResource(pathtext.c_str(), tex);
 			/*if (texture != nullptr)
 			{
 				go->AddComponent(MATERIAL);

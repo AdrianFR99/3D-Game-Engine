@@ -24,6 +24,7 @@ public:
 
 	bool Import(const char* File_path, const ImportData& IData) const;
 	void Load(const char* filename, ResourceTexture& mat);
+	void import2(const char* file_path);
 };
 
 #endif
