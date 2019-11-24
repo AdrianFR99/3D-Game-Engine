@@ -190,7 +190,7 @@ Gameobject * ModuleGameobject::CreateFatherGameObject()
 	std::string name;
 	name = "scene";
 	creation->nameGameObject = name;
-
+	creation->aabb.SetFrom(AABB(float3::zero - float3::one, float3::zero + float3::one));
 
 
 	//get it inside of the list

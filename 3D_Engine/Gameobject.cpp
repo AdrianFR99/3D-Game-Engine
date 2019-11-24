@@ -24,7 +24,7 @@ Gameobject::Gameobject(int id)
 
     //default OBB && AABB if there is no mesh
 	
-	
+	def.SetFrom(AABB(transformPointer->GetPosition() - float3::one, transformPointer->GetPosition() + float3::one));
 	
 }
 
@@ -213,7 +213,7 @@ void Gameobject::SetBBOs() {
 	obb = meshPointer->Meshes_Vec[0]->bbox;
 	obb.Transform(transformPointer->GetGlobalTransform());
 	aabb.SetFrom(obb);
-	//.SetFrom(AABB(transformPointer->GetPosition() - float3::one, transformPointer->GetPosition() + float3::one));
+	
 
 }
 
