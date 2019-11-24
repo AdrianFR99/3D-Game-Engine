@@ -41,48 +41,48 @@ void ResourceMeshLoader::Load(const char * filename, ResourceMesh & mesh) const
 	uint bytes = sizeof(ranges);
 	memcpy(ranges, cursor, bytes);
 
-	mesh.Meshes_Vec->num_index = ranges[0];
-	mesh.Meshes_Vec->num_vertex = ranges[1];
-	mesh.Meshes_Vec->num_normals = ranges[2];
-	mesh.Meshes_Vec->num_normals_faces = ranges[3];
-	mesh.Meshes_Vec->num_uv = ranges[4];
+	mesh.mesh_asset->num_index = ranges[0];
+	mesh.mesh_asset->num_vertex = ranges[1];
+	mesh.mesh_asset->num_normals = ranges[2];
+	mesh.mesh_asset->num_normals_faces = ranges[3];
+	mesh.mesh_asset->num_uv = ranges[4];
 
 	// --- Load indices ---
 	cursor += bytes;
-	bytes = sizeof(uint) * mesh.Meshes_Vec->num_index;
-	mesh.Meshes_Vec->indices = new uint[mesh.Meshes_Vec->num_index];
-	memcpy(mesh.Meshes_Vec->indices, cursor, bytes);
+	bytes = sizeof(uint) * mesh.mesh_asset->num_index;
+	mesh.mesh_asset->indices = new uint[mesh.mesh_asset->num_index];
+	memcpy(mesh.mesh_asset->indices, cursor, bytes);
 
 	//mesh.Meshes_Vec->IBO = App->renderer3D->CreateBufferFromData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * mesh.Meshes_Vec->num_index, mesh.Meshes_Vec->indices);
 
 	// --- Load Vertices ---
 	cursor += bytes;
-	bytes = sizeof(float) * 3 * mesh.Meshes_Vec->num_vertex;
-	mesh.Meshes_Vec->vertices = new float3[mesh.Meshes_Vec->num_vertex];
-	memcpy(mesh.Meshes_Vec->vertices, cursor, bytes);
+	bytes = sizeof(float) * 3 * mesh.mesh_asset->num_vertex;
+	mesh.mesh_asset->vertices = new float3[mesh.mesh_asset->num_vertex];
+	memcpy(mesh.mesh_asset->vertices, cursor, bytes);
 
 	//mesh.Meshes_Vec->VBO = App->renderer3D->CreateBufferFromData(GL_ARRAY_BUFFER, sizeof(float3) * mesh.Meshes_Vec->num_vertex, mesh.Meshes_Vec->vertices);
 
 	// --- Load Normals ---
 	cursor += bytes;
-	bytes = sizeof(float) * 3 * mesh.Meshes_Vec->num_normals;
-	mesh.Meshes_Vec->normals = new float3[mesh.Meshes_Vec->num_normals];
-	memcpy(mesh.Meshes_Vec->normals, cursor, bytes);
+	bytes = sizeof(float) * 3 * mesh.mesh_asset->num_normals;
+	mesh.mesh_asset->normals = new float3[mesh.mesh_asset->num_normals];
+	memcpy(mesh.mesh_asset->normals, cursor, bytes);
 
 	// --- Load Normals Faces ---
 	cursor += bytes;
-	bytes = sizeof(float) * 3 * mesh.Meshes_Vec->num_normals_faces;
-	mesh.Meshes_Vec->normals_faces = new float3[mesh.Meshes_Vec->num_normals_faces];
-	memcpy(mesh.Meshes_Vec->normals_faces, cursor, bytes);
+	bytes = sizeof(float) * 3 * mesh.mesh_asset->num_normals_faces;
+	mesh.mesh_asset->normals_faces = new float3[mesh.mesh_asset->num_normals_faces];
+	memcpy(mesh.mesh_asset->normals_faces, cursor, bytes);
 
 	// --- uVs ---
 	cursor += bytes;
-	bytes = sizeof(float) * 3 * mesh.Meshes_Vec->num_uv;
-	mesh.Meshes_Vec->uv_coord = new float[mesh.Meshes_Vec->num_uv*3];
-	memcpy(mesh.Meshes_Vec->uv_coord, cursor, bytes);
+	bytes = sizeof(float) * 3 * mesh.mesh_asset->num_uv;
+	mesh.mesh_asset->uv_coord = new float[mesh.mesh_asset->num_uv*3];
+	memcpy(mesh.mesh_asset->uv_coord, cursor, bytes);
 
 	//mesh.Meshes_Vec->UVC = App->renderer3D->CreateBufferFromData(GL_ARRAY_BUFFER, sizeof(float) * mesh.TexCoordsSize, mesh.TexCoords);
-	mesh.Meshes_Vec->ToBuffer();
+	mesh.mesh_asset->ToBuffer();
 	// --- Delete buffer data ---
 	if (buffer)
 	{
@@ -104,9 +104,9 @@ void ResourceMeshLoader::Save(ResourceMesh * mesh, const char* path) const
 	//
 
 	// amount of indices / vertices / normals /noraml faces/ uvs / 
-	uint ranges[5] = { mesh->GetNumIndices(), mesh->GetNumVertices(), mesh->GetNumNormal(), mesh->GetNumNormalFaces(), mesh->Meshes_Vec->num_uv };
+	uint ranges[5] = { mesh->GetNumIndices(), mesh->GetNumVertices(), mesh->GetNumNormal(), mesh->GetNumNormalFaces(), mesh->mesh_asset->num_uv };
 
-	uint size = sizeof(ranges) + sizeof(uint) * mesh->GetNumIndices() + sizeof(float3) * mesh->GetNumVertices() + sizeof(float3)*mesh->GetNumNormal() + sizeof(float)* mesh->GetNumNormalFaces() + sizeof(float3) * mesh->Meshes_Vec->num_uv;
+	uint size = sizeof(ranges) + sizeof(uint) * mesh->GetNumIndices() + sizeof(float3) * mesh->GetNumVertices() + sizeof(float3)*mesh->GetNumNormal() + sizeof(float)* mesh->GetNumNormalFaces() + sizeof(float3) * mesh->mesh_asset->num_uv;
 
 	char* data = new char[size]; // Allocate
 	char* cursor = data;
@@ -117,27 +117,27 @@ void ResourceMeshLoader::Save(ResourceMesh * mesh, const char* path) const
 	// --- Store Indices ---
 	cursor += bytes;
 	bytes = sizeof(uint) * mesh->GetNumIndices();
-	memcpy(cursor, mesh->Meshes_Vec->indices, bytes);
+	memcpy(cursor, mesh->mesh_asset->indices, bytes);
 
 	// --- Store Vertices ---
 	cursor += bytes;
 	bytes = sizeof(float3) * mesh->GetNumVertices();
-	memcpy(cursor, mesh->Meshes_Vec->vertices, bytes);
+	memcpy(cursor, mesh->mesh_asset->vertices, bytes);
 
 	// --- Store Normals ---
 	cursor += bytes;
 	bytes = sizeof(float3) * mesh->GetNumNormal();
-	memcpy(cursor, mesh->Meshes_Vec->normals, bytes);
+	memcpy(cursor, mesh->mesh_asset->normals, bytes);
 
 	// --- Store Normal Faces ---
 	cursor += bytes;
 	bytes = sizeof(uint) * mesh->GetNumNormalFaces();
-	memcpy(cursor, mesh->Meshes_Vec->normals_faces, bytes);
+	memcpy(cursor, mesh->mesh_asset->normals_faces, bytes);
 
 	// Store UVs
 	cursor += bytes;
-	bytes = sizeof(float) * mesh->Meshes_Vec->num_uv;
-	memcpy(cursor, mesh->Meshes_Vec->uv_coord, bytes);
+	bytes = sizeof(float) * mesh->mesh_asset->num_uv;
+	memcpy(cursor, mesh->mesh_asset->uv_coord, bytes);
 
 
 	App->FileSystem->Save(path, data, size);

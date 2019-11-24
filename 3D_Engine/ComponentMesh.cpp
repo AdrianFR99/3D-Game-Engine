@@ -27,8 +27,10 @@ ComponentMesh::~ComponentMesh()
 void ComponentMesh::Init()
 {
 	Enable();
-	num_meshes = Meshes_Vec.size();
-
+	if(Meshes_Vec!=nullptr)
+	num_meshes = 1;
+	else
+	num_meshes = 0;
 }
 
 void ComponentMesh::Update()

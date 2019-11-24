@@ -79,8 +79,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	 float cam_speed = camera_speed * dt;
 
-	 if(App->UI_Layer->HierarchyPanel->getActiveGameobject()!=nullptr)
-	 PointOfFocus = App->UI_Layer->HierarchyPanel->getActiveGameobject()->transformPointer->GetPosition();
+	 
 
 	if(App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT)
 		cam_speed = camera_speed * 2 * dt;
@@ -121,6 +120,9 @@ update_status ModuleCamera3D::Update(float dt)
 
 
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
+		
+		if (App->UI_Layer->HierarchyPanel->getActiveGameobject() != nullptr)
+			PointOfFocus = App->UI_Layer->HierarchyPanel->getActiveGameobject()->transformPointer->GetPosition();
 
 		//rotate around the object
 		EditorCam->Orbit(PointOfFocus, App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
@@ -131,6 +133,8 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_UP)
 	{
 
+		if (App->UI_Layer->HierarchyPanel->getActiveGameobject() != nullptr)
+			PointOfFocus = App->UI_Layer->HierarchyPanel->getActiveGameobject()->transformPointer->GetPosition();
 
 		EditorCam->CenterCam(PointOfFocus,20.0f);
 

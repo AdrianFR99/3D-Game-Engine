@@ -167,6 +167,8 @@ void ModuleGameobject::RecursiveDestruction(Gameobject * object)
 		object->GameObject_Child_Vec.clear();
 	}
 
+	
+
 	object->CleanUp();
 }
 

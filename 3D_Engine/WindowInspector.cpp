@@ -44,15 +44,12 @@ void WindowInspector::Inspector_Window() {
 		activeobj = App->UI_Layer->HierarchyPanel->getActiveGameobject();
 
 
-
-
-
 		if (activeobj != nullptr)
 		{
 
 			Static = activeobj->Static;
 			ImGui::Checkbox("Static", &Static);
-			activeobj->Static=Static;
+			activeobj->Static = Static;
 			activeobj->UpdateStatic(Static);
 
 			ImGui::Spacing();
@@ -61,45 +58,46 @@ void WindowInspector::Inspector_Window() {
 			ImGui::Checkbox("Bounding Box", &DrawBBOs);
 			activeobj->DrawBBOs = DrawBBOs;
 
-			if(activeobj->hasTransform==true)
-			if (ImGui::CollapsingHeader("Transform"))
-			{
+			if (activeobj->hasTransform == true) {
+				if (ImGui::CollapsingHeader("Transform"))
+				{
 
-				if (Static == false) {
-					position = activeobj->transformPointer->GetPosition();
-					if (ImGui::DragFloat3("Position", (float*)&position, 0.1f))
-						activeobj->transformPointer->SetPosition(position);
-
-
-					rotation = activeobj->transformPointer->GetRotation();
-					if (ImGui::DragFloat3("Rotation", (float*)&rotation, 0.1f))
-						activeobj->transformPointer->SetRotation(rotation);
+					if (Static == false) {
+						position = activeobj->transformPointer->GetPosition();
+						if (ImGui::DragFloat3("Position", (float*)&position, 0.1f))
+							activeobj->transformPointer->SetPosition(position);
 
 
+						rotation = activeobj->transformPointer->GetRotation();
+						if (ImGui::DragFloat3("Rotation", (float*)&rotation, 0.1f))
+							activeobj->transformPointer->SetRotation(rotation);
 
-					scale = activeobj->transformPointer->GetScale();
-					if (ImGui::DragFloat3("Scale", (float*)&scale, 0.1f))
-						activeobj->transformPointer->SetScale(scale);
 
 
-					ImGui::Spacing();
-					ImGui::Separator();
+						scale = activeobj->transformPointer->GetScale();
+						if (ImGui::DragFloat3("Scale", (float*)&scale, 0.1f))
+							activeobj->transformPointer->SetScale(scale);
+
+
+						ImGui::Spacing();
+						ImGui::Separator();
+
+					}
+					else {
+
+						ImGui::TextColored(IMGUI_AQUAMARINE, "Transforms Freeze");
+						ImGui::Spacing();
+						ImGui::InputFloat3("Position", (float*)&position);
+						ImGui::InputFloat3("Rotation", (float*)&rotation);
+						ImGui::InputFloat3("Scale", (float*)&scale);
+
+						ImGui::Spacing();
+						ImGui::Separator();
+
+					}
+
 
 				}
-				else {
-
-					ImGui::TextColored(IMGUI_AQUAMARINE,"Transforms Freeze");
-					ImGui::Spacing();
-					ImGui::InputFloat3("Position", (float*)&position);
-					ImGui::InputFloat3("Rotation", (float*)&rotation);
-					ImGui::InputFloat3("Scale", (float*)&scale);
-
-					ImGui::Spacing();
-					ImGui::Separator();
-
-				}
-
-
 			}
 			if (activeobj->hasMesh == true) {
 
@@ -220,20 +218,20 @@ void WindowInspector::Inspector_Window() {
 							activeobj->meshPointer->Enable();
 					}
 					ImGui::Spacing();
-				std::string display_name;
-				std::string id;
-				//if ( activeobj->meshPointer->Meshes_Vec->Meshes_Vec!=nullptr)
-				//{
-				//	/*display_name = activeobj->nameGameObject;
-				//	id = std::to_string(1);
-				//	display_name.append(id);
+					std::string display_name;
+					std::string id;
+					//if ( activeobj->meshPointer->Meshes_Vec->Meshes_Vec!=nullptr)
+					//{
+					//	/*display_name = activeobj->nameGameObject;
+					//	id = std::to_string(1);
+					//	display_name.append(id);
 
-				//	if (ImGui::Checkbox(display_name.data(), &activeobj->meshPointer->Meshes_Vec[i]->active))
-				//	{
-				//
-				//
-				//	}*/
-				//}
+					//	if (ImGui::Checkbox(display_name.data(), &activeobj->meshPointer->Meshes_Vec[i]->active))
+					//	{
+					//
+					//
+					//	}*/
+					//}
 
 					ImGui::Separator();
 
@@ -257,15 +255,15 @@ void WindowInspector::Inspector_Window() {
 					ImGui::Separator();
 
 
-					if (activeobj->meshPointer->Meshes_Vec->Meshes_Vec != nullptr)
+					if (activeobj->meshPointer->Meshes_Vec->mesh_asset != nullptr)
 					{
-						
-							vertex += activeobj->meshPointer->Meshes_Vec->Meshes_Vec->num_vertex;
-							index += activeobj->meshPointer->Meshes_Vec->Meshes_Vec->num_index;
-							normal += activeobj->meshPointer->Meshes_Vec->Meshes_Vec->num_normals;
-							normal_faces += activeobj->meshPointer->Meshes_Vec->Meshes_Vec->num_normals_faces;
-							uvs += activeobj->meshPointer->Meshes_Vec->Meshes_Vec->num_uv;
-							Triangles += activeobj->meshPointer->Meshes_Vec->Meshes_Vec->num_normals_faces;
+
+						vertex += activeobj->meshPointer->Meshes_Vec->mesh_asset->num_vertex;
+						index += activeobj->meshPointer->Meshes_Vec->mesh_asset->num_index;
+						normal += activeobj->meshPointer->Meshes_Vec->mesh_asset->num_normals;
+						normal_faces += activeobj->meshPointer->Meshes_Vec->mesh_asset->num_normals_faces;
+						uvs += activeobj->meshPointer->Meshes_Vec->mesh_asset->num_uv;
+						Triangles += activeobj->meshPointer->Meshes_Vec->mesh_asset->num_normals_faces;
 
 						ImGui::Text("Vertex Count:");
 						ImGui::SameLine();
@@ -286,73 +284,75 @@ void WindowInspector::Inspector_Window() {
 						ImGui::Text("Normal face Count:");
 						ImGui::SameLine();
 						ImGui::TextColored(IMGUI_YELLOW, "%i", normal_faces);
-				}
-				if (activeobj->meshPointer->Meshes_Vec->Primitives_Vec != nullptr)
-				{
-					if (activeobj->meshPointer->Meshes_Vec->Primitives_Vec != nullptr) {
-
-						vertex += activeobj->meshPointer->Meshes_Vec->Primitives_Vec->num_vertex;
-						index += activeobj->meshPointer->Meshes_Vec->Primitives_Vec->num_index;
-						//normal += activeobj->meshPointer->Primitives_Vec[i]->num_normals;
-						//normal_faces += activeobj->meshPointer->Primitives_Vec[i]->num_normals_faces;
-						//uvs += activeobj->meshPointer->Primitives_Vec[i]->num_uv;
-						//Triangles += activeobj->meshPointer->Primitives_Vec[i]->num_normals_faces;
-
-						ImGui::Text("Triangles Faces Count:");
-						ImGui::SameLine();
-						ImGui::TextColored(IMGUI_YELLOW, "%i", Triangles);
-
-						Triangles = 0;
-						vertex = 0;
-						normal = 0;
-						normal_faces = 0;
-						index = 0;
-						uvs = 0;
-
 					}
-					if (activeobj->meshPointer->Meshes_Vec->Primitives_Vec!=nullptr)
+					if (activeobj->meshPointer->Meshes_Vec->Primitives_Vec != nullptr)
 					{
-						
+						if (activeobj->meshPointer->Meshes_Vec->Primitives_Vec != nullptr) {
+
 							vertex += activeobj->meshPointer->Meshes_Vec->Primitives_Vec->num_vertex;
 							index += activeobj->meshPointer->Meshes_Vec->Primitives_Vec->num_index;
-							
+							//normal += activeobj->meshPointer->Primitives_Vec[i]->num_normals;
+							//normal_faces += activeobj->meshPointer->Primitives_Vec[i]->num_normals_faces;
+							//uvs += activeobj->meshPointer->Primitives_Vec[i]->num_uv;
+							//Triangles += activeobj->meshPointer->Primitives_Vec[i]->num_normals_faces;
+
+							ImGui::Text("Triangles Faces Count:");
+							ImGui::SameLine();
+							ImGui::TextColored(IMGUI_YELLOW, "%i", Triangles);
+
+							Triangles = 0;
+							vertex = 0;
+							normal = 0;
+							normal_faces = 0;
+							index = 0;
+							uvs = 0;
+
+						}
+						if (activeobj->meshPointer->Meshes_Vec->Primitives_Vec != nullptr)
+						{
+
+							vertex += activeobj->meshPointer->Meshes_Vec->Primitives_Vec->num_vertex;
+							index += activeobj->meshPointer->Meshes_Vec->Primitives_Vec->num_index;
 
 
-						
 
-						ImGui::Text("Vertex Count:");
-						ImGui::SameLine();
-						ImGui::TextColored(IMGUI_YELLOW, "%i", vertex);
 
-						ImGui::Text("Index Count:");
-						ImGui::SameLine();
-						ImGui::TextColored(IMGUI_YELLOW, "%i", index);
-						/*
-						ImGui::Text("UVs Count:");
-						ImGui::SameLine();
-						ImGui::TextColored(IMGUI_YELLOW, "%i", uvs);
 
-						ImGui::Text("Normal Count:");
-						ImGui::SameLine();
-						ImGui::TextColored(IMGUI_YELLOW, "%i", normal);
+							ImGui::Text("Vertex Count:");
+							ImGui::SameLine();
+							ImGui::TextColored(IMGUI_YELLOW, "%i", vertex);
 
-						ImGui::Text("Normal face Count:");
-						ImGui::SameLine();
-						ImGui::TextColored(IMGUI_YELLOW, "%i", normal_faces);
+							ImGui::Text("Index Count:");
+							ImGui::SameLine();
+							ImGui::TextColored(IMGUI_YELLOW, "%i", index);
+							/*
+							ImGui::Text("UVs Count:");
+							ImGui::SameLine();
+							ImGui::TextColored(IMGUI_YELLOW, "%i", uvs);
 
-						ImGui::Text("Triangles Faces Count:");
-						ImGui::SameLine();
-						ImGui::TextColored(IMGUI_YELLOW, "%i", Triangles);*/
+							ImGui::Text("Normal Count:");
+							ImGui::SameLine();
+							ImGui::TextColored(IMGUI_YELLOW, "%i", normal);
 
-						Triangles = 0;
-						vertex = 0;
-						normal = 0;
-						normal_faces = 0;
-						index = 0;
-						uvs = 0;
+							ImGui::Text("Normal face Count:");
+							ImGui::SameLine();
+							ImGui::TextColored(IMGUI_YELLOW, "%i", normal_faces);
+
+							ImGui::Text("Triangles Faces Count:");
+							ImGui::SameLine();
+							ImGui::TextColored(IMGUI_YELLOW, "%i", Triangles);*/
+
+							Triangles = 0;
+							vertex = 0;
+							normal = 0;
+							normal_faces = 0;
+							index = 0;
+							uvs = 0;
+						}
 					}
-				}
 
+				}
+				
 			}
 			if (activeobj->hasCamera == true) {
 
@@ -362,20 +362,20 @@ void WindowInspector::Inspector_Window() {
 
 
 					NearPlane = activeobj->CameraPointer->CameraComponent->GetNearPlane();
-					if (ImGui::DragFloat("NearPlane", (float*)&NearPlane, 0.1f,0.1f,1000.0f))
-					activeobj->CameraPointer->CameraComponent->SetNearPlane_Dist(NearPlane);
+					if (ImGui::DragFloat("NearPlane", (float*)&NearPlane, 0.1f, 0.1f, 1000.0f))
+						activeobj->CameraPointer->CameraComponent->SetNearPlane_Dist(NearPlane);
 
 					FarPlane = activeobj->CameraPointer->CameraComponent->GetFarPlane();
-					if (ImGui::DragFloat("FarPlane", (float*)&FarPlane, 0.1f,0.1f,1000.0f))
+					if (ImGui::DragFloat("FarPlane", (float*)&FarPlane, 0.1f, 0.1f, 1000.0f))
 						activeobj->CameraPointer->CameraComponent->SetFarPlane_Dist(FarPlane);
 
 					AspectRatio = activeobj->CameraPointer->CameraComponent->AspectRatio;
 					if (ImGui::DragFloat("AspectRatio", (float*)&AspectRatio, 0.1f, 0.1f, 100.0f))
-					activeobj->CameraPointer->CameraComponent->SetAspectRatio(AspectRatio);
+						activeobj->CameraPointer->CameraComponent->SetAspectRatio(AspectRatio);
 
 					FOV = activeobj->CameraPointer->CameraComponent->FOV;
 					if (ImGui::DragFloat("FOV ", (float*)&FOV, 0.1f, 0.1f, 1000.0f))
-					activeobj->CameraPointer->CameraComponent->SetFOV(FOV);
+						activeobj->CameraPointer->CameraComponent->SetFOV(FOV);
 
 
 
@@ -383,8 +383,7 @@ void WindowInspector::Inspector_Window() {
 
 			}
 		}
+
 		ImGui::End();
 	}
-
-
 }

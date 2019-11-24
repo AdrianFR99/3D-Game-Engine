@@ -38,7 +38,7 @@ public:
 	uint GetNumNormalFaces();
 	
 	std::string nameMesh;
-	AssetMesh* Meshes_Vec = nullptr;;
+	AssetMesh* mesh_asset = nullptr;;
 	Primitives* Primitives_Vec = nullptr;
 	ResourceTexture* Default_texture = nullptr;
 	

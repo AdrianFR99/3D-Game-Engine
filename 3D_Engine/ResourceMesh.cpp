@@ -40,9 +40,9 @@ void ResourceMesh::UnloadFromMemory()
 uint ResourceMesh::GetIdVertices()
 {
 	uint ret;
-	if (Meshes_Vec != nullptr)
+	if (mesh_asset != nullptr)
 	{
-		ret = Meshes_Vec->VBO;
+		ret = mesh_asset->VBO;
 	}
 	else 
 	{
@@ -54,9 +54,9 @@ uint ResourceMesh::GetIdVertices()
 uint ResourceMesh::GetNumVertices()
 {
 	uint ret;
-	if (Meshes_Vec != nullptr)
+	if (mesh_asset != nullptr)
 	{
-		ret = Meshes_Vec->num_vertex;
+		ret = mesh_asset->num_vertex;
 	}
 	else {
 		ret = Primitives_Vec->num_vertex;
@@ -68,9 +68,9 @@ uint ResourceMesh::GetNumVertices()
 uint ResourceMesh::GetIdIndices()
 {
 	uint ret;
-	if (Meshes_Vec != nullptr)
+	if (mesh_asset != nullptr)
 	{
-		ret = Meshes_Vec->IBO;
+		ret = mesh_asset->IBO;
 	}
 	else {
 		ret = Primitives_Vec->IBO;
@@ -82,9 +82,9 @@ uint ResourceMesh::GetIdIndices()
 uint ResourceMesh::GetNumIndices()
 {
 	uint ret;
-	if (Meshes_Vec != nullptr)
+	if (mesh_asset != nullptr)
 	{
-		ret = Meshes_Vec->num_index;
+		ret = mesh_asset->num_index;
 	}
 	else {
 		ret = Primitives_Vec->num_index;
@@ -96,9 +96,9 @@ uint ResourceMesh::GetNumIndices()
 float3 * ResourceMesh::GetVertices()
 {
 	float3* ret;
-	if (Meshes_Vec != nullptr)
+	if (mesh_asset != nullptr)
 	{
-		ret = Meshes_Vec->vertices;
+		ret = mesh_asset->vertices;
 	}
 	else {
 		ret = Primitives_Vec->vertices;
@@ -109,9 +109,9 @@ float3 * ResourceMesh::GetVertices()
 uint ResourceMesh::GetNumNormal()
 {
 	uint ret;
-	if (Meshes_Vec != nullptr)
+	if (mesh_asset != nullptr)
 	{
-		ret = Meshes_Vec->num_normals;
+		ret = mesh_asset->num_normals;
 	}
 	else {
 		ret = Primitives_Vec->num_normals;
@@ -122,9 +122,9 @@ uint ResourceMesh::GetNumNormal()
 uint ResourceMesh::GetNumNormalFaces()
 {
 	uint ret;
-	if (Meshes_Vec != nullptr)
+	if (mesh_asset != nullptr)
 	{
-		ret = Meshes_Vec->num_normals_faces;
+		ret = mesh_asset->num_normals_faces;
 	}
 	else {
 		ret = Primitives_Vec->num_normals_faces;
@@ -136,9 +136,9 @@ uint ResourceMesh::GetNumNormalFaces()
 uint * ResourceMesh::GetIndices()
 {
 	uint* ret;
-	if (Meshes_Vec != nullptr)
+	if (mesh_asset != nullptr)
 	{
-		ret = Meshes_Vec->indices;
+		ret = mesh_asset->indices;
 	}
 	else {
 		ret = Primitives_Vec->indices;
@@ -151,16 +151,16 @@ void ResourceMesh::SetFaces(float * _vertices, uint _num_vertices, uint * _indic
 	if (_num_vertices > 0)
 	{
 		// Vertices
-		Meshes_Vec->vertices = new float3[_num_vertices * 3];
-		memcpy(Meshes_Vec->vertices, _vertices, sizeof(float) * _num_vertices * 3);
-		Meshes_Vec->num_vertex = _num_vertices;
+		mesh_asset->vertices = new float3[_num_vertices * 3];
+		memcpy(mesh_asset->vertices, _vertices, sizeof(float) * _num_vertices * 3);
+		mesh_asset->num_vertex = _num_vertices;
 
 		if (_num_indices > 0)
 		{
 			// Indices
-			Meshes_Vec->indices = new uint[_num_indices];
-			memcpy(Meshes_Vec->indices, _indices, sizeof(uint) * _num_indices);
-			Meshes_Vec->num_index = _num_indices;
+			mesh_asset->indices = new uint[_num_indices];
+			memcpy(mesh_asset->indices, _indices, sizeof(uint) * _num_indices);
+			mesh_asset->num_index = _num_indices;
 		}
 
 	
@@ -172,8 +172,8 @@ void ResourceMesh::SetUvs(float * _uvs, uint _num_uvs)
 	if (_num_uvs > 0)
 	{
 		// UVs
-		Meshes_Vec->uv_coord = new float[_num_uvs * 3];
-		memcpy(Meshes_Vec->uv_coord, _uvs, sizeof(float) * _num_uvs * 3);
-		Meshes_Vec->num_uv = _num_uvs;
+		mesh_asset->uv_coord = new float[_num_uvs * 3];
+		memcpy(mesh_asset->uv_coord, _uvs, sizeof(float) * _num_uvs * 3);
+		mesh_asset->num_uv = _num_uvs;
 	}
 }

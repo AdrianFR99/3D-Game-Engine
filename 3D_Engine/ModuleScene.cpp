@@ -6,6 +6,9 @@
 #include "ModuleLoaderControl.h"
 #include "ResourceSceneLoader.h"
 
+#include "Tree.h"
+#include "ComponentTransform.h"
+
 #include "mmgr/mmgr.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled):Module(app, start_enabled)
@@ -37,8 +40,6 @@ bool ModuleScene::Init(nlohmann::json config) {
 
 bool ModuleScene::Start() {
 
-//primitves must Load AFTER FBX
-	App->Assets->LoadFiles(App->AssetModel.data());
 
 
 	SceneTree = new Tree(AABB({ -50, -30.f, -50.f }, { 50.f, 30.f, 50.f }),TreeType::QUAT_TREE,3);
