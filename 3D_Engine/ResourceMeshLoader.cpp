@@ -77,8 +77,8 @@ void ResourceMeshLoader::Load(const char * filename, ResourceMesh & mesh) const
 
 	// --- uVs ---
 	cursor += bytes;
-	bytes = sizeof(float) * mesh.Meshes_Vec->num_uv;
-	mesh.Meshes_Vec->uv_coord = new float[mesh.Meshes_Vec->num_uv];
+	bytes = sizeof(float) * 3 * mesh.Meshes_Vec->num_uv;
+	mesh.Meshes_Vec->uv_coord = new float[mesh.Meshes_Vec->num_uv*3];
 	memcpy(mesh.Meshes_Vec->uv_coord, cursor, bytes);
 
 	//mesh.Meshes_Vec->UVC = App->renderer3D->CreateBufferFromData(GL_ARRAY_BUFFER, sizeof(float) * mesh.TexCoordsSize, mesh.TexCoords);

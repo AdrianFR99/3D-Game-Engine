@@ -5,7 +5,8 @@
 #include "ComponentTransform.h"
 #include "ComponentMaterial.h"
 #include "ComponentMesh.h"
-
+#include "ModuleEngineUI.h"
+#include "WindowHierarchy.h"
 #include "Gameobject.h"
 #include "ModuleFileSystem.h"
 #include "ResourceMeshLoader.h"
@@ -176,10 +177,11 @@ bool SceneLoader::Load(const char * exported_file) const
 					texture = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");
 					new_go->materialPointer->Resource_Material = texture;
 					texture->CreateMaterial();
+					App->UI_Layer->HierarchyPanel->SetActiveGameobject(new_go);
+					ImporterMaterial->Load(component_path.data(), *texture);
 					
-					/*IMaterial->Load(component_path.data(), *mat->resource_material);
 
-					diffuse_uid = component_path;
+					/*diffuse_uid = component_path;
 					App->fs->SplitFilePath(component_path.data(), nullptr, &diffuse_uid);
 					count = diffuse_uid.find_last_of(".");
 					diffuse_uid = diffuse_uid.substr(0, count);
@@ -198,24 +200,15 @@ bool SceneLoader::Load(const char * exported_file) const
 				// --- Check if Library file exists ---
 				if (App->fs->Exists(component_path.data()))
 				{
-					/*rmesh = (ResourceMesh*)App->RS->GetResource(component_path.data());
-					mesh = (ComponentMesh*)new_go->AddComponent(type);*/
-					/*if (rmesh)
-					{
-						mesh->resource_mesh = rmesh;
-						rmesh->instances++;
-					}
-					else
-					{*/
+					
 					new_go->CreateComponent(new_go, MESH, true);
 					mesh = new_go->meshPointer;
 					ResourceMesh* tmp = mesh->Meshes_Vec = (ResourceMesh*)App->RS->CreateNewResource(Resource::ResourceType::RT_MESH, "");
 					new_go->meshPointer->Meshes_Vec = tmp;
-						//create component mesh for obj. then asign resourese mesh and load the mesh into the resource
 					AssetMesh* newasset = new AssetMesh;
 					new_go->meshPointer->Meshes_Vec->Meshes_Vec = newasset;
 						ImporterMesh->Load(component_path.data(), *mesh->Meshes_Vec);
-					//}
+					
 				}
 				else
 					LOG("|[error]: Could not find %s", component_path.data());
@@ -300,7 +293,7 @@ std::string SceneLoader::SaveSceneToFile(std::vector<Gameobject*>& scene_gos, st
 			}
 			if (scene_gos[i]->meshPointer != nullptr)
 			{
-				//aqui
+				
 				component_path = MESHES_FOLDER;
 				component_path.append(std::to_string(App->GetRandom().Int()));
 				component_path.append(".mesh");
@@ -316,11 +309,9 @@ std::string SceneLoader::SaveSceneToFile(std::vector<Gameobject*>& scene_gos, st
 				component_path = TEXTURES_FOLDER;
 				component_path.append(scene_gos[i]->materialPointer->Resource_Material->GetUniqueId());
 				component_path.append(".dds");
-				//aqui
-				// --- Store path to component file ---
-				/*if (scene_gos[i]->materialPointer->Resource_Material->GetUniqueId())
-					file[scene_gos[i]->nameGameObject]["Components"][std::to_string((uint)CompType::MATERIAL)] = component_path;
-				*/
+				
+				file[scene_gos[i]->nameGameObject]["Components"][std::to_string((uint)CompType::MATERIAL)] = component_path;
+				
 
 
 			}
