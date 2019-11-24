@@ -24,6 +24,11 @@ public:
 	nlohmann::json getFile();
 
 	nlohmann::json file;
+
+	std::string Serialize(nlohmann::json jsonfile);
+
+private:
+	
 };
 
 #endif

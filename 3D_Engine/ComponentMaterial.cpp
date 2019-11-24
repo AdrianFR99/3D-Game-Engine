@@ -1,6 +1,5 @@
 #include "Application.h"
 #include "ComponentMaterial.h"
-#include "Component.h"
 #include "ModuleTexture.h"
 
 
@@ -12,6 +11,7 @@ ComponentMaterial::ComponentMaterial(Gameobject * owner, CompType newtype) : Com
 		nameComponent = owner->nameGameObject;
 	else
 		nameComponent = "material";
+
 	Init();
 }
 
@@ -37,38 +37,63 @@ void ComponentMaterial::Draw()
 
 void ComponentMaterial::SetTextureID(uint diffuse)
 {
-	currentID = diffuse;
+	//change current resource using
+	if (Resource_Material != nullptr)
+	{
+	Resource_Material->currentID = diffuse;
+
+	}
+	//currentID = diffuse;
 
 }
 
 void ComponentMaterial::SetDiffuseID(uint diffuse)
 {
-	DiffuseID = diffuse;
+	// set resource for diffuse
+	if (Resource_Material != nullptr)
+	{
+	Resource_Material->DiffuseID = diffuse;
+
+	}
+	//DiffuseID = diffuse;
 }
 
 std::string const ComponentMaterial::GetTexturePath() const
 {
-	return Comp_Material.path;
+	
+	//get texture path from resource
+	if (Resource_Material == nullptr)
+		int a = 0;
+
+	return Resource_Material->Comp_Material.path.data();
 }
 
 void ComponentMaterial::CleanUp()
 {
+	Resource_Material->CleanUp();
 
+	Resource_Material = nullptr;
 
 
 }
 
 uint const ComponentMaterial::GetCurrentTextureID() const
 {
-	return currentID;
+	//get active resource text id
+
+	if (Resource_Material == nullptr)
+		int a = 0;
+
+	return Resource_Material->currentID;
 }
 
 void ComponentMaterial::UseCheckered(bool use)
 {
+	//change between resource for diffuse and for chekered 
 	if (use)
-		currentID = CheckeredID;
+		Resource_Material->currentID = Resource_Material->CheckeredID;
 	else
-		currentID = DiffuseID;
+		Resource_Material->currentID = Resource_Material->DiffuseID;
 }
 
 void ComponentMaterial::Enable()
@@ -83,8 +108,8 @@ void ComponentMaterial::Disable()
 
 void ComponentMaterial::CreateMaterial(std::string&path) {
 
-
-	currentID=App->Textures->CreateTexture(path.data());
+	// maybe create a resource?? not sure, pls check
+	/*currentID=App->Textures->CreateTexture(path.data());
 	DiffuseID = currentID;
 	CheckeredID = App->Textures->ChekeredID;
 
@@ -95,18 +120,23 @@ void ComponentMaterial::CreateMaterial(std::string&path) {
 	Comp_Material.path= path;
 	Comp_Material.type = Texture_Type::DIFFUSE;
 
-
+*/
 }
 
 void ComponentMaterial::CreateMaterial() {
 
 
-	//DiffuseID = currentID;
-	CheckeredID = App->Textures->ChekeredID;
+	////DiffuseID = currentID;
+	//CheckeredID = App->Textures->ChekeredID;
 
-	currentID = CheckeredID;
+	//currentID = CheckeredID;
 
-	Comp_Material.path = "---";
-	Comp_Material.type = Texture_Type::NONE;
+	//Comp_Material.path = "---";
+	//Comp_Material.type = Texture_Type::NONE;
 
+}
+
+void ComponentMaterial::SetResource(ResourceTexture * resource)
+{
+	Resource_Material = resource;
 }

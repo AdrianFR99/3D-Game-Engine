@@ -1,7 +1,9 @@
 
 #include "ModuleGameobject.h"
 #include "Application.h"
-
+#include "ModuleScene.h"
+#include "ModuleEngineUI.h"
+#include"WindowHierarchy.h"
 #include "mmgr/mmgr.h"
 
 
@@ -14,9 +16,9 @@ ModuleGameobject::~ModuleGameobject()
 {
 }
 
-bool ModuleGameobject::Init() {
+bool ModuleGameobject::Init(nlohmann::json config) {
 
-	
+
 	return true;
 }
 
@@ -38,7 +40,7 @@ update_status ModuleGameobject::Update(float dt) {
 
 	for (int i = 0; i < GameobjectList.size(); ++i) {
 		if (GameobjectList[i]->toDelete)
-			App->Gameobjects->SetToDestroy(GameobjectList[i]);
+			App->Gameobject->SetToDestroy(GameobjectList[i]);
 		if (GameobjectList[i]->UpdateTransform)
 		{
 			App->SceneEngine->scene->UpdateGlobalTransform();
@@ -64,20 +66,20 @@ void ModuleGameobject::Draw() {
 
 			if(GameobjectList[i]->DrawGO==true)
 			GameobjectList[i]->Draw();
-			
+
 		}*/
-	
+
 }
 
 bool ModuleGameobject::CleanUp() {
-	
+
 
 	for (int i = 0; i < GameobjectList.size(); ++i) {
 
 		GameobjectList[i]->CleanUp();
 
 		//delete(Meshes_Vec[i]);
-		
+
 
 		if (GameobjectList[i] != nullptr) {
 			delete GameobjectList[i]; \
@@ -114,12 +116,12 @@ void ModuleGameobject::ChangeParenting(Gameobject * to_change, Gameobject * new_
 		new_father->GameObject_Child_Vec.push_back(to_change);
 		to_change->Father = new_father;
 	}
-	
+
 }
 
 void ModuleGameobject::SetToDestroy(Gameobject * object)
 {
-	//unparent 
+	//unparent
 
 	bool ret = false;
 	if (object->Father != nullptr)
@@ -193,6 +195,8 @@ Gameobject * ModuleGameobject::CreateFatherGameObject()
 	creation->aabb.SetFrom(AABB(float3::zero - float3::one, float3::zero + float3::one));
 
 
+	App->SceneEngine->scene = creation;
+
 	//get it inside of the list
 	GameobjectList.push_back(creation);
 
@@ -200,10 +204,21 @@ Gameobject * ModuleGameobject::CreateFatherGameObject()
 	return creation;
 }
 
+Gameobject * ModuleGameobject::CreateEmpty()
+{
+	//create the game object
+	Gameobject* gm = CreateGameObject();
+	gm->Father = App->SceneEngine->GetSceneGameObjcet();
+	Gameobject* scene = App->SceneEngine->GetSceneGameObjcet();
+	scene->GameObject_Child_Vec.push_back(gm);
+
+	return gm;
+}
+
 bool ModuleGameobject::LoadFiles(const char* path) {
 
 
-	
+
 
 	App->GearConsole.AddLog(" Loading File %s", path);
 
@@ -211,3 +226,23 @@ bool ModuleGameobject::LoadFiles(const char* path) {
 }
 
 
+Gameobject * ModuleGameobject::CreateEmptyFatherLess()
+{
+	//create the game object
+	Gameobject* gm = CreateGameObject();
+
+	return gm;
+}
+
+void ModuleGameobject::SetTextureToActiveGameobject(uint id)
+{
+	// --- Assign Texture to Object's Material ---
+	ComponentMaterial* Material = App->UI_Layer->HierarchyPanel->getActiveGameobject()->materialPointer;
+
+	if (Material)
+	{
+		//Material->FreeTexture();
+		Material->SetDiffuseID( id);
+		Material->SetTextureID ( id);
+	}
+}

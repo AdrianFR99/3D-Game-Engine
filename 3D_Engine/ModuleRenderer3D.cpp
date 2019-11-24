@@ -66,7 +66,7 @@ void ModuleRenderer3D::ReloadFromConfig()
 
 
 // Called before render is available
-bool ModuleRenderer3D::Init()
+bool ModuleRenderer3D::Init(nlohmann::json config)
 {
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
@@ -205,13 +205,13 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	DrawGrindAndAxis();//TODEBUGDRAW
 
-	App->Gameobjects->Draw();
+	App->Gameobject->Draw();
 
 
 	Frustum aux = App->camera->EditorCam->GetFrustum();
 	App->camera->DrawIfInside(aux);
 
-	
+
 	if(DrawTree==true)
 	App->SceneEngine->SceneTree->Draw();
 
@@ -273,7 +273,7 @@ const void ModuleRenderer3D::ChangeAmbientSettings(bool & active, const float co
 		glLightfv(GL_LIGHT0, GL_AMBIENT, color);
 		glEnable(GL_LIGHT0);
 	}
-	else 
+	else
 		glDisable(GL_LIGHT0);
 }
 
@@ -349,4 +349,20 @@ void ModuleRenderer3D::DrawGrindAndAxis()
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
+uint ModuleRenderer3D::LoadTextureBuffer(const void* texture, uint size, int format, int width, int height, uint wrap_s, uint wrap_t, uint mag, uint min)
+{
+	uint id = 0;
 
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(size, (GLuint*)&(id));
+	glBindTexture(GL_TEXTURE_2D, id);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrap_s);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrap_t);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, mag);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, texture);
+
+	return id;
+}

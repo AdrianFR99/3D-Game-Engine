@@ -9,15 +9,17 @@
 
 class AssetMesh;
 class Primitives;
+class aiScene;
+class aiNode;
 
 class ModuleAssets:	public Module
 {
 public:
-
+	ALIGN_CLASS_TO_16
 	ModuleAssets(Application* app, bool start_enabled = true);
 
 	virtual ~ModuleAssets();
-	bool Init();
+	bool Init(nlohmann::json config);
 	bool Start();
 
 
@@ -26,14 +28,25 @@ public:
 
 	bool CleanUp(Gameobject* tmp);
 
-	void CallbackEvent(const Event& event) override;
+	
 
+	
 	bool LoadFiles(const char* path);
 	bool LoadMesh(const char* path);
 
 	void CreatePrimitive(Primitive_Type type);
 
+	void CloneToAsset(std::string filepath, std::string destination);
 
+	void NodeLoader(aiNode * node, const aiScene * scene, const char * File_path, std::vector<Gameobject*>& scene_gos, Gameobject* father = nullptr ) const;
+	bool FirstLoad(const char * filepath, bool as_new_gameobject, const aiScene * scene, std::vector<Gameobject*>& vector);
+	void RecursiveLoadMesh( aiNode* node, const aiScene* scene, const char* full_path, std::vector<Gameobject*>& resources, Gameobject* parent = nullptr);
+
+	void SetFaces(float * _vertices, uint _num_vertices, uint * _indices, uint _num_indices);
+	
+
+	void SceneLoader( const aiScene* scene,std::string path, std::string Filename );
+	
 	bool DrawFaceNormals = false;
 	bool DrawVertexNormals = false;
 

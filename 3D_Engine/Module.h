@@ -22,7 +22,7 @@ public:
 	virtual ~Module()
 	{}
 
-	virtual bool Init()
+	virtual bool Init(nlohmann::json config)
 	{
 		return true;
 	}

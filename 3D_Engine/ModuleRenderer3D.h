@@ -20,7 +20,7 @@ public:
 	ModuleRenderer3D(Application* app, bool start_enabled = true);
 	~ModuleRenderer3D();
 
-	bool Init();
+	bool Init(nlohmann::json config);
 	bool Start();
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
@@ -31,6 +31,8 @@ public:
 	void OnResize(int width, int height);
 	void changeLight(bool value);
 	void DrawGrindAndAxis();
+
+	uint LoadTextureBuffer(const void * texture, uint size, int format, int width, int height, uint wrap_s, uint wrap_t, uint mag, uint min);
 
 	//changers
 	const void ChangeAmbientSettings (bool & active, const float color [4] ) const;

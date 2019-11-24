@@ -18,11 +18,15 @@
 #include "JSONLoader.h"
 #include "WindowConsole.h"
 #include "ModuleScene.h"
+#include "ResourceManager.h"
+#include "ModuleLoaderControl.h"
 
-//#include "ModuleFileSystem.h"
+#include "ModuleFileSystem.h"
 #include "ModuleGameobject.h"
 
 #include "MathGeoLib/include/Algorithm/Random/LCG.h"
+
+#include <string>
 
 struct Event;
 
@@ -43,18 +47,19 @@ struct Event;
 class Application
 {
 public:
+	ModuleImporter* importer = nullptr;
 	ModuleWindow* window=nullptr;
 	ModuleInput* input = nullptr;
 	ModuleRenderer3D* renderer3D = nullptr;
 	ModuleCamera3D* camera = nullptr;
 	ModuleEngineUI* UI_Layer = nullptr;
 	ModuleHardware* hardware = nullptr;
-	//ModuleFileSystem* fs = nullptr;
+	ModuleFileSystem* fs = nullptr;
 	ModuleAssets* Assets = nullptr;
 	ModuleTexture* Textures = nullptr;
-	ModuleGameobject* Gameobjects = nullptr;
-	ModuleScene*SceneEngine = nullptr;
-
+	ModuleGameobject* Gameobject = nullptr;
+	ModuleScene* SceneEngine = nullptr;
+	ResourceManager* RS = nullptr;
 private:
 
 	Timer	ms_timer;
@@ -107,6 +112,13 @@ public:
 //Random Generator
 	LCG& GetRandom();
 	LCG* RandomNumbGenerator = nullptr;
+
+//Appname
+	const char* GetOrganizationName() const;
+
+// JSON
+	JSONLoader* GetJsonLoader();
+	
 private:
 
 	void AddModule(Module* mod);

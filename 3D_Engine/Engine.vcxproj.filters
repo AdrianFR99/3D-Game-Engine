@@ -219,6 +219,30 @@
     </ClCompile>
     <ClCompile Include="Tree.cpp">
       <Filter>Source\Tools</Filter>
+      </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source\Resource\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Source\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceMesh.cpp">
+      <Filter>Source\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceTexture.cpp">
+      <Filter>Source\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceMeshLoader.cpp">
+      <Filter>Source\Resource\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceTextureLoader.cpp">
+      <Filter>Source\Resource\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceSceneLoader.cpp">
+      <Filter>Source\Resource\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleLoaderControl.cpp">
+      <Filter>Source\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -563,6 +587,30 @@
     </ClInclude>
     <ClInclude Include="Tree.h">
       <Filter>Source\Tools</Filter>
+        </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Source\Resource\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Source\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMesh.h">
+      <Filter>Source\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceTexture.h">
+      <Filter>Source\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMeshLoader.h">
+      <Filter>Source\Resource\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceTextureLoader.h">
+      <Filter>Source\Resource\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceSceneLoader.h">
+      <Filter>Source\Resource\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleLoaderControl.h">
+      <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -654,6 +702,15 @@
     </Filter>
     <Filter Include="Source\Tools\Gameobject">
       <UniqueIdentifier>{60f2a376-b360-4b3f-b6d7-91d8949e8ee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Resource">
+      <UniqueIdentifier>{c038cc38-b3cc-4fe7-8237-591408284b89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Resource\Module">
+      <UniqueIdentifier>{f170d742-8681-4605-9b1d-fca3afe07673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Resource\Loader">
+      <UniqueIdentifier>{53588e7b-3933-4854-9fdc-a73234c399a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

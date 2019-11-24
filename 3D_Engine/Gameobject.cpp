@@ -189,11 +189,13 @@ void Gameobject::UpdateGlobalTransform()
 {
 
 	this;
+	
 	if (Father != nullptr)
 	{
-		transformPointer->global_transform = Father->transformPointer->global_transform * transformPointer->local_transform;
+		transformPointer->global_transform = Father->transformPointer->global_transform * transformPointer->GetTransform();;
+		int a = 0;
 	}
-	if (!GameObject_Child_Vec.empty())
+	if (GameObject_Child_Vec.empty()==false)
 	{
 		for (std::vector<Gameobject*>::iterator it = GameObject_Child_Vec.begin(); it != GameObject_Child_Vec.end(); it++)
 		{

@@ -136,7 +136,7 @@ void WindowHierarchy::DisplayItemWindow()
 		if (ImGui::MenuItem("Delete"))
 		{
 			if (activeOBJ!=nullptr)
-				App->Gameobjects->SetToDestroy(activeOBJ);
+				App->Gameobject->SetToDestroy(activeOBJ);
 			
 		}
 
@@ -154,7 +154,7 @@ void WindowHierarchy::DragDrop()
 	if (Drag)
 	{
 		
-		App->Gameobjects->ChangeParenting(Pulled, Droped);
+		App->Gameobject->ChangeParenting(Pulled, Droped);
 
 		Drag = false;
 		Pulled = nullptr;
@@ -172,4 +172,9 @@ void WindowHierarchy::Delete()
 		toDel = nullptr;
 	}
 
+}
+
+void WindowHierarchy::SetActiveGameobject(Gameobject* go)
+{
+	 activeOBJ=go;
 }

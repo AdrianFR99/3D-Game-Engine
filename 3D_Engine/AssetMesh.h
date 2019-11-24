@@ -25,9 +25,9 @@ public:
 public:
 
 	//buffer
-	uint VBO;
-	uint IBO;
-	uint UVC;//uv coord
+	uint VBO=0;
+	uint IBO=0;
+	uint UVC=0;//uv coord
 
 	//indices
 	uint num_index = 0;
@@ -45,18 +45,6 @@ public:
 	float3*normals_faces = nullptr;
 	float3*normals_faces_pos = nullptr;
 
-	//camera
-	int maxX = 0;
-	int minX = 0;
-	int medX = 0;
-	int maxY = 0;
-	int minY = 0;
-	int medY = 0;
-	int maxZ = 0;
-	int minZ = 0;
-	int medZ = 0;
-	float basedistance = 0;
-	float faraway = 0.0f;
 
 	bool active = true;
 

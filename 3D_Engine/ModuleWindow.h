@@ -15,7 +15,7 @@ public:
 	// Destructor
 	virtual ~ModuleWindow();
 
-	bool Init();
+	bool Init(nlohmann::json config);
 	bool CleanUp();
 	void Load(nlohmann::json& file);
 	void Save(nlohmann::json& file);

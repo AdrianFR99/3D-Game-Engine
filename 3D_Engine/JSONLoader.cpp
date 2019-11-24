@@ -8,11 +8,19 @@
 
 bool JSONLoader::Load(const char * FiletoLoad)
 {
+	bool ret = false;
+
 
 	//open a incoming stream of data
 	std::ifstream incomingStream;
 	incomingStream.open(FiletoLoad);
-	assert(incomingStream.is_open());
+	if (!incomingStream.is_open())
+	{
+		assert(incomingStream.is_open());
+
+	}
+	
+	
 
 
 	//using a json doc name file in .h
@@ -25,7 +33,7 @@ bool JSONLoader::Load(const char * FiletoLoad)
 	{
 		LOG("Json File load error");
 	
-		return false;
+		ret = false;
 	}
 	
 
@@ -34,7 +42,7 @@ bool JSONLoader::Load(const char * FiletoLoad)
 	incomingStream.close();
 
 
-	return true;
+	return ret;
 }
 
 bool JSONLoader::Save(const char * data, nlohmann::json doc)
@@ -60,4 +68,12 @@ bool JSONLoader::Save(const char * data, nlohmann::json doc)
 nlohmann::json JSONLoader::getFile()
 {
 	return file;
+}
+
+std::string JSONLoader::Serialize(nlohmann::json jsonfile)
+{
+	std::string data;
+	data = jsonfile.dump(4);
+
+	return data;
 }

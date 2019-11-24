@@ -19,7 +19,7 @@ ComponentTransform::~ComponentTransform()
 
 void ComponentTransform::Init()
 {
-	
+
 
 	global_transform.SetIdentity();
 	local_transform.SetIdentity();
@@ -39,7 +39,7 @@ void ComponentTransform::Update()
 
 void ComponentTransform::CleanUp()
 {
-	transform.zero;
+	//transform.zero;
 	active = false;
 	belongsTo = nullptr;
 
@@ -65,7 +65,7 @@ void ComponentTransform::Disable()
 
 float4x4 const ComponentTransform::GetTransform() const
 {
-	return transform;
+	return local_transform;
 }
 
 float3 const ComponentTransform::GetPosition() const
@@ -95,12 +95,13 @@ float4x4 const ComponentTransform::GetGlobalTransform() const
 
 const void ComponentTransform::SetPosition(const float3 & pos)
 {
-	
-	float3 offset = pos - ObjectPosition;
+
+	ObjectPosition = pos;
+
 
 	ObjectPosition = pos;
 	RecalculateMatrix();
-	
+
 }
 
 const void ComponentTransform::SetRotation(const float3 & pos)
@@ -111,7 +112,7 @@ const void ComponentTransform::SetRotation(const float3 & pos)
 	ObjectRotation = pos;
 
 	RecalculateMatrix();
-	
+
 
 
 }
@@ -134,7 +135,7 @@ const void ComponentTransform::SetScale(const float3 & pos)
 
 	RecalculateMatrix();
 
-}		
+}
 
 
 const void ComponentTransform::Scale(const float3 & scale)
@@ -149,5 +150,3 @@ void ComponentTransform::RecalculateMatrix()
 	local_transform = float4x4::FromTRS(ObjectPosition, ObjectQuat, ObjectScale);
 	belongsTo->UpdateTransform = true;
 }
-
-

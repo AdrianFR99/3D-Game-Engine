@@ -10,18 +10,21 @@
 
 Application::Application()
 {
-
+	AppName = "Gear Engine";
+	StudyCenter = "CITM";
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
-	//fs = new ModuleFileSystem(ASSETS_FOLDER));
+	fs = new ModuleFileSystem(this, ASSETS_FOLDER);
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	UI_Layer = new ModuleEngineUI(this);
 	hardware = new ModuleHardware(this);
 	Assets = new ModuleAssets(this);
 	Textures = new ModuleTexture(this);
-	Gameobjects = new ModuleGameobject(this);
+	Gameobject = new ModuleGameobject(this);
 	SceneEngine = new ModuleScene(this);
+	RS = new ResourceManager(this,true);
+	importer = new ModuleImporter(this, true);
 
 	Current_frames = 0; //current frame the program is
 	FPS_counter = 0;   //Frame per cicle
@@ -34,13 +37,16 @@ Application::Application()
 	// They will CleanUp() in reverse order
 
 	// Main Modules
+	AddModule(RS);
+	AddModule(importer);
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
 	AddModule(hardware);
+	AddModule(fs);
 	AddModule(Assets);
 	AddModule(Textures);
-	AddModule(Gameobjects);
+	AddModule(Gameobject);
 	AddModule(SceneEngine);
 	AddModule(UI_Layer);
 	
@@ -73,7 +79,7 @@ bool Application::Init()
 	bool ret = true;
 
 
-	AppName = "Gear Engine";
+	
 	App->GearConsole.AddLog(" Welcome to Gear Engine");
 	
 //	 Call Init() in all modules
@@ -81,7 +87,7 @@ bool Application::Init()
 
 	while(item != list_modules.end() && ret == true)
 	{
-		ret = (*item)->Init();
+		ret = (*item)->Init(settings);
 		item++;
 	}
 
@@ -247,7 +253,7 @@ void Application::SetMaxFrameRate(uint MaxFrameRate) {
 
 const char* Application::GetAppName() const {
 
-	return AppName.c_str();
+	return AppName.data();
 
 }
 
@@ -312,4 +318,14 @@ void Application::RefreshConfig()
 LCG & Application::GetRandom()
 {
 	return *RandomNumbGenerator;
+}
+
+const char* Application::GetOrganizationName() const
+{
+	return StudyCenter.data();
+}
+
+JSONLoader * Application::GetJsonLoader()
+{
+	return &JSONLoad;
 }

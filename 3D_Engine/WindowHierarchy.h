@@ -31,6 +31,7 @@ public:
 	void CleanActiveGameobject();
 	void DragDrop();
 	void Delete();
+	void SetActiveGameobject(Gameobject * go);
 private:
 
 	Gameobject* activeOBJ = nullptr;

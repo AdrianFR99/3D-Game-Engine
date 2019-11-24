@@ -57,7 +57,13 @@ enum update_status
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
 #define TITLE "Gears Engine"
-#define ASSETS_FOLDER "/Assets/"
+#define ASSETS_FOLDER "Assets/"
+#define SETTINGS_FOLDER "Settings/"
+#define LIBRARY_FOLDER "Library/"
+#define TEXTURES_FOLDER "Library/Textures/"
+#define MESHES_FOLDER "Library/Meshes/"
+#define SCENES_FOLDER "Library/Scenes/"
+#define MODELS_FOLDER "Library/Models/"
 
 //define Colors
 #define RED Color(1.0f, 0.0f, 0.0f)
@@ -69,3 +75,6 @@ enum update_status
 #define GREY Color(0.84f, 0.84f, 0.84f)
 #define BROWN Color(0.45f, 0.29f, 0.7f)
 #define PINK Color(0.8f, 0.59f, 0.8f)
+
+//loaders
+struct ImportData {};

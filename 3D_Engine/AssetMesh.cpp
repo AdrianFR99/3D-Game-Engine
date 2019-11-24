@@ -143,14 +143,17 @@ void AssetMesh::ToBuffer() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_index, indices, GL_STATIC_DRAW);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
+	if (num_uv != 0)
+	{
+		assert(uv_coord!=nullptr);
 
-	assert(uv_coord!=nullptr);
+		glGenBuffers(1, (GLuint*)&UVC);
+		glBindBuffer(GL_ARRAY_BUFFER,UVC);
+		glBufferData(GL_ARRAY_BUFFER,sizeof(float)*num_uv*3,uv_coord,GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	glGenBuffers(1,&UVC);
-	glBindBuffer(GL_ARRAY_BUFFER,UVC);
-	glBufferData(GL_ARRAY_BUFFER,sizeof(float)*num_uv,uv_coord,GL_STATIC_DRAW);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+	}
 }
 
 
@@ -212,7 +215,7 @@ float3 AssetMesh::CenterTri(float3&vertex1, float3&vertex2, float3&vertex3) {
 //function to triangulate the position of the camera depending on the size of the meshes
 void AssetMesh::CalculateDistance() {
 
-	for (int i = 0; i < num_vertex; ++i)
+	/*for (int i = 0; i < num_vertex; ++i)
 	{
 		if (vertices[i].x > maxX)
 		{
@@ -276,7 +279,7 @@ void AssetMesh::CalculateDistance() {
 
 	App->camera->Reference.y = medY;
 
-	App->camera->Reference.z = medZ;
+	App->camera->Reference.z = medZ;*/
 
 }
 

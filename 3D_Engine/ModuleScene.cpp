@@ -3,9 +3,8 @@
 #include "ModuleAssets.h"
 #include "ModuleCamera3D.h"
 #include "ModuleGameObject.h"
-#include "Tree.h"
-
-#include "ComponentTransform.h"//test
+#include "ModuleLoaderControl.h"
+#include "ResourceSceneLoader.h"
 
 #include "mmgr/mmgr.h"
 
@@ -19,9 +18,9 @@ ModuleScene::~ModuleScene()
 }
 
 
-bool ModuleScene::Init() {
+bool ModuleScene::Init(nlohmann::json config) {
 
-	
+
 
 	scene = App->Gameobjects->CreateFatherGameObject();
 
@@ -87,4 +86,14 @@ update_status ModuleScene::PostUpdate(float dt) {
 Gameobject * ModuleScene::GetSceneGameObjcet()
 {
 	return scene;
+}
+
+void ModuleScene::SaveScene()
+{
+	if (scene->GameObject_Child_Vec.size() != 0)
+	{
+		std::string Scene_name = "Scene";
+		App->importer->GetImporterScene()->SaveSceneToFile(scene->GameObject_Child_Vec, Scene_name, SCENE);
+
+	}
 }

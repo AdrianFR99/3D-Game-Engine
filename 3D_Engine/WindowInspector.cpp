@@ -34,19 +34,19 @@ bool WindowInspector::Display() {
 
 void WindowInspector::Inspector_Window() {
 
-	
+
 	if (ImGui::Begin("Inspector"), &active)
 	{
-		
+
 		//display normal
 		//geometry (verex faces triangles)
 
 		activeobj = App->UI_Layer->HierarchyPanel->getActiveGameobject();
 
-		
-		
-		
-		
+
+
+
+
 		if (activeobj != nullptr)
 		{
 
@@ -64,7 +64,7 @@ void WindowInspector::Inspector_Window() {
 			if(activeobj->hasTransform==true)
 			if (ImGui::CollapsingHeader("Transform"))
 			{
-				
+
 				if (Static == false) {
 					position = activeobj->transformPointer->GetPosition();
 					if (ImGui::DragFloat3("Position", (float*)&position, 0.1f))
@@ -220,6 +220,20 @@ void WindowInspector::Inspector_Window() {
 							activeobj->meshPointer->Enable();
 					}
 					ImGui::Spacing();
+				std::string display_name;
+				std::string id;
+				//if ( activeobj->meshPointer->Meshes_Vec->Meshes_Vec!=nullptr)
+				//{
+				//	/*display_name = activeobj->nameGameObject;
+				//	id = std::to_string(1);
+				//	display_name.append(id);
+
+				//	if (ImGui::Checkbox(display_name.data(), &activeobj->meshPointer->Meshes_Vec[i]->active))
+				//	{
+				//
+				//
+				//	}*/
+				//}
 
 					ImGui::Separator();
 
@@ -276,6 +290,17 @@ void WindowInspector::Inspector_Window() {
 						ImGui::Text("Normal face Count:");
 						ImGui::SameLine();
 						ImGui::TextColored(IMGUI_YELLOW, "%i", normal_faces);
+				}
+				if (activeobj->meshPointer->Meshes_Vec->Primitives_Vec != nullptr)
+				{
+					if (activeobj->meshPointer->Meshes_Vec->Primitives_Vec != nullptr) {
+
+						vertex += activeobj->meshPointer->Meshes_Vec->Primitives_Vec->num_vertex;
+						index += activeobj->meshPointer->Meshes_Vec->Primitives_Vec->num_index;
+						//normal += activeobj->meshPointer->Primitives_Vec[i]->num_normals;
+						//normal_faces += activeobj->meshPointer->Primitives_Vec[i]->num_normals_faces;
+						//uvs += activeobj->meshPointer->Primitives_Vec[i]->num_uv;
+						//Triangles += activeobj->meshPointer->Primitives_Vec[i]->num_normals_faces;
 
 						ImGui::Text("Triangles Faces Count:");
 						ImGui::SameLine();
@@ -342,8 +367,8 @@ void WindowInspector::Inspector_Window() {
 				if (ImGui::CollapsingHeader("Camera"))
 				{
 
-					
-				
+
+
 					NearPlane = activeobj->CameraPointer->CameraComponent->GetNearPlane();
 					if (ImGui::DragFloat("NearPlane", (float*)&NearPlane, 0.1f,0.1f,1000.0f))
 					activeobj->CameraPointer->CameraComponent->SetNearPlane_Dist(NearPlane);
@@ -351,7 +376,7 @@ void WindowInspector::Inspector_Window() {
 					FarPlane = activeobj->CameraPointer->CameraComponent->GetFarPlane();
 					if (ImGui::DragFloat("FarPlane", (float*)&FarPlane, 0.1f,0.1f,1000.0f))
 						activeobj->CameraPointer->CameraComponent->SetFarPlane_Dist(FarPlane);
-					
+
 					AspectRatio = activeobj->CameraPointer->CameraComponent->AspectRatio;
 					if (ImGui::DragFloat("AspectRatio", (float*)&AspectRatio, 0.1f, 0.1f, 100.0f))
 					activeobj->CameraPointer->CameraComponent->SetAspectRatio(AspectRatio);

@@ -19,7 +19,7 @@ public:
 	virtual ~ModuleGameobject();
 	
 	
-	bool Init();
+	bool Init(nlohmann::json config);
 	bool Start();
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
@@ -31,8 +31,13 @@ public:
 	void RecursiveDestruction(Gameobject* object);
 	Gameobject* CreateGameObject();
 	Gameobject* CreateFatherGameObject();
+	Gameobject* CreateEmpty();
 
 	bool LoadFiles(const char* path);
+
+	Gameobject * CreateEmptyFatherLess();
+
+	void SetTextureToActiveGameobject(uint id);
 
 	int id = 0;
 

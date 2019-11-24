@@ -32,7 +32,7 @@ public:
 
 public:
 
-	bool Init();
+	bool Init(nlohmann::json config);
 	bool Start();
 	bool Awake();
 	update_status PreUpdate(float dt);

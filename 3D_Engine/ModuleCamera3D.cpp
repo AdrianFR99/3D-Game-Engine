@@ -44,7 +44,7 @@ void ModuleCamera3D::Load(nlohmann::json& file)
 	wheel_speed = file["Modules"]["Camera"]["Wheel_speed"];
 	camera_speed = file["Modules"]["Camera"]["Camera_speed"];
 
-		
+
 }
 
 // Called to save variables
@@ -98,14 +98,14 @@ update_status ModuleCamera3D::Update(float dt)
 				EditorCam->MoveBack(cam_speed);
 		if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 			EditorCam->MoveLeft(cam_speed);
-		if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) 
+		if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 			EditorCam->MoveRight(cam_speed);
 
 
 		// mouse position and free look
 			EditorCam->RotateYourself(App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
 
-		
+
 		float Sensitivity = 0.25f;
 
 	}
@@ -116,23 +116,24 @@ update_status ModuleCamera3D::Update(float dt)
 		EditorCam->MoveFront(camera_speed);
 	else if(App->input->GetMouseZ() == -1)
 		EditorCam->MoveBack(camera_speed);
-	
 
-	
+
+
 
 	if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT) {
 
 		//rotate around the object
 		EditorCam->Orbit(PointOfFocus, App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
 
-		
+
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_UP)
 	{
-		
+
+
 		EditorCam->CenterCam(PointOfFocus,20.0f);
-		
+
 	}
 
 
@@ -152,7 +153,7 @@ void Camera3D::Look(const float3 &Position)
 	CamFrustum.front = mAux.MulDir(CamFrustum.front).Normalized();
 	CamFrustum.up = mAux.MulDir(CamFrustum.up).Normalized();
 
-	
+
 }
 
 // -----------------------------------------------------------------
@@ -169,7 +170,7 @@ void Camera3D::Look(const float3 &Position)
 	Camera3D*aux=nullptr;
 	aux = new Camera3D;
 	VecCameras.push_back(aux);
-	
+
 	return aux;
 }
 
@@ -213,7 +214,7 @@ void Camera3D::Look(const float3 &Position)
 
 
  }
- 
+
 
 
 
@@ -228,7 +229,7 @@ Camera3D::Camera3D() {
 	SetFarPlane_Dist(10000.0f);
 	SetNearPlane_Dist(0.1f);
 	SetTypeFrustum(PerspectiveFrustum);
-	
+
 	SetVeticalFOV(30);
 	SetHorizontalFOV(60);
 	SetAspectRatio((float)SCREEN_WIDTH/ (float)SCREEN_HEIGHT);
@@ -275,7 +276,7 @@ const void Camera3D::SetToUp(const float3&upDir) {
 
 	CamFrustum.up = upDir;
 	UpdateMatrices();
-	
+
 }
 
 ////similar to rotate, to orbit
@@ -299,7 +300,7 @@ void Camera3D::RotateYourself(const float& motion_x, const float& motion_y)
 {
 	float motionx;
 	float motiony;
-	
+
 	if (inverseCameraControls == false) {
 		 motionx = -motion_x;
 		 motiony = -motion_y;
@@ -333,7 +334,7 @@ const void Camera3D::MoveUp(const float&Displacement){
 
 
 	if (Displacement > 0) {
-	
+
 		float3 mov = float3::zero;
 		mov += CamFrustum.up*Displacement;
 		CamFrustum.Translate(mov);
@@ -458,7 +459,7 @@ const void Camera3D::SetFOV(const float&VFOV) {
 const void Camera3D::SetFarPlane_Dist(const float&Distance) {
 
 	CamFrustum.farPlaneDistance = Distance;
-	
+
 	UpdateProjectionMatrices();
 }
 
@@ -500,7 +501,7 @@ bool ModuleCamera3D::InsideFrustum(const AABB&Element,Frustum&fr) {
 
 	for (int i = 0; i < 6; ++i) {
 
-		
+
 		uint counter=8;
 
 		for (int j = 0; j < 8;++j) {
@@ -512,9 +513,9 @@ bool ModuleCamera3D::InsideFrustum(const AABB&Element,Frustum&fr) {
  		}
 		if (counter == 0) {
 			return false;
-			
+
 		}
-		
+
 	}
 
 
@@ -528,13 +529,13 @@ void ModuleCamera3D::DrawIfInside(Frustum&fr) {
 	std::vector<Gameobject*>Aux = App->Gameobjects->GameobjectList;
 
 	for(std::vector<Gameobject*>::iterator it = Aux.begin(); it != Aux.end();++it)
-	{ 
+	{
 
 		if (InsideFrustum((*it)->GetAABB(),fr)) {
 
 			(*it)->DrawGO=true;
 			(*it)->Draw();
-			
+
      	}
 		else {
 			(*it)->DrawGO = false;

@@ -86,7 +86,7 @@ void WindowUI_Settings::Config_Window_App() {
 
 		//App Name	
 		static char app_name[120];
-		strcpy_s(app_name,120,App->GetAppName());
+		strcpy_s(app_name,120, App->GetAppName());
 		if (ImGui::InputText("App Name",app_name, 120, ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_AutoSelectAll));
 		App->window->SetTitle(app_name);
 	

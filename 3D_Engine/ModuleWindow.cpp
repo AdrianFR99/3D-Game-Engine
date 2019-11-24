@@ -74,7 +74,7 @@ void ModuleWindow::ReloadFromConfig()
 }
 
 // Called before render is available
-bool ModuleWindow::Init()
+bool ModuleWindow::Init(nlohmann::json config)
 {
 	LOG("Init SDL window & surface");
 	App->GearConsole.AddLog(" Init SDL window ");

@@ -1,0 +1,55 @@
+{
+    "BakerHouse": {
+        "Components": {
+            "0": {
+                "positionx": "0.000000",
+                "positiony": "0.000000",
+                "positionz": "0.000000",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-180.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            }
+        },
+        "Parent": "494773295",
+        "UID": "973873315"
+    },
+    "Baker_house": {
+        "Components": {
+            "0": {
+                "positionx": "0.000000",
+                "positiony": "0.000000",
+                "positionz": "0.000000",
+                "rotationx": "-180.000000",
+                "rotationy": "-89.980217",
+                "rotationz": "0.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1931773694.mesh"
+        },
+        "Parent": "973873315",
+        "UID": "305590001"
+    },
+    "Chimney": {
+        "Components": {
+            "0": {
+                "positionx": "0.000000",
+                "positiony": "0.000000",
+                "positionz": "0.000000",
+                "rotationx": "-180.000000",
+                "rotationy": "-89.980217",
+                "rotationz": "0.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1154630638.mesh"
+        },
+        "Parent": "973873315",
+        "UID": "2061374779"
+    }
+}
