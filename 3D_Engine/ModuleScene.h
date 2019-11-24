@@ -20,6 +20,7 @@ public:
 
 	Gameobject* GetSceneGameObjcet();
 
+	void SaveScene();
 
 public:
 	Gameobject* scene;

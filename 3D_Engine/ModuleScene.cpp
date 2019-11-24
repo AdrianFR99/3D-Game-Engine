@@ -2,6 +2,8 @@
 #include "ModuleScene.h"
 #include "ModuleAssets.h"
 #include "ModuleGameObject.h"
+#include "ModuleLoaderControl.h"
+#include "ResourceSceneLoader.h"
 
 #include "mmgr/mmgr.h"
 
@@ -18,7 +20,7 @@ ModuleScene::~ModuleScene()
 bool ModuleScene::Init(nlohmann::json config) {
 
 	//CreatePrimitive();
-	scene = App->Gameobjects->CreateFatherGameObject();
+	scene = App->Gameobject->CreateFatherGameObject();
 
 
 	return true;
@@ -27,7 +29,7 @@ bool ModuleScene::Init(nlohmann::json config) {
 bool ModuleScene::Start() {
 
 //primitves must Load AFTER FBX
-	App->Assets->LoadFiles(App->AssetModel.data());
+	//App->Assets->LoadFiles(App->AssetModel.data());
 	//App->Assets->CreatePrimitive(Primitive_Type::BOTTLE);
 
 	return true;
@@ -62,4 +64,14 @@ update_status ModuleScene::PostUpdate(float dt) {
 Gameobject * ModuleScene::GetSceneGameObjcet()
 {
 	return scene;
+}
+
+void ModuleScene::SaveScene()
+{
+	if (scene->GameObject_Child_Vec.size() != 0)
+	{
+		std::string Scene_name = "Scene";
+		App->importer->GetImporterScene()->SaveSceneToFile(scene->GameObject_Child_Vec, Scene_name, SCENE);
+
+	}
 }
