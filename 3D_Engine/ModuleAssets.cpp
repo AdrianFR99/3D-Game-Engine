@@ -86,20 +86,20 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 					glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 					//texture
-					if (tmp->materialPointer->active != false)
-					{
-						glBindTexture(GL_TEXTURE_2D, tmp->materialPointer->GetCurrentTextureID()); // start using texture
-						glActiveTexture(GL_TEXTURE0);
-						glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec->Meshes_Vec->UVC); // start using created buffer (tex coords)
-						glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
-					}
-					else
-					{
-						glBindTexture(GL_TEXTURE_2D, -1); // start using texture
-						glActiveTexture(GL_TEXTURE0);
-						glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec->Meshes_Vec->UVC); // start using created buffer (tex coords)
-						glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
-					}
+					//if (tmp->materialPointer->active != false)
+					//{
+					//	glBindTexture(GL_TEXTURE_2D, tmp->materialPointer->GetCurrentTextureID()); // start using texture
+					//	glActiveTexture(GL_TEXTURE0);
+					//	glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec->Meshes_Vec->UVC); // start using created buffer (tex coords)
+					//	glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
+					//}
+					//else
+					//{
+					//	glBindTexture(GL_TEXTURE_2D, -1); // start using texture
+					//	glActiveTexture(GL_TEXTURE0);
+					//	glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec->Meshes_Vec->UVC); // start using created buffer (tex coords)
+					//	glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
+					//}
 					//else if (TextChecker) //TODO must change this to selec objects and change individually
 					//{
 					//	glBindTexture(GL_TEXTURE_2D,tmp->materialPointer->GetCurrentTextureID()); // start using texture
@@ -116,6 +116,7 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 					// Index
 					glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec->Meshes_Vec->IBO);
 					// Draw
+					
 					glDrawElements((GLenum)GL_TRIANGLES, tmp->meshPointer->Meshes_Vec->Meshes_Vec->num_index, GL_UNSIGNED_INT, NULL);
 
 
@@ -724,10 +725,7 @@ bool ModuleAssets::FirstLoad(const char * filepath, bool as_new_gameobject, cons
 		// Set camera focus
 		
 	}
-
-	// Release scene
-	if (scene != nullptr)
-		aiReleaseImport(scene);
+	
 
 	return ret;
 }
@@ -766,6 +764,8 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 		if (mesh_valid && node_valid && !mesh_already_loaded)
 		{
 			mesh = (ResourceMesh*)App->RS->CreateNewResource(Resource::ResourceType::RT_MESH, "");
+			AssetMesh* NewMesh = new AssetMesh;
+			mesh->Meshes_Vec = NewMesh;
 			mesh->SetFileName(name.c_str());
 
 			if (!aimesh->HasFaces())
@@ -933,6 +933,8 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 	else
 		pare = parent;
 
+
+	mesh->Meshes_Vec->ToBuffer();
 	// RECURSE
 	for (int i = 0; i < node->mNumChildren; i++)
 	{
