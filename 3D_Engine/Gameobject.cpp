@@ -127,11 +127,12 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 void Gameobject::UpdateGlobalTransform()
 {
 	this;
+	int a = 0;
 	if (Father != nullptr)
 	{
 		transformPointer->global_transform = Father->transformPointer->global_transform * transformPointer->local_transform;
 	}
-	if (!GameObject_Child_Vec.empty())
+	if (GameObject_Child_Vec.empty()==false)
 	{
 		for (std::vector<Gameobject*>::iterator it = GameObject_Child_Vec.begin(); it != GameObject_Child_Vec.end(); it++)
 		{

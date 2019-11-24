@@ -57,13 +57,15 @@ enum update_status
 #define WIN_FULLSCREEN_DESKTOP false
 #define VSYNC true
 #define TITLE "Gears Engine"
-#define ASSETS_FOLDER "/Assets/"
-#define SETTINGS_FOLDER "/Settings/"
-#define LIBRARY_FOLDER "/Library/"
-#define TEXTURES_FOLDER "/Library/Textures/"
-#define MESHES_FOLDER "/Library/Meshes/"
-#define SCENES_FOLDER "/Library/Scenes/"
-#define MODELS_FOLDER "/Library/Models/"
+#define ASSETS_FOLDER "Assets/"
+#define SETTINGS_FOLDER "Settings/"
+#define LIBRARY_FOLDER "Library/"
+#define TEXTURES_FOLDER "Library/Textures/"
+#define MESHES_FOLDER "Library/Meshes/"
+#define SCENES_FOLDER "Library/Scenes/"
+#define MODELS_FOLDER "Library/Models/"
 
 //define Colors
 
+//loaders
+struct ImportData {};
