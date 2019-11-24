@@ -68,7 +68,7 @@ void ResourceTexture::SetData(byte * _texture_data, uint _texture_data_lenght, u
 
 void ResourceTexture::LoadToMemory()
 {
-	if (texture_id == 0 && texture_data != nullptr && size.x > 0 && size.y > 0)
+	if (texture_id == 0 &&  size.x > 0 && size.y > 0)
 		texture_id = App->renderer3D->LoadTextureBuffer(texture_data, 1, format, size.x, size.y, wrap_s, wrap_t, mag, min);
 	DiffuseID = texture_id;
 	currentID = texture_id;
