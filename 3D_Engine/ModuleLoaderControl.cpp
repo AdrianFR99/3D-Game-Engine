@@ -86,7 +86,7 @@ void ModuleImporter::CallbackEvent(const Event& event) {
 
 			SceneImporter->Import(DroppedFile_path.data());
 		}
-		else if (DroppedFile_path.find(".png") != std::string::npos || DroppedFile_path.find(".PNG") != std::string::npos || DroppedFile_path.find(".dds") != std::string::npos || DroppedFile_path.find(".DDS") != std::string::npos)
+		else if (DroppedFile_path.find(".png") != std::string::npos || DroppedFile_path.find(".PNG") != std::string::npos || DroppedFile_path.find(".dds") != std::string::npos || DroppedFile_path.find(".DDS") != std::string::npos || DroppedFile_path.find(".tga") != std::string::npos || DroppedFile_path.find(".TGA") != std::string::npos)
 		{
 			SceneImporter->ImporterMaterial->import2(DroppedFile_path.data());
 

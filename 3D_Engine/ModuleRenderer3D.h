@@ -30,6 +30,8 @@ public:
 	void changeLight(bool value);
 	void DrawGrindAndAxis();
 
+	uint LoadTextureBuffer(const void * texture, uint size, int format, int width, int height, uint wrap_s, uint wrap_t, uint mag, uint min);
+
 	//changers
 	const void ChangeAmbientSettings (bool & active, const float color [4] ) const;
 	const void ChangeDiffuseSettings(bool & active, const float color[4] ) const;

@@ -37,6 +37,8 @@ public:
 	uint CreateCheckeredTex();
 	uint CreateTexture(const char*path, ResourceTexture& resource);
 	void SetTextureOptions(int ClampOptions,int FilterMag,int FilterMin);
+	bool LoadID(const char * filepath, std::vector<Resource*>& resources, ResourceTexture & rtex);
+	
 	uint ToTexBuffer(uint size, int format, int width, int height,const void* Texture);
 	uint CreateTextureFromFile(const char* path, uint &width, uint &height, uint LibUID) const;
 

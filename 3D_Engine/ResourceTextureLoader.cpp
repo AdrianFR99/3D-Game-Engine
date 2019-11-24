@@ -100,7 +100,9 @@ void ResourceTextureLoader::import2(const char * file_path)
 			{
 				ResourceTexture* tmp2 = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");
 				Selected->materialPointer->Resource_Material = tmp2;
-
+				/*std::vector<Resource*> resources;
+				App->Textures->LoadID(file_path, resources,*tmp2);
+				tmp2->LoadToMemory();*/
 			}
 		}
 		if (mat)
@@ -143,9 +145,12 @@ void ResourceTextureLoader::import2(const char * file_path)
 			}
 			else
 			{
-				uint id = App->Textures->CreateTexture(file_path, *(mat->Resource_Material));
+				std::vector<Resource*> resources;
+				App->Textures->LoadID(file_path, resources, *mat->Resource_Material);
+				mat->Resource_Material->LoadToMemory();
+				/*uint id = mat->GetCurrentTextureID();
 				App->Gameobject->SetTextureToActiveGameobject(id);
-
+*/
 				std::string lib_Tex = TEXTURES_FOLDER;
 				lib_Tex.append(std::to_string(mat->Resource_Material->DiffuseID));
 				lib_Tex.append(".dds");
@@ -159,3 +164,4 @@ void ResourceTextureLoader::import2(const char * file_path)
 		}
 	}
 }
+
