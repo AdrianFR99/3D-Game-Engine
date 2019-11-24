@@ -791,6 +791,8 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 			ComponentMesh* cmesh = go->meshPointer;
 			cmesh->Meshes_Vec=(mesh);
 
+			resources.push_back(go);
+
 			//text
 			App->UI_Layer->HierarchyPanel->SetActiveGameobject(go);
 			App->RS->LoadResource(pathtext.c_str(), tex);
@@ -829,7 +831,8 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 		go->UpdateTransform = true;
 	}
 	// RECURSE
-	resources.push_back(go);
+
+		
 	for (int i = 0; i < node->mNumChildren; i++)
 	{
 		RecursiveLoadMesh( node->mChildren[i], scene, full_path, resources, pare);
