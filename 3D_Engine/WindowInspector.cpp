@@ -55,6 +55,12 @@ void WindowInspector::Inspector_Window() {
 			activeobj->Static=Static;
 			activeobj->UpdateStatic(Static);
 
+			ImGui::Spacing();
+
+			DrawBBOs = activeobj->DrawBBOs;
+			ImGui::Checkbox("Bounding Box", &DrawBBOs);
+			activeobj->DrawBBOs = DrawBBOs;
+
 			if(activeobj->hasTransform==true)
 			if (ImGui::CollapsingHeader("Transform"))
 			{

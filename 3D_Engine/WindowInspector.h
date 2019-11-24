@@ -33,6 +33,8 @@ public:
 	float3 scale;
 
 
+	//BBOs
+	bool DrawBBOs = false;
 
 	//GO
 	bool Static = false;
