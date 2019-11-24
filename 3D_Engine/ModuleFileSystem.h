@@ -72,8 +72,10 @@ public:
 	//std::string GetLibraryTexturePath();
 
 	std::string GetFileNameFromFilePath(const char * file_path);
-
+	std::string GetFileNameFromFilePathWithoutExt(const char * file_path, std::string &extension);
 	std::string GetPathFromFilePath(const char * file_path);
+
+	void GetExtensionAndFilename(const char* path, std::string&filename, std::string &extension);
 
 private:
 

@@ -255,8 +255,8 @@ void ModuleFileSystem::NormalizePath(std::string & full_path) const
 	{
 		if (*it == '\\')
 			*it = '/';
-		else
-			*it = tolower(*it);
+		/*else
+			*it = tolower(*it);*/
 	}
 }
 
@@ -530,6 +530,23 @@ std::string ModuleFileSystem::GetFileNameFromFilePath(const char * file_path)
 	return ret;
 }
 
+std::string ModuleFileSystem::GetFileNameFromFilePathWithoutExt(const char * File_path, std::string &extension)
+{
+	std::string rootnodename = File_path;
+
+	// --- Remove the directory 
+	uint count = rootnodename.find_last_of("/");
+	rootnodename = rootnodename.substr(count + 1, rootnodename.size());
+
+	// Remove file type
+	uint countdot = rootnodename.find_last_of(".");
+	extension = rootnodename.substr(countdot, rootnodename.length());
+	// obtaining the file name ---
+	rootnodename = rootnodename.substr(0, countdot);
+
+	return rootnodename;
+}
+
 std::string ModuleFileSystem::GetPathFromFilePath(const char * file_path)
 {
 	string ret;
@@ -550,6 +567,19 @@ std::string ModuleFileSystem::GetPathFromFilePath(const char * file_path)
 	}
 
 	return ret;
+}
+
+void ModuleFileSystem::GetExtensionAndFilename(const char* path, std::string & filename, std::string & extension)
+{
+	std::string rootnodename = path;
+	uint count = rootnodename.find_last_of("/");
+	rootnodename = rootnodename.substr(count + 1, rootnodename.size());
+
+	uint countdot = rootnodename.find_last_of(".");
+	extension = rootnodename.substr(countdot, rootnodename.length());
+	rootnodename = rootnodename.substr(0, countdot);
+	filename = rootnodename;
+
 }
 
 
