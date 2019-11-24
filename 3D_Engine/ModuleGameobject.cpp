@@ -41,6 +41,9 @@ update_status ModuleGameobject::Update(float dt) {
 	for (int i = 0; i < GameobjectList.size(); ++i) {
 		if (GameobjectList[i]->toDelete)
 			App->Gameobject->SetToDestroy(GameobjectList[i]);
+		
+		
+		
 		if (GameobjectList[i]->UpdateTransform)
 		{
 			App->SceneEngine->scene->UpdateGlobalTransform();
@@ -60,15 +63,18 @@ update_status ModuleGameobject::Update(float dt) {
 void ModuleGameobject::Draw() {
 
 
-     // App->camera->EditorCam->DrawIfInside();
+	if (App->camera->EditorCam->Culling) {//FIX
+		Frustum aux = App->camera->EditorCam->GetFrustum();
+		App->camera->DrawIfInside(aux);
+	}
+	else {
+	
+		for (int i = 0; i < GameobjectList.size(); ++i) {
 
-	   	/*for (int i = 0; i < GameobjectList.size(); ++i) {
-
-			if(GameobjectList[i]->DrawGO==true)
 			GameobjectList[i]->Draw();
 
-		}*/
-
+		}
+	}
 }
 
 bool ModuleGameobject::CleanUp() {

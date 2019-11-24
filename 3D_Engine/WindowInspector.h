@@ -35,6 +35,8 @@ public:
 
 	//BBOs
 	bool DrawBBOs = false;
+	bool Culling = false;
+	bool CullingEditor = true;
 
 	//GO
 	bool Static = false;

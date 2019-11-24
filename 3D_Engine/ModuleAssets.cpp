@@ -770,6 +770,9 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 			}
 		}
 
+
+
+
 		// CREATE GAME OBJECT
 		if (mesh_valid && node_valid && parent != nullptr)
 		{
@@ -791,10 +794,14 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 			ComponentMesh* cmesh = go->meshPointer;
 			cmesh->Meshes_Vec=(mesh);
 
+			cmesh->Meshes_Vec->mesh_asset->GenerateAABB();
+			////// SetBoxes
+			go->SetBBOs();
+
+
 			resources.push_back(go);
 
-			//// SetBoxes
-			go->SetBBOs();
+		
 
 
 			//text

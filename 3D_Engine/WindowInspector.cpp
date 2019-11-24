@@ -358,6 +358,14 @@ void WindowInspector::Inspector_Window() {
 
 				if (ImGui::CollapsingHeader("Camera"))
 				{
+					Culling = activeobj->CameraPointer->CameraComponent->Culling;
+						if (ImGui::Checkbox("Frustum Cullign", &Culling))
+							activeobj->CameraPointer->CameraComponent->Culling = Culling;
+					
+
+						CullingEditor = App->camera->EditorCam->Culling;
+						if (ImGui::Checkbox("Editors Cam Frustum Cullign", &CullingEditor))
+							App->camera->EditorCam->Culling = CullingEditor;
 
 
 

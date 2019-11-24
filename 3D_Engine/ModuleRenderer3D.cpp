@@ -208,9 +208,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	App->Gameobject->Draw();
 
 
-	Frustum aux = App->camera->EditorCam->GetFrustum();
-	App->camera->DrawIfInside(aux);
 
+	App->Gameobject->Draw();
 
 	if(DrawTree==true)
 	App->SceneEngine->SceneTree->Draw();

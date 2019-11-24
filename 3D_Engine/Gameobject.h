@@ -73,6 +73,9 @@ public:
 	bool DrawAABB = true;
 	bool DrawOBB = true;
 
+
+
+
 	std::string nameGameObject ;
 
 	uint ID = 0;

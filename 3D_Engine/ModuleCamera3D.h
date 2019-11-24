@@ -82,7 +82,7 @@ public:
 public:
 
 	bool inverseCameraControls=false;
-
+	bool Culling = false;
 
 private:
 
