@@ -2,6 +2,8 @@
 #include "ModuleGameobject.h"
 #include "Application.h"
 #include "ModuleScene.h"
+#include "ModuleEngineUI.h"
+#include"WindowHierarchy.h"
 #include "mmgr/mmgr.h"
 
 
@@ -226,3 +228,15 @@ Gameobject * ModuleGameobject::CreateEmptyFatherLess()
 	return gm;
 }
 
+void ModuleGameobject::SetTextureToActiveGameobject(uint id)
+{
+	// --- Assign Texture to Object's Material ---
+	ComponentMaterial* Material = App->UI_Layer->HierarchyPanel->getActiveGameobject()->materialPointer;
+
+	if (Material)
+	{
+		//Material->FreeTexture();
+		Material->SetDiffuseID( id);
+		Material->SetTextureID ( id);
+	}
+}

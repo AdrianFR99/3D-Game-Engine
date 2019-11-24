@@ -37,6 +37,9 @@ public:
 	std::string GetUniqueId();
 
 
+	std::string resource_file = "";
+	std::string original_file = "";
+	std::string file_name;
 
 private:
 
@@ -49,7 +52,6 @@ private:
 	std::string  unique_id;
 	int			 count_ref = 0;
 
-	std::string file_name;
 };
 
 #endif

@@ -227,3 +227,17 @@ std::string ResourceManager::GetUIDFromMeta(const char * file)
 
 	return UID.data();
 }
+
+Resource * ResourceManager::GetResource(const char * original_file)
+{
+	// --- If resource is loaded into memory, return pointer to it, else load it ---
+
+	for (std::map<std::string, Resource*>::iterator it = resources.begin(); it != resources.end(); ++it)
+	{
+		std::string tmp = it->second->original_file;
+		if (tmp.compare(original_file) == 0)
+			return it->second;
+	}
+
+	return nullptr;
+}

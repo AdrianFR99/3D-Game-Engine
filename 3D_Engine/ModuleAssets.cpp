@@ -86,20 +86,22 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 					glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 					//texture
-					//if (tmp->materialPointer->active != false)
-					//{
-					//	glBindTexture(GL_TEXTURE_2D, tmp->materialPointer->GetCurrentTextureID()); // start using texture
-					//	glActiveTexture(GL_TEXTURE0);
-					//	glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec->Meshes_Vec->UVC); // start using created buffer (tex coords)
-					//	glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
-					//}
-					//else
-					//{
-					//	glBindTexture(GL_TEXTURE_2D, -1); // start using texture
-					//	glActiveTexture(GL_TEXTURE0);
-					//	glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec->Meshes_Vec->UVC); // start using created buffer (tex coords)
-					//	glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
-					//}
+					if (tmp->materialPointer != nullptr)
+					{
+					if (tmp->materialPointer->active != false)
+					{
+						glBindTexture(GL_TEXTURE_2D, tmp->materialPointer->GetCurrentTextureID()); // start using texture
+						glActiveTexture(GL_TEXTURE0);
+						glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec->Meshes_Vec->UVC); // start using created buffer (tex coords)
+						glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
+					}
+					else
+					{
+						glBindTexture(GL_TEXTURE_2D, -1); // start using texture
+						glActiveTexture(GL_TEXTURE0);
+						glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec->Meshes_Vec->UVC); // start using created buffer (tex coords)
+						glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
+					}
 					//else if (TextChecker) //TODO must change this to selec objects and change individually
 					//{
 					//	glBindTexture(GL_TEXTURE_2D,tmp->materialPointer->GetCurrentTextureID()); // start using texture
@@ -107,6 +109,7 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 					//	glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
 					//	glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
 					//}
+					}
 
 
 					glEnableClientState(GL_VERTEX_ARRAY);
@@ -519,10 +522,7 @@ void ModuleAssets::SceneLoader( const aiScene * scene, std::string path, std::st
 
 	// Load Scene by nodes 
 	FirstLoad(path.data(),true,scene);
-	if (scene->mRootNode->mNumChildren > 0)
-	{
-		//NodeLoader(scene->mRootNode, scene, path.data(),scene_gos);
-	}
+	
 
 	// Export to OwnFormat
 	std::string exported_file = App->importer->GetImporterScene()->SaveSceneToFile(scene_gos, Filename, MODEL);

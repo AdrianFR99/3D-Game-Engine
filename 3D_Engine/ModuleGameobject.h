@@ -37,6 +37,8 @@ public:
 
 	Gameobject * CreateEmptyFatherLess();
 
+	void SetTextureToActiveGameobject(uint id);
+
 	int id = 0;
 
 	std::vector<Gameobject*> GameobjectList;

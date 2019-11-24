@@ -41,6 +41,7 @@ public:
 	void CreateMetaFromUID(std::string UID, const char * filename);
 	bool IsFileImported(const char * file);
 	std::string GetUIDFromMeta(const char * file);
+	Resource * GetResource(const char * original_file);
 	Resource * Get(std::string _unique_id);
 	Resource * CreateNewResource(Resource::ResourceType type, std::string _unique_id);
 	
