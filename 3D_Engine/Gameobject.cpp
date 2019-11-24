@@ -25,7 +25,6 @@ Gameobject::Gameobject(int id)
     //default OBB && AABB if there is no mesh
 	
 	
-	def.SetFrom(AABB(transformPointer->GetPosition()-float3::one, transformPointer->GetPosition()+float3::one));
 	
 }
 
@@ -48,19 +47,14 @@ void Gameobject::Update()
 
 void Gameobject::Draw()
 {
-
-
-	if (DrawGO == true) {
-
-		for (int i = 0; i < ComponentList.size(); ++i) {
+	   	for (int i = 0; i < ComponentList.size(); ++i) {
 
 
 			ComponentList[i]->Draw();
 
 		}
-
 		
-	}
+	
 
 	if (DrawBBOs == true)
 		DrawOBB_Box();
@@ -219,6 +213,8 @@ void Gameobject::SetBBOs() {
 	obb = meshPointer->Meshes_Vec[0]->bbox;
 	obb.Transform(transformPointer->GetGlobalTransform());
 	aabb.SetFrom(obb);
+	//.SetFrom(AABB(transformPointer->GetPosition() - float3::one, transformPointer->GetPosition() + float3::one));
+
 }
 
 void Gameobject::UpdateBBOs(){

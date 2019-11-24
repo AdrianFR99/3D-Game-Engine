@@ -9,8 +9,11 @@
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	
-	EditorCam =CreateNewCamera();
+	float3 aux={ 0.0f,10.0f,-15.0f };
+	float Near = 0.1f;
+	float Far = 1000.0f;
+
+	EditorCam =CreateNewCamera(aux,Far,Near);
 	CurrentCam = EditorCam;
 
 
@@ -487,11 +490,12 @@ const void Camera3D::UpdateProjectionMatrices() {
 }
 
 
-bool Camera3D::InsideFrustum(const AABB&Element) {
+bool ModuleCamera3D::InsideFrustum(const AABB&Element,Frustum&fr) {
 
 
 	float3 Corners[8];
 	Element.GetCornerPoints(Corners);
+
 
 
 	for (int i = 0; i < 6; ++i) {
@@ -502,7 +506,7 @@ bool Camera3D::InsideFrustum(const AABB&Element) {
 		for (int j = 0; j < 8;++j) {
 
 
-			if (CamFrustum.GetPlane(i).IsOnPositiveSide(Corners[j]))
+			if (fr.GetPlane(i).IsOnPositiveSide(Corners[j]))
 				--counter;
 
  		}
@@ -518,7 +522,7 @@ bool Camera3D::InsideFrustum(const AABB&Element) {
 
 }
 
-void Camera3D::DrawIfInside() {
+void ModuleCamera3D::DrawIfInside(Frustum&fr) {
 
 
 	std::vector<Gameobject*>Aux = App->Gameobjects->GameobjectList;
@@ -526,13 +530,16 @@ void Camera3D::DrawIfInside() {
 	for(std::vector<Gameobject*>::iterator it = Aux.begin(); it != Aux.end();++it)
 	{ 
 
-		if (InsideFrustum((*it)->GetAABB())) {
+		if (InsideFrustum((*it)->GetAABB(),fr)) {
 
 			(*it)->DrawGO=true;
+			(*it)->Draw();
+			
      	}
-		else 
+		else {
 			(*it)->DrawGO = false;
-	
+
+		}
 	}
 
 

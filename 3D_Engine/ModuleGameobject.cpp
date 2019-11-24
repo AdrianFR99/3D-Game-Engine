@@ -58,13 +58,14 @@ update_status ModuleGameobject::Update(float dt) {
 void ModuleGameobject::Draw() {
 
 
-//App->camera->EditorCam->DrawIfInside();
+     // App->camera->EditorCam->DrawIfInside();
 
-	   	for (int i = 0; i < GameobjectList.size(); ++i) {
+	   	/*for (int i = 0; i < GameobjectList.size(); ++i) {
 
+			if(GameobjectList[i]->DrawGO==true)
 			GameobjectList[i]->Draw();
 			
-		}
+		}*/
 	
 }
 

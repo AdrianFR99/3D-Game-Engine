@@ -5,6 +5,8 @@
 #include "ModuleGameobject.h"
 #include "Tree.h"
 
+//#include "ComponentCamera.h"//TEST
+
 #include "glew/include/glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include "imgui/imgui.h"
@@ -206,7 +208,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	App->Gameobjects->Draw();
 
 
-
+	Frustum aux = App->camera->EditorCam->GetFrustum();
+	App->camera->DrawIfInside(aux);
 
 	
 	if(DrawTree==true)

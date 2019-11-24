@@ -71,9 +71,7 @@ public:
 	const void UpdateMatrices();
 	const void UpdateProjectionMatrices();
 	
-	//Frustum culling
-	bool InsideFrustum(const AABB&Element);
-	void DrawIfInside();
+	
 
 public:
 
@@ -128,6 +126,11 @@ public:
 	 const float* GLProjectionMatrix();
 
 
+
+
+	 //Frustum culling
+	 bool InsideFrustum(const AABB&Element, Frustum&fr);
+	 void DrawIfInside(Frustum&fr);
 
 	/*void CalculateViewMatrix();*/
 

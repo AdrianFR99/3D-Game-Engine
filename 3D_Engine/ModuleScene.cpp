@@ -5,6 +5,8 @@
 #include "ModuleGameObject.h"
 #include "Tree.h"
 
+#include "ComponentTransform.h"//test
+
 #include "mmgr/mmgr.h"
 
 ModuleScene::ModuleScene(Application* app, bool start_enabled):Module(app, start_enabled)
@@ -27,6 +29,7 @@ bool ModuleScene::Init() {
 	Test = App->Gameobjects->CreateGameObject();
 	Test->CreateComponent(Test,CompType::CAMERA,true);
 	Test->nameGameObject = "camera";
+	Test->aabb.SetFrom(AABB(Test->transformPointer->GetPosition() - float3::one, Test->transformPointer->GetPosition() + float3::one));
 	Test->Father = scene;
 	scene->GameObject_Child_Vec.push_back(Test);
 
