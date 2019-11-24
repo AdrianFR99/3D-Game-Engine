@@ -41,6 +41,8 @@ bool ModuleScene::Init(nlohmann::json config) {
 bool ModuleScene::Start() {
 
 
+	App->RS->LoadResource(App->AssetModel.data());
+
 
 	SceneTree = new Tree(AABB({ -50, -30.f, -50.f }, { 50.f, 30.f, 50.f }),TreeType::QUAT_TREE,3);
 

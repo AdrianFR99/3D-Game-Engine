@@ -246,7 +246,7 @@ bool ModuleAssets::CleanUp(Gameobject* tmp) {
 
 bool ModuleAssets::LoadFiles(const char* path) {
 
-	std::string path_Aux = path;
+	/*std::string path_Aux = path;
 
 	if (path_Aux.find(".fbx") != std::string::npos || path_Aux.find(".FBX") != std::string::npos) {
 
@@ -326,7 +326,7 @@ bool ModuleAssets::LoadFiles(const char* path) {
 	}
 
 
-	App->GearConsole.AddLog(" Loading File %s",path);
+	App->GearConsole.AddLog(" Loading File %s",path);*/
 
 	return true;
 }
