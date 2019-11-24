@@ -523,9 +523,10 @@ void ModuleAssets::SceneLoader( const aiScene * scene, std::string path, std::st
 	std::vector<Gameobject*> scene_gos;
 
 	// Load Scene by nodes 
+	FirstLoad(path.data(),true,scene);
 	if (scene->mRootNode->mNumChildren > 0)
 	{
-		NodeLoader(scene->mRootNode, scene, path.data(),scene_gos);
+		//NodeLoader(scene->mRootNode, scene, path.data(),scene_gos);
 	}
 
 	// Export to OwnFormat
@@ -648,3 +649,294 @@ void ModuleAssets::NodeLoader(aiNode* node, const aiScene* scene, const char* Fi
 		}
 	}
 }
+
+bool ModuleAssets::FirstLoad(const char * filepath, bool as_new_gameobject, const aiScene* scene)
+{
+	bool ret = true;
+
+	std::string path = App->fs->GetPathFromFilePath(filepath);
+	std::string filename = App->fs->GetFileNameFromFilePath(filepath);
+	std::string name; 
+	std::string ext;
+	App->fs->GetExtensionAndFilename(filename.c_str(),name,ext);
+	LOG("\nStarting mesh scene Loading -------------------- \n\n");
+	//scene = aiImportFile(filepath, aiProcessPreset_TargetRealtime_MaxQuality);
+	LOG("Finishing mesh scene Loading ---------------------");
+
+	if (scene == nullptr)
+		ret = false;
+
+	if (ret && !scene->HasMeshes())
+	{
+		LOG("WARNING, scene has no meshes!");
+		ret = false;
+	}
+
+	if (ret)
+	{
+		aiNode* root = scene->mRootNode;
+
+		// Root transform
+		float3 position(0, 0, 0);
+		Quat rotation(0, 0, 0, 0);
+		float3 scale(0, 0, 0);
+
+		aiVector3D aitranslation;
+		aiVector3D aiscaling;
+		aiQuaternion airotation;
+
+		if (root != nullptr)
+		{
+			root->mTransformation.Decompose(aiscaling, airotation, aitranslation);
+			position = float3(aitranslation.x, aitranslation.y, aitranslation.z);
+			scale = float3(aiscaling.x, aiscaling.y, aiscaling.z);
+			rotation = Quat(airotation.x, airotation.y, airotation.z, airotation.w);
+		}
+
+		// Create root go
+		Gameobject* parent = nullptr;
+
+		parent = App->Gameobject->CreateEmpty();
+		parent->transformPointer->SetPosition(float3(position.x, position.y, position.z));
+		parent->transformPointer->SetRotationQuat(Quat(rotation.x, rotation.y, rotation.w, rotation.z));
+		parent->transformPointer->SetScale(float3(scale.x, scale.y, scale.z));
+
+		std::string filepath2 = App->fs->GetFileNameFromFilePath(filepath);
+		std::string name;
+		App->fs->GetExtensionAndFilename(filepath2.c_str(), name, ext);
+		parent->nameGameObject=name;
+
+
+		//// Total mesh bbox
+		//AABB total_abb;
+		//total_abb.SetNegativeInfinity();
+
+		// Keep track of resources loaded (avoid repeating)
+
+		// Iterate
+		std::vector<Gameobject*> resources;
+		for (int i = 0; i < root->mNumChildren; i++)
+		{
+			RecursiveLoadMesh( root->mChildren[i], scene, filepath, resources, parent);
+		}
+
+
+		// Set camera focus
+		
+	}
+
+	// Release scene
+	if (scene != nullptr)
+		aiReleaseImport(scene);
+
+	return ret;
+}
+
+void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  const char * full_path,
+	std::vector<Gameobject*>& resources, Gameobject * parent)
+{
+	bool node_valid = true;
+
+	if (node->mNumMeshes == 0)
+		node_valid = false;
+	
+	/*AssetMesh* assetMesh = new AssetMesh;
+	assetMesh.*/
+	aiMesh* aimesh = nullptr;
+	ResourceMesh* mesh = nullptr;
+	Gameobject* go = nullptr;
+	std::string name = node->mName.C_Str();
+
+	for (int i = 0; i < node->mNumMeshes; i++)
+	{
+		bool mesh_valid = true;
+
+		int mesh_index = node->mMeshes[i];
+		aimesh = scene->mMeshes[mesh_index];
+
+		// Check if its already loaded
+		Resource* res_mesh = nullptr;
+		bool mesh_already_loaded = false;
+		/*if (ResourceIsUsed(mesh_index, RT_MESH, res_mesh))
+		{
+			mesh = (ResourceMesh*)res_mesh;
+			mesh_already_loaded = true;
+		}*/
+
+		if (mesh_valid && node_valid && !mesh_already_loaded)
+		{
+			mesh = (ResourceMesh*)App->RS->CreateNewResource(Resource::ResourceType::RT_MESH, "");
+			mesh->SetFileName(name.c_str());
+
+			if (!aimesh->HasFaces())
+			{
+				LOG("WARNING, geometry has no faces!");
+				mesh_valid = false;
+			}
+		}
+
+		// VERTICES && INDICES
+		if (mesh_valid && node_valid && !mesh_already_loaded)
+		{
+			float* vertices = new float[aimesh->mNumVertices * 3];
+			memcpy(vertices, aimesh->mVertices, sizeof(float) * aimesh->mNumVertices * 3);
+
+			uint* indices = new uint[aimesh->mNumFaces * 3];
+
+			for (uint i = 0; i < aimesh->mNumFaces && mesh_valid; ++i)
+			{
+				if (aimesh->mFaces[i].mNumIndices == 3)
+				{
+					memcpy(&indices[i * 3], aimesh->mFaces[i].mIndices, 3 * sizeof(uint));
+				}
+				else
+				{
+					LOG("WARNING, geometry face with != 3 indices!");
+					mesh_valid = false;
+				}
+			}
+
+			mesh->SetFaces(vertices, aimesh->mNumVertices, indices, aimesh->mNumFaces * 3);
+
+			RELEASE_ARRAY(vertices);
+			RELEASE_ARRAY(indices);
+		}
+
+		// UVS
+		if (mesh_valid && node_valid && !mesh_already_loaded && aimesh->HasTextureCoords(0))
+		{
+			float* uvs = new float[aimesh->mNumVertices * 3];
+			memcpy(uvs, (float*)aimesh->mTextureCoords[0], sizeof(float) * aimesh->mNumVertices * 3);
+
+			mesh->SetUvs(uvs, aimesh->mNumVertices);
+
+			RELEASE_ARRAY(uvs);
+		}
+
+		// POSITION, ROTATION AND SCALE
+		float3 position(0, 0, 0);
+		Quat rotation(0, 0, 0, 0);
+		float3 scale(0, 0, 0);
+
+		float3 posi ;
+		Quat roti ;
+		float3 scali ;
+
+		if (mesh_valid && node_valid)
+		{
+			aiVector3D aitranslation;
+			aiVector3D aiscaling;
+			aiQuaternion airotation;
+
+			node->mTransformation.Decompose(aiscaling, airotation, aitranslation);
+			position = float3(aitranslation.x, aitranslation.y, aitranslation.z);
+			scale = float3(aiscaling.x, aiscaling.y, aiscaling.z);
+			rotation = Quat(airotation.x, airotation.y, airotation.z, airotation.w);
+
+			 posi = float3(position.x, position.y, position.z);
+			 roti = Quat(rotation.x, rotation.y, rotation.w, rotation.z);
+			 scali = float3(scale.x, scale.y, scale.z);
+				
+				
+				
+
+		}
+
+		//// GENERAL BBOX
+		//if (mesh_valid && node_valid)
+		//{
+		//	AABB mesh_with_scale = mesh->GetBBox();
+		//	mesh_with_scale.Scale(position, scale);
+
+		//	total_abb.Enclose(mesh_with_scale);
+		//}
+
+		//// MATERIALS
+		//ResourceTexture* texture = nullptr;
+		//if (mesh_valid && node_valid)
+		//{
+		//	// Check if its already loaded
+		//	Resource* res_tex = nullptr;
+		//	bool texture_already_loaded = false;
+		//	if (ResourceIsUsed(aimesh->mMaterialIndex, RT_TEXTURE, res_tex))
+		//	{
+		//		texture = (ResourceTexture*)res_tex;
+		//		texture_already_loaded = true;
+		//	}
+
+		//	if (!texture_already_loaded)
+		//	{
+		//		aiMaterial* material = scene->mMaterials[aimesh->mMaterialIndex];
+
+		//		string path = App->file_system->GetPathFromFilePath(full_path);
+
+		//		// Difuse -------------------
+		//		aiString file;
+		//		material->GetTexture(aiTextureType_DIFFUSE, 0, &file);
+		//		path += App->file_system->GetFileNameFromFilePath(file.C_Str());
+
+		//		vector<Resource*> tex;
+		//		App->resource_manager->LoadResource(path.c_str(), tex);
+		//		if (!tex.empty())
+		//		{
+		//			texture = (ResourceTexture*)*tex.begin();
+		//			AddResource(aimesh->mMaterialIndex, RT_TEXTURE, texture);
+		//		}
+		//	}
+		//}
+
+		// CREATE GAME OBJECT
+		if (mesh_valid && node_valid && parent != nullptr)
+		{
+			go = App->Gameobject->CreateEmptyFatherLess();
+
+			if (name == "")
+				name = "no_name";
+
+			go->nameGameObject=(name);
+
+			parent->GameObject_Child_Vec.push_back(go);
+
+			go->transformPointer->SetPosition(posi);
+			go->transformPointer->SetRotationQuat(roti);
+			go->transformPointer->SetScale(scali);
+
+			go->CreateComponent(go, MESH, true);
+			ComponentMesh* cmesh = go->meshPointer;
+			cmesh->Meshes_Vec=(mesh);
+
+			/*if (texture != nullptr)
+			{
+				go->AddComponent(MATERIAL);
+				ComponentMaterial* cmaterial = (ComponentMaterial*)go->GetComponent(MATERIAL);
+				cmaterial->SetTexture(texture);
+			}*/
+		}
+
+		/*if (mesh_valid && node_valid && !mesh_already_loaded && mesh != nullptr)
+		{
+			App->resource_manager->SaveResourceIntoFile(mesh);
+
+			AddResource(mesh_index, RT_MESH, mesh);
+
+			resources.push_back(mesh);
+		}*/
+
+		/*else if (!mesh_valid && !mesh_already_loaded && mesh != nullptr)
+			App->RS->DeleteResource(mesh->GetUniqueId());*/
+	}
+
+	// Select parent
+	Gameobject* pare = nullptr;
+	if (node_valid && go != nullptr)
+		pare = go;
+	else
+		pare = parent;
+
+	// RECURSE
+	for (int i = 0; i < node->mNumChildren; i++)
+	{
+		RecursiveLoadMesh( node->mChildren[i], scene, full_path, resources, pare);
+	}
+}
+

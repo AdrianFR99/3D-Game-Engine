@@ -146,3 +146,34 @@ uint * ResourceMesh::GetIndices()
 	return ret;
 }
 
+void ResourceMesh::SetFaces(float * _vertices, uint _num_vertices, uint * _indices, uint _num_indices)
+{
+	if (_num_vertices > 0)
+	{
+		// Vertices
+		Meshes_Vec->vertices = new float3[_num_vertices * 3];
+		memcpy(Meshes_Vec->vertices, _vertices, sizeof(float) * _num_vertices * 3);
+		Meshes_Vec->num_vertex = _num_vertices;
+
+		if (_num_indices > 0)
+		{
+			// Indices
+			Meshes_Vec->indices = new uint[_num_indices];
+			memcpy(Meshes_Vec->indices, _indices, sizeof(uint) * _num_indices);
+			Meshes_Vec->num_index = _num_indices;
+		}
+
+	
+	}
+}
+
+void ResourceMesh::SetUvs(float * _uvs, uint _num_uvs)
+{
+	if (_num_uvs > 0)
+	{
+		// UVs
+		Meshes_Vec->uv_coord = new float[_num_uvs * 3];
+		memcpy(Meshes_Vec->uv_coord, _uvs, sizeof(float) * _num_uvs * 3);
+		Meshes_Vec->num_uv = _num_uvs;
+	}
+}

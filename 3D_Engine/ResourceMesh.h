@@ -30,6 +30,8 @@ public:
 	uint GetNumIndices();
 
 	uint* GetIndices();
+	void SetFaces(float * _vertices, uint _num_vertices, uint * _indices, uint _num_indices);
+	void SetUvs(float * _uvs, uint _num_uvs);
 	float3* GetVertices();
 	
 	uint GetNumNormal();

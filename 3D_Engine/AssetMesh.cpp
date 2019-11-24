@@ -209,7 +209,7 @@ float3 AssetMesh::CenterTri(float3&vertex1, float3&vertex2, float3&vertex3) {
 //function to triangulate the position of the camera depending on the size of the meshes
 void AssetMesh::CalculateDistance() {
 
-	for (int i = 0; i < num_vertex; ++i)
+	/*for (int i = 0; i < num_vertex; ++i)
 	{
 		if (vertices[i].x > maxX)
 		{
@@ -273,6 +273,6 @@ void AssetMesh::CalculateDistance() {
 
 	App->camera->Reference.y = medY;
 
-	App->camera->Reference.z = medZ;
+	App->camera->Reference.z = medZ;*/
 
 }
