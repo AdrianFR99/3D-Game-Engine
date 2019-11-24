@@ -13,7 +13,7 @@
 #include "WindowHierarchy.h"
 #include "ModuleScene.h"
 #include "ResourceManager.h"
-
+#include "ResourceSceneLoader.h"
 #include "imgui_defines.h"
 
 #include "glew/include/glew.h"
@@ -244,8 +244,8 @@ bool ModuleAssets::LoadFiles(const char* path) {
 	std::string path_Aux = path;
 
 	if (path_Aux.find(".fbx") != std::string::npos || path_Aux.find(".FBX") != std::string::npos) {
-		/*App->Gameobjects->CleanUp();
-		App->UI_Layer->HierarchyPanel->CleanActiveGameobject();*/
+		
+
 		LoadMesh(path);
 	}
 
@@ -260,7 +260,7 @@ bool ModuleAssets::LoadFiles(const char* path) {
 
 		if (found == false)
 		{
-			re = (ResourceTexture*)App->RS->CreateNewResource(RT_TEXTURE, "");
+			re = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");
 			id = App->Textures->CreateTexture(path,*re);
 		}
 		if (id != -1 )
@@ -272,7 +272,7 @@ bool ModuleAssets::LoadFiles(const char* path) {
 			Gameobject* activeGameObject = nullptr;
 			activeGameObject = App->UI_Layer->HierarchyPanel->getActiveGameobject();
 			
-			if (App->Gameobjects->GameobjectList.size()>0) {
+			if (App->Gameobject->GameobjectList.size()>0) {
 
 				if (activeGameObject!=nullptr )
 				{
@@ -294,18 +294,18 @@ bool ModuleAssets::LoadFiles(const char* path) {
 				}
 				else
 				{
-					if (App->Gameobjects->GameobjectList[1]->materialPointer != nullptr)
+					if (App->Gameobject->GameobjectList[1]->materialPointer != nullptr)
 					{
-						App->Gameobjects->GameobjectList[1]->materialPointer->Resource_Material = re;
-						App->Gameobjects->GameobjectList[1]->materialPointer->SetTextureID(id);
-						App->Gameobjects->GameobjectList[1]->materialPointer->SetDiffuseID(id);
+						App->Gameobject->GameobjectList[1]->materialPointer->Resource_Material = re;
+						App->Gameobject->GameobjectList[1]->materialPointer->SetTextureID(id);
+						App->Gameobject->GameobjectList[1]->materialPointer->SetDiffuseID(id);
 					}
 					else if (activeGameObject->materialPointer == nullptr)
 					{
-						App->Gameobjects->GameobjectList[1]->CreateComponent(App->Gameobjects->GameobjectList[1], MATERIAL, true);
-						App->Gameobjects->GameobjectList[1]->materialPointer->Resource_Material = re;
-						App->Gameobjects->GameobjectList[1]->materialPointer->SetTextureID(id);
-						App->Gameobjects->GameobjectList[1]->materialPointer->SetDiffuseID(id);
+						App->Gameobject->GameobjectList[1]->CreateComponent(App->Gameobject->GameobjectList[1], MATERIAL, true);
+						App->Gameobject->GameobjectList[1]->materialPointer->Resource_Material = re;
+						App->Gameobject->GameobjectList[1]->materialPointer->SetTextureID(id);
+						App->Gameobject->GameobjectList[1]->materialPointer->SetDiffuseID(id);
 					}
 					
 					
@@ -337,10 +337,10 @@ bool ModuleAssets::LoadMesh(const char* path) {
 		Gameobject* father;
 		for (uint i = 0; i < Scene->mNumMeshes; ++i)
 		{
-			Gameobject* tmpGO = App->Gameobjects->CreateGameObject();
+			Gameobject* tmpGO = App->Gameobject->CreateGameObject();
 			tmpGO->CreateComponent(tmpGO, MESH, true);
 
-			ResourceMesh* tmp = (ResourceMesh*)App->RS->CreateNewResource(RT_MESH,"");
+			ResourceMesh* tmp = (ResourceMesh*)App->RS->CreateNewResource(Resource::ResourceType::RT_MESH,"");
 			tmpGO->meshPointer->Meshes_Vec = tmp;
 			
 			//insert name game obj
@@ -375,25 +375,11 @@ bool ModuleAssets::LoadMesh(const char* path) {
 			component_path.append(".mesh");
 			App->RS->meshLoader->Save(tmp, component_path.data());
 
-			/*for ( tmpGO->meshPointer->Meshes_Vec->Meshes_Vec != nullptr) {
-
-				if (tmpGO->meshPointer->Meshes_Vec->Meshes_Vec->faraway > tmpGO->CameraDistance)
-					tmpGO->CameraDistance = tmp->meshPointer->Meshes_Vec->faraway;
-
-				if (tmpGO->meshPointer->Meshes_Vec->Meshes_Vec->medX > tmpGO->xPos)
-					tmpGO->xPos = tmp->meshPointer->Meshes_Vec->Meshes_Vec->medX;
-
-				if (tmpGO->meshPointer->Meshes_Vec->Meshes_Vec->medY > tmpGO->yPos)
-					tmpGO->yPos = tmp->meshPointer->Meshes_Vec->Meshes_Vec->medY;
-
-				if (tmpGO->meshPointer->Meshes_Vec->Meshes_Vec->medZ > tmpGO->zPos)
-					tmpGO->zPos = tmp->meshPointer->Meshes_Vec->Meshes_Vec->medZ;
-			}*/
 		
 			if (Scene->HasMaterials()) {
 
 				tmpGO->CreateComponent(tmpGO, MATERIAL, true);
-				ResourceTexture* tmp2 = (ResourceTexture*)App->RS->CreateNewResource(RT_TEXTURE, "");
+				ResourceTexture* tmp2 = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");
 				tmpGO->materialPointer->Resource_Material = tmp2;
 				aiString Texture_path;
 
@@ -435,12 +421,13 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 }
 
+
 void ModuleAssets::CreatePrimitive(Primitive_Type type)
 {
-	Gameobject* tmp = App->Gameobjects->CreateGameObject();
+	Gameobject* tmp = App->Gameobject->CreateGameObject();
 	tmp->CreateComponent(tmp, MESH, true);
 
-	ResourceMesh* tmpRes = (ResourceMesh*)App->RS->CreateNewResource(RT_MESH, "");
+	ResourceMesh* tmpRes = (ResourceMesh*)App->RS->CreateNewResource(Resource::ResourceType::RT_MESH, "");
 	tmp->meshPointer->Meshes_Vec = tmpRes;
 
 	std::string nameid = std::to_string(tmp->ID);
@@ -500,7 +487,7 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 	tmpRes->Primitives_Vec = aux;
 
 	tmp->CreateComponent(tmp, MATERIAL, true);
-	ResourceTexture* tmp2 = (ResourceTexture*)App->RS->CreateNewResource(RT_TEXTURE, "");
+	ResourceTexture* tmp2 = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");
 	tmp->materialPointer->Resource_Material = tmp2;
 
 	
@@ -524,18 +511,140 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 */
 }
 
-void ModuleAssets::CallbackEvent(const Event& event) {
+void ModuleAssets::CloneToAsset(std::string filepath, std::string destination)
+{
+	// Make Copy in Asset Folder
+	if (!App->fs->Exists(destination.data()))
+		App->fs->CopyFromOutsideFS(filepath.data(), destination.data());
+}
 
-	switch (event.type)
+void ModuleAssets::SceneLoader( const aiScene * scene, std::string path, std::string Filename)
+{
+	std::vector<Gameobject*> scene_gos;
+
+	// Load Scene by nodes 
+	if (scene->mRootNode->mNumChildren > 0)
 	{
-	case Event::EventType::file_dropped:
-
-		
-		LoadFiles(event.string);
-
-		break;
+		NodeLoader(scene->mRootNode, scene, path.data(),scene_gos);
 	}
 
+	// Export to OwnFormat
+	std::string exported_file = App->importer->GetImporterScene()->SaveSceneToFile(scene_gos, Filename, MODEL);
+
+	
+
+}
 
 
+void ModuleAssets::NodeLoader(aiNode* node, const aiScene* scene, const char* File_path, std::vector<Gameobject*>& scene_gos, Gameobject* father) const
+{
+	// Load nodes from assimp scene
+	// Create a hierarchy for the nodes in gameobject structure
+
+	Gameobject* FirstGameobject = nullptr;
+	Gameobject* fathertmp = father;
+	FirstGameobject = App->Gameobject->CreateEmptyFatherLess();
+	FirstGameobject->nameGameObject = node->mName.C_Str();
+	scene_gos.push_back(FirstGameobject);
+
+
+	if (fathertmp == nullptr)
+	{
+		fathertmp = FirstGameobject;
+		Gameobject* scene = App->SceneEngine->GetSceneGameObjcet();
+		scene->GameObject_Child_Vec.push_back(FirstGameobject);
+		FirstGameobject->Father = scene;
+	}
+	else
+	{
+		fathertmp->GameObject_Child_Vec.push_back(FirstGameobject);
+		FirstGameobject->Father = father;
+	}
+	for (int i = 0; i < node->mNumChildren; ++i)
+	{
+		NodeLoader(node->mChildren[i], scene, File_path, scene_gos,FirstGameobject);
+		
+		
+	}
+
+	// Load meshes
+	for (int j = 0; j < node->mNumMeshes; ++j)
+	{
+		// Create Game Object per mesh
+		
+		FirstGameobject->nameGameObject = node->mName.C_Str();
+
+		// get the mesh associated with the node
+		uint mesh_index = node->mMeshes[j];
+		aiMesh* mesh = scene->mMeshes[mesh_index];
+
+		if (mesh)
+		{
+
+			// Create new Component Mesh to store current scene mesh data 
+			FirstGameobject->CreateComponent(FirstGameobject, MESH, true);
+			ResourceMesh* tmp = (ResourceMesh*)App->RS->CreateNewResource(Resource::ResourceType::RT_MESH, "");
+			FirstGameobject->meshPointer->Meshes_Vec = tmp;
+
+
+			// Create Default components
+			if (FirstGameobject->meshPointer != nullptr)
+			{
+				
+				//import asset mesh function the assign directly to the game object assemesh
+				AssetMesh* NewMesh = new AssetMesh;
+
+				NewMesh->importMesh(mesh);
+				tmp->Meshes_Vec = NewMesh;
+				
+				
+
+				ComponentTransform* transform = FirstGameobject->transformPointer;
+
+				if (transform)
+				{
+					aiVector3D aiscale;
+					aiVector3D aiposition;
+					aiQuaternion airotation;
+					node->mTransformation.Decompose(aiscale, airotation, aiposition);
+					math::Quat quat;
+					quat.x = airotation.x;
+					quat.y = airotation.y;
+					quat.z = airotation.z;
+					quat.w = airotation.w;
+					float3 eulerangles = quat.ToEulerXYZ();
+					transform->SetPosition(float3(aiposition.x, aiposition.y, aiposition.z));
+					transform->SetRotation(float3(eulerangles));
+					transform->SetScale(float3(aiscale.x, aiscale.y, aiscale.z));
+				}
+				std::string file = File_path;
+
+				if (scene->HasMaterials()) {
+
+					FirstGameobject->CreateComponent(FirstGameobject, MATERIAL, true);
+					ResourceTexture* tmp2 = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");
+					FirstGameobject->materialPointer->Resource_Material = tmp2;
+					aiString Texture_path;
+
+					aiMaterial* mat;
+					mat = scene->mMaterials[j];
+					mat->GetTexture(aiTextureType_DIFFUSE, j, &Texture_path);
+
+					std::string filename = file;
+					std::size_t found = filename.find_last_of("/\\");
+					filename = filename.substr(0, found + 1);
+					filename.append(Texture_path.C_Str());
+
+
+					tmp2->CreateMaterial(filename);
+					//tmp->Default_texture = tmp2;
+					
+				}
+
+			}
+
+			
+
+		}
+	}
 }
