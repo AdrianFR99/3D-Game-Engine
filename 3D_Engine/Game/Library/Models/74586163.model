@@ -1,0 +1,586 @@
+{
+    "City_building_001": {
+        "Components": {
+            "0": {
+                "positionx": "17.707165",
+                "positiony": "20.053276",
+                "positionz": "0.000000",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-180.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/780846667.mesh",
+            "2": "Assets/Building_V02_C.png"
+        },
+        "Parent": "1764611342",
+        "UID": "1722794357"
+    },
+    "City_building_004": {
+        "Components": {
+            "0": {
+                "positionx": "-41.475891",
+                "positiony": "21.014099",
+                "positionz": "0.000000",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-180.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1018616988.mesh",
+            "2": "Assets/building03_c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "501791214"
+    },
+    "City_building_007": {
+        "Components": {
+            "0": {
+                "positionx": "16.010492",
+                "positiony": "37.493286",
+                "positionz": "-0.000002",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-180.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1924763049.mesh",
+            "2": "Assets/building_016_c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "728076124"
+    },
+    "City_building_008": {
+        "Components": {
+            "0": {
+                "positionx": "40.979996",
+                "positiony": "18.270824",
+                "positionz": "-0.000002",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "90.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/948661629.mesh",
+            "2": "Assets/building_025_c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "1351222853"
+    },
+    "City_building_010": {
+        "Components": {
+            "0": {
+                "positionx": "25.154011",
+                "positiony": "-39.153721",
+                "positionz": "0.000001",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "90.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1342646010.mesh",
+            "2": "Assets/building 01_c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "147608846"
+    },
+    "City_building_011": {
+        "Components": {
+            "0": {
+                "positionx": "30.134541",
+                "positiony": "37.493286",
+                "positionz": "-0.000002",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-180.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/689675594.mesh",
+            "2": "Assets/building_016_c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "910553407"
+    },
+    "City_building_013": {
+        "Components": {
+            "0": {
+                "positionx": "-42.288055",
+                "positiony": "33.201576",
+                "positionz": "0.000001",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "90.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/317666601.mesh",
+            "2": "Assets/building 06_ c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "1999475115"
+    },
+    "City_building_014": {
+        "Components": {
+            "0": {
+                "positionx": "-19.439707",
+                "positiony": "32.061729",
+                "positionz": "0.000000",
+                "rotationx": "0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-0.000005",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1479831415.mesh",
+            "2": "Assets/building03_c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "1546558854"
+    },
+    "City_building_016": {
+        "Components": {
+            "0": {
+                "positionx": "34.270424",
+                "positiony": "-41.972748",
+                "positionz": "0.000001",
+                "rotationx": "0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-0.000005",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1814978890.mesh",
+            "2": "Assets/building 01_c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "894359794"
+    },
+    "City_building_017": {
+        "Components": {
+            "0": {
+                "positionx": "44.260082",
+                "positiony": "-39.153721",
+                "positionz": "0.000001",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "90.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/560027563.mesh",
+            "2": "Assets/building 01_c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "386971128"
+    },
+    "City_building_022": {
+        "Components": {
+            "0": {
+                "positionx": "-20.831324",
+                "positiony": "-27.426489",
+                "positionz": "0.000000",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "0.000022",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/2113352338.mesh",
+            "2": "Assets/building05 _c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "57855527"
+    },
+    "City_building_023": {
+        "Components": {
+            "0": {
+                "positionx": "42.130642",
+                "positiony": "37.493286",
+                "positionz": "-0.000002",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-180.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1008533340.mesh",
+            "2": "Assets/building_016_c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "1768020632"
+    },
+    "City_building_024": {
+        "Components": {
+            "0": {
+                "positionx": "-20.572771",
+                "positiony": "43.060829",
+                "positionz": "-0.069194",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "0.000005",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/974341828.mesh",
+            "2": "Assets/building_025_c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "957578263"
+    },
+    "City_building_026": {
+        "Components": {
+            "0": {
+                "positionx": "31.511889",
+                "positiony": "-16.446016",
+                "positionz": "0.000000",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "0.000005",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/2086449399.mesh",
+            "2": "Assets/building05 _c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "783718428"
+    },
+    "City_building_028": {
+        "Components": {
+            "0": {
+                "positionx": "13.387990",
+                "positiony": "-33.755039",
+                "positionz": "-0.000001",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-180.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/604757405.mesh",
+            "2": "Assets/Building_V01_C.png"
+        },
+        "Parent": "1764611342",
+        "UID": "2131329060"
+    },
+    "City_building_030": {
+        "Components": {
+            "0": {
+                "positionx": "-42.807240",
+                "positiony": "-41.835564",
+                "positionz": "-0.000001",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-90.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1002574985.mesh",
+            "2": "Assets/Building_V01_C.png"
+        },
+        "Parent": "1764611342",
+        "UID": "1605496812"
+    },
+    "City_building_031": {
+        "Components": {
+            "0": {
+                "positionx": "-34.679482",
+                "positiony": "-41.835564",
+                "positionz": "-0.000001",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-90.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/612052244.mesh",
+            "2": "Assets/Building_V01_C.png"
+        },
+        "Parent": "1764611342",
+        "UID": "327436093"
+    },
+    "City_building_032": {
+        "Components": {
+            "0": {
+                "positionx": "-29.478403",
+                "positiony": "21.014099",
+                "positionz": "0.000000",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-180.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1318755750.mesh",
+            "2": "Assets/building03_c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "594750251"
+    },
+    "City_building_033": {
+        "Components": {
+            "0": {
+                "positionx": "-32.361496",
+                "positiony": "42.370422",
+                "positionz": "0.000001",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-180.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1725710559.mesh",
+            "2": "Assets/building 06_ c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "899557931"
+    },
+    "City_building_034": {
+        "Components": {
+            "0": {
+                "positionx": "16.049517",
+                "positiony": "-16.696884",
+                "positionz": "0.000000",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-89.999992",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/427229430.mesh",
+            "2": "Assets/building05 _c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "1777059422"
+    },
+    "City_building_035": {
+        "Components": {
+            "0": {
+                "positionx": "13.387990",
+                "positiony": "-40.802517",
+                "positionz": "-0.000001",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-180.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1491635080.mesh",
+            "2": "Assets/Building_V01_C.png"
+        },
+        "Parent": "1764611342",
+        "UID": "1098158995"
+    },
+    "City_building_036": {
+        "Components": {
+            "0": {
+                "positionx": "-31.216331",
+                "positiony": "33.201576",
+                "positionz": "0.000001",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-90.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1111703054.mesh",
+            "2": "Assets/building 06_ c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "768107913"
+    },
+    "City_building_037": {
+        "Components": {
+            "0": {
+                "positionx": "-20.317694",
+                "positiony": "-16.163609",
+                "positionz": "0.000000",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "0.000022",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/420201007.mesh",
+            "2": "Assets/building05 _c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "820002834"
+    },
+    "City_building_038": {
+        "Components": {
+            "0": {
+                "positionx": "-41.649002",
+                "positiony": "-16.495394",
+                "positionz": "0.000000",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-89.999992",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1792068913.mesh",
+            "2": "Assets/building05 _c.tga"
+        },
+        "Parent": "1764611342",
+        "UID": "332675337"
+    },
+    "City_building_039": {
+        "Components": {
+            "0": {
+                "positionx": "-42.807240",
+                "positiony": "-30.643888",
+                "positionz": "-0.000001",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-90.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1124868567.mesh",
+            "2": "Assets/Building_V01_C.png"
+        },
+        "Parent": "1764611342",
+        "UID": "41892261"
+    },
+    "City_building_040": {
+        "Components": {
+            "0": {
+                "positionx": "-34.679482",
+                "positiony": "-30.643888",
+                "positionz": "-0.000001",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-90.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/40864311.mesh",
+            "2": "Assets/Building_V01_C.png"
+        },
+        "Parent": "1764611342",
+        "UID": "41089731"
+    },
+    "City_building_041": {
+        "Components": {
+            "0": {
+                "positionx": "30.695278",
+                "positiony": "21.612646",
+                "positionz": "0.000000",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "90.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/1745847503.mesh",
+            "2": "Assets/Building_V02_C.png"
+        },
+        "Parent": "1764611342",
+        "UID": "1245111211"
+    },
+    "Line002": {
+        "Components": {
+            "0": {
+                "positionx": "-2.159772",
+                "positiony": "1.853838",
+                "positionz": "0.000000",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-90.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/911709124.mesh"
+        },
+        "Parent": "1764611342",
+        "UID": "1005085594"
+    },
+    "Object010": {
+        "Components": {
+            "0": {
+                "positionx": "-2.503353",
+                "positiony": "15.800846",
+                "positionz": "0.000000",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-180.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/250910423.mesh"
+        },
+        "Parent": "1764611342",
+        "UID": "1318922536"
+    },
+    "Plane001": {
+        "Components": {
+            "0": {
+                "positionx": "-0.028603",
+                "positiony": "0.026032",
+                "positionz": "0.000000",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-180.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            },
+            "1": "Library/Meshes/926767625.mesh"
+        },
+        "Parent": "1764611342",
+        "UID": "434050101"
+    },
+    "Street environment_V01": {
+        "Components": {
+            "0": {
+                "positionx": "0.000000",
+                "positiony": "0.000000",
+                "positionz": "0.000000",
+                "rotationx": "-0.000000",
+                "rotationy": "0.000000",
+                "rotationz": "-180.000000",
+                "scalex": "1.000000",
+                "scaley": "1.000000",
+                "scalez": "1.000000"
+            }
+        },
+        "Parent": "1769622692",
+        "UID": "1764611342"
+    }
+}

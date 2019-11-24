@@ -161,10 +161,11 @@ bool SceneLoader::Load(const char * exported_file) const
 
 			std::string diffuse_uid;
 			uint count;
-			//aqui
+			
 			switch (type)
 			{
 			case CompType::TRANSFORM:
+				
 				transform->SetPosition(float3(std::stof(posx), std::stof(posy), std::stof(posz)));
 				transform->SetRotation(float3{ std::stof(rotx), std::stof(roty), std::stof(rotz) });
 				transform->Scale(float3(std::stof(scalex), std::stof(scaley), std::stof(scalez)));

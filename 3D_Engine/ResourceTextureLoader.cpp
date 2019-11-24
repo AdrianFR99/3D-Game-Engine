@@ -77,7 +77,6 @@ void ResourceTextureLoader::Load(const char * filename, ResourceTexture& mat)
 	//modify to pass a material and fillo the data 
 	std::string path = filename;
 	std::vector<Resource*> resources;
-	//aqui
 	App->RS->LoadResource(filename, resources);
 	//mat.CreateMaterial(path);
 	//mat.DiffuseID = App->Textures->CreateTextureFromFile(filename, mat.resource_diffuse->Texture_width, mat.resource_diffuse->Texture_height, mat.resource_diffuse->GetUID());
