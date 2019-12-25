@@ -247,7 +247,10 @@
     <ClCompile Include="ModuleParticles.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="EmitterComponent.cpp" />
+    <ClCompile Include="EmitterComponent.cpp">
+      <Filter>Source\Tools\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentBillboard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleCamera3D.h">
@@ -619,7 +622,10 @@
     <ClInclude Include="ModuleParticles.h">
       <Filter>Source\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="EmitterComponent.h" />
+    <ClInclude Include="EmitterComponent.h">
+      <Filter>Source\Tools\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentBillboard.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MathGeoLib\include\Geometry\KDTree.inl">
