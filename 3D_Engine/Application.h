@@ -20,6 +20,7 @@
 #include "ModuleScene.h"
 #include "ResourceManager.h"
 #include "ModuleLoaderControl.h"
+#include "ModuleParticles.h"
 
 #include "ModuleFileSystem.h"
 #include "ModuleGameobject.h"
@@ -47,6 +48,7 @@ struct Event;
 class Application
 {
 public:
+	
 	ModuleImporter* importer = nullptr;
 	ModuleWindow* window=nullptr;
 	ModuleInput* input = nullptr;
@@ -60,6 +62,8 @@ public:
 	ModuleGameobject* Gameobject = nullptr;
 	ModuleScene* SceneEngine = nullptr;
 	ResourceManager* RS = nullptr;
+	ModuleParticles*particles = nullptr;
+
 private:
 
 	Timer	ms_timer;

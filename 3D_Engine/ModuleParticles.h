@@ -10,8 +10,8 @@ public:
 	ModuleParticles(Application* app, bool start_enabled);
 	~ModuleParticles();
 
-	bool Start() override;
-	bool CleanUp() override;
+	bool Start();
+	bool CleanUp();
 
 	void AddParticleSystem();
 	void RemoveParticleSystem();

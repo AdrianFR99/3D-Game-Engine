@@ -16,6 +16,8 @@ class ComponentTransform;
 class ComponentMesh;
 class ComponentMaterial;
 class ComponentCamera;
+class ComponentBillboard;
+class EmitterComponent;
 
 #include<vector>
 
@@ -97,7 +99,8 @@ public:
 	ComponentMesh* meshPointer = nullptr;
 	ComponentMaterial* materialPointer = nullptr;
 	ComponentCamera*CameraPointer = nullptr;
-
+	ComponentBillboard*BillboardPointer = nullptr;
+	EmitterComponent*EmitterPointer = nullptr;
 
 	//BoundingBox GameObjext
 	OBB obb;

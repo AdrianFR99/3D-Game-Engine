@@ -1,10 +1,14 @@
 #include "Gameobject.h"
-#include "Component.h"
 #include "Application.h"
+
+#include "Component.h"
 #include "ComponentMaterial.h"
 #include "ComponentTransform.h"
 #include "ComponentMesh.h"
 #include "ComponentCamera.h"
+#include "ComponentBillboard.h"
+#include "EmitterComponent.h"
+
 #include "DebugDraw.h"
 #include "ModuleScene.h"
 #include "Tree.h"
@@ -152,9 +156,27 @@ void Gameobject::CreateComponent(Gameobject * object, CompType tocreate, bool ac
 			break;
 
 		break;
+	
+		case PARTICLE_EMITTER:
+			
+			temp = new EmitterComponent(this, PARTICLE_EMITTER);
+			EmitterPointer = (EmitterComponent*)temp;
+			temp = CameraPointer;
+			counter++;
+
+			break;
+
+		case BILLBOARD:
 
 
+			temp = new ComponentBillboard(this, BILLBOARD);
+			BillboardPointer = (ComponentBillboard*)temp;
+			temp = CameraPointer;
+			counter++;
+			
+			break;
 	}
+		
 
 	//add to list
 	if (counter != 0 && counter <=1 && temp != nullptr)

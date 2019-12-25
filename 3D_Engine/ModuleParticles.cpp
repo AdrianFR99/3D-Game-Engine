@@ -10,3 +10,18 @@ ModuleParticles::ModuleParticles(Application* app, bool start_enabled) : Module(
 ModuleParticles::~ModuleParticles()
 {
 }
+
+bool ModuleParticles::Start() {
+
+
+
+	return true;
+}
+
+
+bool ModuleParticles::CleanUp() {
+
+
+
+	return true;
+}

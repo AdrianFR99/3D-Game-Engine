@@ -25,6 +25,7 @@ Application::Application()
 	SceneEngine = new ModuleScene(this);
 	RS = new ResourceManager(this,true);
 	importer = new ModuleImporter(this, true);
+	particles = new ModuleParticles(this, true);
 
 	Current_frames = 0; //current frame the program is
 	FPS_counter = 0;   //Frame per cicle
@@ -48,6 +49,7 @@ Application::Application()
 	AddModule(Textures);
 	AddModule(Gameobject);
 	AddModule(SceneEngine);
+	AddModule(particles);
 	AddModule(UI_Layer);
 	
 	// Renderer last!
