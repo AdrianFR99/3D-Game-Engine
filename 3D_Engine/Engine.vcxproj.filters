@@ -219,7 +219,7 @@
     </ClCompile>
     <ClCompile Include="Tree.cpp">
       <Filter>Source\Tools</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Source\Resource\Module</Filter>
     </ClCompile>
@@ -242,6 +242,9 @@
       <Filter>Source\Resource\Loader</Filter>
     </ClCompile>
     <ClCompile Include="ModuleLoaderControl.cpp">
+      <Filter>Source\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleParticles.cpp">
       <Filter>Source\Modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -587,7 +590,7 @@
     </ClInclude>
     <ClInclude Include="Tree.h">
       <Filter>Source\Tools</Filter>
-        </ClInclude>
+    </ClInclude>
     <ClInclude Include="ResourceManager.h">
       <Filter>Source\Resource\Module</Filter>
     </ClInclude>
@@ -610,6 +613,9 @@
       <Filter>Source\Resource\Loader</Filter>
     </ClInclude>
     <ClInclude Include="ModuleLoaderControl.h">
+      <Filter>Source\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleParticles.h">
       <Filter>Source\Modules</Filter>
     </ClInclude>
   </ItemGroup>

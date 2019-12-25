@@ -96,6 +96,7 @@
     <ClInclude Include="ModuleAssets.h" />
     <ClInclude Include="ModuleGameobject.h" />
     <ClInclude Include="ModuleLoaderControl.h" />
+    <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModuleScene.h" />
     <ClInclude Include="ModuleTexture.h" />
     <ClInclude Include="ParFiles\par_shapes.h" />
@@ -260,6 +261,7 @@
     <ClCompile Include="ModuleHardware.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleLoaderControl.cpp" />
+    <ClCompile Include="ModuleParticles.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
     <ClCompile Include="ModuleScene.cpp" />
     <ClCompile Include="ModuleTexture.cpp" />
