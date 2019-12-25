@@ -84,6 +84,7 @@
     <ClInclude Include="ComponentMesh.h" />
     <ClInclude Include="ComponentTransform.h" />
     <ClInclude Include="DebugDraw.h" />
+    <ClInclude Include="EmitterComponent.h" />
     <ClInclude Include="Gameobject.h" />
     <ClInclude Include="glew\include\eglew.h" />
     <ClInclude Include="glew\include\glew.h" />
@@ -208,6 +209,7 @@
     <ClCompile Include="ComponentMesh.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
+    <ClCompile Include="EmitterComponent.cpp" />
     <ClCompile Include="Gameobject.cpp" />
     <ClCompile Include="glmath.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
