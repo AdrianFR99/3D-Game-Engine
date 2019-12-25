@@ -143,8 +143,7 @@ bool ModuleEngineUI::Start() {
 
 	// We specify a default position/size in case there's no data in the .ini file. Typically this isn't required! We only do it to make the Demo applications a little more welcoming.
 
-	/*ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
-	ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);*/
+	
 
 	Selecet_Style(1); // default style 
 					  //1: Corporate Grey
@@ -273,7 +272,7 @@ void ModuleEngineUI::Menu_Bar() {
 	
 		if (ImGui::BeginMenu("File"))
 		{
-			//ImGui::MenuItem("(menu)", NULL, false, false);
+			
 			if (ImGui::MenuItem("New Scene","Ctrl+N")) 
 			{
 				App->Gameobject->CleanUp();
@@ -300,9 +299,7 @@ void ModuleEngineUI::Menu_Bar() {
 
 			ImGui::Separator();
 
-			/*if (ImGui::MenuItem("New Project", false, false)) {}
-			if (ImGui::MenuItem("Open Project", false, false)) {}
-			if (ImGui::MenuItem("Save Project", false, false)) {}*/
+			
 
 			ImGui::Separator();
 
@@ -343,7 +340,7 @@ void ModuleEngineUI::Menu_Bar() {
 			ImGui::Separator();
 
 			if (ImGui::MenuItem("Duplicate", "Ctrl+D", false, false)) {}
-			//if (ImGui::MenuItem("Delete", false, false)) {}
+			
 			
 			ImGui::Separator();
 
@@ -377,27 +374,13 @@ void ModuleEngineUI::Menu_Bar() {
 			
 			ImGui::Separator();
 
-			/*if (ImGui::MenuItem("Project Settings...", false, false)) {}
-			if (ImGui::MenuItem("Preferences...", false, false)) {}
-			if (ImGui::MenuItem("Shortcuts...", false, false)) {}
-			if (ImGui::MenuItem("Modules...", false, false)) {}
-			if (ImGui::MenuItem("Clear All PlayersPrefs", false, false)) {}*/
-
+			
 			ImGui::Separator();
 
-			/*if (ImGui::BeginMenu("Graphic Tier")) {
-
-				if (ImGui::MenuItem("Shader1", false, false)){}
-				if (ImGui::MenuItem("Shader2", false, false)) {}
-				if (ImGui::MenuItem("Shader3", false, false)) {}
-
-				ImGui::EndMenu();
-			}*/
-
+			
 			ImGui::Separator();
 
-		//	if (ImGui::MenuItem("Snap Settings...", false, false)) {}
-
+		
 
 			ImGui::EndMenu();
 		}

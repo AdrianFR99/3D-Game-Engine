@@ -55,21 +55,6 @@ void Primitives::SetPos(float3 pos) {
 
 }
 
-void Primitives::SetRot(float angle, const float3 &axis) {
-
-	//float Aux[] = {axis.x,axis.y,axis.z};
-
-	//par_shapes_rotate(mesh,angle,Aux);
-
-
-}
-
-void Primitives::SetScale(float x, float y, float z) {
-
-
-	/*par_shapes_scale(mesh, x, y, z);*/
-
-}
 
 void Primitives::SendToBuff() {
 
@@ -177,7 +162,7 @@ void Primitives::DefinePrimitive(Primitive_Type type) {
 	{
 
 	case Primitive_Type::CUBE:
-		/*platonicSolid = true;*/
+		
 		Mesh = CreateCube();
 
 		break;
@@ -251,9 +236,7 @@ void Primitives::DefinePrimitive(Primitive_Type type) {
 	num_normals = num_vertex;
 	normals = new float3[num_vertex];
 
-	//num_normals_faces = Aux->ntriangles;
-	//normals_faces = new float3[num_normals_faces];
-	//normals_faces_pos = new float3[num_normals_faces];
+	
 
 	//Assigning values
 
@@ -318,28 +301,18 @@ void Primitives::CalculateDistance() {
 		{
 			maxX = vertices[i].x;
 		}
-		/*if (vertices[i].x < minX)
-		{
-			minX = vertices[i].x;
-		}*/
+		
 
 		if (vertices[i].y > maxY)
 		{
 			maxY = vertices[i].y;
 		}
-		/*if (vertices[i].y < minY)
-		{
-			minY = ceil(vertices[i].y);
-		}*/
-
+		
 		if (vertices[i].z > maxZ)
 		{
 			maxZ = vertices[i].z;
 		}
-		/*if (vertices[i].z < minZ)
-		{
-			minZ = vertices[i].z;
-		}*/
+		
 	}
 
 	medX = (int)(maxX + minX)*0.5;

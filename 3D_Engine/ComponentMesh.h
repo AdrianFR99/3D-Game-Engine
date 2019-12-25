@@ -26,9 +26,7 @@ public:
 
 	//list of Meshes
 	ResourceMesh* Meshes_Vec =nullptr;
-	//list of Primitives
-	//std::vector<Primitives*> Primitives_Vec;
-
+	
 	bool normalsDrawFaces = false;
 
 	bool normalsDrawVertex = false;

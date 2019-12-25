@@ -20,15 +20,11 @@ public:
 
 	void Load(const char * filename, ResourceMesh & mesh) const;
 
-	//void Unload(const char* filepath);
-	//bool Import(const ImportData& IData) const ;
-
+	
 	void Save(ResourceMesh * mesh, const char * path) const;
 
 private:
-	//bool ResourceIsUsed(int index, Resource::ResourceType type, Resource*& res);
 
-	//void AddResource(int index, Resource::ResourceType type, Resource* res);
 
 
 private:

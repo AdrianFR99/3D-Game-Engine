@@ -20,8 +20,7 @@ public:
 	// --- Getters ---
 	SceneLoader* GetImporterScene() const;
 
-	// --- Utilities ---
-	bool LoadFromPath(const char* path) const;
+	
 
 private:
 	SceneLoader* SceneImporter = nullptr;

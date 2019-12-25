@@ -166,9 +166,6 @@
     <ClCompile Include="MathGeoLib\include\Geometry\Frustum.cpp">
       <Filter>Source\External_Files\MathGeoLib\geometry</Filter>
     </ClCompile>
-    <ClCompile Include="WindowConsole.cpp">
-      <Filter>Source\Modules\UI_Elements</Filter>
-    </ClCompile>
     <ClCompile Include="Primitives.cpp">
       <Filter>Source\Tools\Geometry</Filter>
     </ClCompile>
@@ -219,7 +216,7 @@
     </ClCompile>
     <ClCompile Include="Tree.cpp">
       <Filter>Source\Tools</Filter>
-      </ClCompile>
+    </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Source\Resource\Module</Filter>
     </ClCompile>
@@ -587,7 +584,7 @@
     </ClInclude>
     <ClInclude Include="Tree.h">
       <Filter>Source\Tools</Filter>
-        </ClInclude>
+    </ClInclude>
     <ClInclude Include="ResourceManager.h">
       <Filter>Source\Resource\Module</Filter>
     </ClInclude>

@@ -47,21 +47,7 @@ bool ResourceTextureLoader::Import(const char * File_path, const ImportData & ID
 			// --- If we find the texture file, load it ---
 
 
-			/*ResourceTexture* texture = (ResourceTexture*)App->resources->GetResource(directory.data());
-
-			if (texture)
-			{
-				MData.new_material->resource_diffuse = texture;
-				texture->instances++;
-			}
-			else
-			{
-				MData.new_material->resource_diffuse = (ResourceTexture*)App->resources->CreateResource(Resource::ResourceType::TEXTURE);
-				MData.new_material->resource_diffuse->buffer_id = App->textures->CreateTextureFromFile(directory.data(), MData.new_material->resource_diffuse->Texture_width, MData.new_material->resource_diffuse->Texture_height, MData.new_material->resource_diffuse->GetUID());
-				MData.new_material->resource_diffuse->SetOriginalFilename(directory.data());
-				MData.new_material->resource_diffuse->Texture_path = directory.data();
-				App->resources->CreateMetaFromUID(MData.new_material->resource_diffuse->GetUID(), directory.data());
-			}*/
+			
 
 
 		}
@@ -79,8 +65,6 @@ void ResourceTextureLoader::Load(const char * filename, ResourceTexture& mat)
 	std::vector<Resource*> resources;
 	//aqui
 	App->RS->LoadResource(filename, resources);
-	//mat.CreateMaterial(path);
-	//mat.DiffuseID = App->Textures->CreateTextureFromFile(filename, mat.resource_diffuse->Texture_width, mat.resource_diffuse->Texture_height, mat.resource_diffuse->GetUID());
 	
 	
 }
@@ -103,9 +87,7 @@ void ResourceTextureLoader::import2(const char * file_path)
 			{
 				ResourceTexture* tmp2 = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");
 				Selected->materialPointer->Resource_Material = tmp2;
-				/*std::vector<Resource*> resources;
-				App->Textures->LoadID(file_path, resources,*tmp2);
-				tmp2->LoadToMemory();*/
+				
 			}
 		}
 		if (mat)
@@ -151,9 +133,7 @@ void ResourceTextureLoader::import2(const char * file_path)
 				std::vector<Resource*> resources;
 				App->Textures->LoadID(file_path, resources, *mat->Resource_Material);
 				mat->Resource_Material->LoadToMemory();
-				/*uint id = mat->GetCurrentTextureID();
-				App->Gameobject->SetTextureToActiveGameobject(id);
-*/
+				
 				std::string lib_Tex = TEXTURES_FOLDER;
 				lib_Tex.append(std::to_string(mat->Resource_Material->DiffuseID));
 				lib_Tex.append(".dds");
@@ -163,8 +143,7 @@ void ResourceTextureLoader::import2(const char * file_path)
 				mat->Resource_Material->file_name = (lib_Tex.data());
 			}
 
-			//App->scene_manager->GetSelectedGameObject()->SetMaterial(mat);
-
+			
 		}
 	}
 }

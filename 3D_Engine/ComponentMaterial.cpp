@@ -43,7 +43,7 @@ void ComponentMaterial::SetTextureID(uint diffuse)
 	Resource_Material->currentID = diffuse;
 
 	}
-	//currentID = diffuse;
+	
 
 }
 
@@ -55,7 +55,7 @@ void ComponentMaterial::SetDiffuseID(uint diffuse)
 	Resource_Material->DiffuseID = diffuse;
 
 	}
-	//DiffuseID = diffuse;
+	
 }
 
 std::string const ComponentMaterial::GetTexturePath() const
@@ -106,35 +106,7 @@ void ComponentMaterial::Disable()
 	active = false;
 }
 
-void ComponentMaterial::CreateMaterial(std::string&path) {
 
-	// maybe create a resource?? not sure, pls check
-	/*currentID=App->Textures->CreateTexture(path.data());
-	DiffuseID = currentID;
-	CheckeredID = App->Textures->ChekeredID;
-
-	if (currentID==NULL) {
-		currentID = CheckeredID;
-	}
-
-	Comp_Material.path= path;
-	Comp_Material.type = Texture_Type::DIFFUSE;
-
-*/
-}
-
-void ComponentMaterial::CreateMaterial() {
-
-
-	////DiffuseID = currentID;
-	//CheckeredID = App->Textures->ChekeredID;
-
-	//currentID = CheckeredID;
-
-	//Comp_Material.path = "---";
-	//Comp_Material.type = Texture_Type::NONE;
-
-}
 
 void ComponentMaterial::SetResource(ResourceTexture * resource)
 {

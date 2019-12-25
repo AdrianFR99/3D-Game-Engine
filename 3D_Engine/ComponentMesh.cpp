@@ -54,19 +54,8 @@ void ComponentMesh::CleanUp()
 	Meshes_Vec = nullptr;
 
 	
-	/*if (Primitives_Vec.size() > 0) {
-		for (int i = 0; i < Primitives_Vec.size(); ++i) {
-			Primitives_Vec[i]->CleanUp();
-			
-			
-			if (Primitives_Vec[i] != nullptr) {
-				delete Primitives_Vec[i]; \
-					Primitives_Vec[i] = nullptr;
-			}
-
-		}
-
-	}*/
+	
+	
 	
 }
 

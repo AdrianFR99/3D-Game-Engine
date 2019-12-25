@@ -44,7 +44,7 @@ void ComponentCamera::UpdateCamera() {
 	CameraComponent->SetToFront(Z);
 	CameraComponent->SetToUp(Y);
 
-//	CameraComponent->GetFrustum().up = belongsTo->transformPointer->GetGlobalTransform();
+
 
 
 }

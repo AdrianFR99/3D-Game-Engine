@@ -103,13 +103,7 @@ void ModuleAssets::Draw(Gameobject* tmp) {
 						glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec->mesh_asset->UVC); // start using created buffer (tex coords)
 						glTexCoordPointer(3, GL_FLOAT, 0, NULL); // Specify type of data format
 					}
-					//else if (TextChecker) //TODO must change this to selec objects and change individually
-					//{
-					//	glBindTexture(GL_TEXTURE_2D,tmp->materialPointer->GetCurrentTextureID()); // start using texture
-					//	glActiveTexture(GL_TEXTURE0);
-					//	glBindBuffer(GL_ARRAY_BUFFER, tmp->meshPointer->Meshes_Vec[i]->UVC); // start using created buffer (tex coords)
-					//	glTexCoordPointer(2, GL_FLOAT, 0, NULL); // Specify type of data format
-					//}
+					
 					}
 
 
@@ -234,102 +228,14 @@ bool ModuleAssets::CleanUp(Gameobject* tmp) {
 
 	}
 
-	//tmp->meshPointer->Meshes_Vec->Meshes_Vec.clear();
 
 		App->camera->premadeDist = -1.0f;
 		App->camera->Reference = vec3(0, 0, 0);
 
-		//TODO2
-		//primitive clean up
+	
 	return true;
 }
 
-bool ModuleAssets::LoadFiles(const char* path) {
-
-	/*std::string path_Aux = path;
-
-	if (path_Aux.find(".fbx") != std::string::npos || path_Aux.find(".FBX") != std::string::npos) {
-
-
-		LoadMesh(path);
-	}
-
-	else if (path_Aux.find(".png") != std::string::npos || path_Aux.find(".dds") != std::string::npos) {
-
-
-		int id = -1;
-		bool found = false;
-		std::string referenceID = "none";
-		found = App->Textures->findTextureinList(path, id, referenceID);
-		ResourceTexture* re = nullptr;
-
-		if (found == false)
-		{
-			re = (ResourceTexture*)App->RS->CreateNewResource(Resource::ResourceType::RT_TEXTURE, "");
-			id = App->Textures->CreateTexture(path,*re);
-		}
-		if (id != -1 )
-		{
-			if (found && referenceID != "none")
-			{
-				re = (ResourceTexture*)App->RS->Get(referenceID);
-			}
-			Gameobject* activeGameObject = nullptr;
-			activeGameObject = App->UI_Layer->HierarchyPanel->getActiveGameobject();
-
-			if (App->Gameobject->GameobjectList.size()>0) {
-
-				if (activeGameObject!=nullptr )
-				{
-
-					if (activeGameObject->materialPointer != nullptr)
-					{
-						activeGameObject->materialPointer->Resource_Material = re;
-						activeGameObject->materialPointer->SetTextureID(id);
-						activeGameObject->materialPointer->SetDiffuseID(id);
-
-					}
-					else if (activeGameObject->materialPointer == nullptr)
-					{
-						activeGameObject->CreateComponent(activeGameObject, MATERIAL, true);
-						activeGameObject->materialPointer->Resource_Material = re;
-						activeGameObject->materialPointer->SetTextureID(id);
-						activeGameObject->materialPointer->SetDiffuseID(id);
-					}
-				}
-				else
-				{
-					if (App->Gameobject->GameobjectList[1]->materialPointer != nullptr)
-					{
-						App->Gameobject->GameobjectList[1]->materialPointer->Resource_Material = re;
-						App->Gameobject->GameobjectList[1]->materialPointer->SetTextureID(id);
-						App->Gameobject->GameobjectList[1]->materialPointer->SetDiffuseID(id);
-					}
-					else if (activeGameObject->materialPointer == nullptr)
-					{
-						App->Gameobject->GameobjectList[1]->CreateComponent(App->Gameobject->GameobjectList[1], MATERIAL, true);
-						App->Gameobject->GameobjectList[1]->materialPointer->Resource_Material = re;
-						App->Gameobject->GameobjectList[1]->materialPointer->SetTextureID(id);
-						App->Gameobject->GameobjectList[1]->materialPointer->SetDiffuseID(id);
-					}
-
-
-				}
-
-			}
-
-		}
-
-
-
-
-	}
-
-
-	App->GearConsole.AddLog(" Loading File %s",path);*/
-
-	return true;
-}
 
 bool ModuleAssets::LoadMesh(const char* path) {
 
@@ -373,10 +279,7 @@ bool ModuleAssets::LoadMesh(const char* path) {
 
 			AssetMesh* NewMesh = new AssetMesh;
 			NewMesh->importMesh(Scene->mMeshes[i]);
-			//tmp->meshPointer->Meshes_Vec->Meshes_Vec.push_back(NewMesh);
-			//Assign AABB&OBB
-
-			//tmp->SetBBOs();
+		
 
 			NewMesh->importMesh(Scene->mMeshes[i]);
 
@@ -507,9 +410,7 @@ void ModuleAssets::CreatePrimitive(Primitive_Type type)
 
 	tmp->materialPointer->UseCheckered(true);
 
-	/*tmp->materialPointer->UseCheckered(true);*/
-	//TODO
-	//make switch and pass parameter to function for what to create
+	
 	tmp->meshPointer->Meshes_Vec->Primitives_Vec = aux;
 
 
@@ -598,9 +499,7 @@ bool ModuleAssets::FirstLoad(const char * filepath, bool as_new_gameobject, cons
 		parent->nameGameObject=name;
 
 		parent->UpdateTransform = true;
-		//// Total mesh bbox
-		//AABB total_abb;
-		//total_abb.SetNegativeInfinity();
+		
 
 		// Keep track of resources loaded (avoid repeating)
 		vector.push_back(parent);
@@ -646,11 +545,7 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 		// Check if its already loaded
 		Resource* res_mesh = nullptr;
 		bool mesh_already_loaded = false;
-		/*if (ResourceIsUsed(mesh_index, RT_MESH, res_mesh))
-		{
-			mesh = (ResourceMesh*)res_mesh;
-			mesh_already_loaded = true;
-		}*/
+	
 
 		if (mesh_valid && node_valid && !mesh_already_loaded)
 		{
@@ -744,11 +639,7 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 			// Check if its already loaded
 			Resource* res_tex = nullptr;
 			bool texture_already_loaded = false;
-			/*if (ResourceIsUsed(aimesh->mMaterialIndex, RT_TEXTURE, res_tex))
-			{
-				texture = (ResourceTexture*)res_tex;
-				texture_already_loaded = true;
-			}*/
+			
 
 			if (!texture_already_loaded)
 			{
@@ -762,11 +653,7 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 				pathtext += App->FileSystem->GetFileNameFromFilePath(file.C_Str());
 
 
-				/*if (!tex.empty())
-				{
-					texture = (ResourceTexture*)*tex.begin();
-					AddResource(aimesh->mMaterialIndex, RT_TEXTURE, texture);
-				}*/
+				
 			}
 		}
 
@@ -807,25 +694,12 @@ void ModuleAssets::RecursiveLoadMesh(aiNode * node, const aiScene * scene,  cons
 			//text
 			App->UI_Layer->HierarchyPanel->SetActiveGameobject(go);
 			App->RS->LoadResource(pathtext.c_str(), tex);
-			/*if (texture != nullptr)
-			{
-				go->AddComponent(MATERIAL);
-				ComponentMaterial* cmaterial = (ComponentMaterial*)go->GetComponent(MATERIAL);
-				cmaterial->SetTexture(texture);
-			}*/
+			
 		}
 
-		/*if (mesh_valid && node_valid && !mesh_already_loaded && mesh != nullptr)
-		{
-			App->resource_manager->SaveResourceIntoFile(mesh);
+		
 
-			AddResource(mesh_index, RT_MESH, mesh);
-
-			resources.push_back(mesh);
-		}*/
-
-		/*else if (!mesh_valid && !mesh_already_loaded && mesh != nullptr)
-			App->RS->DeleteResource(mesh->GetUniqueId());*/
+		
 	}
 
 	// Select parent

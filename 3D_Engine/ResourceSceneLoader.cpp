@@ -183,14 +183,7 @@ bool SceneLoader::Load(const char * exported_file) const
 					ImporterMaterial->Load(component_path.data(), *texture);
 					
 
-					/*diffuse_uid = component_path;
-					App->FileSystem->SplitFilePath(component_path.data(), nullptr, &diffuse_uid);
-					count = diffuse_uid.find_last_of(".");
-					diffuse_uid = diffuse_uid.substr(0, count);
-					mat->resource_material->resource_diffuse->SetUID(std::stoi(diffuse_uid));
 					
-
-					new_go->SetMaterial(mat);*/
 				}
 				else
 					LOG("|[error]: Could not find %s", component_path.data());
@@ -219,7 +212,7 @@ bool SceneLoader::Load(const char * exported_file) const
 			}
 		}
 
-		//transform->update_transform = true;
+		
 		
 	}
 

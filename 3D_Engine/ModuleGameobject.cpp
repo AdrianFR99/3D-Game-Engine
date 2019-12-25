@@ -30,8 +30,7 @@ bool ModuleGameobject::Start() {
 
 update_status ModuleGameobject::PreUpdate(float dt) {
 
-	//App->SceneEngine->scene->UpdateGlobalTransform();
-
+	
 
 	return UPDATE_CONTINUE;
 }
@@ -84,8 +83,7 @@ bool ModuleGameobject::CleanUp() {
 
 		GameobjectList[i]->CleanUp();
 
-		//delete(Meshes_Vec[i]);
-
+		
 
 		if (GameobjectList[i] != nullptr) {
 			delete GameobjectList[i]; \

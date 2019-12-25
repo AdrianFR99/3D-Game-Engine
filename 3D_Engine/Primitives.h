@@ -33,8 +33,7 @@ public:
 	~Primitives();
 
 		void SetPos(float3 pos);
-		void SetRot(float angle, const float3 &axis);
-		void SetScale(float x,float y,float z);
+		
 
 		void SendToBuff();
 		void Draw(Gameobject* tmp);

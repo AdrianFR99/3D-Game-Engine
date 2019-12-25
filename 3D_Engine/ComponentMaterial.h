@@ -7,13 +7,7 @@
 #include "ResourceTexture.h"
 
 class Gameobject;
-//enum class 	Texture_Type;
-//
-//struct Material {
-//
-//	std::string path;
-//	Texture_Type type;
-//};
+
 
 class ComponentMaterial : public Component
 {
@@ -28,8 +22,7 @@ public:
 
 	void SetTextureID(uint diffuse);
 	void SetDiffuseID(uint diffuse);
-	void CreateMaterial(std::string&path);
-	void CreateMaterial();
+	
 	void SetResource(ResourceTexture* resource);
 
 	std::string const GetTexturePath()const;
@@ -42,11 +35,9 @@ public:
 
 	ResourceTexture* Resource_Material = nullptr;
 
-	//Material Comp_Material;
+	
 private:
-	//uint DiffuseID;
-	//uint currentID;
-	//uint CheckeredID;
+	
 
 };
 

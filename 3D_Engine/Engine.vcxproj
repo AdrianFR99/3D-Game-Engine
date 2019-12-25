@@ -274,7 +274,6 @@
     <ClCompile Include="ResourceTextureLoader.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Tree.cpp" />
-    <ClCompile Include="WindowConsole.cpp" />
     <ClCompile Include="WindowHierarchy.cpp" />
     <ClCompile Include="WindowInspector.cpp" />
     <ClCompile Include="WindowUI.cpp" />

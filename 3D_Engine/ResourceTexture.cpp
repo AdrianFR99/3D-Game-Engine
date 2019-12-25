@@ -4,9 +4,8 @@
 
 ResourceTexture::ResourceTexture(std::string unique_id) : Resource(unique_id, Resource::ResourceType::RT_TEXTURE)
 {
-	/*unique_id = _unique_id;
-	type = _type;
-	count_ref = 0;*/
+	
+
 }
 
 ResourceTexture::~ResourceTexture()

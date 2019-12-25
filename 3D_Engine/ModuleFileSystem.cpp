@@ -375,19 +375,6 @@ uint ModuleFileSystem::Save(const char* file, const void* buffer, unsigned int s
 	return ret;
 }
 
-bool ModuleFileSystem::SaveUnique(string& name, const void * buffer, uint size, const char * path, const char * prefix, const char * extension)
-{
-	/*char result[250];
-
-	sprintf_s(result, 250, "%s%s_%llu.%s", path, prefix, App->RS->GenerateNewUID(), extension);
-	NormalizePath(result);
-	if (Save(result, buffer, size) > 0)
-	{
-		name = result;
-		return true;
-	}*/
-	return false;
-}
 
 bool ModuleFileSystem::Remove(const char * file)
 {
@@ -454,10 +441,6 @@ std::string ModuleFileSystem::GetFileExtension(const char * file_name)
 	return ret;
 }
 
-//std::string ModuleFileSystem::GetAssetsPath()
-//{
-//	return assets_path;
-//}
 
 void ModuleFileSystem::FileCopyPaste(const char * filepath, const char * new_path)
 {
@@ -500,17 +483,7 @@ string ModuleFileSystem::ToLowerCase(std::string str)
 
 	return str;
 }
-//
-//string ModuleFileSystem::GetLibraryMeshPath()
-//{
-//	return library_mesh_path;
-//}
-//
-//string ModuleFileSystem::GetLibraryTexturePath()
-//{
-//	return library_texture_path;
-//}
-//
+
 
 std::string ModuleFileSystem::GetFileNameFromFilePath(const char * file_path)
 {

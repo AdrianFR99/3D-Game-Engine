@@ -108,9 +108,7 @@ void AssetMesh::importMesh(aiMesh* Mesh) {
 
 		}
 
-		//num_uv = Mesh->mNumVertices;//x and y
-		//uv_coord = new float3[num_uv];
-		//memcpy(uv_coord, Mesh->mTextureCoords[0], sizeof(float) * num_uv);
+		
 	}
 
 

@@ -145,21 +145,6 @@ void ResourceManager::DeleteAllResources()
 	}
 }
 
-//void ResourceManager::SaveResourceIntoFile(Resource * res)
-//{
-//	if (res != nullptr)
-//	{
-//	
-//		if (res->GetType() == RT_MESH)
-//		{
-//			//mesh_loader->Export(App->FileSystem->GetLibraryMeshPath().c_str(), (ResourceMesh*)res);
-//
-//		}
-//			
-//		
-//	}
-//	
-//}
 
 void ResourceManager::CreateMetaFromUID(std::string UID, const char* filename)
 {

@@ -224,12 +224,9 @@ bool ModuleTexture::LoadID(const char * filepath, std::vector<Resource*>& resour
 		// Set name
 		rtex.SetFileName(file_name.c_str());
 
-		// Export it to Library
-		//App->resource_manager->SaveResourceIntoFile(rtex);
 
 		ilDeleteImages(1, &ImageInfo.Id);
 
-		//resources.push_back(rtex);
 
 		ret = true;
 	}

@@ -51,7 +51,6 @@ public:
 	
 	unsigned int Save(const char* file, const void* buffer, unsigned int size, bool append = false) const;
 
-	bool SaveUnique(std::string& output, const void* buffer, uint size, const char* path, const char* prefix, const char* extension);
 	bool Remove(const char* file);
 
 	const char* GetBasePath() const;
@@ -66,10 +65,6 @@ public:
 	bool TextCmp(const char * text1, const char * text2);
 
 	std::string ToLowerCase(std::string str);
-
-	//std::string GetLibraryMeshPath();
-	//std::string GetAssetsPath();
-	//std::string GetLibraryTexturePath();
 
 	std::string GetFileNameFromFilePath(const char * file_path);
 	std::string GetFileNameFromFilePathWithoutExt(const char * file_path, std::string &extension);

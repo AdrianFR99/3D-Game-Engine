@@ -7,9 +7,6 @@
 #include "MathGeoLib/include/Geometry/OBB.h"
 
 #include <string>
-//#include "ComponentTransform.h"
-//#include "ComponentMesh.h"
-//#include "ComponentMaterial.h"
 
 class Component;
 class ComponentTransform;
